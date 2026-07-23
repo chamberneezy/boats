@@ -1,0 +1,135 @@
+Lake Lucerne Boat Schedule App - Summary
+=========================================
+
+Stack: Vite + React + TypeScript + Tailwind CSS v4, lucide-react icons.
+Data source: transport.opendata.ch/v1
+
+1. Initial build
+   - Scaffolded a fresh Vite/React/TS project in this directory.
+   - Configured Tailwind v4 via @tailwindcss/vite, with custom theme colors
+     (lake-dark #0B3C5D, lake-red #D93829) defined in src/index.css.
+   - Autocomplete inputs for Origin/Destination piers.
+   - Quick-select chips for Luzern, Weggis, Vitznau, Bürgenstock.
+   - Connections search against /connections, filtered to boat categories
+     (BAT = motor vessel, BAV = paddle steamer).
+   - ScheduleCard component with Deep Lake Blue headers, times, duration,
+     and category badges (sky pill + Ship icon for BAT, red pill + Anchor
+     icon for BAV).
+   - Corrected several station IDs from the original spec that didn't
+     match reality on the live API (e.g. Weggis pier is 8508463, not
+     8502213; Luzern Bahnhofquai is 8508492, not 8502202).
+   - Dev server verified running (npm run dev), production build verified
+     clean (npm run build).
+
+2. Search enhancements (date/time + pagination + swap)
+   - Added a Date & Time picker (defaults to today/now), passed as
+     `date`/`time` params to /connections.
+   - Added "Load Later Connections" button: takes the last displayed
+     connection's departure timestamp, queries again from that time
+     (+1 minute), and appends results to the existing list instead of
+     replacing it.
+   - Swap Origin/Destination button (was already present from initial
+     build) between the two inputs.
+
+3. Client-side pier data + fixed missing connections
+   - Replaced the live /locations autocomplete search with a fully
+     client-side search against a new ALL_LAKE_LUCERNE_PIERS array
+     (src/piers.ts) - 31 verified real boat piers on Lake Lucerne.
+   - Built this list by probing station IDs 8508449-8508505 on the live
+     API and cross-checking each one's stationboard categories (must be
+     BAT-only) or icon field (must be "ship"), which correctly excluded
+     look-alikes such as "Luzern Schweizerhofquai" (actually a bus stop)
+     and various Pilatus/Bürgenstock/Titlis cable car and funicular
+     stations that share the same station-ID range.
+   - AutocompleteInput now filters this array synchronously (no network
+     call, no debounce needed) instead of calling the /locations API.
+   - Added `limit=15` to the /connections request to fetch a wider batch
+     of trips per search (later reduced to 5, see section 5).
+   - Confirmed the BAT/BAV section filter keeps any connection with at
+     least one boat leg.
+   - Removed now-dead code (useDebounce hook, LocationsResponse type) and
+     deduplicated the quick-select chips to reference ALL_LAKE_LUCERNE_PIERS
+     instead of hardcoding station IDs a second time.
+
+4. Search-on-demand + smarter pier suggestions
+   - Removed the auto-fetch on page load; connections now only load when
+     the user clicks "Search Sailings". Added a `hasSearched` flag so the
+     results area shows a neutral "choose an origin and destination"
+     prompt beforehand, and only shows "no connections found" after a
+     real search comes back empty.
+   - Origin and Destination fields now start empty (no default pier
+     pre-filled) - the Search button stays disabled until both are set.
+   - Empty-state dropdown (click into an empty field) now suggests piers
+     instead of showing nothing: `searchLakeLucernePiers('')` returns a
+     popularity-ordered top 5 rather than an empty list.
+   - Added `POPULAR_PIER_IDS` / `getPopularPiers()` in src/piers.ts as the
+     single source of truth for popularity order (Luzern Bahnhofquai,
+     Weggis, Vitznau, Kehrsiten-Bürgenstock, Brunnen), used by both the
+     empty-dropdown default and the quick-select chips (which take the
+     first 4 with short display labels).
+   - Destination field: once Origin is selected, its empty-click dropdown
+     switches from the top-5 popular list to the full scrollable list of
+     all remaining piers (Origin's own pier excluded) via a new
+     `excludeId` prop on AutocompleteInput. Origin field was kept on the
+     "always show popular 5 by default" behavior per explicit request -
+     it does not switch to the full list even once Destination is set.
+
+5. Paginate results 5 at a time
+   - Added `RESULTS_PAGE_SIZE = 5` in App.tsx and changed the
+     /connections `limit` param (both the initial search and the
+     "load more" fetch) from 15 to this constant, so only 5 connections
+     are fetched and shown initially.
+   - Renamed the load-more button to "Show 5 More Connections"; clicking
+     it still anchors on the last displayed connection's departure
+     timestamp (+1 minute) and appends the next 5 to the list rather than
+     replacing it or loading everything up front.
+
+6. Collapsible connection cards showing real intermediate stops
+   - ScheduleCard now collapses by default, showing just the header (route
+     + duration) and a summary row (overall departure -> arrival time, leg
+     count). Clicking the summary row toggles a dropdown with a chevron
+     that rotates on expand/collapse.
+   - Fixed a real accuracy issue: a single boat "section" (e.g. Luzern ->
+     Brunnen, 1h57min) was being shown as a non-stop "1 leg" hop, which is
+     misleading - that vessel actually calls at many piers in between
+     (Verkehrshaus-Lido, Hertenstein, Weggis, Vitznau, Beckenried, Gersau,
+     Treib, etc). Discovered that /connections already returns this via
+     `journey.passList` on each section - just wasn't being read. Added
+     `passList: StopTime[]` to the Journey type and the expanded dropdown
+     now renders every real stop as a vertical timeline (bold/filled dot
+     for the boarding/alighting endpoints, muted for stops in between),
+     per boat leg, instead of collapsing the whole journey into a single
+     origin->destination row.
+   - Renamed the pagination button from "Show 5 More Connections" to
+     "Show More Connections" per request.
+
+7. Investigated reported stuttering/lag when resizing to mobile view
+   - Installed puppeteer-core and drove a real Chrome instance (remote
+     debugging) through the actual app flow (search, expanded cards, open
+     dropdown), then recorded genuine Chrome performance traces while
+     rapid-firing viewport resizes 1280px->320px->1280px under 4x CPU
+     throttle (DevTools' own low-end-mobile preset) - a faithful repro of
+     dragging the device-toolbar resize handle.
+   - Result: no code-level bottleneck. Layout averaged 0.35ms/call, Paint
+     0.4-1.3ms, no long scripting tasks, even with every card expanded and
+     a dropdown open at once. There are no resize/matchMedia listeners
+     anywhere in the code - all responsive behavior is plain CSS media
+     queries, which the browser handles natively and cheaply.
+   - Did find one real but dev-only inefficiency: `npm run dev` pre-bundles
+     lucide-react's entire ~1500-icon barrel file into a single ~4MB dev
+     chunk, even though only 8 icons are used, because the package ships
+     no per-icon type declarations or `exports` map. Tried fixing it with
+     deep per-icon imports, but that broke `tsc -b` (the real build
+     command) on a wildcard-ambient-module edge case; reverted since it
+     doesn't affect the production bundle anyway (already tree-shaken:
+     ~205KB / 65KB gzipped) and isn't the actual cause of resize jank.
+   - Conclusion: the perceived stutter is most likely Chrome DevTools'
+     own device-toolbar overhead (zoom-to-fit rescaling, touch-emulation
+     layer), not the app. Suggested comparing against `npm run build &&
+     npm run preview` to rule out dev-server-only effects. All
+     experimental changes (puppeteer-core, vite.config.ts optimizeDeps
+     tweak, deep icon imports) were reverted; app is back to a clean,
+     verified state.
+
+Current state: TypeScript build and production build both pass cleanly;
+dev server running at http://localhost:5173.

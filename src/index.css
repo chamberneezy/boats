@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+@theme {
+  --color-lake-dark: #0b3c5d;
+  --color-lake-red: #d93829;
+}
+
+body {
+  margin: 0;
+  background-color: #f8fafc;
+}
