@@ -126,22 +126,22 @@ function App() {
           </div>
 
           <div className="mt-4 grid grid-cols-2 gap-4">
-            <div>
+            <div className="min-w-0">
               <label className="mb-1 block text-sm font-medium text-slate-500">Date</label>
               <input
                 type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-lake-dark focus:ring-2 focus:ring-lake-dark/20"
+                className="w-full min-w-0 rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-lake-dark focus:ring-2 focus:ring-lake-dark/20"
               />
             </div>
-            <div>
+            <div className="min-w-0">
               <label className="mb-1 block text-sm font-medium text-slate-500">Time</label>
               <input
                 type="time"
                 value={time}
                 onChange={(e) => setTime(e.target.value)}
-                className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-lake-dark focus:ring-2 focus:ring-lake-dark/20"
+                className="w-full min-w-0 rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-lake-dark focus:ring-2 focus:ring-lake-dark/20"
               />
             </div>
           </div>
