@@ -29,10 +29,10 @@ export function QuickSelectChips({ activeName, onSelect }: QuickSelectChipsProps
             key={label}
             type="button"
             onClick={() => onSelect(pier)}
-            className={`rounded-full border px-3 py-1 text-xs font-medium transition ${
+            className={`rounded-lg border px-3 py-1.5 text-xs font-medium text-lake-blue transition-colors ${
               isActive
-                ? 'border-lake-dark bg-lake-dark text-white'
-                : 'border-slate-200 bg-white text-slate-600 hover:border-lake-dark/40 hover:text-lake-dark'
+                ? 'border-lake-blue bg-lake-accent'
+                : 'border-slate-200 bg-white hover:border-lake-blue hover:bg-lake-accent'
             }`}
           >
             {label}

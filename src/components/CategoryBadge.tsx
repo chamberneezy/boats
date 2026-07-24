@@ -7,7 +7,7 @@ interface CategoryBadgeProps {
 export function CategoryBadge({ category }: CategoryBadgeProps) {
   if (category === 'BAV') {
     return (
-      <span className="inline-flex items-center gap-1 rounded-full bg-red-100 px-2.5 py-1 text-xs font-semibold text-red-700">
+      <span className="inline-flex items-center gap-1 rounded-full bg-lake-red px-2.5 py-1 text-xs font-semibold text-white">
         <Anchor className="h-3.5 w-3.5" />
         Paddle Steamer
       </span>

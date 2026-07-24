@@ -1,11 +1,35 @@
 @import "tailwindcss";
 
 @theme {
+  /* Alpine Precision - Primary Brand Blue (#0B3C5D) */
   --color-lake-dark: #0b3c5d;
+  --color-lake-blue: #0b3c5d;
+  --color-brand-primary: #0b3c5d;
+
+  /* Alpine Precision - Swiss Red CTA (#D93829) */
   --color-lake-red: #d93829;
+  --color-brand-cta: #d93829;
+
+  /* Alpine Precision - Glacier White (#FBFDFF) */
+  --color-glacier-white: #fbfdff;
+
+  /* Alpine Precision - Stone Grey (#546E7A) */
+  --color-stone-grey: #546e7a;
+
+  /* Alpine Precision - Accent Surface Light (#EBF3F8) */
+  --color-lake-accent: #ebf3f8;
 }
 
 body {
   margin: 0;
-  background-color: #f8fafc;
+  background-color: #fbfdff;
+  color: #1e293b;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }

@@ -1,10 +1,18 @@
 import { useCallback, useState } from 'react';
-import { ArrowLeftRight, ChevronDown, Ship, Waves } from 'lucide-react';
+import { ArrowLeftRight, ChevronDown, Ship } from 'lucide-react';
 import { AutocompleteInput } from './components/AutocompleteInput';
+import { GeometricWaveIcon, SwissLakesTitle } from './components/BrandAssets';
 import { QuickSelectChips } from './components/QuickSelectChips';
 import { ScheduleCard } from './components/ScheduleCard';
 import type { Connection, ConnectionsResponse, PierOption, Section } from './types';
-import { BOAT_CATEGORIES, nowTimeString, timestampToDateTimeParts, todayDateString } from './utils';
+import {
+  BOAT_CATEGORIES,
+  formatDayLabel,
+  isSameDay,
+  nowTimeString,
+  timestampToDateTimeParts,
+  todayDateString,
+} from './utils';
 
 const EMPTY_PIER: PierOption = { id: '', name: '' };
 const RESULTS_PAGE_SIZE = 5;
@@ -87,13 +95,10 @@ function App() {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <header className="bg-lake-dark px-4 py-6 text-white shadow-md">
+      <header className="bg-lake-blue px-4 py-4 text-white shadow-md">
         <div className="mx-auto flex max-w-3xl items-center gap-3">
-          <Waves className="h-7 w-7" />
-          <div>
-            <h1 className="text-xl font-bold">Lake Lucerne Boat Schedule</h1>
-            <p className="text-sm text-white/70">Find sailings between Swiss lake piers</p>
-          </div>
+          <GeometricWaveIcon />
+          <SwissLakesTitle />
         </div>
       </header>
 
@@ -150,7 +155,7 @@ function App() {
             type="button"
             onClick={() => runSearch(origin, destination, date, time)}
             disabled={isLoading || !origin.id || !destination.id}
-            className="mt-4 flex w-full items-center justify-center gap-2 rounded-lg bg-lake-red px-4 py-2.5 text-sm font-semibold text-white transition hover:brightness-110 disabled:opacity-60"
+            className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-lake-red px-4 py-2.5 text-sm font-semibold tracking-tight text-white shadow-lg shadow-lake-red/25 transition hover:brightness-110 disabled:shadow-none disabled:opacity-60"
           >
             <Ship className="h-4 w-4" />
             {isLoading ? 'Searching…' : 'Search Sailings'}
@@ -176,9 +181,26 @@ function App() {
             </div>
           )}
 
-          {results.map(({ connection, boatSections }, idx) => (
-            <ScheduleCard key={idx} boatSections={boatSections} duration={connection.duration} />
-          ))}
+          {results.map(({ connection, boatSections }, idx) => {
+            const departureTimestamp = connection.from.departureTimestamp;
+            const previousTimestamp = idx > 0 ? results[idx - 1].connection.from.departureTimestamp : null;
+            const showDateLabel =
+              idx > 0 &&
+              departureTimestamp !== null &&
+              previousTimestamp !== null &&
+              !isSameDay(departureTimestamp, previousTimestamp);
+
+            return (
+              <div key={idx}>
+                {showDateLabel && (
+                  <div className="mb-2 mt-2 text-xs font-semibold uppercase tracking-wide text-stone-grey">
+                    {formatDayLabel(departureTimestamp)}
+                  </div>
+                )}
+                <ScheduleCard boatSections={boatSections} duration={connection.duration} />
+              </div>
+            );
+          })}
 
           {!error && results.length > 0 && (
             <button

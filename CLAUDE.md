@@ -11,6 +11,7 @@
 - Query live piers dynamically via:
   `GET https://transport.opendata.ch/v1/locations?query={searchTerm}&type=station`
 - Show preset quick-select buttons for popular Lake Lucerne piers (Luzern, Weggis, Vitznau, Bürgenstock) to quickly fill the search inputs.
+- do not push to GitHub, nor suggest commits without me asking first
 
 ## Design System (Swiss Marine Theme)
 - Primary Accent (Deep Lake Blue): `#0B3C5D` (`bg-lake-dark`, `text-lake-dark`)

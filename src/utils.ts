@@ -43,3 +43,19 @@ export function timestampToDateTimeParts(timestampSeconds: number): { date: stri
   const minutes = String(d.getMinutes()).padStart(2, '0');
   return { date: `${year}-${month}-${day}`, time: `${hours}:${minutes}` };
 }
+
+export function isSameDay(timestampA: number, timestampB: number): boolean {
+  const a = new Date(timestampA * 1000);
+  const b = new Date(timestampB * 1000);
+  return (
+    a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate()
+  );
+}
+
+export function formatDayLabel(timestampSeconds: number): string {
+  return new Date(timestampSeconds * 1000).toLocaleDateString('en-GB', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+  });
+}

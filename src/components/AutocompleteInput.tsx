@@ -54,7 +54,7 @@ export function AutocompleteInput({ label, value, onSelect, excludeId }: Autocom
           }}
           onFocus={() => setIsOpen(true)}
           placeholder="Search for a lake pier…"
-          className="w-full rounded-lg border border-slate-200 bg-white py-2.5 pl-9 pr-9 text-sm text-slate-900 shadow-sm outline-none transition focus:border-lake-dark focus:ring-2 focus:ring-lake-dark/20"
+          className="w-full rounded-lg border border-slate-200 bg-white py-2.5 pl-9 pr-9 text-sm text-slate-900 shadow-sm outline-none transition focus:border-lake-blue focus:ring-2 focus:ring-lake-blue/20"
         />
       </div>
       {isOpen && options.length > 0 && (
