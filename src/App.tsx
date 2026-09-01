@@ -4,6 +4,8 @@ import { AutocompleteInput } from './components/AutocompleteInput';
 import { GeometricWaveIcon, SwissLakesTitle } from './components/BrandAssets';
 import { QuickSelectChips } from './components/QuickSelectChips';
 import { ScheduleCard } from './components/ScheduleCard';
+import { FALLBACK_SEASON_LABEL, getFallbackConnections } from './fallbackTimetable';
+import { readCachedConnections, writeCachedConnections } from './scheduleCache';
 import type { Connection, ConnectionsResponse, PierOption, Section } from './types';
 import {
   BOAT_CATEGORIES,
@@ -16,24 +18,18 @@ import {
 
 const EMPTY_PIER: PierOption = { id: '', name: '' };
 const RESULTS_PAGE_SIZE = 5;
+const REQUEST_TIMEOUT_MS = 8000;
+const CACHE_TTL_MS = 30 * 60 * 1000;
+const TIMEOUT_ERROR_MESSAGE =
+  'The boat schedule service (transport.opendata.ch) is not responding. It may be down — please try again in a few minutes.';
+const GENERIC_ERROR_MESSAGE = 'Could not load boat schedules. Please try again.';
 
 interface BoatConnection {
   connection: Connection;
   boatSections: Section[];
 }
 
-async function fetchBoatConnections(
-  from: PierOption,
-  to: PierOption,
-  date: string,
-  time: string,
-): Promise<BoatConnection[]> {
-  const res = await fetch(
-    `https://transport.opendata.ch/v1/connections?from=${encodeURIComponent(from.id)}&to=${encodeURIComponent(to.id)}&transportations[]=ship&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}&limit=${RESULTS_PAGE_SIZE}`,
-  );
-  if (!res.ok) throw new Error('Failed to fetch connections');
-  const data: ConnectionsResponse = await res.json();
-
+function deriveBoatConnections(data: ConnectionsResponse): BoatConnection[] {
   return (data.connections ?? [])
     .map((connection) => ({
       connection,
@@ -42,6 +38,28 @@ async function fetchBoatConnections(
       ),
     }))
     .filter((entry) => entry.boatSections.length > 0);
+}
+
+async function fetchConnectionsRaw(
+  from: PierOption,
+  to: PierOption,
+  date: string,
+  time: string,
+): Promise<ConnectionsResponse> {
+  let res: Response;
+  try {
+    res = await fetch(
+      `https://transport.opendata.ch/v1/connections?from=${encodeURIComponent(from.id)}&to=${encodeURIComponent(to.id)}&transportations[]=ship&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}&limit=${RESULTS_PAGE_SIZE}`,
+      { signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS) },
+    );
+  } catch (err) {
+    if (err instanceof Error && err.name === 'TimeoutError') {
+      throw new Error(TIMEOUT_ERROR_MESSAGE);
+    }
+    throw new Error(GENERIC_ERROR_MESSAGE);
+  }
+  if (!res.ok) throw new Error(GENERIC_ERROR_MESSAGE);
+  return res.json();
 }
 
 function App() {
@@ -54,16 +72,63 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isLive, setIsLive] = useState(false);
+  const [isCached, setIsCached] = useState(false);
+  const [isStaticFallback, setIsStaticFallback] = useState(false);
+  const [cachedAt, setCachedAt] = useState<string | null>(null);
 
   const runSearch = useCallback(async (from: PierOption, to: PierOption, searchDate: string, searchTime: string) => {
-    setIsLoading(true);
     setError(null);
+
+    const cached = readCachedConnections(from.id, to.id);
+    const cacheAgeMs = cached ? Date.now() - new Date(cached.cachedAt).getTime() : Infinity;
+
+    // Cache is fresh enough to skip a network round-trip entirely.
+    if (cached && cacheAgeMs < CACHE_TTL_MS) {
+      setResults(deriveBoatConnections(cached.rawResponse));
+      setIsLive(false);
+      setIsCached(true);
+      setIsStaticFallback(false);
+      setCachedAt(cached.cachedAt);
+      setHasSearched(true);
+      return;
+    }
+
+    setIsLoading(true);
     try {
-      const boatConnections = await fetchBoatConnections(from, to, searchDate, searchTime);
-      setResults(boatConnections);
-    } catch {
-      setError('Could not load boat schedules. Please try again.');
-      setResults([]);
+      const rawResponse = await fetchConnectionsRaw(from, to, searchDate, searchTime);
+      writeCachedConnections(from.id, to.id, rawResponse);
+      setResults(deriveBoatConnections(rawResponse));
+      setIsLive(true);
+      setIsCached(false);
+      setIsStaticFallback(false);
+      setCachedAt(null);
+    } catch (err) {
+      // Network failed — fall back to cache regardless of age; never purge it.
+      if (cached) {
+        setResults(deriveBoatConnections(cached.rawResponse));
+        setIsLive(false);
+        setIsCached(true);
+        setIsStaticFallback(false);
+        setCachedAt(cached.cachedAt);
+      } else {
+        // No cache either — last resort is the bundled baseline timetable.
+        const fallbackResponse = getFallbackConnections(from.id, to.id, searchDate, searchTime);
+        if (fallbackResponse) {
+          setResults(deriveBoatConnections(fallbackResponse));
+          setIsLive(false);
+          setIsCached(false);
+          setIsStaticFallback(true);
+          setCachedAt(null);
+        } else {
+          setError(err instanceof Error ? err.message : GENERIC_ERROR_MESSAGE);
+          setResults([]);
+          setIsLive(false);
+          setIsCached(false);
+          setIsStaticFallback(false);
+          setCachedAt(null);
+        }
+      }
     } finally {
       setIsLoading(false);
       setHasSearched(true);
@@ -79,10 +144,10 @@ function App() {
     setError(null);
     try {
       const { date: nextDate, time: nextTime } = timestampToDateTimeParts(lastDeparture + 60);
-      const moreConnections = await fetchBoatConnections(origin, destination, nextDate, nextTime);
-      setResults((prev) => [...prev, ...moreConnections]);
-    } catch {
-      setError('Could not load more connections. Please try again.');
+      const rawResponse = await fetchConnectionsRaw(origin, destination, nextDate, nextTime);
+      setResults((prev) => [...prev, ...deriveBoatConnections(rawResponse)]);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : GENERIC_ERROR_MESSAGE);
     } finally {
       setIsLoadingMore(false);
     }
@@ -169,15 +234,43 @@ function App() {
             </div>
           )}
 
+          {isLive && results.length > 0 && (
+            <div className="flex items-center gap-1.5 text-xs font-medium text-emerald-600">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+              Live schedule
+            </div>
+          )}
+
+          {isCached && cachedAt && (
+            <div className="rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-800">
+              Showing cached results from{' '}
+              {new Date(cachedAt).toLocaleTimeString('de-CH', { hour: '2-digit', minute: '2-digit' })} — may not
+              reflect live updates.
+            </div>
+          )}
+
+          {isStaticFallback && (
+            <div className="rounded-lg border border-orange-300 bg-orange-50 px-4 py-3 text-sm text-orange-800">
+              Live and cached data are both unavailable. Showing an approximate {FALLBACK_SEASON_LABEL} baseline
+              schedule — please verify exact times at lakelucerne.ch before traveling.
+            </div>
+          )}
+
           {!error && !isLoading && !hasSearched && (
             <div className="rounded-lg border border-slate-200 bg-white px-4 py-6 text-center text-sm text-slate-500">
               Choose an origin and destination, then search for sailings.
             </div>
           )}
 
-          {!error && !isLoading && hasSearched && results.length === 0 && (
+          {!error && !isCached && !isStaticFallback && !isLoading && hasSearched && results.length === 0 && (
             <div className="rounded-lg border border-slate-200 bg-white px-4 py-6 text-center text-sm text-slate-500">
               No boat connections found for this route.
+            </div>
+          )}
+
+          {isStaticFallback && results.length === 0 && (
+            <div className="rounded-lg border border-slate-200 bg-white px-4 py-6 text-center text-sm text-slate-500">
+              No more baseline sailings for this route today.
             </div>
           )}
 

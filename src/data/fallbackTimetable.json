@@ -1,0 +1,73 @@
+{
+  "seasonLabel": "Summer 2026",
+  "validFrom": "2026-05-23",
+  "validUntil": "2026-09-06",
+  "source": "https://www.lakelucerne.ch — official SGV summer timetable (Luzern–Brunnen–Flüelen, LN 3600; Luzern–Bürgenstock, LN 3602)",
+  "note": "Bundled offline baseline for the main Lake Lucerne boat corridor. Used only when both the live API and the cached results are unavailable. Approximate — always verify exact times at lakelucerne.ch before traveling. Refresh this file each season (the autumn 2026 timetable takes effect 07.09.2026).",
+  "routes": [
+    {
+      "fromId": "8508492",
+      "fromName": "Luzern Bahnhofquai",
+      "toId": "8508463",
+      "toName": "Weggis",
+      "durationMinutes": 41,
+      "departures": ["06:20", "08:12", "09:12", "09:40", "10:12", "10:40", "11:12", "12:12", "13:12", "14:12", "15:12", "16:12", "17:12", "19:12"]
+    },
+    {
+      "fromId": "8508463",
+      "fromName": "Weggis",
+      "toId": "8508492",
+      "toName": "Luzern Bahnhofquai",
+      "durationMinutes": 41,
+      "departures": ["07:07", "10:05", "11:05", "12:05", "13:05", "14:05", "15:05", "15:38", "16:05", "17:05", "18:05", "19:05", "20:57"]
+    },
+    {
+      "fromId": "8508492",
+      "fromName": "Luzern Bahnhofquai",
+      "toId": "8508464",
+      "toName": "Vitznau",
+      "durationMinutes": 57,
+      "departures": ["08:12", "09:12", "09:40", "10:12", "10:40", "11:12", "12:12", "13:12", "14:12", "14:35", "15:12", "16:12", "17:12", "19:12"]
+    },
+    {
+      "fromId": "8508464",
+      "fromName": "Vitznau",
+      "toId": "8508492",
+      "toName": "Luzern Bahnhofquai",
+      "durationMinutes": 57,
+      "departures": ["09:49", "10:49", "11:42", "11:49", "12:49", "13:49", "14:49", "15:21", "15:49", "16:49", "17:49", "18:49"]
+    },
+    {
+      "fromId": "8508463",
+      "fromName": "Weggis",
+      "toId": "8508464",
+      "toName": "Vitznau",
+      "durationMinutes": 16,
+      "departures": ["08:53", "09:53", "10:24", "10:53", "11:24", "11:53", "12:53", "13:53", "14:53", "15:53", "16:53", "17:53", "19:53"]
+    },
+    {
+      "fromId": "8508464",
+      "fromName": "Vitznau",
+      "toId": "8508463",
+      "toName": "Weggis",
+      "durationMinutes": 16,
+      "departures": ["09:49", "10:49", "11:42", "11:49", "12:49", "13:49", "14:49", "15:21", "15:49", "16:49", "17:49", "18:49"]
+    },
+    {
+      "fromId": "8508492",
+      "fromName": "Luzern Bahnhofquai",
+      "toId": "8508489",
+      "toName": "Kehrsiten-Bürgenstock",
+      "durationMinutes": 27,
+      "departures": ["08:07", "09:07", "09:40", "10:07", "10:38", "10:40", "11:07", "12:07", "13:07", "14:07", "15:07", "16:07", "17:07", "18:07", "19:07", "20:07", "21:07", "22:07", "23:07"]
+    },
+    {
+      "fromId": "8508489",
+      "fromName": "Kehrsiten-Bürgenstock",
+      "toId": "8508492",
+      "toName": "Luzern Bahnhofquai",
+      "durationMinutes": 29,
+      "departures": ["08:33", "09:33", "10:33", "11:20", "11:33", "12:33", "13:33", "14:33", "15:33", "15:56", "16:33", "17:33", "18:33", "19:33", "20:33", "21:12", "21:33", "22:33", "23:33"]
+    }
+  ]
+}

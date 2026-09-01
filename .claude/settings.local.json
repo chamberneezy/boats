@@ -47,7 +47,25 @@
       "Read(//Users/mario/.config/gh/**)",
       "Read(//Users/mario/**)",
       "Bash(brew install *)",
-      "Bash(gh *)"
+      "Bash(gh *)",
+      "Bash(env)",
+      "Bash(security find-internet-password *)",
+      "Bash(git credential *)",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\('login:', d.get\\('login'\\)\\); print\\('name:', d.get\\('name'\\)\\)\")",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(curl -s https://chamberneezy.github.io/boats/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" https://chamberneezy.github.io/boats/assets/index-CN6nH6ay.js)",
+      "Bash(curl -sI https://chamberneezy.github.io/boats/assets/index-CN6nH6ay.js)",
+      "Bash(curl -sI https://chamberneezy.github.io/boats/assets/index-BzCCj7Wf.css)",
+      "Bash(curl -s https://chamberneezy.github.io/boats/assets/index-CN6nH6ay.js)",
+      "Bash(curl -sI https://chamberneezy.github.io/boats/favicon.svg)",
+      "Bash(cd *)",
+      "Bash(curl -sv http://localhost:5173/)",
+      "WebFetch(domain:share.gemini.google)",
+      "WebFetch(domain:gemini.google.com)",
+      "Bash(node check.mjs)"
     ]
   }
 }
