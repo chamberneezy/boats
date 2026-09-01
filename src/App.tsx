@@ -40,6 +40,20 @@ function deriveBoatConnections(data: ConnectionsResponse): BoatConnection[] {
     .filter((entry) => entry.boatSections.length > 0);
 }
 
+// A cached response was captured for one specific (date, time) query — the live API only
+// ever returns a handful of departures from that moment forward. Reusing it as-is for a
+// different search time would silently show departures that are now in the past (or miss
+// ones further out), so re-filter to what's still relevant to the *current* query.
+function filterConnectionsFromTime(data: ConnectionsResponse, date: string, time: string): ConnectionsResponse {
+  const requestedTimestamp = Math.floor(new Date(`${date}T${time}:00`).getTime() / 1000);
+  return {
+    connections: (data.connections ?? []).filter((connection) => {
+      const ts = connection.from.departureTimestamp;
+      return ts === null || ts === undefined || ts >= requestedTimestamp;
+    }),
+  };
+}
+
 async function fetchConnectionsRaw(
   from: PierOption,
   to: PierOption,
@@ -82,10 +96,15 @@ function App() {
 
     const cached = readCachedConnections(from.id, to.id);
     const cacheAgeMs = cached ? Date.now() - new Date(cached.cachedAt).getTime() : Infinity;
+    // A cache entry only "counts" if, once re-filtered to the time being searched right
+    // now, it still has something to show — otherwise it's leftover from an unrelated
+    // query and must not block falling through to the next tier.
+    const cacheForThisQuery = cached ? filterConnectionsFromTime(cached.rawResponse, searchDate, searchTime) : null;
+    const cacheIsUsable = (cacheForThisQuery?.connections?.length ?? 0) > 0;
 
     // Cache is fresh enough to skip a network round-trip entirely.
-    if (cached && cacheAgeMs < CACHE_TTL_MS) {
-      setResults(deriveBoatConnections(cached.rawResponse));
+    if (cached && cacheIsUsable && cacheAgeMs < CACHE_TTL_MS) {
+      setResults(deriveBoatConnections(cacheForThisQuery!));
       setIsLive(false);
       setIsCached(true);
       setIsStaticFallback(false);
@@ -94,41 +113,61 @@ function App() {
       return;
     }
 
-    setIsLoading(true);
-    try {
-      const rawResponse = await fetchConnectionsRaw(from, to, searchDate, searchTime);
-      writeCachedConnections(from.id, to.id, rawResponse);
-      setResults(deriveBoatConnections(rawResponse));
-      setIsLive(true);
-      setIsCached(false);
-      setIsStaticFallback(false);
-      setCachedAt(null);
-    } catch (err) {
-      // Network failed — fall back to cache regardless of age; never purge it.
-      if (cached) {
-        setResults(deriveBoatConnections(cached.rawResponse));
+    // Falls through cache -> bundled baseline, used both when the live fetch throws
+    // and when it "succeeds" with a suspiciously empty answer for a route we know
+    // normally runs. `fetchError` is null in the latter case (no error to surface).
+    const applyCacheOrBundledFallback = (fetchError: unknown) => {
+      if (cached && cacheIsUsable) {
+        setResults(deriveBoatConnections(cacheForThisQuery!));
         setIsLive(false);
         setIsCached(true);
         setIsStaticFallback(false);
         setCachedAt(cached.cachedAt);
-      } else {
-        // No cache either — last resort is the bundled baseline timetable.
-        const fallbackResponse = getFallbackConnections(from.id, to.id, searchDate, searchTime);
-        if (fallbackResponse) {
-          setResults(deriveBoatConnections(fallbackResponse));
-          setIsLive(false);
-          setIsCached(false);
-          setIsStaticFallback(true);
-          setCachedAt(null);
-        } else {
-          setError(err instanceof Error ? err.message : GENERIC_ERROR_MESSAGE);
-          setResults([]);
-          setIsLive(false);
-          setIsCached(false);
-          setIsStaticFallback(false);
-          setCachedAt(null);
-        }
+        return;
       }
+      const fallbackResponse = getFallbackConnections(from.id, to.id, searchDate, searchTime);
+      if (fallbackResponse && fallbackResponse.connections.length > 0) {
+        setResults(deriveBoatConnections(fallbackResponse));
+        setIsLive(false);
+        setIsCached(false);
+        setIsStaticFallback(true);
+        setCachedAt(null);
+        return;
+      }
+      // Nothing usable anywhere. If the live call actually failed, say so; if it
+      // succeeded but genuinely has nothing left today (bundled data agrees), trust it.
+      if (fetchError !== null) {
+        setError(fetchError instanceof Error ? fetchError.message : GENERIC_ERROR_MESSAGE);
+      }
+      setResults([]);
+      setIsLive(fetchError === null);
+      setIsCached(false);
+      setIsStaticFallback(false);
+      setCachedAt(null);
+    };
+
+    setIsLoading(true);
+    try {
+      const rawResponse = await fetchConnectionsRaw(from, to, searchDate, searchTime);
+      const liveBoatConnections = deriveBoatConnections(rawResponse);
+      const routeIsBundled = getFallbackConnections(from.id, to.id, searchDate, searchTime) !== null;
+
+      if (liveBoatConnections.length > 0 || !routeIsBundled) {
+        // Trust the live answer: either it has data, or this route isn't in the
+        // bundled data so there's nothing to cross-check an empty result against.
+        writeCachedConnections(from.id, to.id, rawResponse);
+        setResults(liveBoatConnections);
+        setIsLive(true);
+        setIsCached(false);
+        setIsStaticFallback(false);
+        setCachedAt(null);
+      } else {
+        // Zero connections for a route that normally runs — the API's data backend
+        // is likely degraded rather than there genuinely being no service.
+        applyCacheOrBundledFallback(null);
+      }
+    } catch (err) {
+      applyCacheOrBundledFallback(err);
     } finally {
       setIsLoading(false);
       setHasSearched(true);
@@ -265,12 +304,6 @@ function App() {
           {!error && !isCached && !isStaticFallback && !isLoading && hasSearched && results.length === 0 && (
             <div className="rounded-lg border border-slate-200 bg-white px-4 py-6 text-center text-sm text-slate-500">
               No boat connections found for this route.
-            </div>
-          )}
-
-          {isStaticFallback && results.length === 0 && (
-            <div className="rounded-lg border border-slate-200 bg-white px-4 py-6 text-center text-sm text-slate-500">
-              No more baseline sailings for this route today.
             </div>
           )}
 
