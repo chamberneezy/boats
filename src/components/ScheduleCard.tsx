@@ -13,8 +13,16 @@ function stopTimestamp(stop: StopTime): number | null {
   return stop.arrivalTimestamp ?? stop.departureTimestamp;
 }
 
-function platformLabel(platform: string | null): string | null {
-  return platform ? `Gl. ${platform}` : null;
+// Fraction of the journey elapsed right now: 0 before departure (boat waits at the
+// origin), 1 once it has arrived, interpolated in between.
+function journeyProgress(departureTimestamp: number | null, arrivalTimestamp: number | null): number {
+  if (departureTimestamp === null || arrivalTimestamp === null || arrivalTimestamp <= departureTimestamp) {
+    return 0;
+  }
+  const now = Date.now() / 1000;
+  if (now <= departureTimestamp) return 0;
+  if (now >= arrivalTimestamp) return 1;
+  return (now - departureTimestamp) / (arrivalTimestamp - departureTimestamp);
 }
 
 interface RouteTimelineProps {
@@ -24,42 +32,46 @@ interface RouteTimelineProps {
 }
 
 function RouteTimeline({ departure, arrival, isDirect }: RouteTimelineProps) {
-  const departurePlatform = platformLabel(departure.platform);
-  const arrivalPlatform = platformLabel(arrival.platform);
+  const progress = journeyProgress(departure.departureTimestamp, arrival.arrivalTimestamp);
+  const progressPercent = `${progress * 100}%`;
 
   return (
     <div className="flex items-center gap-3.5">
-      <div className="flex flex-shrink-0 flex-col gap-0.5">
+      <div className="flex min-w-0 flex-shrink-0 flex-col gap-0.5">
         <span className="text-base font-bold tabular-nums text-slate-900">
           {formatTime(departure.departureTimestamp)}
         </span>
-        {departurePlatform && (
-          <span className="text-[11.5px] font-semibold text-slate-500">{departurePlatform}</span>
-        )}
+        <span className="max-w-[110px] truncate text-[11.5px] font-semibold text-slate-500">
+          {departure.station.name}
+        </span>
       </div>
 
       <div className="relative h-4 flex-1">
         <span className="absolute inset-x-0 top-1/2 h-0.5 -translate-y-1/2 rounded-full bg-hairline" />
         {isDirect && (
-          <span className="absolute left-0 top-1/2 h-0.5 w-1/2 -translate-y-1/2 rounded-full bg-slate-400" />
+          <span
+            className="absolute left-0 top-1/2 h-0.5 -translate-y-1/2 rounded-full bg-slate-400"
+            style={{ width: progressPercent }}
+          />
         )}
         <span className="absolute left-0 top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-slate-400" />
         {isDirect && (
           <Ship
-            className="boat-marker absolute bottom-1/2 left-1/2 h-[18px] w-[18px] origin-bottom text-brass"
+            className="boat-marker absolute bottom-1/2 h-[18px] w-[18px] origin-bottom text-brass"
+            style={{ left: progressPercent }}
             strokeWidth={2}
           />
         )}
         <span className="absolute right-0 top-1/2 h-2 w-2 -translate-y-1/2 translate-x-1/2 rounded-full bg-slate-900" />
       </div>
 
-      <div className="flex flex-shrink-0 flex-col items-end gap-0.5">
+      <div className="flex min-w-0 flex-shrink-0 flex-col items-end gap-0.5">
         <span className="text-base font-bold tabular-nums text-slate-900">
           {formatTime(arrival.arrivalTimestamp)}
         </span>
-        {arrivalPlatform && (
-          <span className="text-[11.5px] font-semibold text-slate-500">{arrivalPlatform}</span>
-        )}
+        <span className="max-w-[110px] truncate text-[11.5px] font-semibold text-slate-500">
+          {arrival.station.name}
+        </span>
       </div>
     </div>
   );
