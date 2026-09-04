@@ -70,6 +70,16 @@ html {
   text-size-adjust: 100%;
 }
 
+/* Lock horizontal movement of the page itself — no sideways scroll or
+   rubber-band bounce, even if a child briefly overflows. Vertical scrolling
+   and the chip rows' own internal horizontal scroll are unaffected. */
+html,
+body {
+  overflow-x: hidden;
+  overscroll-behavior-x: none;
+  max-width: 100%;
+}
+
 /* The compact 80% scale is a mobile fit fix — tablet/desktop has the room to
    breathe, so restore the full scale there (matches Tailwind's `sm` breakpoint). */
 @media (min-width: 640px) {

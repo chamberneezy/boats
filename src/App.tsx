@@ -259,7 +259,7 @@ function App() {
 
           <div className="rounded-3xl border border-hairline bg-white p-6 shadow-sm sm:p-8">
             <div className="grid gap-3.5 sm:grid-cols-[1fr_auto_1fr] sm:items-start sm:gap-5">
-              <div>
+              <div className="min-w-0">
                 <AutocompleteInput label="Origin" value={origin} onSelect={setOrigin} />
                 <QuickSelectChips activeName={origin.name} onSelect={setOrigin} />
               </div>
@@ -273,7 +273,7 @@ function App() {
                 <ArrowLeftRight className="h-[14px] w-[14px] sm:h-[18px] sm:w-[18px]" />
               </button>
 
-              <div>
+              <div className="min-w-0">
                 <AutocompleteInput
                   label="Destination"
                   value={destination}
