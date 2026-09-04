@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { ArrowLeftRight, ChevronDown, Compass, Ship } from 'lucide-react';
+import { ArrowLeftRight, CalendarClock, ChevronDown, Compass, Ship } from 'lucide-react';
 import { AutocompleteInput } from './components/AutocompleteInput';
 import { GeometricWaveIcon, SwissLakesTitle } from './components/BrandAssets';
 import { QuickSelectChips } from './components/QuickSelectChips';
@@ -9,6 +9,7 @@ import { readCachedConnections, writeCachedConnections } from './scheduleCache';
 import type { Connection, ConnectionsResponse, PierOption, Section } from './types';
 import {
   BOAT_CATEGORIES,
+  formatDateSummary,
   formatDayLabel,
   isSameDay,
   nowTimeString,
@@ -93,6 +94,7 @@ function App() {
   const [destination, setDestination] = useState<PierOption>(EMPTY_PIER);
   const [date, setDate] = useState<string>(todayDateString());
   const [time, setTime] = useState<string>(nowTimeString());
+  const [isDateTimeOpen, setIsDateTimeOpen] = useState(false);
   const [results, setResults] = useState<BoatConnection[]>([]);
   const [hasSearched, setHasSearched] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -258,17 +260,20 @@ function App() {
           <h2 className="mb-4 font-heading text-2xl font-extrabold text-navy">Find a sailing</h2>
 
           <div className="rounded-3xl border border-hairline bg-white p-6 shadow-sm sm:p-8">
-            <div className="grid gap-3.5 sm:grid-cols-[1fr_auto_1fr] sm:items-start sm:gap-5">
+            <div className="relative grid gap-3.5 sm:grid-cols-2 sm:items-start sm:gap-5">
               <div className="min-w-0">
                 <AutocompleteInput label="Origin" value={origin} onSelect={setOrigin} />
                 <QuickSelectChips activeName={origin.name} onSelect={setOrigin} />
               </div>
 
+              {/* In-flow on mobile (its own row between the stacked fields); an
+                  absolutely positioned overlay on sm+ so it doesn't consume a grid
+                  column — that keeps Origin/Destination the same width as Date/Time. */}
               <button
                 type="button"
                 onClick={handleSwap}
                 title="Swap origin and destination"
-                className="mx-auto flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-navy text-white shadow-sm transition hover:brightness-110 sm:mt-[26px]"
+                className="mx-auto flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-navy text-white shadow-sm transition hover:brightness-110 sm:absolute sm:left-1/2 sm:top-[42px] sm:mx-0 sm:-translate-x-1/2 sm:-translate-y-1/2"
               >
                 <ArrowLeftRight className="h-[14px] w-[14px]" />
               </button>
@@ -284,29 +289,51 @@ function App() {
               </div>
             </div>
 
-            <div className="mt-4.5 grid grid-cols-2 gap-3.5 sm:mt-6 sm:gap-5">
-              <div className="min-w-0">
-                <label className="mb-1.5 block font-heading text-[9px] font-bold uppercase tracking-wide text-slate-500">
-                  Date
-                </label>
-                <input
-                  type="date"
-                  value={date}
-                  onChange={(e) => setDate(e.target.value)}
-                  className="w-full min-w-0 rounded-2xl border-[1.5px] border-hairline bg-mist px-4 py-3 text-[12px] font-medium text-slate-900 outline-none transition focus:border-accent focus:bg-white focus:ring-2 focus:ring-accent/20 sm:py-3.5"
-                />
-              </div>
-              <div className="min-w-0">
-                <label className="mb-1.5 block font-heading text-[9px] font-bold uppercase tracking-wide text-slate-500">
-                  Time
-                </label>
-                <input
-                  type="time"
-                  value={time}
-                  onChange={(e) => setTime(e.target.value)}
-                  className="w-full min-w-0 rounded-2xl border-[1.5px] border-hairline bg-mist px-4 py-3 text-[12px] font-medium text-slate-900 outline-none transition focus:border-accent focus:bg-white focus:ring-2 focus:ring-accent/20 sm:py-3.5"
-                />
-              </div>
+            <div className="mt-4.5 sm:mt-6">
+              <button
+                type="button"
+                onClick={() => setIsDateTimeOpen((prev) => !prev)}
+                aria-expanded={isDateTimeOpen}
+                className="flex w-full items-center justify-between gap-3 rounded-2xl border-[1.5px] border-hairline bg-mist px-4 py-3 text-left transition hover:border-accent sm:py-3.5"
+              >
+                <span className="flex items-center gap-2 font-heading text-[12px] font-bold text-navy">
+                  <CalendarClock className="h-4 w-4 text-slate-500" />
+                  Select date &amp; time
+                </span>
+                <span className="flex items-center gap-2 text-[11px] font-semibold text-slate-500">
+                  {formatDateSummary(date)} · {time}
+                  <ChevronDown
+                    className={`h-4 w-4 transition-transform ${isDateTimeOpen ? 'rotate-180' : ''}`}
+                  />
+                </span>
+              </button>
+
+              {isDateTimeOpen && (
+                <div className="mt-3.5 grid grid-cols-2 gap-3.5 sm:gap-5">
+                  <div className="min-w-0">
+                    <label className="mb-1.5 block font-heading text-[9px] font-bold uppercase tracking-wide text-slate-500">
+                      Date
+                    </label>
+                    <input
+                      type="date"
+                      value={date}
+                      onChange={(e) => setDate(e.target.value)}
+                      className="w-full min-w-0 rounded-2xl border-[1.5px] border-hairline bg-mist px-4 py-3 text-[12px] font-medium text-slate-900 outline-none transition focus:border-accent focus:bg-white focus:ring-2 focus:ring-accent/20 sm:py-3.5"
+                    />
+                  </div>
+                  <div className="min-w-0">
+                    <label className="mb-1.5 block font-heading text-[9px] font-bold uppercase tracking-wide text-slate-500">
+                      Time
+                    </label>
+                    <input
+                      type="time"
+                      value={time}
+                      onChange={(e) => setTime(e.target.value)}
+                      className="w-full min-w-0 rounded-2xl border-[1.5px] border-hairline bg-mist px-4 py-3 text-[12px] font-medium text-slate-900 outline-none transition focus:border-accent focus:bg-white focus:ring-2 focus:ring-accent/20 sm:py-3.5"
+                    />
+                  </div>
+                </div>
+              )}
             </div>
 
             <button

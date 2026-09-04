@@ -59,3 +59,13 @@ export function formatDayLabel(timestampSeconds: number): string {
     month: 'long',
   });
 }
+
+// Compact "Fri, 4 Sep" summary for a `YYYY-MM-DD` date string, used to preview
+// the current search date on the collapsed date/time picker.
+export function formatDateSummary(dateString: string): string {
+  return new Date(`${dateString}T00:00:00`).toLocaleDateString('en-GB', {
+    weekday: 'short',
+    day: 'numeric',
+    month: 'short',
+  });
+}
