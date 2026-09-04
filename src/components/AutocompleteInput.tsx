@@ -42,7 +42,7 @@ export function AutocompleteInput({ label, value, onSelect, excludeId }: Autocom
 
   return (
     <div className="relative w-full" ref={containerRef}>
-      <label className="mb-1.5 block font-heading text-[11.5px] font-bold uppercase tracking-wide text-slate-500">
+      <label className="mb-1.5 block font-heading text-[9px] font-bold uppercase tracking-wide text-slate-500 sm:text-[11.5px]">
         {label}
       </label>
       <div className="relative">
@@ -56,7 +56,7 @@ export function AutocompleteInput({ label, value, onSelect, excludeId }: Autocom
           }}
           onFocus={() => setIsOpen(true)}
           placeholder="Search for a lake pier…"
-          className="w-full rounded-2xl border-[1.5px] border-hairline bg-mist px-4 py-3 pl-10 text-[15px] font-medium text-slate-900 outline-none transition focus:border-accent focus:bg-white focus:ring-2 focus:ring-accent/20"
+          className="w-full rounded-2xl border-[1.5px] border-hairline bg-mist px-4 py-3 pl-10 text-[12px] font-medium text-slate-900 outline-none transition focus:border-accent focus:bg-white focus:ring-2 focus:ring-accent/20 sm:py-3.5 sm:pl-11 sm:text-[15px]"
         />
       </div>
       {isOpen && options.length > 0 && (

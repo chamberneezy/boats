@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 @theme {
-  /* Alpine Precision - Primary Brand Blue (#0B3C5D) */
-  --color-lake-dark: #0b3c5d;
-  --color-lake-blue: #0b3c5d;
-  --color-brand-primary: #0b3c5d;
-  --color-navy: #0b3c5d;
-  --color-navy-700: #082c46;
+  /* Alpine Precision - Primary Brand Blue (#005098) */
+  --color-lake-dark: #005098;
+  --color-lake-blue: #005098;
+  --color-brand-primary: #005098;
+  --color-navy: #005098;
+  --color-navy-700: #003d75;
 
   /* Alpine Precision - Swiss Red CTA (#D93829) */
   --color-lake-red: #d93829;
@@ -58,6 +58,23 @@
   }
   50% {
     transform: translate(0, 30%) rotate(6deg);
+  }
+}
+
+html {
+  font-size: 80%;
+  /* Some mobile browsers auto-inflate text in narrow columns ("font boosting"),
+     which can make an otherwise correctly-sized layout look blown up on a real
+     device even though it renders at the intended size everywhere else. */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* The compact 80% scale is a mobile fit fix — tablet/desktop has the room to
+   breathe, so restore the full scale there (matches Tailwind's `sm` breakpoint). */
+@media (min-width: 640px) {
+  html {
+    font-size: 100%;
   }
 }
 

@@ -21,7 +21,7 @@ interface QuickSelectChipsProps {
 
 export function QuickSelectChips({ activeName, onSelect }: QuickSelectChipsProps) {
   return (
-    <div className="mt-2.5 flex flex-wrap gap-1.5">
+    <div className="mt-2.5 flex flex-nowrap gap-1.5 overflow-x-auto">
       {POPULAR_PIERS.map(({ label, pier }) => {
         const isActive = activeName.toLowerCase().includes(label.toLowerCase());
         return (
@@ -29,7 +29,7 @@ export function QuickSelectChips({ activeName, onSelect }: QuickSelectChipsProps
             key={label}
             type="button"
             onClick={() => onSelect(pier)}
-            className={`rounded-full border px-3.5 py-2 text-[13.5px] font-semibold transition-colors ${
+            className={`flex-shrink-0 whitespace-nowrap rounded-full border px-3 py-1.5 text-[11px] font-semibold transition-colors sm:px-3.5 sm:py-2 sm:text-[13.5px] ${
               isActive
                 ? 'border-accent bg-accent text-white shadow-sm'
                 : 'border-hairline bg-white text-slate-700 hover:border-accent hover:bg-accent-100'

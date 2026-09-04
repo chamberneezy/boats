@@ -4,10 +4,10 @@ interface GeometricWaveIconProps {
 
 // Swiss Lakes mark: a motor launch cresting a wave, cut into a navy rounded
 // square with a Swiss-red pennant — mirrors the Swiss Lakes UI mockups' header logo.
-export function GeometricWaveIcon({ className = 'h-[42px] w-[42px]' }: GeometricWaveIconProps) {
+export function GeometricWaveIcon({ className = 'h-[34px] w-[34px] sm:h-[42px] sm:w-[42px]' }: GeometricWaveIconProps) {
   return (
-    <svg viewBox="0 0 44 44" className={`${className} rounded-[14px]`} aria-hidden="true">
-      <rect x="0" y="0" width="44" height="44" rx="14" fill="#0B3C5D" />
+    <svg viewBox="0 0 44 44" className={`${className} rounded-[11px] sm:rounded-[14px]`} aria-hidden="true">
+      <rect x="0" y="0" width="44" height="44" rx="14" fill="#005098" />
       <path
         d="M9 24l3-9a2 2 0 0 1 1.9-1.4h10.2a2 2 0 0 1 1.9 1.4l3 9"
         fill="none"

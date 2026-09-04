@@ -36,10 +36,10 @@ interface RouteTimelineProps {
 function RouteTimeline({ departure, arrival, isDirect }: RouteTimelineProps) {
   const progress = journeyProgress(departure.departureTimestamp, arrival.arrivalTimestamp);
   const progressPercent = `${progress * 100}%`;
-  // Keep the 18px-wide icon fully inside the track: its left edge lines up with
+  // Keep the 14px-wide icon fully inside the track: its left edge lines up with
   // the departure column at progress 0 and its right edge with the arrival
   // column at progress 1, instead of overhanging past either end.
-  const boatLeft = `calc(${progress * 100}% - ${progress * 18}px)`;
+  const boatLeft = `calc(${progress * 100}% - ${progress * 14}px)`;
 
   return (
     <div className="flex flex-col gap-3">
@@ -48,7 +48,7 @@ function RouteTimeline({ departure, arrival, isDirect }: RouteTimelineProps) {
           <div className="text-lg font-bold tabular-nums text-slate-900">
             {formatTime(departure.departureTimestamp)}
           </div>
-          <div className="max-w-[42vw] truncate text-[12.5px] font-semibold text-slate-500 sm:max-w-[220px]">
+          <div className="max-w-[42vw] truncate text-[10px] font-semibold text-slate-500 sm:max-w-[220px] sm:text-[12.5px]">
             {departure.station.name}
           </div>
         </div>
@@ -56,7 +56,7 @@ function RouteTimeline({ departure, arrival, isDirect }: RouteTimelineProps) {
           <div className="text-lg font-bold tabular-nums text-slate-900">
             {formatTime(arrival.arrivalTimestamp)}
           </div>
-          <div className="ml-auto max-w-[42vw] truncate text-[12.5px] font-semibold text-slate-500 sm:max-w-[220px]">
+          <div className="ml-auto max-w-[42vw] truncate text-[10px] font-semibold text-slate-500 sm:max-w-[220px] sm:text-[12.5px]">
             {arrival.station.name}
           </div>
         </div>
@@ -75,7 +75,7 @@ function RouteTimeline({ departure, arrival, isDirect }: RouteTimelineProps) {
         )}
         {isDirect && (
           <Ship
-            className="boat-marker absolute bottom-1/2 h-[18px] w-[18px] origin-bottom text-brass"
+            className="boat-marker absolute bottom-1/2 h-[14px] w-[14px] origin-bottom text-navy"
             style={{ left: boatLeft }}
             strokeWidth={2}
           />
@@ -112,10 +112,10 @@ export function ScheduleCard({ boatSections, duration }: ScheduleCardProps) {
             toggleExpanded();
           }
         }}
-        className="cursor-pointer p-6 transition-colors hover:bg-mist/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 focus-visible:ring-inset"
+        className="cursor-pointer p-6 transition-colors hover:bg-mist/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 focus-visible:ring-inset sm:p-8"
       >
         <div className="mb-4 flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
-          <div className="flex items-center gap-2 font-heading text-[15px] font-extrabold text-navy">
+          <div className="flex items-center gap-2 font-heading text-[12px] font-extrabold text-navy sm:text-[15px]">
             <span>{first.departure.station.name}</span>
             <ArrowRight className="h-3.5 w-3.5 text-slate-400" strokeWidth={2} />
             <span>{last.arrival.station.name}</span>
@@ -125,13 +125,13 @@ export function ScheduleCard({ boatSections, duration }: ScheduleCardProps) {
 
         <RouteTimeline departure={first.departure} arrival={last.arrival} isDirect={isDirect} />
 
-        <div className="mt-3 text-[12.5px] font-medium text-slate-600">
+        <div className="mt-3 text-[10px] font-medium text-slate-600 sm:text-[12.5px]">
           {transferLabel} · {formatDuration(duration)}
         </div>
       </div>
 
       {isExpanded && (
-        <div className="space-y-5 border-t border-hairline px-6 pb-6 pt-5">
+        <div className="space-y-5 border-t border-hairline px-6 pb-6 pt-5 sm:px-8 sm:pb-8">
           {boatSections.map((section, sectionIdx) => (
             <div key={sectionIdx}>
               {section.journey && (
@@ -149,9 +149,9 @@ export function ScheduleCard({ boatSections, duration }: ScheduleCardProps) {
                       <li key={stopIdx} className="flex gap-3.5">
                         <div className="flex w-3 flex-shrink-0 flex-col items-center">
                           {isEndpoint ? (
-                            <span className="mt-[3px] h-3 w-3 flex-shrink-0 rounded-full bg-accent shadow-[0_0_0_4px_var(--color-accent-100)]" />
+                            <span className="mt-[2px] h-3 w-3 flex-shrink-0 rounded-full bg-accent shadow-[0_0_0_3px_var(--color-accent-100)]" />
                           ) : (
-                            <span className="mt-[5px] h-2 w-2 flex-shrink-0 rounded-full border-2 border-slate-400 bg-white" />
+                            <span className="mt-[4px] h-2 w-2 flex-shrink-0 rounded-full border-2 border-slate-400 bg-white" />
                           )}
                           {!isLast && <span className="mt-1 w-0.5 flex-1 bg-hairline" />}
                         </div>
@@ -159,7 +159,7 @@ export function ScheduleCard({ boatSections, duration }: ScheduleCardProps) {
                           <div
                             className={
                               isEndpoint
-                                ? 'font-heading text-[15px] font-extrabold text-navy'
+                                ? 'font-heading text-[12px] font-extrabold text-navy sm:text-[15px]'
                                 : 'text-sm font-semibold text-slate-700'
                             }
                           >
@@ -168,7 +168,7 @@ export function ScheduleCard({ boatSections, duration }: ScheduleCardProps) {
                           <div
                             className={
                               isEndpoint
-                                ? 'text-[13px] font-medium tabular-nums text-slate-600'
+                                ? 'text-[10.5px] font-medium tabular-nums text-slate-600 sm:text-[13px]'
                                 : 'text-xs tabular-nums text-slate-500'
                             }
                           >
