@@ -42,9 +42,11 @@ export function AutocompleteInput({ label, value, onSelect, excludeId }: Autocom
 
   return (
     <div className="relative w-full" ref={containerRef}>
-      <label className="mb-1 block text-sm font-medium text-slate-500">{label}</label>
+      <label className="mb-1.5 block font-heading text-[11.5px] font-bold uppercase tracking-wide text-slate-500">
+        {label}
+      </label>
       <div className="relative">
-        <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+        <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
         <input
           type="text"
           value={inputText}
@@ -54,17 +56,17 @@ export function AutocompleteInput({ label, value, onSelect, excludeId }: Autocom
           }}
           onFocus={() => setIsOpen(true)}
           placeholder="Search for a lake pier…"
-          className="w-full rounded-lg border border-slate-200 bg-white py-2.5 pl-9 pr-9 text-sm text-slate-900 shadow-sm outline-none transition focus:border-lake-blue focus:ring-2 focus:ring-lake-blue/20"
+          className="w-full rounded-2xl border-[1.5px] border-hairline bg-mist px-4 py-3 pl-10 text-[15px] font-medium text-slate-900 outline-none transition focus:border-accent focus:bg-white focus:ring-2 focus:ring-accent/20"
         />
       </div>
       {isOpen && options.length > 0 && (
-        <ul className="absolute z-20 mt-1 max-h-60 w-full overflow-auto rounded-lg border border-slate-200 bg-white py-1 shadow-lg">
+        <ul className="absolute z-20 mt-1.5 max-h-60 w-full overflow-auto rounded-2xl border border-hairline bg-white py-1 shadow-lg">
           {options.map((option) => (
             <li key={option.id}>
               <button
                 type="button"
                 onClick={() => handleSelect(option)}
-                className="block w-full px-3 py-2 text-left text-sm text-slate-700 hover:bg-slate-50"
+                className="block w-full px-4 py-2.5 text-left text-sm font-medium text-slate-700 hover:bg-mist"
               >
                 {option.name}
               </button>

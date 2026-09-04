@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { ArrowLeftRight, ChevronDown, Ship } from 'lucide-react';
+import { ArrowLeftRight, ChevronDown, Compass, Ship } from 'lucide-react';
 import { AutocompleteInput } from './components/AutocompleteInput';
 import { GeometricWaveIcon, SwissLakesTitle } from './components/BrandAssets';
 import { QuickSelectChips } from './components/QuickSelectChips';
@@ -74,6 +74,18 @@ async function fetchConnectionsRaw(
   }
   if (!res.ok) throw new Error(GENERIC_ERROR_MESSAGE);
   return res.json();
+}
+
+function SkeletonCard() {
+  return (
+    <div className="rounded-3xl border border-hairline bg-white p-5 shadow-sm">
+      <div className="skel mb-4 h-4 w-[55%]" />
+      <div className="flex items-center justify-between">
+        <div className="skel h-[18px] w-[42%]" />
+        <div className="skel h-8 w-8 rounded-full" />
+      </div>
+    </div>
+  );
 }
 
 function App() {
@@ -197,91 +209,127 @@ function App() {
     setDestination(origin);
   }
 
+  function handleReset() {
+    setOrigin(EMPTY_PIER);
+    setDestination(EMPTY_PIER);
+    setDate(todayDateString());
+    setTime(nowTimeString());
+    setResults([]);
+    setHasSearched(false);
+    setError(null);
+    setIsLive(false);
+    setIsCached(false);
+    setIsStaticFallback(false);
+    setCachedAt(null);
+  }
+
+  const headerStatus = isLoading
+    ? { label: 'Checking…', dotClass: 'bg-slate-400', pillClass: 'bg-mist text-slate-600' }
+    : isLive && results.length > 0
+      ? { label: 'Live schedule', dotClass: 'bg-emerald-500', pillClass: 'bg-accent-100 text-accent-700' }
+      : isCached
+        ? { label: 'Cached results', dotClass: 'bg-amber-500', pillClass: 'bg-amber-50 text-amber-800' }
+        : isStaticFallback
+          ? { label: 'Offline data', dotClass: 'bg-orange-500', pillClass: 'bg-orange-50 text-orange-800' }
+          : null;
+
   return (
-    <div className="min-h-screen bg-slate-50">
-      <header className="bg-lake-blue px-4 py-4 text-white shadow-md">
-        <div className="mx-auto flex max-w-3xl items-center gap-3">
+    <div className="min-h-screen bg-page text-[#0b2a3d]">
+      <header className="flex items-center justify-between gap-4 border-b border-hairline bg-white px-6 py-5 sm:px-10">
+        <div className="flex items-center gap-3">
           <GeometricWaveIcon />
           <SwissLakesTitle />
         </div>
+        {headerStatus ? (
+          <span className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 font-heading text-[11.5px] font-bold tracking-wide ${headerStatus.pillClass}`}>
+            <span className={`h-[7px] w-[7px] rounded-full ${headerStatus.dotClass}`} />
+            {headerStatus.label}
+          </span>
+        ) : (
+          <span className="inline-flex items-center gap-2 rounded-full bg-accent-100 px-3 py-1.5 font-heading text-[11.5px] font-bold tracking-wide text-accent-700">
+            <Compass className="h-3.5 w-3.5" />
+            Lake Lucerne
+          </span>
+        )}
       </header>
 
-      <main className="mx-auto max-w-3xl px-4 py-6">
-        <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-          <div className="grid gap-4 sm:grid-cols-[1fr_auto_1fr] sm:items-end">
-            <div>
-              <QuickSelectChips activeName={origin.name} onSelect={setOrigin} />
-              <AutocompleteInput label="Origin" value={origin} onSelect={setOrigin} />
+      <main className="mx-auto flex max-w-[720px] flex-col gap-11 px-6 pb-24 pt-11">
+        <section>
+          <h2 className="mb-4 font-heading text-2xl font-extrabold text-navy">Find a sailing</h2>
+
+          <div className="rounded-3xl border border-hairline bg-white p-6 shadow-sm">
+            <div className="grid gap-3.5 sm:grid-cols-[1fr_auto_1fr] sm:items-start">
+              <div>
+                <AutocompleteInput label="Origin" value={origin} onSelect={setOrigin} />
+                <QuickSelectChips activeName={origin.name} onSelect={setOrigin} />
+              </div>
+
+              <button
+                type="button"
+                onClick={handleSwap}
+                title="Swap origin and destination"
+                className="mx-auto flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-navy text-white shadow-sm transition hover:brightness-110 sm:mt-[26px]"
+              >
+                <ArrowLeftRight className="h-[18px] w-[18px]" />
+              </button>
+
+              <div>
+                <AutocompleteInput
+                  label="Destination"
+                  value={destination}
+                  onSelect={setDestination}
+                  excludeId={origin.id || undefined}
+                />
+                <QuickSelectChips activeName={destination.name} onSelect={setDestination} />
+              </div>
+            </div>
+
+            <div className="mt-4.5 grid grid-cols-2 gap-3.5">
+              <div className="min-w-0">
+                <label className="mb-1.5 block font-heading text-[11.5px] font-bold uppercase tracking-wide text-slate-500">
+                  Date
+                </label>
+                <input
+                  type="date"
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
+                  className="w-full min-w-0 rounded-2xl border-[1.5px] border-hairline bg-mist px-4 py-3 text-[15px] font-medium text-slate-900 outline-none transition focus:border-accent focus:bg-white focus:ring-2 focus:ring-accent/20"
+                />
+              </div>
+              <div className="min-w-0">
+                <label className="mb-1.5 block font-heading text-[11.5px] font-bold uppercase tracking-wide text-slate-500">
+                  Time
+                </label>
+                <input
+                  type="time"
+                  value={time}
+                  onChange={(e) => setTime(e.target.value)}
+                  className="w-full min-w-0 rounded-2xl border-[1.5px] border-hairline bg-mist px-4 py-3 text-[15px] font-medium text-slate-900 outline-none transition focus:border-accent focus:bg-white focus:ring-2 focus:ring-accent/20"
+                />
+              </div>
             </div>
 
             <button
               type="button"
-              onClick={handleSwap}
-              title="Swap origin and destination"
-              className="mx-auto flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 transition hover:border-lake-dark/40 hover:text-lake-dark sm:mb-0.5"
+              onClick={() => runSearch(origin, destination, date, time)}
+              disabled={isLoading || !origin.id || !destination.id}
+              className="mt-5 flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-b from-accent to-accent-600 py-3.5 font-heading text-[15px] font-bold text-white shadow-md transition hover:-translate-y-px hover:shadow-lg disabled:translate-y-0 disabled:opacity-60 disabled:shadow-none"
             >
-              <ArrowLeftRight className="h-4 w-4" />
+              <Ship className="h-[17px] w-[17px]" />
+              {isLoading ? 'Searching…' : 'Search Sailings'}
             </button>
-
-            <div>
-              <QuickSelectChips activeName={destination.name} onSelect={setDestination} />
-              <AutocompleteInput
-                label="Destination"
-                value={destination}
-                onSelect={setDestination}
-                excludeId={origin.id || undefined}
-              />
-            </div>
           </div>
+        </section>
 
-          <div className="mt-4 grid grid-cols-2 gap-4">
-            <div className="min-w-0">
-              <label className="mb-1 block text-sm font-medium text-slate-500">Date</label>
-              <input
-                type="date"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                className="w-full min-w-0 rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-lake-dark focus:ring-2 focus:ring-lake-dark/20"
-              />
-            </div>
-            <div className="min-w-0">
-              <label className="mb-1 block text-sm font-medium text-slate-500">Time</label>
-              <input
-                type="time"
-                value={time}
-                onChange={(e) => setTime(e.target.value)}
-                className="w-full min-w-0 rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-lake-dark focus:ring-2 focus:ring-lake-dark/20"
-              />
-            </div>
-          </div>
-
-          <button
-            type="button"
-            onClick={() => runSearch(origin, destination, date, time)}
-            disabled={isLoading || !origin.id || !destination.id}
-            className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-lake-red px-4 py-2.5 text-sm font-semibold tracking-tight text-white shadow-lg shadow-lake-red/25 transition hover:brightness-110 disabled:shadow-none disabled:opacity-60"
-          >
-            <Ship className="h-4 w-4" />
-            {isLoading ? 'Searching…' : 'Search Sailings'}
-          </button>
-        </div>
-
-        <div className="mt-6 space-y-4">
+        <section className="flex flex-col gap-3.5">
           {error && (
-            <div className="rounded-lg border border-lake-red/30 bg-red-50 px-4 py-3 text-sm text-lake-red">
+            <div className="rounded-2xl border border-brass/30 bg-brass-100 px-5 py-4 text-sm font-medium text-brass-700">
               {error}
             </div>
           )}
 
-          {isLive && results.length > 0 && (
-            <div className="flex items-center gap-1.5 text-xs font-medium text-emerald-600">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-              Live schedule
-            </div>
-          )}
-
           {isCached && cachedAt && (
-            <div className="rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-800">
+            <div className="rounded-2xl border border-amber-200 bg-amber-50 px-5 py-4 text-sm font-medium text-amber-800">
               Showing cached results from{' '}
               {new Date(cachedAt).toLocaleTimeString('de-CH', { hour: '2-digit', minute: '2-digit' })} — may not
               reflect live updates.
@@ -289,57 +337,86 @@ function App() {
           )}
 
           {isStaticFallback && (
-            <div className="rounded-lg border border-orange-300 bg-orange-50 px-4 py-3 text-sm text-orange-800">
+            <div className="rounded-2xl border border-orange-200 bg-orange-50 px-5 py-4 text-sm font-medium text-orange-800">
               Live and cached data are both unavailable. Showing an approximate {FALLBACK_SEASON_LABEL} baseline
               schedule — please verify exact times at lakelucerne.ch before traveling.
             </div>
           )}
 
-          {!error && !isLoading && !hasSearched && (
-            <div className="rounded-lg border border-slate-200 bg-white px-4 py-6 text-center text-sm text-slate-500">
+          {isLoading && results.length === 0 && (
+            <>
+              <h3 className="font-heading text-2xl font-extrabold text-navy">Fetching sailings</h3>
+              <SkeletonCard />
+              <SkeletonCard />
+            </>
+          )}
+
+          {!isLoading && !error && !hasSearched && (
+            <div className="rounded-3xl border border-hairline bg-white px-5 py-8 text-center text-sm font-medium text-slate-600">
               Choose an origin and destination, then search for sailings.
             </div>
           )}
 
-          {!error && !isCached && !isStaticFallback && !isLoading && hasSearched && results.length === 0 && (
-            <div className="rounded-lg border border-slate-200 bg-white px-4 py-6 text-center text-sm text-slate-500">
-              No boat connections found for this route.
+          {!isLoading && !error && !isCached && !isStaticFallback && hasSearched && results.length === 0 && (
+            <div className="flex items-start gap-4 rounded-3xl border border-hairline bg-white p-6 shadow-sm">
+              <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-mist">
+                <Ship className="h-[22px] w-[22px] text-slate-600" />
+              </div>
+              <div>
+                <div className="mb-1 font-heading text-base font-extrabold text-navy">No boat connections found</div>
+                <p className="mb-4 text-sm leading-relaxed text-slate-600">
+                  No sailings run between these piers at the selected time. Try an earlier departure, or confirm the
+                  route on the SGV timetable.
+                </p>
+                <button
+                  type="button"
+                  onClick={handleReset}
+                  className="rounded-full bg-mist px-5 py-2.5 font-heading text-sm font-bold text-navy transition hover:bg-accent-100"
+                >
+                  Reset search
+                </button>
+              </div>
             </div>
           )}
 
-          {results.map(({ connection, boatSections }, idx) => {
-            const departureTimestamp = connection.from.departureTimestamp;
-            const previousTimestamp = idx > 0 ? results[idx - 1].connection.from.departureTimestamp : null;
-            const showDateLabel =
-              idx > 0 &&
-              departureTimestamp !== null &&
-              previousTimestamp !== null &&
-              !isSameDay(departureTimestamp, previousTimestamp);
+          {results.length > 0 && (
+            <>
+              <h3 className="font-heading text-2xl font-extrabold text-navy">Sailings found</h3>
+              <div className="flex flex-col gap-3.5">
+                {results.map(({ connection, boatSections }, idx) => {
+                  const departureTimestamp = connection.from.departureTimestamp;
+                  const previousTimestamp = idx > 0 ? results[idx - 1].connection.from.departureTimestamp : null;
+                  const showDateLabel =
+                    idx > 0 &&
+                    departureTimestamp !== null &&
+                    previousTimestamp !== null &&
+                    !isSameDay(departureTimestamp, previousTimestamp);
 
-            return (
-              <div key={idx}>
-                {showDateLabel && (
-                  <div className="mb-2 mt-2 text-xs font-semibold uppercase tracking-wide text-stone-grey">
-                    {formatDayLabel(departureTimestamp)}
-                  </div>
-                )}
-                <ScheduleCard boatSections={boatSections} duration={connection.duration} />
+                  return (
+                    <div key={idx}>
+                      {showDateLabel && (
+                        <div className="mb-3.5 font-heading text-[11.5px] font-bold uppercase tracking-wide text-accent-700">
+                          {formatDayLabel(departureTimestamp)}
+                        </div>
+                      )}
+                      <ScheduleCard boatSections={boatSections} duration={connection.duration} />
+                    </div>
+                  );
+                })}
               </div>
-            );
-          })}
 
-          {!error && results.length > 0 && (
-            <button
-              type="button"
-              onClick={handleLoadLater}
-              disabled={isLoadingMore || isLoading}
-              className="flex w-full items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-lake-dark shadow-sm transition hover:bg-slate-50 disabled:opacity-60"
-            >
-              <ChevronDown className="h-4 w-4" />
-              {isLoadingMore ? 'Loading…' : 'Show More Connections'}
-            </button>
+              <button
+                type="button"
+                onClick={handleLoadLater}
+                disabled={isLoadingMore || isLoading}
+                className="flex w-full items-center justify-center gap-2 rounded-full bg-mist px-4 py-3 font-heading text-sm font-bold text-navy transition hover:bg-accent-100 disabled:opacity-60"
+              >
+                <ChevronDown className="h-4 w-4" />
+                {isLoadingMore ? 'Loading…' : 'Show More Connections'}
+              </button>
+            </>
           )}
-        </div>
+        </section>
       </main>
     </div>
   );

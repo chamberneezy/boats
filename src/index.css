@@ -5,10 +5,15 @@
   --color-lake-dark: #0b3c5d;
   --color-lake-blue: #0b3c5d;
   --color-brand-primary: #0b3c5d;
+  --color-navy: #0b3c5d;
+  --color-navy-700: #082c46;
 
   /* Alpine Precision - Swiss Red CTA (#D93829) */
   --color-lake-red: #d93829;
   --color-brand-cta: #d93829;
+  --color-brass: #d93829;
+  --color-brass-100: #fbe3e0;
+  --color-brass-700: #a52a1e;
 
   /* Alpine Precision - Glacier White (#FBFDFF) */
   --color-glacier-white: #fbfdff;
@@ -18,18 +23,72 @@
 
   /* Alpine Precision - Accent Surface Light (#EBF3F8) */
   --color-lake-accent: #ebf3f8;
+
+  /* Sky accent (interactive) + supporting surfaces from the Swiss Lakes mockups */
+  --color-accent: #0284c7;
+  --color-accent-100: #e0f0fa;
+  --color-accent-600: #026da3;
+  --color-accent-700: #025685;
+  --color-mist: #f0f7ff;
+  --color-hairline: #dde9f6;
+  --color-page: #eef4fb;
+
+  --font-heading: "Manrope", sans-serif;
+  --font-body: "Inter", sans-serif;
+
+  --shadow-sm: 0 1px 2px rgba(11, 60, 93, 0.06), 0 1px 1px rgba(11, 60, 93, 0.04);
+  --shadow-md: 0 8px 24px rgba(11, 60, 93, 0.1), 0 2px 6px rgba(11, 60, 93, 0.05);
+  --shadow-lg: 0 16px 40px rgba(11, 60, 93, 0.14), 0 4px 10px rgba(11, 60, 93, 0.06);
+}
+
+@keyframes shimmer {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+
+@keyframes boat-bob {
+  0%,
+  100% {
+    transform: translate(-50%, 10%) rotate(-6deg);
+  }
+  50% {
+    transform: translate(-50%, 30%) rotate(6deg);
+  }
 }
 
 body {
   margin: 0;
-  background-color: #fbfdff;
+  background-color: var(--color-page);
   color: #1e293b;
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial,
+  font-family: var(--font-body), -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial,
     sans-serif;
   line-height: 1.5;
   letter-spacing: -0.01em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading), sans-serif;
+}
+
+.boat-marker {
+  animation: boat-bob 1.6s ease-in-out infinite;
+}
+
+.skel {
+  background: linear-gradient(90deg, var(--color-mist), #e3edf9, var(--color-mist));
+  border-radius: 12px;
+  animation: shimmer 1.4s ease-in-out infinite;
 }

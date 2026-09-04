@@ -2,29 +2,30 @@ interface GeometricWaveIconProps {
   className?: string;
 }
 
-// Alpine Precision mark: Swiss Red hull/wake chevron cutting through a Deep
-// Blue mountain peak. Two-tone by design, so each shape is pinned to its
-// brand hex rather than using fill-current.
-export function GeometricWaveIcon({ className = 'h-9 w-9' }: GeometricWaveIconProps) {
+// Swiss Lakes mark: a motor launch cresting a wave, cut into a navy rounded
+// square with a Swiss-red pennant — mirrors the Swiss Lakes UI mockups' header logo.
+export function GeometricWaveIcon({ className = 'h-[42px] w-[42px]' }: GeometricWaveIconProps) {
   return (
-    <svg
-      viewBox="0 0 100 100"
-      className={className}
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-    >
-      {/* Mountain Peak / Deep Water Triangle - stroked in Glacier White so its
-          shape still reads when placed on the header's matching blue background */}
-      <polygon
-        points="20,85 85,85 52.5,20"
-        fill="#0B3C5D"
-        stroke="#FBFDFF"
-        strokeWidth="2.5"
+    <svg viewBox="0 0 44 44" className={`${className} rounded-[14px]`} aria-hidden="true">
+      <rect x="0" y="0" width="44" height="44" rx="14" fill="#0B3C5D" />
+      <path
+        d="M9 24l3-9a2 2 0 0 1 1.9-1.4h10.2a2 2 0 0 1 1.9 1.4l3 9"
+        fill="none"
+        stroke="#f0f7ff"
+        strokeWidth="1.7"
+        strokeLinecap="round"
         strokeLinejoin="round"
       />
-      {/* Red Chevron (Hull / Wake Cutting Through) */}
-      <polygon points="10,55 45,25 40,45 80,45 35,75 40,55" fill="#D93829" />
+      <line x1="22" y1="13.6" x2="22" y2="7" stroke="#f0f7ff" strokeWidth="1.7" strokeLinecap="round" />
+      <path d="M22 7h5l-2.5 3.4z" fill="#D93829" />
+      <path d="M6 25.5h32l-2.6 5.4a3 3 0 0 1-2.7 1.7H11.3a3 3 0 0 1-2.7-1.7z" fill="#f0f7ff" />
+      <path
+        d="M5 34c2 1.6 4 1.6 6 0s4-1.6 6 0 4 1.6 6 0 4-1.6 6 0 4 1.6 6 0"
+        stroke="#0284C7"
+        strokeWidth="1.8"
+        fill="none"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
@@ -32,14 +33,9 @@ export function GeometricWaveIcon({ className = 'h-9 w-9' }: GeometricWaveIconPr
 // Responsive Brand Title Header
 export function SwissLakesTitle() {
   return (
-    <div className="flex flex-col leading-none">
-      <div className="flex items-center gap-1.5 text-xl font-extrabold tracking-tight">
-        <span className="text-white">SWISS</span>
-        <span className="text-[#D93829]">LAKES</span>
-      </div>
-      <span className="mt-1 text-xs font-medium tracking-wide text-slate-300">
-        Water Transit &amp; Ferry Schedules
-      </span>
+    <div className="flex flex-col leading-[1.15]">
+      <h1 className="text-xl font-extrabold tracking-tight text-navy">Swiss Lakes</h1>
+      <span className="mt-0.5 text-xs font-medium text-stone-grey">Lake Lucerne Boat Schedule</span>
     </div>
   );
 }
