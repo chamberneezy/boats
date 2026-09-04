@@ -36,6 +36,10 @@ interface RouteTimelineProps {
 function RouteTimeline({ departure, arrival, isDirect }: RouteTimelineProps) {
   const progress = journeyProgress(departure.departureTimestamp, arrival.arrivalTimestamp);
   const progressPercent = `${progress * 100}%`;
+  // Keep the 18px-wide icon fully inside the track: its left edge lines up with
+  // the departure column at progress 0 and its right edge with the arrival
+  // column at progress 1, instead of overhanging past either end.
+  const boatLeft = `calc(${progress * 100}% - ${progress * 18}px)`;
 
   return (
     <div className="flex flex-col gap-3">
@@ -66,11 +70,13 @@ function RouteTimeline({ departure, arrival, isDirect }: RouteTimelineProps) {
             style={{ width: progressPercent }}
           />
         )}
-        <span className="absolute left-0 top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-slate-400" />
+        {!isDirect && (
+          <span className="absolute left-0 top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-slate-400" />
+        )}
         {isDirect && (
           <Ship
             className="boat-marker absolute bottom-1/2 h-[18px] w-[18px] origin-bottom text-brass"
-            style={{ left: progressPercent }}
+            style={{ left: boatLeft }}
             strokeWidth={2}
           />
         )}

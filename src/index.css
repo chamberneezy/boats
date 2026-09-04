@@ -54,10 +54,10 @@
 @keyframes boat-bob {
   0%,
   100% {
-    transform: translate(-50%, 10%) rotate(-6deg);
+    transform: translate(0, 10%) rotate(-6deg);
   }
   50% {
-    transform: translate(-50%, 30%) rotate(6deg);
+    transform: translate(0, 30%) rotate(6deg);
   }
 }
 
