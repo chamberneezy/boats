@@ -382,7 +382,7 @@ function App() {
           {results.length > 0 && (
             <>
               <h3 className="font-heading text-2xl font-extrabold text-navy">Sailings found</h3>
-              <div className="flex flex-col gap-3.5">
+              <div className="flex flex-col gap-4">
                 {results.map(({ connection, boatSections }, idx) => {
                   const departureTimestamp = connection.from.departureTimestamp;
                   const previousTimestamp = idx > 0 ? results[idx - 1].connection.from.departureTimestamp : null;

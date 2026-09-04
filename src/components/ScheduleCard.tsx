@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowRight, ChevronDown, Ship } from 'lucide-react';
+import { ArrowRight, Ship } from 'lucide-react';
 import type { Section, StopTime } from '../types';
 import { formatDuration, formatTime } from '../utils';
 import { CategoryBadge } from './CategoryBadge';
@@ -31,22 +31,34 @@ interface RouteTimelineProps {
   isDirect: boolean;
 }
 
+// Times and pier names sit in their own row so the connecting line always
+// spans the card's full width, unconstrained by how long the pier names are.
 function RouteTimeline({ departure, arrival, isDirect }: RouteTimelineProps) {
   const progress = journeyProgress(departure.departureTimestamp, arrival.arrivalTimestamp);
   const progressPercent = `${progress * 100}%`;
 
   return (
-    <div className="flex items-center gap-3.5">
-      <div className="flex min-w-0 flex-shrink-0 flex-col gap-0.5">
-        <span className="text-base font-bold tabular-nums text-slate-900">
-          {formatTime(departure.departureTimestamp)}
-        </span>
-        <span className="max-w-[110px] truncate text-[11.5px] font-semibold text-slate-500">
-          {departure.station.name}
-        </span>
+    <div className="flex flex-col gap-3">
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <div className="text-lg font-bold tabular-nums text-slate-900">
+            {formatTime(departure.departureTimestamp)}
+          </div>
+          <div className="max-w-[42vw] truncate text-[12.5px] font-semibold text-slate-500 sm:max-w-[220px]">
+            {departure.station.name}
+          </div>
+        </div>
+        <div className="min-w-0 text-right">
+          <div className="text-lg font-bold tabular-nums text-slate-900">
+            {formatTime(arrival.arrivalTimestamp)}
+          </div>
+          <div className="ml-auto max-w-[42vw] truncate text-[12.5px] font-semibold text-slate-500 sm:max-w-[220px]">
+            {arrival.station.name}
+          </div>
+        </div>
       </div>
 
-      <div className="relative h-4 flex-1">
+      <div className="relative h-4 w-full">
         <span className="absolute inset-x-0 top-1/2 h-0.5 -translate-y-1/2 rounded-full bg-hairline" />
         {isDirect && (
           <span
@@ -64,15 +76,6 @@ function RouteTimeline({ departure, arrival, isDirect }: RouteTimelineProps) {
         )}
         <span className="absolute right-0 top-1/2 h-2 w-2 -translate-y-1/2 translate-x-1/2 rounded-full bg-slate-900" />
       </div>
-
-      <div className="flex min-w-0 flex-shrink-0 flex-col items-end gap-0.5">
-        <span className="text-base font-bold tabular-nums text-slate-900">
-          {formatTime(arrival.arrivalTimestamp)}
-        </span>
-        <span className="max-w-[110px] truncate text-[11.5px] font-semibold text-slate-500">
-          {arrival.station.name}
-        </span>
-      </div>
     </div>
   );
 }
@@ -86,46 +89,43 @@ export function ScheduleCard({ boatSections, duration }: ScheduleCardProps) {
     ? 'Direct'
     : `${boatSections.length - 1} transfer${boatSections.length - 1 > 1 ? 's' : ''}`;
 
+  function toggleExpanded() {
+    setIsExpanded((prev) => !prev);
+  }
+
   return (
-    <div className="rounded-3xl border border-hairline bg-white p-5 shadow-sm">
-      <div className="mb-3.5 flex items-center justify-between gap-3">
-        <div className="flex items-center gap-2 font-heading text-[15px] font-extrabold text-navy">
-          <span>{first.departure.station.name}</span>
-          <ArrowRight className="h-3.5 w-3.5 text-slate-400" strokeWidth={2} />
-          <span>{last.arrival.station.name}</span>
-        </div>
-        {first.journey && <CategoryBadge category={first.journey.category} />}
-      </div>
-
-      <button
-        type="button"
-        onClick={() => setIsExpanded((prev) => !prev)}
+    <div className="overflow-hidden rounded-3xl border border-hairline bg-white shadow-sm">
+      <div
+        role="button"
+        tabIndex={0}
         aria-expanded={isExpanded}
-        className="flex w-full items-center gap-3.5 text-left"
+        onClick={toggleExpanded}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleExpanded();
+          }
+        }}
+        className="cursor-pointer p-6 transition-colors hover:bg-mist/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 focus-visible:ring-inset"
       >
-        <div className="flex-1">
-          <RouteTimeline departure={first.departure} arrival={last.arrival} isDirect={isDirect} />
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
+          <div className="flex items-center gap-2 font-heading text-[15px] font-extrabold text-navy">
+            <span>{first.departure.station.name}</span>
+            <ArrowRight className="h-3.5 w-3.5 text-slate-400" strokeWidth={2} />
+            <span>{last.arrival.station.name}</span>
+          </div>
+          {first.journey && <CategoryBadge category={first.journey.category} />}
         </div>
-        <span
-          className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full transition-colors ${
-            isExpanded ? 'bg-accent-100' : 'bg-mist'
-          }`}
-        >
-          <ChevronDown
-            className={`h-[15px] w-[15px] transition-transform ${
-              isExpanded ? 'rotate-180 text-accent-700' : 'text-navy'
-            }`}
-            strokeWidth={2.2}
-          />
-        </span>
-      </button>
 
-      <div className="mt-2 text-[12.5px] font-medium text-slate-600">
-        {transferLabel} · {formatDuration(duration)}
+        <RouteTimeline departure={first.departure} arrival={last.arrival} isDirect={isDirect} />
+
+        <div className="mt-3 text-[12.5px] font-medium text-slate-600">
+          {transferLabel} · {formatDuration(duration)}
+        </div>
       </div>
 
       {isExpanded && (
-        <div className="mt-4 space-y-4 border-t border-hairline pt-4">
+        <div className="space-y-5 border-t border-hairline px-6 pb-6 pt-5">
           {boatSections.map((section, sectionIdx) => (
             <div key={sectionIdx}>
               {section.journey && (
@@ -149,7 +149,7 @@ export function ScheduleCard({ boatSections, duration }: ScheduleCardProps) {
                           )}
                           {!isLast && <span className="mt-1 w-0.5 flex-1 bg-hairline" />}
                         </div>
-                        <div className={isLast ? 'pb-0' : 'pb-4.5'}>
+                        <div className={isLast ? 'pb-0' : 'pb-5'}>
                           <div
                             className={
                               isEndpoint
