@@ -29,7 +29,7 @@ export function QuickSelectChips({ activeName, onSelect }: QuickSelectChipsProps
             key={label}
             type="button"
             onClick={() => onSelect(pier)}
-            className={`flex-shrink-0 whitespace-nowrap rounded-full border px-3 py-1.5 text-[11px] font-semibold transition-colors sm:px-3.5 sm:py-2 sm:text-[13.5px] ${
+            className={`flex-shrink-0 whitespace-nowrap rounded-full border px-3 py-1.5 text-[11px] font-semibold transition-colors ${
               isActive
                 ? 'border-accent bg-accent text-white shadow-sm'
                 : 'border-hairline bg-white text-slate-700 hover:border-accent hover:bg-accent-100'

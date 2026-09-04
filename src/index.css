@@ -80,14 +80,6 @@ body {
   max-width: 100%;
 }
 
-/* The compact 80% scale is a mobile fit fix — tablet/desktop has the room to
-   breathe, so restore the full scale there (matches Tailwind's `sm` breakpoint). */
-@media (min-width: 640px) {
-  html {
-    font-size: 100%;
-  }
-}
-
 body {
   margin: 0;
   background-color: var(--color-page);

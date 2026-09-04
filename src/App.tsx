@@ -241,19 +241,19 @@ function App() {
           <SwissLakesTitle />
         </div>
         {headerStatus ? (
-          <span className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 font-heading text-[9px] font-bold tracking-wide sm:text-[11.5px] ${headerStatus.pillClass}`}>
-            <span className={`h-[6px] w-[6px] rounded-full sm:h-[7px] sm:w-[7px] ${headerStatus.dotClass}`} />
+          <span className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 font-heading text-[9px] font-bold tracking-wide ${headerStatus.pillClass}`}>
+            <span className={`h-[6px] w-[6px] rounded-full ${headerStatus.dotClass}`} />
             {headerStatus.label}
           </span>
         ) : (
-          <span className="inline-flex items-center gap-2 rounded-full bg-accent-100 px-3 py-1.5 font-heading text-[9px] font-bold tracking-wide text-accent-700 sm:text-[11.5px]">
+          <span className="inline-flex items-center gap-2 rounded-full bg-accent-100 px-3 py-1.5 font-heading text-[9px] font-bold tracking-wide text-accent-700">
             <Compass className="h-3.5 w-3.5" />
             Lake Lucerne
           </span>
         )}
       </header>
 
-      <main className="mx-auto flex max-w-[760px] flex-col gap-11 px-6 pb-24 pt-11 sm:gap-14 sm:px-10 sm:pb-32 sm:pt-16">
+      <main className="mx-auto flex max-w-[900px] flex-col gap-11 px-6 pb-24 pt-11 sm:gap-14 sm:px-10 sm:pb-32 sm:pt-16">
         <section>
           <h2 className="mb-4 font-heading text-2xl font-extrabold text-navy">Find a sailing</h2>
 
@@ -270,7 +270,7 @@ function App() {
                 title="Swap origin and destination"
                 className="mx-auto flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-navy text-white shadow-sm transition hover:brightness-110 sm:mt-[26px]"
               >
-                <ArrowLeftRight className="h-[14px] w-[14px] sm:h-[18px] sm:w-[18px]" />
+                <ArrowLeftRight className="h-[14px] w-[14px]" />
               </button>
 
               <div className="min-w-0">
@@ -286,25 +286,25 @@ function App() {
 
             <div className="mt-4.5 grid grid-cols-2 gap-3.5 sm:mt-6 sm:gap-5">
               <div className="min-w-0">
-                <label className="mb-1.5 block font-heading text-[9px] font-bold uppercase tracking-wide text-slate-500 sm:text-[11.5px]">
+                <label className="mb-1.5 block font-heading text-[9px] font-bold uppercase tracking-wide text-slate-500">
                   Date
                 </label>
                 <input
                   type="date"
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
-                  className="w-full min-w-0 rounded-2xl border-[1.5px] border-hairline bg-mist px-4 py-3 text-[12px] font-medium text-slate-900 outline-none transition focus:border-accent focus:bg-white focus:ring-2 focus:ring-accent/20 sm:px-5 sm:py-3.5 sm:text-[15px]"
+                  className="w-full min-w-0 rounded-2xl border-[1.5px] border-hairline bg-mist px-4 py-3 text-[12px] font-medium text-slate-900 outline-none transition focus:border-accent focus:bg-white focus:ring-2 focus:ring-accent/20 sm:py-3.5"
                 />
               </div>
               <div className="min-w-0">
-                <label className="mb-1.5 block font-heading text-[9px] font-bold uppercase tracking-wide text-slate-500 sm:text-[11.5px]">
+                <label className="mb-1.5 block font-heading text-[9px] font-bold uppercase tracking-wide text-slate-500">
                   Time
                 </label>
                 <input
                   type="time"
                   value={time}
                   onChange={(e) => setTime(e.target.value)}
-                  className="w-full min-w-0 rounded-2xl border-[1.5px] border-hairline bg-mist px-4 py-3 text-[12px] font-medium text-slate-900 outline-none transition focus:border-accent focus:bg-white focus:ring-2 focus:ring-accent/20 sm:px-5 sm:py-3.5 sm:text-[15px]"
+                  className="w-full min-w-0 rounded-2xl border-[1.5px] border-hairline bg-mist px-4 py-3 text-[12px] font-medium text-slate-900 outline-none transition focus:border-accent focus:bg-white focus:ring-2 focus:ring-accent/20 sm:py-3.5"
                 />
               </div>
             </div>
@@ -313,9 +313,9 @@ function App() {
               type="button"
               onClick={() => runSearch(origin, destination, date, time)}
               disabled={isLoading || !origin.id || !destination.id}
-              className="mt-5 flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-b from-accent to-accent-600 py-3.5 font-heading text-[12px] font-bold text-white shadow-md transition hover:-translate-y-px hover:shadow-lg disabled:translate-y-0 disabled:opacity-60 disabled:shadow-none sm:mt-6 sm:py-4 sm:text-[15px]"
+              className="mt-5 flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-b from-accent to-accent-600 py-3.5 font-heading text-[12px] font-bold text-white shadow-md transition hover:-translate-y-px hover:shadow-lg disabled:translate-y-0 disabled:opacity-60 disabled:shadow-none sm:mt-6 sm:py-4"
             >
-              <Ship className="h-[14px] w-[14px] sm:h-[17px] sm:w-[17px]" />
+              <Ship className="h-[14px] w-[14px]" />
               {isLoading ? 'Searching…' : 'Search Sailings'}
             </button>
           </div>
@@ -360,7 +360,7 @@ function App() {
           {!isLoading && !error && !isCached && !isStaticFallback && hasSearched && results.length === 0 && (
             <div className="flex items-start gap-4 rounded-3xl border border-hairline bg-white p-6 shadow-sm sm:p-8">
               <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-mist">
-                <Ship className="h-[18px] w-[18px] text-slate-600 sm:h-[22px] sm:w-[22px]" />
+                <Ship className="h-[18px] w-[18px] text-slate-600" />
               </div>
               <div>
                 <div className="mb-1 font-heading text-base font-extrabold text-navy">No boat connections found</div>
@@ -395,7 +395,7 @@ function App() {
                   return (
                     <div key={idx}>
                       {showDateLabel && (
-                        <div className="mb-3.5 font-heading text-[9px] font-bold uppercase tracking-wide text-accent-700 sm:text-[11.5px]">
+                        <div className="mb-3.5 font-heading text-[9px] font-bold uppercase tracking-wide text-accent-700">
                           {formatDayLabel(departureTimestamp)}
                         </div>
                       )}

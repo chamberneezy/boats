@@ -48,7 +48,7 @@ function RouteTimeline({ departure, arrival, isDirect }: RouteTimelineProps) {
           <div className="text-lg font-bold tabular-nums text-slate-900">
             {formatTime(departure.departureTimestamp)}
           </div>
-          <div className="max-w-[42vw] truncate text-[10px] font-semibold text-slate-500 sm:max-w-[220px] sm:text-[12.5px]">
+          <div className="max-w-[42vw] truncate text-[10px] font-semibold text-slate-500 sm:max-w-[260px]">
             {departure.station.name}
           </div>
         </div>
@@ -56,7 +56,7 @@ function RouteTimeline({ departure, arrival, isDirect }: RouteTimelineProps) {
           <div className="text-lg font-bold tabular-nums text-slate-900">
             {formatTime(arrival.arrivalTimestamp)}
           </div>
-          <div className="ml-auto max-w-[42vw] truncate text-[10px] font-semibold text-slate-500 sm:max-w-[220px] sm:text-[12.5px]">
+          <div className="ml-auto max-w-[42vw] truncate text-[10px] font-semibold text-slate-500 sm:max-w-[260px]">
             {arrival.station.name}
           </div>
         </div>
@@ -115,7 +115,7 @@ export function ScheduleCard({ boatSections, duration }: ScheduleCardProps) {
         className="cursor-pointer p-6 transition-colors hover:bg-mist/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 focus-visible:ring-inset sm:p-8"
       >
         <div className="mb-4 flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
-          <div className="flex items-center gap-2 font-heading text-[12px] font-extrabold text-navy sm:text-[15px]">
+          <div className="flex items-center gap-2 font-heading text-[12px] font-extrabold text-navy">
             <span>{first.departure.station.name}</span>
             <ArrowRight className="h-3.5 w-3.5 text-slate-400" strokeWidth={2} />
             <span>{last.arrival.station.name}</span>
@@ -125,7 +125,7 @@ export function ScheduleCard({ boatSections, duration }: ScheduleCardProps) {
 
         <RouteTimeline departure={first.departure} arrival={last.arrival} isDirect={isDirect} />
 
-        <div className="mt-3 text-[10px] font-medium text-slate-600 sm:text-[12.5px]">
+        <div className="mt-3 text-[10px] font-medium text-slate-600">
           {transferLabel} · {formatDuration(duration)}
         </div>
       </div>
@@ -159,7 +159,7 @@ export function ScheduleCard({ boatSections, duration }: ScheduleCardProps) {
                           <div
                             className={
                               isEndpoint
-                                ? 'font-heading text-[12px] font-extrabold text-navy sm:text-[15px]'
+                                ? 'font-heading text-[12px] font-extrabold text-navy'
                                 : 'text-sm font-semibold text-slate-700'
                             }
                           >
@@ -168,7 +168,7 @@ export function ScheduleCard({ boatSections, duration }: ScheduleCardProps) {
                           <div
                             className={
                               isEndpoint
-                                ? 'text-[10.5px] font-medium tabular-nums text-slate-600 sm:text-[13px]'
+                                ? 'text-[10.5px] font-medium tabular-nums text-slate-600'
                                 : 'text-xs tabular-nums text-slate-500'
                             }
                           >
