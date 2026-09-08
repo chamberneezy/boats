@@ -260,7 +260,7 @@ function App() {
           <h2 className="mb-4 font-heading text-2xl font-extrabold text-navy">Find a sailing</h2>
 
           <div className="rounded-3xl border border-hairline bg-white p-6 shadow-sm sm:p-8">
-            <div className="relative grid gap-3.5 sm:grid-cols-2 sm:items-start sm:gap-5">
+            <div className="relative grid gap-3.5 sm:grid-cols-2 sm:items-start sm:gap-x-16">
               <div className="min-w-0">
                 <AutocompleteInput label="Origin" value={origin} onSelect={setOrigin} />
                 <QuickSelectChips activeName={origin.name} onSelect={setOrigin} />
