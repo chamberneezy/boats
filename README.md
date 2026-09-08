@@ -1,32 +1,53 @@
-# React + TypeScript + Vite
+# Swiss Lakes — Lake Lucerne Boat Schedule
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A boat schedule search app for Lake Lucerne (Vierwaldstättersee), built on the public
+Swiss transport API.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Vite + React 19 + TypeScript
+- Tailwind CSS v4
+- [lucide-react](https://lucide.dev/) icons
+- Data: [transport.opendata.ch/v1](https://transport.opendata.ch/v1)
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Autocomplete origin/destination search across a verified list of Lake Lucerne piers
+  (client-side, no network round-trip — see `src/piers.ts`)
+- Quick-select chips for popular piers (Luzern, Weggis, Vitznau, Bürgenstock)
+- Date/time picker with live connection search
+- Schedule cards with a real-time journey progress timeline, motor-vessel/paddle-steamer
+  category badges, and an expandable stop-by-stop itinerary
+- Resilience: live API → 30-minute local cache → bundled fallback timetable, in that
+  order, so the app still shows something useful if the upstream API is down or returns
+  gaps
 
-## Expanding the Oxlint configuration
+## Project structure
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```
+src/
+  components/           UI components (search input, chips, schedule card, badges, brand assets)
+  data/                 bundled fallback timetable JSON
+  piers.ts              static list of verified Lake Lucerne boat piers
+  scheduleCache.ts      localStorage-backed connection cache
+  fallbackTimetable.ts  offline baseline schedule lookup
+  types.ts, utils.ts    shared types & formatting helpers
+  App.tsx, main.tsx, index.css
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Scripts
+
+- `npm run dev` — start the dev server
+- `npm run build` — type-check, then production build
+- `npm run lint` — oxlint
+- `npm run preview` — preview a production build locally
+
+## Deploy
+
+Pushes to `main` build and deploy automatically to GitHub Pages via
+`.github/workflows/deploy-pages.yml`.
+
+## Design system & API rules
+
+See `CLAUDE.md` for the color palette, typography, and API filtering rules this app
+follows.
