@@ -23,7 +23,8 @@ export function DepartureCard({ entry, variant, onOpen }: DepartureCardProps) {
       tabIndex={0}
       onClick={onOpen}
       onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
+        // Only for the card itself; a key press on the inner button already becomes a click.
+        if (e.target === e.currentTarget && (e.key === 'Enter' || e.key === ' ')) {
           e.preventDefault();
           onOpen();
         }
@@ -51,9 +52,8 @@ export function DepartureCard({ entry, variant, onOpen }: DepartureCardProps) {
       <ConnectionSummary entry={entry} size={isHero ? 'hero' : 'card'} />
 
       {isHero && (
-        <Button onClick={onOpen} fullWidth>
-          View details
-        </Button>
+        // No handler of its own: the click reaches the card, which opens the trip once.
+        <Button fullWidth>View details</Button>
       )}
     </div>
   );

@@ -21,6 +21,13 @@
 - "Reserve" / "Buy" are shown disabled until a booking system exists.
 - Boat names, amenities (R / WC / accessible) and the map are not built yet; do not show invented data for them.
 
+## Routing (react-router, `src/routes.ts` holds every URL shape)
+- `/` Home, `/schedules` Schedules, `/search/lake-lucerne` search form, `/search/lake-lucerne?from=&to=&date=&time=` results, `/trip/lake-lucerne?from=&to=&dep=` one sailing.
+- The URL is the source of truth for search state; each trip is its own history entry. Back/forward must restore results without a refetch.
+- The URL scheme is provisional (pier ids, unix seconds); the owner will specify the final scheme.
+- GitHub Pages needs `public/404.html` plus the redirect script in `index.html` for deep links. Remove both when hosting rewrites all paths to `index.html`.
+- Schedules: Lake Lucerne shows real departures from the stationboard endpoint; other lakes use sample data from `src/data/sampleSchedules.ts` until real data exists.
+
 ## Design System (Lacus)
 Source of truth: the Lacus Mockups and Lacus Design System projects in Claude Design. Tokens live in `src/index.css`.
 - Deep Lake `#16384A` (`text-deep-lake`, `bg-deep-lake`): primary text, dark surfaces, end-of-route dot

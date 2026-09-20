@@ -190,14 +190,14 @@ export function SearchForm({
   return (
     <div>
       <div className="relative pt-9 md:pt-11">
-        {/* The inactive tab peeks out from behind the main card. */}
+        {/* The inactive tab peeks out from behind the main card, its text lined up with the fields below. */}
         <button
           type="button"
           onClick={() => {
             setTab(tab === 'route' ? 'datetime' : 'route');
             closePicker();
           }}
-          className="absolute right-6 top-0 z-[1] max-w-[62%] cursor-pointer truncate rounded-[14px] border-0 bg-surface-card px-4 pb-5 pt-3.5 font-display text-sm font-semibold text-deep-lake shadow-card md:right-8 md:max-w-[50%] md:px-[18px] md:pb-[22px] md:pt-4 md:text-[15px]"
+          className="absolute left-1 top-0 z-[1] max-w-[62%] cursor-pointer truncate rounded-[14px] border-0 bg-surface-card px-4 pb-5 pt-3.5 text-left font-display text-sm font-semibold text-deep-lake shadow-card md:left-3.5 md:max-w-[50%] md:px-[18px] md:pb-[22px] md:pt-4 md:text-[15px]"
         >
           {tab === 'route' ? dateTimeLabel : routeLabel}
         </button>

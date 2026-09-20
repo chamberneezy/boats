@@ -166,3 +166,47 @@ export async function loadLaterConnections(
 ): Promise<BoatConnection[]> {
   return deriveBoatConnections(await fetchConnectionsRaw(from, to, date, time), true);
 }
+
+export interface UpcomingDeparture {
+  timestamp: number;
+  destination: string;
+  category: string;
+  pier: string | null;
+}
+
+interface StationboardResponse {
+  stationboard?: {
+    category: string;
+    to: string;
+    stop: { departureTimestamp: number | null; platform: string | null };
+  }[];
+}
+
+/** The next boat departures from one pier, whatever their destination. */
+export async function loadUpcomingDepartures(pier: PierOption, limit = 6): Promise<UpcomingDeparture[]> {
+  let res: Response;
+  try {
+    res = await fetch(
+      `https://transport.opendata.ch/v1/stationboard?id=${encodeURIComponent(pier.id)}&transportations[]=ship&limit=${limit}`,
+      { signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS) },
+    );
+  } catch {
+    reportDataSource({ source: 'none', fromId: pier.id, toId: '', date: '', time: '', resultCount: 0, reason: 'stationboard fetch failed' });
+    throw new Error(GENERIC_ERROR_MESSAGE);
+  }
+  if (!res.ok) {
+    reportDataSource({ source: 'none', fromId: pier.id, toId: '', date: '', time: '', resultCount: 0, reason: `stationboard HTTP ${res.status}` });
+    throw new Error(GENERIC_ERROR_MESSAGE);
+  }
+  const data = (await res.json()) as StationboardResponse;
+  const departures = (data.stationboard ?? [])
+    .filter((entry) => BOAT_CATEGORIES.has(entry.category) && entry.stop.departureTimestamp !== null)
+    .map((entry) => ({
+      timestamp: entry.stop.departureTimestamp as number,
+      destination: entry.to,
+      category: entry.category,
+      pier: entry.stop.platform,
+    }));
+  reportDataSource({ source: 'live', fromId: pier.id, toId: '', date: '', time: '', resultCount: departures.length });
+  return departures;
+}
