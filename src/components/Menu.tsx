@@ -48,7 +48,7 @@ export function MenuPanel() {
       aria-modal={open}
       aria-label="Menu"
       aria-hidden={!open}
-      className={`fixed inset-y-0 left-0 z-50 flex w-full flex-col overflow-y-auto bg-surface-page text-deep-lake transition-[transform,visibility] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none md:w-[400px] md:shadow-card ${
+      className={`fixed inset-y-0 left-0 z-50 flex w-full flex-col overflow-y-auto bg-surface-page text-deep-lake transition-[translate,visibility] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none md:w-[400px] md:shadow-card ${
         open ? 'visible translate-x-0' : 'invisible -translate-x-full'
       }`}
     >
