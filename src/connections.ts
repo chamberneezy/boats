@@ -16,28 +16,34 @@ const TIMEOUT_ERROR_MESSAGE =
   'The boat schedule service (transport.opendata.ch) is not responding. It may be down — please try again in a few minutes.';
 const GENERIC_ERROR_MESSAGE = 'Could not load boat schedules. Please try again.';
 
-// On time / delayed comes from the real-time delay the API reports per stop (0 = on time,
-// null = no real-time data). The v1 API exposes no cancellation flag, so 'cancelled' is
-// not derived here yet; it will come from the GTFS-RT layer.
+// SGV boats publish no real-time data to the API (checked across all piers: `delay`,
+// `prognosis` and `realtimeAvailability` are always empty, and there is no cancellation flag),
+// so on time cannot be verified. By product decision every sailing shows the green "on time"
+// dot unless a delay is actually reported. Set to false to show no dot without real-time data.
+const ASSUME_ON_TIME_WITHOUT_REALTIME = true;
+
+// Delayed comes from the real-time delay the API reports per stop (0 = on time, null = no
+// real-time data). 'cancelled' is not derived yet; it needs a real source (GTFS-RT or a
+// manual override).
 function deriveStatus(connection: Connection): ConnectionStatus | null {
   const delays = connection.sections
     .filter((section) => section.journey && BOAT_CATEGORIES.has(section.journey.category))
     .flatMap((section) => [section.departure.delay, section.arrival.delay])
     .filter((delay): delay is number => typeof delay === 'number');
-  if (delays.length === 0) return null;
+  if (delays.length === 0) return ASSUME_ON_TIME_WITHOUT_REALTIME ? 'on-time' : null;
   return Math.max(...delays) > 0 ? 'delayed' : 'on-time';
 }
 
-// `withStatus` is false for stale-cache and bundled-timetable results: delays captured
-// earlier (or never captured) must not be presented as current schedule state.
-function deriveBoatConnections(data: ConnectionsResponse, withStatus: boolean): BoatConnection[] {
+// `useRealtime` is false for stale-cache and bundled-timetable results: delays captured
+// earlier (or never captured) must not be presented as current, so they get the default.
+function deriveBoatConnections(data: ConnectionsResponse, useRealtime: boolean): BoatConnection[] {
   return (data.connections ?? [])
     .map((connection) => ({
       connection,
       boatSections: connection.sections.filter(
         (section) => section.journey && BOAT_CATEGORIES.has(section.journey.category),
       ),
-      status: withStatus ? deriveStatus(connection) : null,
+      status: useRealtime ? deriveStatus(connection) : ASSUME_ON_TIME_WITHOUT_REALTIME ? ('on-time' as const) : null,
     }))
     .filter((entry) => entry.boatSections.length > 0);
 }

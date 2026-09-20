@@ -1,17 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
-  <rect width="100" height="100" rx="22" fill="#0B3C5D" />
-  <rect width="100" height="100" rx="22" fill="url(#lacusFaviconGradient)" />
-  <rect x="24" y="16" width="52" height="52" rx="14" fill="#D93829" />
-  <g fill="#FFFFFF">
-    <rect x="44" y="26" width="12" height="32" rx="2" />
-    <rect x="34" y="36" width="32" height="12" rx="2" />
-  </g>
-  <path d="M 14 74 C 36 64, 64 64, 86 74 L 78 83 C 58 75, 42 75, 22 83 Z" fill="#38BDF8" />
-  <path d="M 18 78 C 38 70, 62 70, 82 78 L 76 84 C 58 78, 42 78, 24 84 Z" fill="#FFFFFF" />
-  <defs>
-    <linearGradient id="lacusFaviconGradient" x1="0" y1="0" x2="100" y2="100">
-      <stop offset="0%" stop-color="#0284C7" stop-opacity="0.2" />
-      <stop offset="100%" stop-color="#000000" stop-opacity="0.4" />
-    </linearGradient>
-  </defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
+  <title>Lacus app icon - full colour</title>
+  <rect width="600" height="600" rx="130" ry="130" fill="#16384A"></rect>
+  <rect x="254.0" y="102.0" width="92.0" height="224.0" fill="#F2F0E9"></rect>
+  <rect x="188.0" y="168.0" width="224.0" height="92.0" fill="#F2F0E9"></rect>
+  <polyline points="85.0,404.0 300.0,499.0 515.0,404.0" fill="none" stroke="#F2F0E9" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"></polyline>
+  <polyline points="145.0,469.0 300.0,539.0 455.0,469.0" fill="none" stroke="#F2F0E9" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"></polyline>
 </svg>

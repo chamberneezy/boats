@@ -2,14 +2,26 @@ import { useEffect, useState } from 'react';
 import { loadUpcomingDepartures, type UpcomingDeparture } from '../connections';
 import { SAMPLE_SCHEDULES } from '../data/sampleSchedules';
 import { findPier } from '../routes';
+import { pierLabel } from '../piers';
 import { useDocumentTitle } from '../useDocumentTitle';
 import { formatShortDate, formatTime, isSameDay } from '../utils';
 
 const LUCERNE_PIER = findPier('8508492')!; // Luzern Bahnhofquai
-const UPCOMING_COUNT = 6;
+// Enough upcoming departures that every destination served from the pier turns up at least once.
+const FETCH_COUNT = 60;
 
 const ROW = 'flex items-center gap-3 border-b border-hairline px-4 py-3.5 last:border-b-0';
 const TIME = 'w-14 font-display text-lg font-semibold tabular-nums text-deep-lake';
+
+// One row per end destination, showing its next departure, in time order.
+function nextPerDestination(departures: UpcomingDeparture[]): UpcomingDeparture[] {
+  const next = new Map<string, UpcomingDeparture>();
+  for (const departure of departures) {
+    const destination = pierLabel({ name: departure.destination });
+    if (!next.has(destination)) next.set(destination, departure);
+  }
+  return [...next.values()].sort((a, b) => a.timestamp - b.timestamp);
+}
 
 function LucerneDepartures() {
   const [departures, setDepartures] = useState<UpcomingDeparture[] | null>(null);
@@ -17,8 +29,8 @@ function LucerneDepartures() {
 
   useEffect(() => {
     let cancelled = false;
-    loadUpcomingDepartures(LUCERNE_PIER, UPCOMING_COUNT)
-      .then((found) => !cancelled && setDepartures(found))
+    loadUpcomingDepartures(LUCERNE_PIER, FETCH_COUNT)
+      .then((found) => !cancelled && setDepartures(nextPerDestination(found)))
       .catch(() => !cancelled && setFailed(true));
     return () => {
       cancelled = true;
@@ -50,7 +62,7 @@ function LucerneDepartures() {
       {departures.map((departure) => (
         <li key={`${departure.timestamp}-${departure.destination}`} className={ROW}>
           <span className={TIME}>{formatTime(departure.timestamp)}</span>
-          <span className="flex-1 font-body text-[13px] text-deep-lake">→ {departure.destination}</span>
+          <span className="flex-1 font-body text-[13px] text-deep-lake">→ {pierLabel({ name: departure.destination })}</span>
           {!isSameDay(departure.timestamp, nowSeconds) && (
             <span className="font-body text-xs text-stone-grey">
               {formatShortDate(new Date(departure.timestamp * 1000).toLocaleDateString('sv-SE'))}
@@ -73,7 +85,7 @@ export function SchedulesPage() {
       </div>
 
       <div className="mt-2 rounded-[14px] border border-dashed border-alpine-sky/40 bg-surface-sunken px-4 py-3 font-body text-xs text-stone-grey md:mt-6 md:max-w-[760px] md:text-[13px]">
-        Lake Lucerne shows the next departures from Luzern Bahnhofquai. Departures for the other lakes are sample data
+        Lake Lucerne shows the next departure to each destination from Luzern Bahnhofquai. Departures for the other lakes are sample data
         for illustration, not real timetables.
       </div>
 

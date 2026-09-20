@@ -14,10 +14,14 @@
 ## UI & Search Behavior
 - Origin and Destination are **Autocomplete Search Inputs**: type to filter, Enter picks the first match, Escape closes.
 - Suggestions filter the static list of verified Lake Lucerne boat piers in `src/piers.ts`. They do **not** call `/locations` (it returns trains, buses and cable cars too).
+- Riders see short place names ("Luzern", "Bürgenstock"), never official station names ("Luzern Bahnhofquai"). `PierOption.name` is the short name, `fullName` the official one (still searchable). Use `pierLabel()` for any station name from the API. Short names must stay unique.
+- Choosing an origin (tap, Enter, or typing an exact unambiguous name) moves focus to the empty Destination and opens its suggestions. A name that starts another pier ("Meggen" / "Meggenhorn") is not auto-picked.
+- The control between Origin and Destination is a swap button (ArrowLeftRight icon), not an arrow.
 - With nothing typed, the popular piers (Luzern Bahnhofquai, Weggis, Vitznau, Kehrsiten-Bürgenstock, Brunnen) are shown as presets.
 - Riders must **never** see whether data is live, cached or a fallback. No badges, banners or labels about the source.
   Source is reported only via `reportDataSource()` in `src/dataSourceMonitor.ts` (console for now, backend later).
-- Schedule state is a coloured dot only (`StatusBadge`): on time, delayed, cancelled. No real-time data means **no dot**, never an assumed "on time". Stale-cache and bundled-timetable results carry no status.
+- Schedule state is a coloured dot only (`StatusBadge`), shown left of the category pill on every card and next to the route on the trip page, never with visible text (screen readers still get the status): on time (green), delayed, cancelled. On time and delayed blink; cancelled does not.
+  SGV boats provide **no** real-time data through the API (delay/prognosis always empty, no cancellation flag), so by product decision every sailing shows green on time unless a delay is reported (`ASSUME_ON_TIME_WITHOUT_REALTIME` in `src/connections.ts`). Delayed and cancelled need a real source (GTFS-RT or a manual override).
 - "Reserve" / "Buy" are shown disabled until a booking system exists.
 - Boat names, amenities (R / WC / accessible) and the map are not built yet; do not show invented data for them.
 
@@ -40,6 +44,10 @@ Source of truth: the Lacus Mockups and Lacus Design System projects in Claude De
 - Status dots: on time `#3F8F5C`, delayed `#C9762E`, cancelled `#B5473F` (`bg-status-*`). Never used as a CTA colour. On time and delayed blink; cancelled does not.
 - Radius 10–16px on cards, buttons and inputs; no fully round buttons or inputs. Times use tabular numerals.
 - Tone: calm, precise, no exclamation marks, no emoji, sentence case, no gradients.
+
+## Photography
+- Lake card photos live in `public/lakes/{lake-id}.jpg` (Wikimedia Commons, CC BY / CC BY-SA). Credits are in `src/data/lakePhotos.ts` and shown under "Photo credits" on Home. Every photo added must have a credit entry there; do not use a photo without a licence that allows it.
+- Cards fall back to the placeholder box if a photo is missing.
 
 ## Category Badges
 - One neutral pill for both types: `bg-surface-sunken text-deep-lake`, Kanit 500 (`CategoryPill`).

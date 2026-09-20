@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router';
 import { Button } from '../components/Button';
 import { CtaBand } from '../components/CtaBand';
 import { LakeCard } from '../components/LakeCard';
+import { LAKE_PHOTOS } from '../data/lakePhotos';
 import { useDocumentTitle } from '../useDocumentTitle';
 import { useFavorites } from '../useFavorites';
 import { DEFAULT_LAKE_ID, LAKES } from '../lakes';
@@ -81,6 +82,28 @@ export function HomePage() {
             </div>
           ))}
         </section>
+
+        <details className="px-5 pb-8 md:px-16 md:pb-10">
+          <summary className="cursor-pointer font-body text-[13px] text-stone-grey">Photo credits</summary>
+          <ul className="m-0 mt-3 list-none space-y-1.5 p-0 font-body text-xs text-stone-grey">
+            {LAKES.filter((lake) => lake.id in LAKE_PHOTOS).map((lake) => {
+              const photo = LAKE_PHOTOS[lake.id];
+              return (
+                <li key={lake.id}>
+                  {lake.name}:{' '}
+                  <a href={photo.sourceUrl} target="_blank" rel="noreferrer" className="text-alpine-sky">
+                    {photo.title}
+                  </a>{' '}
+                  by {photo.author},{' '}
+                  <a href={photo.licenseUrl} target="_blank" rel="noreferrer" className="text-alpine-sky">
+                    {photo.license}
+                  </a>
+                  . Resized and cropped.
+                </li>
+              );
+            })}
+          </ul>
+        </details>
 
         <footer className="hidden items-center justify-between border-t border-hairline px-16 py-6 md:flex">
           <div className="flex items-center gap-2">

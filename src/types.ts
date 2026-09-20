@@ -50,7 +50,10 @@ export interface ConnectionsResponse {
 
 export interface PierOption {
   id: string;
+  // Short, place-style name shown to riders (e.g. "Luzern").
   name: string;
+  // Official station name, kept so riders can still find a pier by it (e.g. "Luzern Bahnhofquai").
+  fullName?: string;
 }
 
 // Schedule state shown to riders as a coloured dot. `null` (not a member of this union)

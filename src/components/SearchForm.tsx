@@ -1,5 +1,6 @@
-import { useMemo, useState } from 'react';
-import { searchLakeLucernePiers } from '../piers';
+import { useMemo, useRef, useState, type Ref } from 'react';
+import { ArrowLeftRight } from 'lucide-react';
+import { isExactPierName, searchLakeLucernePiers } from '../piers';
 import type { PierOption } from '../types';
 import { formatDateTimeLabel } from '../utils';
 import { Button } from './Button';
@@ -68,6 +69,7 @@ interface PierFieldProps {
   pier: PierOption;
   // Text being typed while the field is active; null when the field is at rest.
   draft: string | null;
+  inputRef: Ref<HTMLInputElement>;
   onFocus: () => void;
   onBlur: () => void;
   onDraftChange: (text: string) => void;
@@ -75,11 +77,12 @@ interface PierFieldProps {
   onEscape: () => void;
 }
 
-function PierField({ label, align, pier, draft, onFocus, onBlur, onDraftChange, onEnter, onEscape }: PierFieldProps) {
+function PierField({ label, align, pier, draft, inputRef, onFocus, onBlur, onDraftChange, onEnter, onEscape }: PierFieldProps) {
   return (
     <label className={`block min-w-0 flex-1 ${align === 'right' ? 'text-right' : ''}`}>
       <span className="block font-body text-[13px] text-stone-grey">{label}</span>
       <input
+        ref={inputRef}
         value={draft ?? pier.name}
         placeholder={FIELD_PLACEHOLDER}
         autoComplete="off"
@@ -126,6 +129,8 @@ export function SearchForm({
   // What the user has typed into the active field. null = untouched, so the suggestions
   // show the presets instead of filtering by the currently selected pier's name.
   const [typed, setTyped] = useState<string | null>(null);
+  const originInputRef = useRef<HTMLInputElement>(null);
+  const destinationInputRef = useRef<HTMLInputElement>(null);
 
   const dateTimeLabel = formatDateTimeLabel(date, time);
   const routeLabel = `${origin.name || 'Origin'} → ${destination.name || 'Destination'}`;
@@ -150,6 +155,22 @@ export function SearchForm({
   function pick(field: Field, pier: PierOption) {
     (field === 'origin' ? onOriginChange : onDestinationChange)(pier);
     closePicker();
+    if (field === 'origin' && !destination.id) {
+      // Origin settled: carry straight on to the destination and open its suggestions.
+      destinationInputRef.current?.focus();
+    } else {
+      (field === 'origin' ? originInputRef : destinationInputRef).current?.blur();
+    }
+  }
+
+  // Typing an exact, unambiguous name ("Weggis") picks it without needing a tap. A name that
+  // is also the start of another pier ("Meggen" / "Meggenhorn") waits for an explicit choice.
+  function handleTyping(field: Field, text: string) {
+    setTyped(text);
+    if (!text.trim()) return;
+    const excludeId = (field === 'origin' ? destination.id : origin.id) || undefined;
+    const matches = searchLakeLucernePiers(text, excludeId);
+    if (matches.length === 1 && isExactPierName(matches[0], text)) pick(field, matches[0]);
   }
 
   function pickFirstMatch(field: Field) {
@@ -211,9 +232,10 @@ export function SearchForm({
                   align="left"
                   pier={origin}
                   draft={activeField === 'origin' ? (typed ?? origin.name) : null}
+                  inputRef={originInputRef}
                   onFocus={() => openField('origin')}
                   onBlur={closePicker}
-                  onDraftChange={setTyped}
+                  onDraftChange={(text) => handleTyping('origin', text)}
                   onEnter={() => pickFirstMatch('origin')}
                   onEscape={closePicker}
                 />
@@ -222,9 +244,10 @@ export function SearchForm({
                   type="button"
                   onClick={swap}
                   aria-label="Swap origin and destination"
-                  className="cursor-pointer border-0 bg-transparent p-0 text-xl text-stone-grey"
+                  title="Swap origin and destination"
+                  className="flex h-10 w-10 flex-shrink-0 cursor-pointer items-center justify-center rounded-[12px] border border-hairline bg-surface-page text-deep-lake transition-colors hover:bg-surface-sunken"
                 >
-                  →
+                  <ArrowLeftRight className="h-[18px] w-[18px]" strokeWidth={2} aria-hidden="true" />
                 </button>
                 <div className="h-11 w-px bg-hairline" aria-hidden="true" />
                 <PierField
@@ -232,9 +255,10 @@ export function SearchForm({
                   align="right"
                   pier={destination}
                   draft={activeField === 'destination' ? (typed ?? destination.name) : null}
+                  inputRef={destinationInputRef}
                   onFocus={() => openField('destination')}
                   onBlur={closePicker}
-                  onDraftChange={setTyped}
+                  onDraftChange={(text) => handleTyping('destination', text)}
                   onEnter={() => pickFirstMatch('destination')}
                   onEscape={closePicker}
                 />

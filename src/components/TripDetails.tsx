@@ -1,4 +1,5 @@
 import { ArrowRight } from 'lucide-react';
+import { pierLabel } from '../piers';
 import type { BoatConnection, Section, StopTime } from '../types';
 import { formatTime } from '../utils';
 import { Button } from './Button';
@@ -33,7 +34,7 @@ function StopList({ section }: { section: Section }) {
                 isEndpoint ? 'border-alpine-sky bg-alpine-sky' : 'border-stone-grey bg-surface-card'
               }`}
             />
-            <div className={`font-body text-sm ${isEndpoint ? 'text-deep-lake' : 'text-stone-grey'}`}>{stop.station.name}</div>
+            <div className={`font-body text-sm ${isEndpoint ? 'text-deep-lake' : 'text-stone-grey'}`}>{pierLabel(stop.station)}</div>
             <div className="mt-px font-body text-xs tabular-nums text-stone-grey">{formatTime(stopTimestamp(stop))}</div>
           </li>
         );
@@ -64,11 +65,11 @@ export function TripDetails({ entry, onBack }: TripDetailsProps) {
       <div className="max-w-[460px] rounded-[14px] bg-surface-card p-6 shadow-card md:rounded-[16px] md:p-8">
         <div className="mb-3 flex items-start justify-between gap-3 md:mb-4">
           <div className="flex min-w-0 flex-wrap items-center gap-x-2 font-display text-base font-medium text-alpine-sky md:text-lg">
-            <span>{first.departure.station.name}</span>
+            <span>{pierLabel(first.departure.station)}</span>
             <ArrowRight className="h-4 w-4 flex-shrink-0 text-stone-grey" strokeWidth={1.5} aria-hidden="true" />
-            <span>{last.arrival.station.name}</span>
+            <span>{pierLabel(last.arrival.station)}</span>
           </div>
-          <StatusBadge status={entry.status} showLabel />
+          <StatusBadge status={entry.status} />
         </div>
 
         <div className="mb-4 flex flex-wrap items-center gap-2.5 md:mb-5">

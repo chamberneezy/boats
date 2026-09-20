@@ -1,4 +1,5 @@
 import { Ship } from 'lucide-react';
+import { pierLabel } from '../piers';
 import type { BoatConnection, StopTime } from '../types';
 import { formatDuration, formatTime } from '../utils';
 
@@ -77,13 +78,13 @@ export function ConnectionSummary({ entry, size }: ConnectionSummaryProps) {
           <div className={`font-display font-semibold tabular-nums leading-none text-deep-lake ${s.time}`}>
             {formatTime(first.departure.departureTimestamp)}
           </div>
-          <div className={`mt-1.5 font-body text-stone-grey ${s.station}`}>{first.departure.station.name}</div>
+          <div className={`mt-1.5 font-body text-stone-grey ${s.station}`}>{pierLabel(first.departure.station)}</div>
         </div>
         <div className="min-w-0 text-right">
           <div className={`font-display font-semibold tabular-nums leading-none text-deep-lake ${s.time}`}>
             {formatTime(last.arrival.arrivalTimestamp)}
           </div>
-          <div className={`mt-1.5 font-body text-stone-grey ${s.station}`}>{last.arrival.station.name}</div>
+          <div className={`mt-1.5 font-body text-stone-grey ${s.station}`}>{pierLabel(last.arrival.station)}</div>
         </div>
       </div>
       <RouteTrack departure={first.departure} arrival={last.arrival} isDirect={isDirect} className={s.track} />

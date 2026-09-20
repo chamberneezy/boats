@@ -1,4 +1,5 @@
 import { ArrowRight } from 'lucide-react';
+import { pierLabel } from '../piers';
 import type { BoatConnection } from '../types';
 import { Button } from './Button';
 import { CategoryPill } from './CategoryPill';
@@ -39,9 +40,9 @@ export function DepartureCard({ entry, variant, onOpen }: DepartureCardProps) {
             isHero ? 'text-base md:text-2xl' : 'text-sm md:text-[17px]'
           }`}
         >
-          <span className="truncate">{first.departure.station.name}</span>
+          <span className="truncate">{pierLabel(first.departure.station)}</span>
           <ArrowRight className="h-4 w-4 flex-shrink-0 text-stone-grey" strokeWidth={1.5} aria-hidden="true" />
-          <span className="truncate">{last.arrival.station.name}</span>
+          <span className="truncate">{pierLabel(last.arrival.station)}</span>
         </div>
         <span className="inline-flex flex-shrink-0 items-center gap-1.5 md:gap-2">
           <StatusBadge status={entry.status} />
