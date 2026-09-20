@@ -1,53 +1,52 @@
 @import "tailwindcss";
 
+/* Lacus design system tokens (from the Lacus Design System project:
+   tokens/colors.css, tokens/typography.css, tokens/spacing.css). */
 @theme {
-  /* Alpine Precision - Primary Brand Blue (#005098) */
-  --color-lake-dark: #005098;
-  --color-lake-blue: #005098;
-  --color-brand-primary: #005098;
-  --color-navy: #005098;
-  --color-navy-700: #003d75;
+  --color-deep-lake: #16384a;
+  --color-alpine-sky: #4a90a4;
+  --color-glacier-mist: #edf3f4;
+  --color-stone-grey: #8d9a9c;
+  --color-chalk: #f2f0e9;
+  --color-sunline-gold: #c99a4b;
+  --color-sunline-gold-pressed: #b4863a;
 
-  /* Alpine Precision - Swiss Red CTA (#D93829) */
-  --color-lake-red: #d93829;
-  --color-brand-cta: #d93829;
-  --color-brass: #d93829;
-  --color-brass-100: #fbe3e0;
-  --color-brass-700: #a52a1e;
+  --color-surface-page: #edf3f4;
+  --color-surface-card: #ffffff;
+  --color-surface-sunken: #e2ebec;
+  --color-hairline: rgba(74, 144, 164, 0.28);
 
-  /* Alpine Precision - Glacier White (#FBFDFF) */
-  --color-glacier-white: #fbfdff;
+  --color-cta-disabled: #d8cba8;
+  --color-cta-disabled-text: #f7f3e9;
 
-  /* Alpine Precision - Stone Grey (#546E7A) */
-  --color-stone-grey: #546e7a;
+  /* Schedule-state dots only — never used as a CTA colour. */
+  --color-status-on-time: #3f8f5c;
+  --color-status-delayed: #c9762e;
+  --color-status-cancelled: #b5473f;
 
-  /* Alpine Precision - Accent Surface Light (#EBF3F8) */
-  --color-lake-accent: #ebf3f8;
+  --font-display: "Kanit", sans-serif;
+  --font-body: "Karma", serif;
 
-  /* Sky accent (interactive) + supporting surfaces from the Swiss Lakes mockups */
-  --color-accent: #0284c7;
-  --color-accent-100: #e0f0fa;
-  --color-accent-600: #026da3;
-  --color-accent-700: #025685;
-  --color-mist: #f0f7ff;
-  --color-hairline: #dde9f6;
-  --color-page: #eef4fb;
+  --shadow-card: 0 1px 2px rgba(22, 56, 74, 0.06), 0 4px 12px rgba(22, 56, 74, 0.06);
+}
 
-  --font-heading: "Manrope", sans-serif;
-  --font-body: "Inter", sans-serif;
-
-  --shadow-sm: 0 1px 2px rgba(11, 60, 93, 0.06), 0 1px 1px rgba(11, 60, 93, 0.04);
-  --shadow-md: 0 8px 24px rgba(11, 60, 93, 0.1), 0 2px 6px rgba(11, 60, 93, 0.05);
-  --shadow-lg: 0 16px 40px rgba(11, 60, 93, 0.14), 0 4px 10px rgba(11, 60, 93, 0.06);
+@keyframes lacus-status-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
 }
 
 @keyframes shimmer {
   0%,
   100% {
-    opacity: 0.4;
+    opacity: 0.5;
   }
   50% {
-    opacity: 0.85;
+    opacity: 1;
   }
 }
 
@@ -62,7 +61,6 @@
 }
 
 html {
-  font-size: 80%;
   /* Some mobile browsers auto-inflate text in narrow columns ("font boosting"),
      which can make an otherwise correctly-sized layout look blown up on a real
      device even though it renders at the intended size everywhere else. */
@@ -71,8 +69,7 @@ html {
 }
 
 /* Lock horizontal movement of the page itself — no sideways scroll or
-   rubber-band bounce, even if a child briefly overflows. Vertical scrolling
-   and the chip rows' own internal horizontal scroll are unaffected. */
+   rubber-band bounce, even if a child briefly overflows. */
 html,
 body {
   overflow-x: hidden;
@@ -82,24 +79,14 @@ body {
 
 body {
   margin: 0;
-  background-color: var(--color-page);
-  color: #1e293b;
-  font-family: var(--font-body), -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial,
-    sans-serif;
-  line-height: 1.5;
-  letter-spacing: -0.01em;
+  background-color: var(--color-surface-page);
+  color: var(--color-deep-lake);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 24px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-heading), sans-serif;
 }
 
 .boat-marker {
@@ -107,7 +94,14 @@ h6 {
 }
 
 .skel {
-  background: linear-gradient(90deg, var(--color-mist), #e3edf9, var(--color-mist));
+  background: var(--color-surface-sunken);
   border-radius: 12px;
   animation: shimmer 1.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .boat-marker,
+  .skel {
+    animation: none;
+  }
 }

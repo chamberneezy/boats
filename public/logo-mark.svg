@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
+  <title>Lacus app icon - full colour</title>
+  <rect width="600" height="600" rx="130" ry="130" fill="#16384A"></rect>
+  <rect x="254.0" y="102.0" width="92.0" height="224.0" fill="#F2F0E9"></rect>
+  <rect x="188.0" y="168.0" width="224.0" height="92.0" fill="#F2F0E9"></rect>
+  <polyline points="85.0,404.0 300.0,499.0 515.0,404.0" fill="none" stroke="#F2F0E9" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"></polyline>
+  <polyline points="145.0,469.0 300.0,539.0 455.0,469.0" fill="none" stroke="#F2F0E9" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"></polyline>
+</svg>

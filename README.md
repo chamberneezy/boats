@@ -1,4 +1,4 @@
-# Swiss Lakes — Lake Lucerne Boat Schedule
+# Lacus — Lake Lucerne Boat Schedule
 
 A boat schedule search app for Lake Lucerne (Vierwaldstättersee), built on the public
 Swiss transport API.

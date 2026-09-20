@@ -1,41 +1,37 @@
-interface GeometricWaveIconProps {
+interface LacusMarkProps {
   className?: string;
 }
 
-// Swiss Lakes mark: a motor launch cresting a wave, cut into a navy rounded
-// square with a Swiss-red pennant — mirrors the Swiss Lakes UI mockups' header logo.
-export function GeometricWaveIcon({ className = 'h-[34px] w-[34px]' }: GeometricWaveIconProps) {
+// Lacus mark: an unmodified Swiss cross in a red shield on an alpine-navy
+// field, with a hull wake cresting beneath it.
+export function LacusMark({ className = 'h-[34px] w-[34px]' }: LacusMarkProps) {
   return (
-    <svg viewBox="0 0 44 44" className={`${className} rounded-[11px]`} aria-hidden="true">
-      <rect x="0" y="0" width="44" height="44" rx="14" fill="#005098" />
-      <path
-        d="M9 24l3-9a2 2 0 0 1 1.9-1.4h10.2a2 2 0 0 1 1.9 1.4l3 9"
-        fill="none"
-        stroke="#f0f7ff"
-        strokeWidth="1.7"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <line x1="22" y1="13.6" x2="22" y2="7" stroke="#f0f7ff" strokeWidth="1.7" strokeLinecap="round" />
-      <path d="M22 7h5l-2.5 3.4z" fill="#D93829" />
-      <path d="M6 25.5h32l-2.6 5.4a3 3 0 0 1-2.7 1.7H11.3a3 3 0 0 1-2.7-1.7z" fill="#f0f7ff" />
-      <path
-        d="M5 34c2 1.6 4 1.6 6 0s4-1.6 6 0 4 1.6 6 0 4-1.6 6 0 4 1.6 6 0"
-        stroke="#0284C7"
-        strokeWidth="1.8"
-        fill="none"
-        strokeLinecap="round"
-      />
+    <svg viewBox="0 0 100 100" className={className} aria-hidden="true">
+      <rect width="100" height="100" rx="22" fill="#0B3C5D" />
+      <rect width="100" height="100" rx="22" fill="url(#lacusMarkGradient)" />
+      <rect x="24" y="16" width="52" height="52" rx="14" fill="#D93829" />
+      <g fill="#FFFFFF">
+        <rect x="44" y="26" width="12" height="32" rx="2" />
+        <rect x="34" y="36" width="32" height="12" rx="2" />
+      </g>
+      <path d="M 14 74 C 36 64, 64 64, 86 74 L 78 83 C 58 75, 42 75, 22 83 Z" fill="#38BDF8" />
+      <path d="M 18 78 C 38 70, 62 70, 82 78 L 76 84 C 58 78, 42 78, 24 84 Z" fill="#FFFFFF" />
+      <defs>
+        <linearGradient id="lacusMarkGradient" x1="0" y1="0" x2="100" y2="100">
+          <stop offset="0%" stopColor="#0284C7" stopOpacity="0.2" />
+          <stop offset="100%" stopColor="#000000" stopOpacity="0.4" />
+        </linearGradient>
+      </defs>
     </svg>
   );
 }
 
 // Responsive Brand Title Header
-export function SwissLakesTitle() {
+export function LacusTitle() {
   return (
     <div className="flex flex-col leading-[1.15]">
-      <h1 className="text-xl font-extrabold tracking-tight text-navy">Swiss Lakes</h1>
-      <span className="mt-0.5 text-xs font-medium text-stone-grey">Lake Lucerne Boat Schedule</span>
+      <h1 className="text-xl font-extrabold tracking-tight text-navy">Lacus</h1>
+      <span className="mt-0.5 text-xs font-medium text-stone-grey">Every Swiss lake. Every pier.</span>
     </div>
   );
 }

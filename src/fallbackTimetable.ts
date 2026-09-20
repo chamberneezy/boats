@@ -13,6 +13,8 @@ interface FallbackRoute {
 const FALLBACK_ROUTES = fallbackData.routes as FallbackRoute[];
 
 export const FALLBACK_SEASON_LABEL = fallbackData.seasonLabel;
+const FALLBACK_VALID_FROM = fallbackData.validFrom;
+const FALLBACK_VALID_UNTIL = fallbackData.validUntil;
 
 function pad(n: number): string {
   return String(n).padStart(2, '0');
@@ -42,6 +44,11 @@ export function getFallbackConnections(
   date: string,
   time: string,
 ): ConnectionsResponse | null {
+  // The bundled departures are only correct for the season they were transcribed from —
+  // serving them outside that window would show the wrong boats entirely, which is worse
+  // than showing no offline fallback at all.
+  if (date < FALLBACK_VALID_FROM || date > FALLBACK_VALID_UNTIL) return null;
+
   const route = FALLBACK_ROUTES.find((r) => r.fromId === fromId && r.toId === toId);
   if (!route) return null;
 
@@ -71,12 +78,12 @@ export function getFallbackConnections(
         sections: [
           {
             journey: {
-              name: 'Offline baseline schedule',
+              name: 'SGV',
               category: 'BAT',
               categoryCode: null,
               subcategory: null,
               number: '',
-              operator: 'SGV (offline baseline, not live)',
+              operator: 'SGV',
               to: route.toName,
               passList: [],
             },

@@ -52,3 +52,13 @@ export interface PierOption {
   id: string;
   name: string;
 }
+
+// Schedule state shown to riders as a coloured dot. `null` (not a member of this union)
+// means "no reliable real-time information" and the UI shows no dot at all.
+export type ConnectionStatus = 'on-time' | 'delayed' | 'cancelled';
+
+export interface BoatConnection {
+  connection: Connection;
+  boatSections: Section[];
+  status: ConnectionStatus | null;
+}

@@ -60,12 +60,14 @@ export function formatDayLabel(timestampSeconds: number): string {
   });
 }
 
-// Compact "Fri, 4 Sep" summary for a `YYYY-MM-DD` date string, used to preview
-// the current search date on the collapsed date/time picker.
-export function formatDateSummary(dateString: string): string {
-  return new Date(`${dateString}T00:00:00`).toLocaleDateString('en-GB', {
-    weekday: 'short',
-    day: 'numeric',
-    month: 'short',
-  });
+// "Tue 15 Sept" for a `YYYY-MM-DD` date string.
+export function formatShortDate(date: string): string {
+  return new Date(`${date}T00:00:00`)
+    .toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' })
+    .replace(',', '');
+}
+
+// "Tue 15 Sept, 09:00" for a `YYYY-MM-DD` date and `HH:MM` time.
+export function formatDateTimeLabel(date: string, time: string): string {
+  return `${formatShortDate(date)}, ${time}`;
 }

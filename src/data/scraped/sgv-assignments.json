@@ -1,0 +1,98 @@
+{
+  "source": "https://www.lakelucerne.ch/de/informationen/fahrplan-schiffseinsaetze/",
+  "fetchedAt": "2026-09-20T14:26:31.061Z",
+  "assignments": [
+    {
+      "vessel": "Gallia",
+      "category": "BAV",
+      "dates": [
+        "2026-09-20"
+      ],
+      "dateRanges": [],
+      "runs": [
+        {
+          "outboundKurs": "17",
+          "returnKurs": "26",
+          "luzernDeparture": "12:12",
+          "luzernArrival": "17:47"
+        }
+      ]
+    },
+    {
+      "vessel": "Schiller",
+      "category": "BAV",
+      "dates": [
+        "2026-09-27"
+      ],
+      "dateRanges": [],
+      "runs": [
+        {
+          "outboundKurs": "17",
+          "returnKurs": "26",
+          "luzernDeparture": "12:12",
+          "luzernArrival": "17:47"
+        }
+      ]
+    },
+    {
+      "vessel": "Unterwalden",
+      "category": "BAV",
+      "dates": [
+        "2026-10-04"
+      ],
+      "dateRanges": [],
+      "runs": [
+        {
+          "outboundKurs": "55",
+          "returnKurs": "56",
+          "luzernDeparture": "09:38",
+          "luzernArrival": "12:16"
+        },
+        {
+          "outboundKurs": "63",
+          "returnKurs": "64",
+          "luzernDeparture": "13:38",
+          "luzernArrival": "16:25"
+        }
+      ]
+    },
+    {
+      "vessel": "Stadt Luzern",
+      "category": "BAV",
+      "dates": [
+        "2026-10-18"
+      ],
+      "dateRanges": [],
+      "runs": [
+        {
+          "outboundKurs": "13",
+          "returnKurs": "24",
+          "luzernDeparture": "11:12",
+          "luzernArrival": "16:47"
+        }
+      ]
+    },
+    {
+      "vessel": "Uri",
+      "category": "BAV",
+      "dates": [
+        "2026-10-18"
+      ],
+      "dateRanges": [
+        {
+          "from": "2026-11-20",
+          "to": "2026-12-19",
+          "note": "für winterliche Themenfahrten im Einsatz."
+        }
+      ],
+      "runs": [
+        {
+          "outboundKurs": "7",
+          "returnKurs": "18",
+          "luzernDeparture": "09:12",
+          "luzernArrival": "14:47"
+        }
+      ]
+    }
+  ]
+}

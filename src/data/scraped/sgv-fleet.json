@@ -1,0 +1,101 @@
+{
+  "source": "https://www.lakelucerne.ch/de/informationen/fahrplan-schiffseinsaetze/",
+  "fetchedAt": "2026-09-20T14:26:31.061Z",
+  "vessels": [
+    {
+      "name": "Stadt Luzern",
+      "type": "DS",
+      "category": "BAV"
+    },
+    {
+      "name": "Gallia",
+      "type": "DS",
+      "category": "BAV"
+    },
+    {
+      "name": "Schiller",
+      "type": "DS",
+      "category": "BAV"
+    },
+    {
+      "name": "Unterwalden",
+      "type": "DS",
+      "category": "BAV"
+    },
+    {
+      "name": "Uri",
+      "type": "DS",
+      "category": "BAV"
+    },
+    {
+      "name": "Diamant",
+      "type": "MS",
+      "category": "BAT"
+    },
+    {
+      "name": "Europa",
+      "type": "MS",
+      "category": "BAT"
+    },
+    {
+      "name": "Gotthard",
+      "type": "MS",
+      "category": "BAT"
+    },
+    {
+      "name": "Winkelried",
+      "type": "MS",
+      "category": "BAT"
+    },
+    {
+      "name": "Schwyz",
+      "type": "MS",
+      "category": "BAT"
+    },
+    {
+      "name": "Waldstätter",
+      "type": "MS",
+      "category": "BAT"
+    },
+    {
+      "name": "Weggis",
+      "type": "MS",
+      "category": "BAT"
+    },
+    {
+      "name": "Brunnen",
+      "type": "MS",
+      "category": "BAT"
+    },
+    {
+      "name": "Flüelen",
+      "type": "MS",
+      "category": "BAT"
+    },
+    {
+      "name": "Titlis",
+      "type": "MS",
+      "category": "BAT"
+    },
+    {
+      "name": "Cirrus",
+      "type": "MS",
+      "category": "BAT"
+    },
+    {
+      "name": "Saphir",
+      "type": "MS",
+      "category": "BAT"
+    },
+    {
+      "name": "Bürgenstock",
+      "type": "MS",
+      "category": "BAT"
+    },
+    {
+      "name": "Rütli",
+      "type": "eMS",
+      "category": "BAT"
+    }
+  ]
+}
