@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState, type Ref } from 'react';
+import { useEffect, useMemo, useRef, useState, type Ref } from 'react';
 import { ArrowLeftRight } from 'lucide-react';
 import { isExactPierName, searchLakeLucernePiers } from '../piers';
 import type { PierOption } from '../types';
@@ -130,6 +130,16 @@ export function SearchForm({
   // show the presets instead of filtering by the currently selected pier's name.
   const [typed, setTyped] = useState<string | null>(null);
   const originInputRef = useRef<HTMLInputElement>(null);
+
+  // Once a search has been made the form folds up. Whatever tab it was on, it must reopen on
+  // the origin/destination tab when the rider taps the summary, not on date and time.
+  useEffect(() => {
+    if (!collapsed) return;
+    setTab('route');
+    setActiveField(null);
+    setTyped(null);
+  }, [collapsed]);
+
   const destinationInputRef = useRef<HTMLInputElement>(null);
 
   const dateTimeLabel = formatDateTimeLabel(date, time);
@@ -211,14 +221,15 @@ export function SearchForm({
   return (
     <div>
       <div className="relative pt-9 md:pt-11">
-        {/* The inactive tab peeks out from behind the main card, its text lined up with the fields below. */}
+        {/* The inactive tab peeks out from behind the main card: its left edge is flush with the card and
+            its padding matches the card's, so its text lines up with the fields below. */}
         <button
           type="button"
           onClick={() => {
             setTab(tab === 'route' ? 'datetime' : 'route');
             closePicker();
           }}
-          className="absolute left-1 top-0 z-[1] max-w-[62%] cursor-pointer truncate rounded-[14px] border-0 bg-surface-card px-4 pb-5 pt-3.5 text-left font-display text-sm font-semibold text-deep-lake shadow-card md:left-3.5 md:max-w-[50%] md:px-[18px] md:pb-[22px] md:pt-4 md:text-[15px]"
+          className="absolute left-0 top-0 z-[1] max-w-[62%] cursor-pointer truncate rounded-[14px] border-0 bg-surface-card px-5 pb-5 pt-2 text-left font-display text-sm font-semibold text-deep-lake shadow-card md:max-w-[50%] md:px-8 md:pb-[22px] md:pt-3 md:text-[15px]"
         >
           {tab === 'route' ? dateTimeLabel : routeLabel}
         </button>
