@@ -18,7 +18,7 @@ function ScrollToTop() {
 
 function Layout() {
   return (
-    <div className="min-h-screen bg-surface-page text-deep-lake">
+    <div className="relative min-h-screen bg-surface-page text-deep-lake">
       <ScrollToTop />
       <AppHeader />
       <Outlet />

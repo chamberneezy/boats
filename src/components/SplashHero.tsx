@@ -2,13 +2,16 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { CUES, Easing, tween, useSplashTimeline } from '../splash/timeline';
 import { Button } from './Button';
 
-const HERO_SRC = `${import.meta.env.BASE_URL}splash/hero.jpg`;
+const BASE = import.meta.env.BASE_URL;
+// Portrait crop for phones, landscape crop from the same set of photos for wide screens.
+const HERO_MOBILE = `${BASE}splash/hero.jpg`;
+const HERO_DESKTOP = `${BASE}splash/hero-desktop.jpg`;
 
 interface SplashHeroProps {
   onSelectLake: () => void;
 }
 
-// Mobile home hero: a full-height photo that a pair of shutter doors opens onto, then the
+// Home hero for every screen size: a full-screen photo (the transparent header floats over its top edge) that a pair of shutter doors opens onto, then the
 // headline, a rule drawing beneath it, the tag line and finally the call to action.
 // Motion follows the "Lacus Splash v2" design; the copy is the home hero's own.
 export function SplashHero({ onSelectLake }: SplashHeroProps) {
@@ -17,7 +20,7 @@ export function SplashHero({ onSelectLake }: SplashHeroProps) {
   const [photoReady, setPhotoReady] = useState(false);
   const T = useSplashTimeline(photoReady);
 
-  // Fill exactly the space below the header, so the header stays visible and untouched.
+  // Fill the screen from wherever the section starts (the top of the page, since the header floats over it).
   useLayoutEffect(() => {
     function measure() {
       const top = rootRef.current?.getBoundingClientRect().top ?? 0;
@@ -40,7 +43,7 @@ export function SplashHero({ onSelectLake }: SplashHeroProps) {
   const scrimOpacity = tween(T, 0, 1, CUES.Wordmark - 0.25, CUES.Wordmark + 0.2, Easing.easeOutCubic);
   const titleOpacity = tween(T, 0, 1, CUES.Wordmark - 0.1, CUES.Wordmark + 0.15);
   const titleY = tween(T, 12, 0, CUES.Wordmark - 0.1, CUES.Wordmark + 0.2, Easing.easeOutBack);
-  const ruleWidth = tween(T, 0, 96, CUES.Wordmark + 0.12, CUES.Wordmark + 0.32, Easing.easeOutCubic);
+  const ruleScale = tween(T, 0, 1, CUES.Wordmark + 0.12, CUES.Wordmark + 0.32, Easing.easeOutCubic);
   const tagOpacity = tween(T, 0, 1, CUES.Wordmark + 0.28, CUES.Wordmark + 0.45);
   const ctaOpacity = tween(T, 0, 1, CUES.Reveal, CUES.Reveal + 0.5, Easing.easeOutCubic);
   const ctaY = tween(T, 14, 0, CUES.Reveal, CUES.Reveal + 0.5, Easing.easeOutCubic);
@@ -49,17 +52,20 @@ export function SplashHero({ onSelectLake }: SplashHeroProps) {
   return (
     <section
       ref={rootRef}
-      className="relative overflow-hidden bg-deep-lake md:hidden"
+      className="relative overflow-hidden bg-deep-lake"
       style={{ height: height ?? '100svh' }}
     >
-      <img
-        src={HERO_SRC}
-        alt=""
-        fetchPriority="high"
-        onLoad={() => setPhotoReady(true)}
-        className="absolute inset-0 h-full w-full object-cover"
-        style={{ transform: `scale(${heroScale})`, transformOrigin: 'center' }}
-      />
+      <picture>
+        <source media="(min-width: 768px)" srcSet={HERO_DESKTOP} />
+        <img
+          src={HERO_MOBILE}
+          alt=""
+          fetchPriority="high"
+          onLoad={() => setPhotoReady(true)}
+          className="absolute inset-0 h-full w-full object-cover"
+          style={{ transform: `scale(${heroScale})`, transformOrigin: 'center' }}
+        />
+      </picture>
 
       {/* Shutter doors */}
       <div
@@ -77,6 +83,12 @@ export function SplashHero({ onSelectLake }: SplashHeroProps) {
         <div className="absolute inset-y-0 left-0 w-0.5 bg-alpine-sky" />
       </div>
 
+      {/* Soft shade under the transparent header, so its white icons read on a bright sky. */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 h-28 bg-linear-to-b from-deep-lake/50 to-deep-lake/0 md:h-36"
+      />
+
       {/* Scrim behind the copy */}
       <div
         aria-hidden="true"
@@ -84,17 +96,20 @@ export function SplashHero({ onSelectLake }: SplashHeroProps) {
         style={{ opacity: scrimOpacity }}
       />
 
-      <div className="absolute inset-x-0 bottom-0 flex flex-col items-start gap-4 px-6 pb-6">
+      <div className="absolute inset-x-0 bottom-0 flex flex-col items-start gap-4 px-6 pb-6 md:gap-8 md:px-16 md:pb-20">
         <div
-          className="flex flex-col items-start gap-3.5"
+          className="flex flex-col items-start gap-3.5 md:gap-5"
           style={{ opacity: titleOpacity, transform: `translateY(${titleY}px)` }}
         >
-          <h1 className="m-0 font-display text-[34px] font-semibold leading-[38px] tracking-[-0.02em] text-white">
+          <h1 className="m-0 max-w-[820px] font-display text-[34px] font-semibold leading-[38px] tracking-[-0.02em] text-white md:text-[68px] md:leading-[72px]">
             Switzerland&apos;s lakes, on schedule.
           </h1>
-          <div className="h-[3px] bg-alpine-sky" style={{ width: ruleWidth }} />
+          <div
+            className="h-[3px] w-24 origin-left bg-alpine-sky md:h-1 md:w-36"
+            style={{ transform: `scaleX(${ruleScale})` }}
+          />
           <span
-            className="font-body text-xs uppercase tracking-[0.18em] text-white"
+            className="font-body text-xs uppercase tracking-[0.18em] text-white md:text-base"
             style={{ opacity: tagOpacity }}
           >
             Swiss lake crossings
@@ -102,7 +117,7 @@ export function SplashHero({ onSelectLake }: SplashHeroProps) {
         </div>
 
         <div
-          className="mt-3 w-full"
+          className="mt-3 w-full md:mt-0 md:w-auto"
           style={{ opacity: ctaOpacity, transform: `translateY(${ctaY}px)`, pointerEvents: ctaVisible ? 'auto' : 'none' }}
           aria-hidden={!ctaVisible}
         >

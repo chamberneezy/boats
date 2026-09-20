@@ -25,9 +25,8 @@ const LAKE_LIST: Lake[] = [
 
 const lakeById = (id: string): Lake => LAKE_LIST.find((lake) => lake.id === id)!;
 
-// Home page order: the three most popular lakes first, then the rest grouped by the
-// language region they lie in. Bilingual lakes (Biel, Murten) are placed by the region of
-// their main shore towns.
+// Home page order: the three most popular lakes first, then the rest grouped by tourism
+// region, using Switzerland Tourism's own region names (myswitzerland.com/destinations).
 export const POPULAR_LAKES: Lake[] = ['lake-lucerne', 'lake-geneva', 'lake-zurich'].map(lakeById);
 
 export interface LakeRegion {
@@ -37,13 +36,15 @@ export interface LakeRegion {
 }
 
 export const LAKE_REGIONS: LakeRegion[] = [
+  { id: 'central', label: 'Central Switzerland', lakes: ['lake-zug'].map(lakeById) },
+  { id: 'bernese-oberland', label: 'Bernese Oberland', lakes: ['lake-thun', 'lake-brienz'].map(lakeById) },
   {
-    id: 'german',
-    label: 'German-speaking Switzerland',
-    lakes: ['lake-thun', 'lake-brienz', 'lake-constance', 'lake-zug', 'lake-biel', 'lake-murten'].map(lakeById),
+    id: 'three-lakes',
+    label: 'Jura & Three-Lakes',
+    lakes: ['lake-neuchatel', 'lake-biel', 'lake-murten'].map(lakeById),
   },
-  { id: 'french', label: 'French-speaking Switzerland', lakes: ['lake-neuchatel'].map(lakeById) },
-  { id: 'italian', label: 'Italian-speaking Switzerland', lakes: ['lake-lugano', 'lake-maggiore'].map(lakeById) },
+  { id: 'eastern', label: 'Eastern Switzerland', lakes: ['lake-constance'].map(lakeById) },
+  { id: 'ticino', label: 'Ticino', lakes: ['lake-lugano', 'lake-maggiore'].map(lakeById) },
 ];
 
 // Every lake in Home page order.

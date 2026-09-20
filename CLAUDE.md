@@ -46,14 +46,14 @@ Source of truth: the Lacus Mockups and Lacus Design System projects in Claude De
 - Tone: calm, precise, no exclamation marks, no emoji, sentence case, no gradients.
 
 ## Home page (mobile splash and lake order)
-- Phones (`< md`) get `SplashHero`: a full-height photo below the untouched header, shutter doors opening, the hero headline, a rule, the tag line "Swiss lake crossings" and finally a "Select your lake" button that scrolls to the lakes. Motion is ported from the Lacus Splash v2 design (`src/splash/timeline.ts`: scene timings and easing). Plays once per session and is skipped for reduced-motion. Wider screens keep the text hero.
+- Every screen size gets `SplashHero` at the top of Home: a full-screen photo with a transparent header floating over its top edge (white nav/menu/search and logo, soft shade behind them; the header takes no height on Home and scrolls away with the splash), shutter doors opening, the hero headline, a rule, the tag line "Swiss lake crossings" and finally a "Select your lake" button that scrolls to the lakes. Phones use the portrait `public/splash/hero.jpg`, `md` and up the landscape `public/splash/hero-desktop.jpg` (both the owner's photos, via `<picture>`). Motion is ported from the Lacus Splash v2 design (`src/splash/timeline.ts`: scene timings and easing). Plays once per session and is skipped for reduced-motion. The old text hero and animation placeholder are gone.
 - Render only the layout that applies (`useMediaQuery`), never both hidden with CSS, so unused photos are not created.
-- Lake order everywhere (`src/lakes.ts`): three most popular first (Lucerne, Geneva, Zurich), then by language region: German (Thun, Brienz, Constance, Zug, Biel, Murten), French (Neuchâtel), Italian (Lugano, Maggiore). On phones the regions are collapsed groups whose cards and photos render only when opened.
+- Lake order everywhere (`src/lakes.ts`): three most popular first (Lucerne, Geneva, Zurich), then grouped by Switzerland Tourism region names: Central Switzerland (Zug), Bernese Oberland (Thun, Brienz), Jura & Three-Lakes (Neuchâtel, Biel, Murten), Eastern Switzerland (Constance), Ticino (Lugano, Maggiore). On phones the regions are collapsed groups whose cards and photos render only when opened.
 
 ## Photography
 - Lake card photos live in `public/lakes/{lake-id}.jpg` (Wikimedia Commons, CC BY / CC BY-SA). Credits are in `src/data/lakePhotos.ts` and shown under "Photo credits" on Home. Every photo added must have a credit entry there; do not use a photo without a licence that allows it.
 - Cards fall back to the placeholder box if a photo is missing.
-- The mobile splash photo is `public/splash/hero.jpg` (portrait, credited as `SPLASH_PHOTO`). To use your own photo, replace that file (about 900 × 1800) and update the credit.
+- The splash photos `public/splash/hero.jpg` (portrait, about 900 × 1800) and `hero-desktop.jpg` (landscape 16:9, about 2200 × 1238) are the owner's own; no credit needed. Export new ones as JPEG without EXIF/GPS metadata.
 
 ## Category Badges
 - One neutral pill for both types: `bg-surface-sunken text-deep-lake`, Kanit 500 (`CategoryPill`).

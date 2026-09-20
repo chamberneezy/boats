@@ -21,13 +21,24 @@ function useSection(pathname: string): { section: Section; lakeName: string | nu
 }
 
 function WebNav({ section }: { section: Section }) {
+  // On Home the bar is transparent and lies over the splash photo, so it takes no height
+  // and its text is white; on every other page it is the solid page-coloured bar.
+  const overlay = section === 'home';
   const linkClass = (active: boolean) =>
-    `font-display text-[15px] font-medium no-underline ${active ? 'text-deep-lake' : 'text-stone-grey'}`;
+    `font-display text-[15px] font-medium no-underline ${
+      overlay ? (active ? 'text-white' : 'text-white/75') : active ? 'text-deep-lake' : 'text-stone-grey'
+    }`;
   return (
-    <div className="hidden items-center justify-between border-b border-hairline bg-surface-page px-5 py-3 md:flex">
+    <div
+      className={`hidden items-center justify-between px-5 py-3 md:flex ${
+        overlay
+          ? 'absolute inset-x-0 top-0 z-20 px-16 py-5'
+          : 'border-b border-hairline bg-surface-page'
+      }`}
+    >
       <Link to="/" className="flex items-center gap-2.5 no-underline">
         <img src={LOGO_SRC} alt="" className="h-7 w-7 rounded-md" />
-        <span className="font-display text-lg font-medium leading-6 text-deep-lake">Lacus</span>
+        <span className={`font-display text-lg font-medium leading-6 ${overlay ? 'text-white' : 'text-deep-lake'}`}>Lacus</span>
       </Link>
       <nav className="flex gap-6" aria-label="Main">
         <Link to="/" aria-current={section === 'home' ? 'page' : undefined} className={linkClass(section === 'home')}>
@@ -40,7 +51,7 @@ function WebNav({ section }: { section: Section }) {
           Timetables
         </Link>
         {WEB_INERT_ITEMS.map((item) => (
-          <span key={item} className="font-display text-[15px] font-medium text-stone-grey">
+          <span key={item} className={`font-display text-[15px] font-medium ${overlay ? 'text-white/75' : 'text-stone-grey'}`}>
             {item}
           </span>
         ))}
@@ -79,7 +90,7 @@ function MobileMenu() {
         aria-label="Menu"
         aria-expanded={open}
         onClick={() => setOpen((prev) => !prev)}
-        className="flex h-6 w-6 cursor-pointer items-center justify-center border-0 bg-transparent p-0 text-deep-lake"
+        className="flex h-6 w-6 cursor-pointer items-center justify-center border-0 bg-transparent p-0 text-inherit"
       >
         <Menu className="h-[18px] w-[18px]" strokeWidth={2} />
       </button>
@@ -117,16 +128,17 @@ function MobileBar({ section, lakeName }: { section: Section; lakeName: string |
   }
 
   if (section === 'home') {
+    // Transparent and laid over the splash photo, so it takes no height of its own.
     return (
-      <div className="flex items-center justify-between px-5 pb-3 pt-4 md:hidden">
+      <div className="absolute inset-x-0 top-0 z-20 flex items-center justify-between px-5 pb-3 pt-4 text-white md:hidden">
         <div className="flex items-center gap-3.5">
           <MobileMenu />
-          <Link to={SEARCH_TO} aria-label="Search sailings" className="flex h-6 w-6 items-center justify-center text-deep-lake">
+          <Link to={SEARCH_TO} aria-label="Search sailings" className="flex h-6 w-6 items-center justify-center text-white">
             <Search className="h-4 w-4" strokeWidth={2} />
           </Link>
         </div>
         <div className="flex items-center gap-2">
-          <span className="font-display text-[17px] font-medium text-deep-lake">Lacus</span>
+          <span className="font-display text-[17px] font-medium">Lacus</span>
           <img src={LOGO_SRC} alt="" className="h-[26px] w-[26px] rounded-md" />
         </div>
       </div>
