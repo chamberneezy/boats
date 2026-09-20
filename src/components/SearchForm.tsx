@@ -278,14 +278,14 @@ export function SearchForm({
             <>
               <div className="font-body text-[13px] text-stone-grey">Date and time</div>
               <div className="mt-1 font-display text-[22px] font-semibold text-deep-lake md:text-[28px]">{dateTimeLabel}</div>
-              <div className="mt-4 grid grid-cols-2 gap-3.5 md:gap-5">
+              <div className="mt-4 grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-3.5 md:gap-5">
                 <label className="min-w-0">
                   <span className="mb-1.5 block font-body text-sm text-deep-lake">Date</span>
                   <input
                     type="date"
                     value={date}
                     onChange={(e) => onDateChange(e.target.value)}
-                    className="w-full min-w-0 rounded-[10px] border border-stone-grey bg-surface-card px-3.5 py-3 font-body text-base text-deep-lake outline-none focus:border-deep-lake"
+                    className="native-field rounded-[10px] border border-stone-grey bg-surface-card px-3.5 font-body text-base text-deep-lake outline-none focus:border-deep-lake"
                   />
                 </label>
                 <label className="min-w-0">
@@ -294,7 +294,7 @@ export function SearchForm({
                     type="time"
                     value={time}
                     onChange={(e) => onTimeChange(e.target.value)}
-                    className="w-full min-w-0 rounded-[10px] border border-stone-grey bg-surface-card px-3.5 py-3 font-body text-base text-deep-lake outline-none focus:border-deep-lake"
+                    className="native-field rounded-[10px] border border-stone-grey bg-surface-card px-3.5 font-body text-base text-deep-lake outline-none focus:border-deep-lake"
                   />
                 </label>
               </div>

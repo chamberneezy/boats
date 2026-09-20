@@ -105,3 +105,22 @@ body {
     animation: none;
   }
 }
+
+/* Native date/time inputs: iOS Safari gives them a fixed intrinsic width and centred text,
+   so they overflow their grid cell unless the native styling is switched off. */
+.native-field {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  height: 52px;
+  text-align: left;
+}
+
+.native-field::-webkit-date-and-time-value {
+  text-align: left;
+  min-height: 1.5em;
+}
