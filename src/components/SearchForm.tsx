@@ -242,8 +242,14 @@ export function SearchForm({
         </button>
 
         <div className="relative z-[2] rounded-[14px] bg-surface-card p-5 shadow-card md:rounded-[16px] md:p-8">
-          {tab === 'route' ? (
-            <>
+          {/* Both tabs are always laid out in the same cell of a grid, and the inactive one is only
+              hidden. The card is therefore always as tall as the taller of the two, so switching tabs
+              never resizes it or moves anything below it. */}
+          <div className="grid">
+            <div
+              className={`col-start-1 row-start-1 ${tab === 'route' ? '' : 'invisible'}`}
+              aria-hidden={tab !== 'route'}
+            >
               <div className="flex items-center gap-3 md:gap-5">
                 <PierField
                   label="Origin"
@@ -291,9 +297,11 @@ export function SearchForm({
                   onPick={(pier) => pick(activeField, pier)}
                 />
               )}
-            </>
-          ) : (
-            <>
+            </div>
+            <div
+              className={`col-start-1 row-start-1 ${tab === 'datetime' ? '' : 'invisible'}`}
+              aria-hidden={tab !== 'datetime'}
+            >
               <div className="font-body text-[13px] text-stone-grey">Date and time</div>
               {/* The value is the control: a transparent native date-time input lies over it, so a
                   tap opens the phone's own picker (and a click opens the browser's on desktop). */}
@@ -315,8 +323,8 @@ export function SearchForm({
                   className="absolute inset-0 h-full w-full cursor-pointer appearance-none opacity-0"
                 />
               </div>
-            </>
-          )}
+            </div>
+          </div>
         </div>
       </div>
 
