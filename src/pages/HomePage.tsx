@@ -1,12 +1,10 @@
 import { useNavigate } from 'react-router';
 import { CtaBand } from '../components/CtaBand';
-import { LakeCard } from '../components/LakeCard';
 import { LakeGroups } from '../components/LakeGroups';
 import { SplashHero } from '../components/SplashHero';
 import { LAKE_PHOTOS } from '../data/lakePhotos';
 import { useDocumentTitle } from '../useDocumentTitle';
 import { useFavorites } from '../useFavorites';
-import { useMediaQuery } from '../useMediaQuery';
 import { DEFAULT_LAKE_ID, LAKES } from '../lakes';
 import { searchPath } from '../routes';
 
@@ -16,14 +14,12 @@ export function HomePage() {
   useDocumentTitle('Lacus — Switzerland’s lakes, on schedule');
   const navigate = useNavigate();
   const { favorites, toggle } = useFavorites();
-  const isWide = useMediaQuery('(min-width: 768px)');
   const goToSearch = () => navigate(searchPath(DEFAULT_LAKE_ID));
   const showLakes = () => {
     const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
     document.getElementById('lakes')?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
   };
 
-  const rows = [LAKES.slice(0, 4), LAKES.slice(4, 8), LAKES.slice(8, 12)];
   const bands = [
     { title: 'Reserve your Lake Lucerne crossing', body: 'Departs from Lucerne, Weggis, Vitznau and Flüelen.' },
     { title: 'Book ahead for peak departures', body: 'Cabins are heated. Light rain does not cancel a crossing.' },
@@ -42,34 +38,12 @@ export function HomePage() {
             </p>
           </div>
 
-          {!isWide && (
-            /* Phones: popular lakes, then the rest folded behind their language region. */
-            <div className="flex flex-col gap-5">
-              <LakeGroups favorites={favorites} onToggleFavorite={toggle} />
-              <CtaBand {...bands[0]} buttonLabel="Search sailings" onClick={goToSearch} />
-            </div>
-          )}
-
-          {isWide && (
-            /* Web: the full grid in the same order, with a call to action between rows. */
-          <div className="flex flex-col gap-8">
-            {rows.map((row, rowIdx) => (
-              <div key={rowIdx} className="flex flex-col gap-8">
-                <div className="grid grid-cols-2 gap-6">
-                  {row.map((lake) => (
-                    <LakeCard
-                      key={lake.id}
-                      lake={lake}
-                      isFavorite={favorites.includes(lake.id)}
-                      onToggleFavorite={() => toggle(lake.id)}
-                    />
-                  ))}
-                </div>
-                {bands[rowIdx] && <CtaBand {...bands[rowIdx]} buttonLabel="Search sailings" onClick={goToSearch} />}
-              </div>
-            ))}
-          </div>
-          )}
+          <LakeGroups
+            favorites={favorites}
+            onToggleFavorite={toggle}
+            afterPopular={<CtaBand {...bands[0]} buttonLabel="Search sailings" onClick={goToSearch} />}
+          />
+          <CtaBand {...bands[1]} buttonLabel="Search sailings" onClick={goToSearch} />
         </section>
 
         <details className="px-5 pb-8 md:px-16 md:pb-10">

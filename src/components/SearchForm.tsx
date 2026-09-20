@@ -22,6 +22,8 @@ interface SearchFormProps {
   // After a search the form folds into a one-line summary that re-opens on tap.
   collapsed: boolean;
   onExpand: () => void;
+  // From the collapsed summary: reverse the direction and search again at once.
+  onSwapSearch: () => void;
 }
 
 const FIELD_PLACEHOLDER = 'Select a pier';
@@ -123,6 +125,7 @@ export function SearchForm({
   isLoading,
   collapsed,
   onExpand,
+  onSwapSearch,
 }: SearchFormProps) {
   const [tab, setTab] = useState<Tab>('route');
   const [activeField, setActiveField] = useState<Field | null>(null);
@@ -190,30 +193,34 @@ export function SearchForm({
   }
 
   if (collapsed) {
+    // The two ends reopen the form; the swap button between them reverses the trip.
     return (
-      <div
-        role="button"
-        tabIndex={0}
-        onClick={onExpand}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            onExpand();
-          }
-        }}
-        className="flex cursor-pointer items-center gap-2.5 rounded-xl bg-surface-card px-3.5 py-3 shadow-card md:gap-4 md:rounded-[16px] md:px-6 md:py-5"
-      >
-        <div className="min-w-0 flex-1">
+      <div className="flex items-center gap-2.5 rounded-xl bg-surface-card px-3.5 py-3 shadow-card md:gap-4 md:rounded-[16px] md:px-6 md:py-5">
+        <button
+          type="button"
+          onClick={onExpand}
+          className="min-w-0 flex-1 cursor-pointer border-0 bg-transparent p-0 text-left"
+        >
           <div className="font-body text-[10px] text-stone-grey md:text-[11px]">Origin</div>
           <div className="truncate font-display text-sm font-semibold text-deep-lake md:text-base">{origin.name}</div>
-        </div>
-        <span className="text-[13px] text-stone-grey md:text-[15px]" aria-hidden="true">
-          →
-        </span>
-        <div className="min-w-0 flex-1 text-right">
+        </button>
+        <button
+          type="button"
+          onClick={onSwapSearch}
+          aria-label="Swap origin and destination"
+          title="Swap origin and destination"
+          className="flex h-10 w-10 flex-shrink-0 cursor-pointer items-center justify-center rounded-[12px] border border-hairline bg-surface-page text-deep-lake transition-colors hover:bg-surface-sunken"
+        >
+          <ArrowLeftRight className="h-[18px] w-[18px]" strokeWidth={2} aria-hidden="true" />
+        </button>
+        <button
+          type="button"
+          onClick={onExpand}
+          className="min-w-0 flex-1 cursor-pointer border-0 bg-transparent p-0 text-right"
+        >
           <div className="font-body text-[10px] text-stone-grey md:text-[11px]">Destination</div>
           <div className="truncate font-display text-sm font-semibold text-deep-lake md:text-base">{destination.name}</div>
-        </div>
+        </button>
       </div>
     );
   }

@@ -158,6 +158,11 @@ export function SearchPage() {
     }
   }
 
+  // Reverse the searched trip (same date and time) by changing the URL; the page follows it.
+  function handleSwapSearch() {
+    navigate(searchPath(lake!.id, { from: destination.id, to: origin.id, date, time }));
+  }
+
   function handleReset() {
     navigate(searchPath(lake!.id));
   }
@@ -188,6 +193,7 @@ export function SearchPage() {
         isLoading={isLoading}
         collapsed={isCollapsed}
         onExpand={() => setIsCollapsed(false)}
+        onSwapSearch={handleSwapSearch}
       />
 
       <section className="mt-8 flex flex-col gap-4" aria-live="polite">

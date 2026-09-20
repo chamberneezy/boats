@@ -1,77 +1,50 @@
 # CLAUDE.md - Lacus: Swiss Lake Boat Schedule App
 
-## Tech Stack
-- Framework: Vite + React + TypeScript
-- Styling: Tailwind CSS (v4, tokens in `src/index.css` `@theme`)
-- Icons: Lucide React (`lucide-react`)
-- Fonts: Kanit (500/600, headings, buttons, times) and Karma (400/500, body). No other families.
-- Data API: `https://transport.opendata.ch/v1`
-
-## Workflow
-- do not push to GitHub, nor suggest commits without me asking first
+## Stack and workflow
+- Vite + React + TypeScript, Tailwind v4 (tokens in `src/index.css` `@theme`), `lucide-react`, `react-router`.
+- Fonts: Kanit (500/600: headings, buttons, times) and Karma (400/500: body). No others.
+- Data API: `https://transport.opendata.ch/v1`.
+- Do not push to GitHub, nor suggest commits, without being asked first.
 - Do not suggest contacting SGV; SGV data comes from scraping their public pages (`scripts/scrape-sgv.mjs`).
 
-## UI & Search Behavior
-- Origin and Destination are **Autocomplete Search Inputs**: type to filter, Enter picks the first match, Escape closes.
-- Suggestions filter the static list of verified Lake Lucerne boat piers in `src/piers.ts`. They do **not** call `/locations` (it returns trains, buses and cable cars too).
-- Riders see short place names ("Luzern", "Bürgenstock"), never official station names ("Luzern Bahnhofquai"). `PierOption.name` is the short name, `fullName` the official one (still searchable). Use `pierLabel()` for any station name from the API. Short names must stay unique.
-- Choosing an origin (tap, Enter, or typing an exact unambiguous name) moves focus to the empty Destination and opens its suggestions. A name that starts another pier ("Meggen" / "Meggenhorn") is not auto-picked.
-- The date and time is one tappable line with a calendar icon; a transparent native `datetime-local` input lies over it so the phone's own picker opens (no separate date and time boxes: iOS Safari renders them unreliably). Tapping the collapsed summary after a search always reopens the origin/destination tab.
-- Phones: the menu button on Home opens a full-screen menu (`MenuOverlay` in `AppHeader.tsx`): X on the left, title "Menu", app icon on the right, a placeholder search bar (disabled, no behaviour yet), then Home, Schedules, Tickets and Account (the last two "Coming soon"). It locks page scroll and closes on X, Escape or navigation.
-- The trip page's "Back to departures" link shows on desktop only; phones use the back arrow in the header.
-- The control between Origin and Destination is a swap button (ArrowLeftRight icon), not an arrow.
-- With nothing typed, the popular piers (Luzern Bahnhofquai, Weggis, Vitznau, Kehrsiten-Bürgenstock, Brunnen) are shown as presets.
-- Riders must **never** see whether data is live, cached or a fallback. No badges, banners or labels about the source.
-  Source is reported only via `reportDataSource()` in `src/dataSourceMonitor.ts` (console for now, backend later).
-- Schedule state is a coloured dot only (`StatusBadge`), shown left of the category pill on every card and next to the route on the trip page, never with visible text (screen readers still get the status): on time (green), delayed, cancelled. On time and delayed blink; cancelled does not.
-  SGV boats provide **no** real-time data through the API (delay/prognosis always empty, no cancellation flag), so by product decision every sailing shows green on time unless a delay is reported (`ASSUME_ON_TIME_WITHOUT_REALTIME` in `src/connections.ts`). Delayed and cancelled need a real source (GTFS-RT or a manual override).
-- "Reserve" / "Buy" are shown disabled until a booking system exists.
-- Boat names, amenities (R / WC / accessible) and the map are not built yet; do not show invented data for them.
+## Search behaviour
+- Origin and Destination are autocomplete inputs over the static verified pier list in `src/piers.ts` (no `/locations` call: it also returns trains and buses). Enter picks the first match, Escape closes. With nothing typed, popular piers are shown as presets.
+- Riders see short place names ("Luzern", "Bürgenstock"), never official ones. `PierOption.name` is short, `fullName` official (still searchable). Use `pierLabel()` for API station names. Short names must stay unique.
+- Picking an origin (tap, Enter, or typing an exact unambiguous name) focuses the empty Destination and opens its suggestions. "Meggen" is not auto-picked because "Meggenhorn" also starts with it.
+- The control between the fields is a swap button (ArrowLeftRight), never a plain arrow, in the form and in the collapsed summary; in the summary it reverses the trip and searches again at once.
+- Date and time is one tappable line; a transparent native `datetime-local` input covers it so the phone's picker opens (separate date/time boxes render badly on iOS Safari).
+- After a search the form collapses; tapping the summary reopens the origin/destination tab.
+- "Reserve" / "Buy" stay disabled until booking exists. Boat names, amenities and the map are not built: never show invented data for them.
 
-## Routing (react-router, `src/routes.ts` holds every URL shape)
-- `/` Home, `/schedules` Schedules, `/search/lake-lucerne` search form, `/search/lake-lucerne?from=&to=&date=&time=` results, `/trip/lake-lucerne?from=&to=&dep=` one sailing.
-- The URL is the source of truth for search state; each trip is its own history entry. Back/forward must restore results without a refetch.
-- The URL scheme is provisional (pier ids, unix seconds); the owner will specify the final scheme.
-- GitHub Pages needs `public/404.html` plus the redirect script in `index.html` for deep links. Remove both when hosting rewrites all paths to `index.html`.
-- Schedules: Lake Lucerne shows real departures from the stationboard endpoint; other lakes use sample data from `src/data/sampleSchedules.ts` until real data exists.
+## Data and status
+- Riders must never see whether data is live, cached or fallback. Source goes only to `reportDataSource()` (`src/dataSourceMonitor.ts`).
+- Schedule state is a coloured dot only (`StatusBadge`), no visible text: left of the category pill on cards, next to the route on the trip page. SGV boats give no real-time data (delay/prognosis empty, no cancellation flag), so every sailing shows green "on time" unless a delay is reported (`ASSUME_ON_TIME_WITHOUT_REALTIME` in `src/connections.ts`). Delayed/cancelled need a real source (manual override or scraped notices).
+- The UI calls only `searchConnections` / `loadLaterConnections` (`src/connections.ts`). Fallback order: fresh cache (30 min) -> live -> stale cache -> bundled timetable (`src/data/fallbackTimetable.json`, only within its season) -> error.
+- Endpoints: `/connections?from=&to=&transportations[]=ship` (keep only `journey.category` `BAT`/`BAV`) and `/stationboard?id=&transportations[]=ship` (Schedules). Fields: `section.departure.platform` = pier number, `journey.number` = line (3600), `journey.name` = zero-padded Kurs (`000029`), `delay` null = no real-time.
+- Scraped SGV data (never hand-edit): `src/data/scraped/sgv-*.json` via `npm run scrape:sgv`. Only steamer (DS) assignments are published; motor-ship names are not.
+- Planned backend: Firebase/GCP (GTFS ingestion, scheduled SGV scrape, monitoring).
 
-## Design System (Lacus)
-Source of truth: the Lacus Mockups and Lacus Design System projects in Claude Design. Tokens live in `src/index.css`.
-- Deep Lake `#16384A` (`text-deep-lake`, `bg-deep-lake`): primary text, dark surfaces, end-of-route dot
-- Alpine Sky `#4A90A4` (`text-alpine-sky`): secondary text, eyebrows, back links
-- Stone Grey `#8D9A9C` (`text-stone-grey`): muted text, placeholders
-- Glacier Mist `#EDF3F4` (`bg-surface-page`): page background
-- Card `#FFFFFF` (`bg-surface-card`) with `shadow-card`; sunken surface `#E2EBEC` (`bg-surface-sunken`) for pills and placeholders
-- Hairlines: `border-hairline` (Alpine Sky at 28%); prefer dividers over card borders
-- Sunline Gold `#C99A4B` (`bg-sunline-gold`, pressed `#B4863A`): the **only** CTA colour, white label, at most one CTA per screen. Disabled: `bg-cta-disabled`
-- Status dots: on time `#3F8F5C`, delayed `#C9762E`, cancelled `#B5473F` (`bg-status-*`). Never used as a CTA colour. On time and delayed blink; cancelled does not.
-- Radius 10–16px on cards, buttons and inputs; no fully round buttons or inputs. Times use tabular numerals.
-- Tone: calm, precise, no exclamation marks, no emoji, sentence case, no gradients.
+## Routing (`src/routes.ts` holds every URL shape)
+- `/` Home, `/schedules`, `/search/lake-lucerne`, `/search/lake-lucerne?from=&to=&date=&time=` (results), `/trip/lake-lucerne?from=&to=&dep=` (one sailing). The scheme is provisional; the owner will specify the final one.
+- The URL is the source of truth for search state; each trip is its own history entry; back/forward restore results without refetching.
+- GitHub Pages needs `public/404.html` plus the redirect script in `index.html`; remove both once hosting rewrites all paths to `index.html`.
+- Schedules: Lake Lucerne uses real stationboard departures (one row per destination); other lakes use `src/data/sampleSchedules.ts`.
 
-## Home page (mobile splash and lake order)
-- Every screen size gets `SplashHero` at the top of Home: a full-screen photo with a transparent header floating over its top edge (white nav/menu/search and logo, soft shade behind them; the header takes no height on Home and scrolls away with the splash), shutter doors opening, the hero headline, a rule, the tag line "Swiss lake crossings" and finally a "Select your lake" button that scrolls to the lakes. Phones use the portrait `public/splash/hero.jpg`, `md` and up the landscape `public/splash/hero-desktop.jpg` (both the owner's photos, via `<picture>`). Motion is ported from the Lacus Splash v2 design (`src/splash/timeline.ts`: scene timings and easing). Plays once per session and is skipped for reduced-motion. The old text hero and animation placeholder are gone.
-- Render only the layout that applies (`useMediaQuery`), never both hidden with CSS, so unused photos are not created.
-- Lake order everywhere (`src/lakes.ts`): three most popular first (Lucerne, Geneva, Zurich), then grouped by Switzerland Tourism region names: Central Switzerland (Zug), Bernese Oberland (Thun, Brienz), Jura & Three-Lakes (Neuchâtel, Biel, Murten), Eastern Switzerland (Constance), Ticino (Lugano, Maggiore). On phones the regions are collapsed groups whose cards and photos render only when opened.
+## Screens
+- Home opens with `SplashHero` at every size: full-screen owner photo, transparent header floating over it (white, soft top shade, scrolls away with it), shutter doors, hero headline, rule, tag line, then a "Select your lake" button that scrolls to the lakes. Motion is ported from the Lacus Splash v2 design (`src/splash/timeline.ts`); plays once per session, skipped for reduced motion.
+- Menu (`src/components/Menu.tsx`; hamburger left of the logo on desktop, left on Home on phones): X on the left, "Menu" title, app icon on the right, a placeholder (disabled) search bar, then Home, Schedules, Tickets and Account ("Coming soon"). It slides in from the left and **pushes the page aside, never covering it**: phones, the menu fills the screen and the page slides fully out; desktop, a 400px drawer and the page narrows by 400px. Phones lock page scroll. Closes on X, Escape, the hamburger or navigation. State is in `src/menu.ts` (Layout in `App.tsx` reads it).
+- The trip page's "Back to departures" link is desktop-only; phones use the header back arrow.
+- Lake order (`src/lakes.ts`), same on every screen size (`LakeGroups`): Lucerne, Geneva, Zurich first, then Switzerland Tourism regions: Central Switzerland (Zug), Bernese Oberland (Thun, Brienz), Jura & Three-Lakes (Neuchâtel, Biel, Murten), Eastern Switzerland (Constance), Ticino (Lugano, Maggiore). Regions are collapsed; their cards and photos render only when opened.
+
+## Design system (Lacus; source: Lacus Mockups and Lacus Design System in Claude Design)
+- Deep Lake `#16384A` (`deep-lake`): text, dark surfaces. Alpine Sky `#4A90A4` (`alpine-sky`): secondary text, eyebrows. Stone Grey `#8D9A9C` (`stone-grey`): muted text.
+- Page `bg-surface-page` `#EDF3F4`; card `bg-surface-card` white with `shadow-card`; sunken `bg-surface-sunken` `#E2EBEC` for pills and placeholders; `border-hairline` dividers over card borders.
+- Sunline Gold `#C99A4B` (`sunline-gold`) is the only CTA colour, white label, at most one CTA per screen; disabled `bg-cta-disabled`.
+- Status dots (`bg-status-*`): on time `#3F8F5C`, delayed `#C9762E`, cancelled `#B5473F`; never a CTA colour. On time and delayed blink; cancelled does not.
+- Radius 10–16px; no fully round buttons or inputs. Tabular numerals for times.
+- Tone: calm, precise, sentence case, no exclamation marks or emoji. No decorative gradients (soft shadows behind text on photos are fine).
+- Category pill (`CategoryPill`): neutral `bg-surface-sunken`; `BAT` (incl. electric) Ship icon "Motor vessel"; `BAV` Anchor icon "Paddle steamer". On phones cards show the icon only.
 
 ## Photography
-- Lake card photos live in `public/lakes/{lake-id}.jpg` (Wikimedia Commons, CC BY / CC BY-SA). Credits are in `src/data/lakePhotos.ts` and shown under "Photo credits" on Home. Every photo added must have a credit entry there; do not use a photo without a licence that allows it.
-- Cards fall back to the placeholder box if a photo is missing.
-- The splash photos `public/splash/hero.jpg` (portrait, about 900 × 1800) and `hero-desktop.jpg` (landscape 16:9, about 2200 × 1238) are the owner's own; no credit needed. Export new ones as JPEG without EXIF/GPS metadata.
-
-## Category Badges
-- One neutral pill for both types: `bg-surface-sunken text-deep-lake`, Kanit 500 (`CategoryPill`).
-- Motor Vessel (`BAT`, includes electric): Ship icon, label "Motor vessel".
-- Paddle Steamer (`BAV`): Anchor icon, label "Paddle steamer".
-- On phones the pill inside result cards shows the icon only; the label stays for screen readers.
-
-## API Filtering Rules
-1. Connections endpoint: `GET /connections?from={fromId}&to={toId}&transportations[]=ship`
-2. Filter connection sections strictly where `journey.category` equals `BAT` or `BAV`.
-3. Stationboard endpoint (not used yet): `GET /stationboard?id={stationId}&transportations[]=ship`
-4. Useful fields: `section.departure.platform` is the pier number, `journey.number` the line (e.g. 3600), `journey.name` the zero-padded Kurs number (e.g. `000029`). `delay` is `null` when there is no real-time data.
-
-## Data Layer
-- The UI calls only `searchConnections` / `loadLaterConnections` in `src/connections.ts`.
-- Fallback order: fresh cache (30 min) -> live API -> stale cache -> bundled timetable (`src/data/fallbackTimetable.json`, valid only inside its stated season) -> error.
-- Scraped SGV data (machine-owned, never hand-edit): `src/data/scraped/sgv-fleet.json` and `sgv-assignments.json`, refreshed with `npm run scrape:sgv`. Only steamer (DS) assignments are published; motor-ship names per Kurs are not available.
-- Planned backend: Firebase/GCP (GTFS timetable ingestion, GTFS-RT live overlay, scheduled SGV scrape, monitoring).
+- Lake card photos: `public/lakes/{lake-id}.jpg` (Wikimedia Commons, CC BY / CC BY-SA). Every photo needs a credit in `src/data/lakePhotos.ts` (shown under "Photo credits" on Home); use only licences that allow it. Cards fall back to a placeholder if a photo is missing.
+- Splash photos `public/splash/hero.jpg` (portrait ~900×1800) and `hero-desktop.jpg` (16:9 ~2200×1238) are the owner's own, no credit. Export new photos as JPEG without EXIF/GPS metadata.
