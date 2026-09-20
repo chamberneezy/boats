@@ -17,6 +17,8 @@
 - Riders see short place names ("Luzern", "Bürgenstock"), never official station names ("Luzern Bahnhofquai"). `PierOption.name` is the short name, `fullName` the official one (still searchable). Use `pierLabel()` for any station name from the API. Short names must stay unique.
 - Choosing an origin (tap, Enter, or typing an exact unambiguous name) moves focus to the empty Destination and opens its suggestions. A name that starts another pier ("Meggen" / "Meggenhorn") is not auto-picked.
 - The date and time is one tappable line with a calendar icon; a transparent native `datetime-local` input lies over it so the phone's own picker opens (no separate date and time boxes: iOS Safari renders them unreliably). Tapping the collapsed summary after a search always reopens the origin/destination tab.
+- Phones: the menu button on Home opens a full-screen menu (`MenuOverlay` in `AppHeader.tsx`): X on the left, title "Menu", app icon on the right, a placeholder search bar (disabled, no behaviour yet), then Home, Schedules, Tickets and Account (the last two "Coming soon"). It locks page scroll and closes on X, Escape or navigation.
+- The trip page's "Back to departures" link shows on desktop only; phones use the back arrow in the header.
 - The control between Origin and Destination is a swap button (ArrowLeftRight icon), not an arrow.
 - With nothing typed, the popular piers (Luzern Bahnhofquai, Weggis, Vitznau, Kehrsiten-Bürgenstock, Brunnen) are shown as presets.
 - Riders must **never** see whether data is live, cached or a fallback. No badges, banners or labels about the source.

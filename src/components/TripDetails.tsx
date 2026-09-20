@@ -57,8 +57,9 @@ export function TripDetails({ entry, onBack }: TripDetailsProps) {
       <button
         type="button"
         onClick={onBack}
-        className="mb-5 cursor-pointer border-0 bg-transparent p-0 font-body text-sm text-alpine-sky"
+        className="mb-5 hidden cursor-pointer border-0 bg-transparent p-0 font-body text-sm text-alpine-sky md:block"
       >
+        {/* Phones have the back arrow in the top-left of the header instead. */}
         ← Back to departures
       </button>
 
