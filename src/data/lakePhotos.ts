@@ -96,3 +96,13 @@ export const LAKE_PHOTOS: Record<string, LakePhotoCredit> = {
     sourceUrl: 'https://commons.wikimedia.org/wiki/File:Blick_auf_Zugersee_mit_Rigi_und_Berner_Alpen.jpg',
   },
 };
+
+// Full-height photo behind the mobile home splash (public/splash/hero.jpg): the Lake
+// Lucerne view from Pilatus, cropped to portrait.
+export const SPLASH_PHOTO: LakePhotoCredit = {
+  title: 'Esel-Pilatus Kulm',
+  author: 'Tobi 87',
+  license: 'CC BY-SA 3.0',
+  licenseUrl: 'https://creativecommons.org/licenses/by-sa/3.0/',
+  sourceUrl: 'https://commons.wikimedia.org/wiki/File:Esel-Pilatus_Kulm.jpg',
+};

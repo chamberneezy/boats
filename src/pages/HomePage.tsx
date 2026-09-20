@@ -2,9 +2,12 @@ import { useNavigate } from 'react-router';
 import { Button } from '../components/Button';
 import { CtaBand } from '../components/CtaBand';
 import { LakeCard } from '../components/LakeCard';
-import { LAKE_PHOTOS } from '../data/lakePhotos';
+import { LakeGroups } from '../components/LakeGroups';
+import { SplashHero } from '../components/SplashHero';
+import { LAKE_PHOTOS, SPLASH_PHOTO } from '../data/lakePhotos';
 import { useDocumentTitle } from '../useDocumentTitle';
 import { useFavorites } from '../useFavorites';
+import { useMediaQuery } from '../useMediaQuery';
 import { DEFAULT_LAKE_ID, LAKES } from '../lakes';
 import { searchPath } from '../routes';
 
@@ -14,7 +17,12 @@ export function HomePage() {
   useDocumentTitle('Lacus — Switzerland’s lakes, on schedule');
   const navigate = useNavigate();
   const { favorites, toggle } = useFavorites();
+  const isWide = useMediaQuery('(min-width: 768px)');
   const goToSearch = () => navigate(searchPath(DEFAULT_LAKE_ID));
+  const showLakes = () => {
+    const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    document.getElementById('lakes')?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+  };
 
   const rows = [LAKES.slice(0, 4), LAKES.slice(4, 8), LAKES.slice(8, 12)];
   const bands = [
@@ -25,40 +33,34 @@ export function HomePage() {
   return (
     <>
       <main className="mx-auto max-w-[1440px]">
-        <section className="flex flex-col gap-2.5 px-5 pb-5 md:flex-row md:items-center md:gap-16 md:px-16 md:py-[72px]">
-          <div className="flex max-w-[560px] flex-1 flex-col gap-2.5 md:gap-5">
-            <span className="hidden font-body text-xs uppercase tracking-[0.06em] text-alpine-sky md:block">
-              Swiss lake crossings
-            </span>
-            <h1 className="m-0 font-display text-2xl font-semibold leading-[30px] text-deep-lake md:text-5xl md:leading-[56px]">
+        {/* Phones get the splash; wider screens the text hero with the animation placeholder. */}
+        {!isWide && <SplashHero onSelectLake={showLakes} />}
+
+        {isWide && (
+        <section className="flex items-center gap-16 px-16 py-[72px]">
+          <div className="flex max-w-[560px] flex-1 flex-col gap-5">
+            <span className="font-body text-xs uppercase tracking-[0.06em] text-alpine-sky">Swiss lake crossings</span>
+            <h1 className="m-0 font-display text-5xl font-semibold leading-[56px] text-deep-lake">
               Switzerland&apos;s lakes, on schedule.
             </h1>
-            <p className="m-0 hidden font-body text-base text-deep-lake md:block">
+            <p className="m-0 font-body text-base text-deep-lake">
               Timetables and reservations for lake crossings. Booking is open on Lake Lucerne. More lakes join soon.
             </p>
-            <div className="hidden pt-2 md:block">
+            <div className="pt-2">
               <Button onClick={goToSearch}>Search sailings</Button>
             </div>
           </div>
 
           <div className="flex flex-1 justify-center">
-            <div className="flex aspect-video w-full max-w-[600px] flex-col items-center justify-center gap-1 rounded-[14px] border-2 border-dashed border-alpine-sky/40 bg-surface-sunken md:aspect-[16/10] md:gap-2 md:rounded-[16px]">
-              <span className="font-display text-xs font-medium text-alpine-sky md:text-sm">Animation placeholder</span>
-              <span className="font-body text-[10px] text-stone-grey md:text-xs">
-                <span className="md:hidden">750 × 420</span>
-                <span className="hidden md:inline">Hero animation to be provided — 1600 × 1000</span>
-              </span>
+            <div className="flex aspect-[16/10] w-full max-w-[600px] flex-col items-center justify-center gap-2 rounded-[16px] border-2 border-dashed border-alpine-sky/40 bg-surface-sunken">
+              <span className="font-display text-sm font-medium text-alpine-sky">Animation placeholder</span>
+              <span className="font-body text-xs text-stone-grey">Hero animation to be provided — 1600 × 1000</span>
             </div>
           </div>
-
-          <div className="md:hidden">
-            <Button size="sm" fullWidth onClick={goToSearch}>
-              Select your lake
-            </Button>
-          </div>
         </section>
+        )}
 
-        <section className="flex flex-col gap-5 px-5 pb-5 md:gap-8 md:px-16 md:pb-[72px]">
+        <section id="lakes" className="flex flex-col gap-5 px-5 pb-5 pt-8 md:gap-8 md:px-16 md:pb-[72px] md:pt-0">
           <div>
             <h2 className="m-0 font-display text-lg font-medium text-deep-lake md:text-[28px]">Lakes we cover</h2>
             <p className="m-0 mt-1.5 hidden font-body text-sm text-stone-grey md:block">
@@ -66,31 +68,46 @@ export function HomePage() {
             </p>
           </div>
 
-          {rows.map((row, rowIdx) => (
-            <div key={rowIdx} className="flex flex-col gap-5 md:gap-8">
-              <div className="grid grid-cols-1 gap-3.5 md:grid-cols-2 md:gap-6">
-                {row.map((lake) => (
-                  <LakeCard
-                    key={lake.id}
-                    lake={lake}
-                    isFavorite={favorites.includes(lake.id)}
-                    onToggleFavorite={() => toggle(lake.id)}
-                  />
-                ))}
-              </div>
-              {bands[rowIdx] && <CtaBand {...bands[rowIdx]} buttonLabel="Search sailings" onClick={goToSearch} />}
+          {!isWide && (
+            /* Phones: popular lakes, then the rest folded behind their language region. */
+            <div className="flex flex-col gap-5">
+              <LakeGroups favorites={favorites} onToggleFavorite={toggle} />
+              <CtaBand {...bands[0]} buttonLabel="Search sailings" onClick={goToSearch} />
             </div>
-          ))}
+          )}
+
+          {isWide && (
+            /* Web: the full grid in the same order, with a call to action between rows. */
+          <div className="flex flex-col gap-8">
+            {rows.map((row, rowIdx) => (
+              <div key={rowIdx} className="flex flex-col gap-8">
+                <div className="grid grid-cols-2 gap-6">
+                  {row.map((lake) => (
+                    <LakeCard
+                      key={lake.id}
+                      lake={lake}
+                      isFavorite={favorites.includes(lake.id)}
+                      onToggleFavorite={() => toggle(lake.id)}
+                    />
+                  ))}
+                </div>
+                {bands[rowIdx] && <CtaBand {...bands[rowIdx]} buttonLabel="Search sailings" onClick={goToSearch} />}
+              </div>
+            ))}
+          </div>
+          )}
         </section>
 
         <details className="px-5 pb-8 md:px-16 md:pb-10">
           <summary className="cursor-pointer font-body text-[13px] text-stone-grey">Photo credits</summary>
           <ul className="m-0 mt-3 list-none space-y-1.5 p-0 font-body text-xs text-stone-grey">
-            {LAKES.filter((lake) => lake.id in LAKE_PHOTOS).map((lake) => {
-              const photo = LAKE_PHOTOS[lake.id];
+            {[
+              ...LAKES.filter((lake) => lake.id in LAKE_PHOTOS).map((lake) => ({ label: lake.name, photo: LAKE_PHOTOS[lake.id] })),
+              { label: 'Home splash', photo: SPLASH_PHOTO },
+            ].map(({ label, photo }) => {
               return (
-                <li key={lake.id}>
-                  {lake.name}:{' '}
+                <li key={label}>
+                  {label}:{' '}
                   <a href={photo.sourceUrl} target="_blank" rel="noreferrer" className="text-alpine-sky">
                     {photo.title}
                   </a>{' '}

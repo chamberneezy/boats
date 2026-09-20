@@ -45,9 +45,15 @@ Source of truth: the Lacus Mockups and Lacus Design System projects in Claude De
 - Radius 10–16px on cards, buttons and inputs; no fully round buttons or inputs. Times use tabular numerals.
 - Tone: calm, precise, no exclamation marks, no emoji, sentence case, no gradients.
 
+## Home page (mobile splash and lake order)
+- Phones (`< md`) get `SplashHero`: a full-height photo below the untouched header, shutter doors opening, the hero headline, a rule, the tag line "Swiss lake crossings" and finally a "Select your lake" button that scrolls to the lakes. Motion is ported from the Lacus Splash v2 design (`src/splash/timeline.ts`: scene timings and easing). Plays once per session and is skipped for reduced-motion. Wider screens keep the text hero.
+- Render only the layout that applies (`useMediaQuery`), never both hidden with CSS, so unused photos are not created.
+- Lake order everywhere (`src/lakes.ts`): three most popular first (Lucerne, Geneva, Zurich), then by language region: German (Thun, Brienz, Constance, Zug, Biel, Murten), French (Neuchâtel), Italian (Lugano, Maggiore). On phones the regions are collapsed groups whose cards and photos render only when opened.
+
 ## Photography
 - Lake card photos live in `public/lakes/{lake-id}.jpg` (Wikimedia Commons, CC BY / CC BY-SA). Credits are in `src/data/lakePhotos.ts` and shown under "Photo credits" on Home. Every photo added must have a credit entry there; do not use a photo without a licence that allows it.
 - Cards fall back to the placeholder box if a photo is missing.
+- The mobile splash photo is `public/splash/hero.jpg` (portrait, credited as `SPLASH_PHOTO`). To use your own photo, replace that file (about 900 × 1800) and update the credit.
 
 ## Category Badges
 - One neutral pill for both types: `bg-surface-sunken text-deep-lake`, Kanit 500 (`CategoryPill`).

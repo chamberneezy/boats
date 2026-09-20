@@ -8,7 +8,7 @@ export interface Lake {
 
 export const DEFAULT_LAKE_ID = 'lake-lucerne';
 
-export const LAKES: Lake[] = [
+const LAKE_LIST: Lake[] = [
   { id: 'lake-lucerne', name: 'Lake Lucerne', localName: 'Vierwaldstättersee', active: true },
   { id: 'lake-geneva', name: 'Lake Geneva', localName: 'Lac Léman', active: false },
   { id: 'lake-thun', name: 'Lake Thun', localName: 'Thunersee', active: false },
@@ -22,6 +22,32 @@ export const LAKES: Lake[] = [
   { id: 'lake-murten', name: 'Lake Murten', localName: 'Murtensee', active: false },
   { id: 'lake-zug', name: 'Lake Zug', localName: 'Zugersee', active: false },
 ];
+
+const lakeById = (id: string): Lake => LAKE_LIST.find((lake) => lake.id === id)!;
+
+// Home page order: the three most popular lakes first, then the rest grouped by the
+// language region they lie in. Bilingual lakes (Biel, Murten) are placed by the region of
+// their main shore towns.
+export const POPULAR_LAKES: Lake[] = ['lake-lucerne', 'lake-geneva', 'lake-zurich'].map(lakeById);
+
+export interface LakeRegion {
+  id: string;
+  label: string;
+  lakes: Lake[];
+}
+
+export const LAKE_REGIONS: LakeRegion[] = [
+  {
+    id: 'german',
+    label: 'German-speaking Switzerland',
+    lakes: ['lake-thun', 'lake-brienz', 'lake-constance', 'lake-zug', 'lake-biel', 'lake-murten'].map(lakeById),
+  },
+  { id: 'french', label: 'French-speaking Switzerland', lakes: ['lake-neuchatel'].map(lakeById) },
+  { id: 'italian', label: 'Italian-speaking Switzerland', lakes: ['lake-lugano', 'lake-maggiore'].map(lakeById) },
+];
+
+// Every lake in Home page order.
+export const LAKES: Lake[] = [...POPULAR_LAKES, ...LAKE_REGIONS.flatMap((region) => region.lakes)];
 
 export function findActiveLake(id: string | undefined): Lake | undefined {
   return LAKES.find((lake) => lake.id === id && lake.active);
