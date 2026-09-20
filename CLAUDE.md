@@ -16,6 +16,7 @@
 - Suggestions filter the static list of verified Lake Lucerne boat piers in `src/piers.ts`. They do **not** call `/locations` (it returns trains, buses and cable cars too).
 - Riders see short place names ("Luzern", "Bürgenstock"), never official station names ("Luzern Bahnhofquai"). `PierOption.name` is the short name, `fullName` the official one (still searchable). Use `pierLabel()` for any station name from the API. Short names must stay unique.
 - Choosing an origin (tap, Enter, or typing an exact unambiguous name) moves focus to the empty Destination and opens its suggestions. A name that starts another pier ("Meggen" / "Meggenhorn") is not auto-picked.
+- The date and time is one tappable line with a calendar icon; a transparent native `datetime-local` input lies over it so the phone's own picker opens (no separate date and time boxes: iOS Safari renders them unreliably). Tapping the collapsed summary after a search always reopens the origin/destination tab.
 - The control between Origin and Destination is a swap button (ArrowLeftRight icon), not an arrow.
 - With nothing typed, the popular piers (Luzern Bahnhofquai, Weggis, Vitznau, Kehrsiten-Bürgenstock, Brunnen) are shown as presets.
 - Riders must **never** see whether data is live, cached or a fallback. No badges, banners or labels about the source.

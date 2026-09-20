@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type Ref } from 'react';
-import { ArrowLeftRight } from 'lucide-react';
+import { ArrowLeftRight, CalendarClock } from 'lucide-react';
 import { isExactPierName, searchLakeLucernePiers } from '../piers';
 import type { PierOption } from '../types';
 import { formatDateTimeLabel } from '../utils';
@@ -288,26 +288,25 @@ export function SearchForm({
           ) : (
             <>
               <div className="font-body text-[13px] text-stone-grey">Date and time</div>
-              <div className="mt-1 font-display text-[22px] font-semibold text-deep-lake md:text-[28px]">{dateTimeLabel}</div>
-              <div className="mt-4 grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-3.5 md:gap-5">
-                <label className="min-w-0">
-                  <span className="mb-1.5 block font-body text-sm text-deep-lake">Date</span>
-                  <input
-                    type="date"
-                    value={date}
-                    onChange={(e) => onDateChange(e.target.value)}
-                    className="native-field rounded-[10px] border border-stone-grey bg-surface-card px-3.5 font-body text-base text-deep-lake outline-none focus:border-deep-lake"
-                  />
-                </label>
-                <label className="min-w-0">
-                  <span className="mb-1.5 block font-body text-sm text-deep-lake">Time</span>
-                  <input
-                    type="time"
-                    value={time}
-                    onChange={(e) => onTimeChange(e.target.value)}
-                    className="native-field rounded-[10px] border border-stone-grey bg-surface-card px-3.5 font-body text-base text-deep-lake outline-none focus:border-deep-lake"
-                  />
-                </label>
+              {/* The value is the control: a transparent native date-time input lies over it, so a
+                  tap opens the phone's own picker (and a click opens the browser's on desktop). */}
+              <div className="relative flex items-center justify-between gap-3 py-2.5">
+                <span className="font-display text-[22px] font-semibold text-deep-lake md:text-[28px]">{dateTimeLabel}</span>
+                <CalendarClock className="h-6 w-6 flex-shrink-0 text-alpine-sky" strokeWidth={1.75} aria-hidden="true" />
+                <input
+                  type="datetime-local"
+                  value={`${date}T${time}`}
+                  onChange={(e) => {
+                    const [nextDate, nextTime] = e.target.value.split('T');
+                    if (nextDate && nextTime) {
+                      onDateChange(nextDate);
+                      onTimeChange(nextTime);
+                    }
+                  }}
+                  onClick={(e) => e.currentTarget.showPicker?.()}
+                  aria-label="Date and time"
+                  className="absolute inset-0 h-full w-full cursor-pointer appearance-none opacity-0"
+                />
               </div>
             </>
           )}
