@@ -3,6 +3,7 @@ import { Link, matchPath, useLocation, useNavigate } from 'react-router';
 import { DEFAULT_LAKE_ID, LAKES } from '../lakes';
 import { searchPath } from '../routes';
 import { MenuButton } from './Menu';
+import { useMenu } from '../menu';
 
 const LOGO_SRC = `${import.meta.env.BASE_URL}logo-mark.svg`;
 const SEARCH_TO = searchPath(DEFAULT_LAKE_ID);
@@ -27,9 +28,16 @@ function WebNav({ section }: { section: Section }) {
     `font-display text-[15px] font-medium no-underline ${
       overlay ? (active ? 'text-white' : 'text-white/75') : active ? 'text-deep-lake' : 'text-stone-grey'
     }`;
+  // While the menu is open the drawer shows the X and the logo itself, so the pushed page must not
+  // repeat them beside it: the left group fades out (its space is kept, so the links don't move).
+  const { open: menuOpen } = useMenu();
   const content = (
     <>
-      <div className={`flex items-center gap-4 ${overlay ? 'text-white' : 'text-deep-lake'}`}>
+      <div
+        className={`flex items-center gap-4 transition-[opacity,visibility] duration-300 motion-reduce:transition-none ${
+          overlay ? 'text-white' : 'text-deep-lake'
+        } ${menuOpen ? 'invisible opacity-0' : ''}`}
+      >
         <MenuButton />
         <Link to="/" className="flex items-center gap-2.5 no-underline">
           <img src={LOGO_SRC} alt="" className="h-7 w-7 rounded-md" />
