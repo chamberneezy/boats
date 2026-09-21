@@ -5,7 +5,8 @@ import type { BoatConnection, Section, StopTime, Vessel } from '../types';
 import { formatTime, timestampToDateTimeParts } from '../utils';
 import { resolveVesselForJourney } from '../utils/vesselResolver';
 import { Button } from './Button';
-import { AmenityPill, CategoryPill } from './CategoryPill';
+import { TripLegend } from './TripLegend';
+import { AmenityIcon, CategoryIcon } from './CategoryPill';
 import { ConnectionSummary } from './ConnectionSummary';
 import { PierBadge } from './PierBadge';
 import { StatusBadge } from './StatusBadge';
@@ -85,7 +86,8 @@ export function TripDetails({ entry, onBack }: TripDetailsProps) {
   const first = entry.boatSections[0];
   const last = entry.boatSections[entry.boatSections.length - 1];
 
-  const vessel = vesselOf(first);
+  const vessels = entry.boatSections.map(vesselOf);
+  const vessel = vessels[0] ?? null;
   const ticketUrl = shopTicketUrl(entry);
   const firstPier = pierPlatform(first);
 
@@ -115,17 +117,12 @@ export function TripDetails({ entry, onBack }: TripDetailsProps) {
 
         <div className="mb-4 flex flex-wrap items-center gap-2.5 md:mb-5">
           {firstPier && <PierBadge platform={firstPier} />}
-          {vessel && <span className="font-display text-sm font-medium text-deep-lake md:text-base">{vessel.name}</span>}
-          {first.journey && <CategoryPill category={first.journey.category} vessel={vessel} />}
+          {/* The boat's name with its kind (ship / paddle steamer) as an icon right after it. */}
+          <span className="inline-flex items-center gap-1.5 font-display text-sm font-medium text-deep-lake md:gap-2 md:text-base">
+            {vessel?.name}
+            {first.journey && <CategoryIcon category={first.journey.category} vessel={vessel} />}
+          </span>
         </div>
-
-        {vessel && vessel.amenities.length > 0 && (
-          <div className="-mt-1.5 mb-4 flex flex-wrap gap-1.5 md:mb-5">
-            {vessel.amenities.map((tag) => (
-              <AmenityPill key={tag} tag={tag} />
-            ))}
-          </div>
-        )}
 
         <div className="mb-4 h-px bg-hairline md:mb-5" />
 
@@ -139,7 +136,14 @@ export function TripDetails({ entry, onBack }: TripDetailsProps) {
               {entry.boatSections.length > 1 && (
                 <div className="mb-3 flex flex-wrap items-center gap-2 font-body text-xs uppercase tracking-[0.04em] text-stone-grey md:text-[13px]">
                   {pierPlatform(section) && <PierBadge platform={pierPlatform(section)!} />}
-                  {vesselOf(section)?.name ?? `Leg ${idx + 1}`}
+                  {vessels[idx] ? (
+                    <span className="inline-flex items-center gap-1.5">
+                      {vessels[idx]!.name}
+                      {section.journey && <CategoryIcon category={section.journey.category} vessel={vessels[idx]} />}
+                    </span>
+                  ) : (
+                    `Leg ${idx + 1}`
+                  )}
                 </div>
               )}
               <StopList section={section} />
@@ -148,11 +152,21 @@ export function TripDetails({ entry, onBack }: TripDetailsProps) {
           ))}
         </div>
 
+        {vessel && vessel.amenities.length > 0 && (
+          <div className="mb-6 flex flex-wrap gap-2 border-0 border-t border-solid border-hairline pt-5" aria-label="On board">
+            {vessel.amenities.map((tag) => (
+              <AmenityIcon key={tag} tag={tag} />
+            ))}
+          </div>
+        )}
+
         <Button fullWidth href={ticketUrl ?? undefined} disabled={!ticketUrl}>
           Buy ticket
           {ticketUrl && <ExternalLink size={16} aria-hidden="true" />}
         </Button>
       </div>
+
+      <TripLegend entry={entry} vessels={vessels} />
     </div>
   );
 }

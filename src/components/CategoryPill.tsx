@@ -1,6 +1,5 @@
 import {
   Accessibility,
-  Anchor,
   ArrowUpDown,
   Coffee,
   Droplets,
@@ -8,15 +7,16 @@ import {
   Gauge,
   Headphones,
   Maximize2,
+  Parasol,
   Plug,
   Ship,
-  Sun,
   Utensils,
   Waves,
   Wine,
   type LucideIcon,
 } from 'lucide-react';
 import type { AmenityTag, Vessel } from '../types';
+import { PaddleSteamer } from './icons';
 
 interface CategoryPillProps {
   category: string;
@@ -27,10 +27,14 @@ interface CategoryPillProps {
   compactOnMobile?: boolean;
 }
 
-export function CategoryPill({ category, vessel = null, compactOnMobile = false }: CategoryPillProps) {
+// The boat's kind as an icon and a name. A known boat's own type wins over the API's category.
+export function categoryInfo(category: string, vessel: Vessel | null = null): { label: string; Icon: LucideIcon } {
   const isPaddleSteamer = vessel ? vessel.type === 'steam' : category === 'BAV';
-  const Icon = isPaddleSteamer ? Anchor : Ship;
-  const label = isPaddleSteamer ? 'Paddle steamer' : 'Motor vessel';
+  return isPaddleSteamer ? { label: 'Paddle steamer', Icon: PaddleSteamer } : { label: 'Motor vessel', Icon: Ship };
+}
+
+export function CategoryPill({ category, vessel = null, compactOnMobile = false }: CategoryPillProps) {
+  const { label, Icon } = categoryInfo(category, vessel);
   return (
     <span
       title={label}
@@ -42,7 +46,7 @@ export function CategoryPill({ category, vessel = null, compactOnMobile = false 
   );
 }
 
-const AMENITIES: Record<AmenityTag, { label: string; Icon: LucideIcon }> = {
+export const AMENITIES: Record<AmenityTag, { label: string; Icon: LucideIcon }> = {
   'steam-paddle': { label: 'Steam paddle wheels', Icon: Waves },
   'full-restaurant': { label: 'Restaurant', Icon: Utensils },
   'cocktail-bar': { label: 'Cocktail bar', Icon: Wine },
@@ -53,18 +57,32 @@ const AMENITIES: Record<AmenityTag, { label: string; Icon: LucideIcon }> = {
   'high-speed': { label: 'High speed', Icon: Gauge },
   'audio-guide': { label: 'Audio guide', Icon: Headphones },
   'usb-power': { label: 'USB charging', Icon: Plug },
-  'open-deck': { label: 'Open deck', Icon: Sun },
+  'open-deck': { label: 'Open deck', Icon: Parasol },
   'panorama-window': { label: 'Panorama windows', Icon: Maximize2 },
   footbath: { label: 'Footbath', Icon: Droplets },
 };
 
-// One feature of the boat, in the same neutral pill style as the category.
-export function AmenityPill({ tag }: { tag: AmenityTag }) {
+// The boat's kind as a bare icon, for use right after the boat's name (the legend gives the meaning).
+export function CategoryIcon({ category, vessel = null }: { category: string; vessel?: Vessel | null }) {
+  const { label, Icon } = categoryInfo(category, vessel);
+  return (
+    <span role="img" aria-label={label} title={label} className="inline-flex flex-shrink-0 text-alpine-sky">
+      <Icon className="h-4 w-4 md:h-[18px] md:w-[18px]" strokeWidth={2} aria-hidden="true" />
+    </span>
+  );
+}
+
+// One feature of the boat as a bare icon; the legend under the card gives the meaning.
+export function AmenityIcon({ tag }: { tag: AmenityTag }) {
   const { label, Icon } = AMENITIES[tag];
   return (
-    <span className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-surface-sunken px-2.5 py-1 font-body text-xs text-deep-lake md:text-[13px]">
-      <Icon className="h-3.5 w-3.5 text-alpine-sky" strokeWidth={2} aria-hidden="true" />
-      {label}
+    <span
+      role="img"
+      aria-label={label}
+      title={label}
+      className="inline-flex h-9 w-9 items-center justify-center rounded-[10px] bg-surface-sunken text-alpine-sky md:h-10 md:w-10"
+    >
+      <Icon className="h-[18px] w-[18px] md:h-5 md:w-5" strokeWidth={2} aria-hidden="true" />
     </span>
   );
 }
