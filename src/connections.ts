@@ -1,9 +1,13 @@
 // Single entry point for schedule data. The UI only ever calls searchConnections /
-// loadLaterConnections and never learns which layer answered (live API, cache or the
-// bundled timetable) — that is reported to monitoring instead. A backend can replace
-// the body of these functions without touching any component.
+// loadLaterConnections / loadUpcomingDepartures and never learns which layer answered — that is
+// reported to monitoring instead.
+//
+// Order: the lake's timetable package (our own data, searched on the device; see src/timetable)
+// first; only if it cannot answer, the public API chain as a last resort: fresh cache -> live API
+// -> stale cache -> bundled timetable.
 
 import { reportDataSource, type DataSource } from './dataSourceMonitor';
+import { packageConnections, packageUpcoming } from './timetable/client.ts';
 import { getFallbackConnections } from './fallbackTimetable';
 import { readCachedConnections, writeCachedConnections } from './scheduleCache';
 import type { BoatConnection, Connection, ConnectionStatus, ConnectionsResponse, PierOption } from './types';
@@ -95,6 +99,13 @@ export async function searchConnections(
   date: string,
   time: string,
 ): Promise<BoatConnection[]> {
+  const fromPackage = await packageConnections(from.id, to.id, date, time, RESULTS_PAGE_SIZE);
+  if (fromPackage) {
+    const results = deriveBoatConnections({ connections: fromPackage }, false);
+    reportDataSource({ source: 'package', fromId: from.id, toId: to.id, date, time, resultCount: results.length });
+    return results;
+  }
+
   const cached = readCachedConnections(from.id, to.id);
   const cacheAgeMs = cached ? Date.now() - new Date(cached.cachedAt).getTime() : Infinity;
   // A cache entry only "counts" if, once re-filtered to the time being searched right
@@ -163,13 +174,15 @@ export async function searchConnections(
   return serveCacheOrBundled(null);
 }
 
-/** The next page of departures from the given moment onward. Live data only. */
+/** The next page of departures from the given moment onward. */
 export async function loadLaterConnections(
   from: PierOption,
   to: PierOption,
   date: string,
   time: string,
 ): Promise<BoatConnection[]> {
+  const fromPackage = await packageConnections(from.id, to.id, date, time, RESULTS_PAGE_SIZE);
+  if (fromPackage) return deriveBoatConnections({ connections: fromPackage }, false);
   return deriveBoatConnections(await fetchConnectionsRaw(from, to, date, time), true);
 }
 
@@ -190,6 +203,11 @@ interface StationboardResponse {
 
 /** The next boat departures from one pier, whatever their destination. */
 export async function loadUpcomingDepartures(pier: PierOption, limit = 6): Promise<UpcomingDeparture[]> {
+  const fromPackage = await packageUpcoming(pier.id, limit);
+  if (fromPackage) {
+    reportDataSource({ source: 'package', fromId: pier.id, toId: '', date: '', time: '', resultCount: fromPackage.length });
+    return fromPackage;
+  }
   let res: Response;
   try {
     res = await fetch(

@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "lakeId": "lake-lucerne",
+  "generatedAt": "2026-09-21T15:14:14.123Z",
+  "source": {
+    "name": "opentransportdata.swiss GTFS",
+    "feed": "gtfs_fp2026_20260919"
+  },
+  "timetable": {
+    "path": "timetable.6a3adda86ef3.json",
+    "sha256": "6a3adda86ef39990e98289ae341e9706549633d62236db7984fba16465d01459",
+    "bytes": 73564
+  }
+}

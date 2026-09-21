@@ -1,8 +1,11 @@
+import { zurichNow, zurichParts } from '../timetable/zurich.ts';
+
 export function formatTime(timestamp: number | null): string {
   if (timestamp === null) return '--:--';
   return new Date(timestamp * 1000).toLocaleTimeString('de-CH', {
     hour: '2-digit',
     minute: '2-digit',
+    timeZone: 'Europe/Zurich',
   });
 }
 
@@ -19,37 +22,18 @@ export function formatDuration(duration: string): string {
 
 export const BOAT_CATEGORIES = new Set(['BAT', 'BAV']);
 
-export function todayDateString(): string {
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, '0');
-  const day = String(now.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
-}
+// Today, now, and the parts of a timestamp are all in Swiss time (see timetable/zurich.ts).
+export const todayDateString = (): string => zurichNow().date;
 
-export function nowTimeString(): string {
-  const now = new Date();
-  const hours = String(now.getHours()).padStart(2, '0');
-  const minutes = String(now.getMinutes()).padStart(2, '0');
-  return `${hours}:${minutes}`;
-}
+export const nowTimeString = (): string => zurichNow().time;
 
 export function timestampToDateTimeParts(timestampSeconds: number): { date: string; time: string } {
-  const d = new Date(timestampSeconds * 1000);
-  const year = d.getFullYear();
-  const month = String(d.getMonth() + 1).padStart(2, '0');
-  const day = String(d.getDate()).padStart(2, '0');
-  const hours = String(d.getHours()).padStart(2, '0');
-  const minutes = String(d.getMinutes()).padStart(2, '0');
-  return { date: `${year}-${month}-${day}`, time: `${hours}:${minutes}` };
+  const { date, time } = zurichParts(timestampSeconds);
+  return { date, time };
 }
 
 export function isSameDay(timestampA: number, timestampB: number): boolean {
-  const a = new Date(timestampA * 1000);
-  const b = new Date(timestampB * 1000);
-  return (
-    a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate()
-  );
+  return zurichParts(timestampA).date === zurichParts(timestampB).date;
 }
 
 export function formatDayLabel(timestampSeconds: number): string {
@@ -57,6 +41,7 @@ export function formatDayLabel(timestampSeconds: number): string {
     weekday: 'long',
     day: 'numeric',
     month: 'long',
+    timeZone: 'Europe/Zurich',
   });
 }
 

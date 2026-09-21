@@ -7,6 +7,11 @@
 - Do not push to GitHub, nor suggest commits, without being asked first.
 - Do not suggest contacting SGV; SGV data comes from scraping their public pages (`scripts/scrape-sgv.mjs`).
 
+## Scope
+- A boat app only: results and transfers are boat-to-boat (`transportations[]=ship`). No train, bus or gondola routing; links to those may come later as information only.
+- Target data flow (not built yet): a server job pulls the official GTFS a few times a day and publishes static per-lake data packages via CDN; searches, including one transfer, run on the device from those files. Users never call the public API.
+- `pipeline/` (TypeScript, plain Node): `npm run build:data` builds `pipeline/out/<lake>/timetable.<hash>.json` + `manifest.json` from the official GTFS (downloads only a newer feed, publishes only changed data; add lakes in `pipeline/lakes.ts`). Interim publishing until the cloud bucket exists: `npm run build:data -- --out public/data` and commit the result (GitHub Pages then serves `/data/<lake>/`). The package format is a contract for web/iOS/Android: `src/timetable/types.ts`, never change a field's meaning, bump `schemaVersion` instead. On-device search (direct + one boat-to-boat change, overnight waits allowed, 7-day lookahead): `src/timetable/search.ts`; adapter to the app's connection shape: `toConnections.ts`. `npm run test:data` checks it against real public-API answers (`pipeline/tests/fixtures`; re-capture rarely). All times are Swiss time (`src/timetable/zurich.ts`), never the device's zone.
+
 ## Search behaviour
 - Origin and Destination are autocomplete inputs over the static verified pier list in `src/piers.ts` (no `/locations` call: it also returns trains and buses). Enter picks the first match, Escape closes. With nothing typed, popular piers are shown as presets.
 - Riders see short place names ("Luzern", "Bürgenstock"), never official ones. `PierOption.name` is short, `fullName` official (still searchable). Use `pierLabel()` for API station names. Short names must stay unique.
@@ -19,8 +24,11 @@
 ## Data and status
 - Riders must never see whether data is live, cached or fallback. Source goes only to `reportDataSource()` (`src/dataSourceMonitor.ts`).
 - Schedule state is a coloured dot only (`StatusBadge`), no visible text: left of the category pill on cards, next to the route on the trip page. SGV boats give no real-time data (delay/prognosis empty, no cancellation flag), so every sailing shows green "on time" unless a delay is reported (`ASSUME_ON_TIME_WITHOUT_REALTIME` in `src/connections.ts`). Delayed/cancelled need a real source (manual override or scraped notices).
-- The UI calls only `searchConnections` / `loadLaterConnections` (`src/connections.ts`). Fallback order: fresh cache (30 min) -> live -> stale cache -> bundled timetable (`src/data/fallbackTimetable.json`, only within its season) -> error.
+- The UI calls only `searchConnections` / `loadLaterConnections` / `loadUpcomingDepartures` (`src/connections.ts`). Order: the lake's timetable package (`src/timetable/client.ts`: copy kept on the device, refreshed from the manifest in the background) -> only if it cannot answer (not loaded, date outside it, unknown pier): fresh cache (30 min) -> the public API -> stale cache -> bundled timetable (`src/data/fallbackTimetable.json`, only within its season) -> error. Normal use makes no public-API calls; keep it that way (it rate-limits with 429).
 - Endpoints: `/connections?from=&to=&transportations[]=ship` (keep only `journey.category` `BAT`/`BAV`) and `/stationboard?id=&transportations[]=ship` (Schedules). Fields: `section.departure.platform` = pier number, `journey.number` = line (3600), `journey.name` = zero-padded Kurs (`000029`), `delay` null = no real-time.
+- Vessel catalog: `VESSELS` in `src/data/vessels.ts`, a record keyed by id (`Vessel`, `AmenityTag` in `src/types.ts`). Amenity tags are supplied by the owner; `eni` and `lines` are empty until a real source exists (SGV publishes neither), never guess them. all 19 SGV boats are in it; ENI numbers are owner-supplied for 6 (Diamant and the steamers), empty for the rest.
+- Boat on a trip: `resolveVesselForJourney` (`src/utils/vesselResolver.ts`) matches the Kurs (`journey.name`) and day against the scraped steamer assignments; otherwise null. It never guesses (no motor-ship data, `lines` empty), so most trips show no boat. The trip card shows "Operating today: <boat>" plus amenity pills only when known, and a known boat's type overrides the API category.
+- Pier badge ("Pier 2") only where `PierOption.has_multiple_piers` (Luzern, Weggis, from GTFS platform codes); single-pier stops show none.
 - Scraped SGV data (never hand-edit): `src/data/scraped/sgv-*.json` via `npm run scrape:sgv`. Only steamer (DS) assignments are published; motor-ship names are not.
 - Planned backend: Firebase/GCP (GTFS ingestion, scheduled SGV scrape, monitoring).
 

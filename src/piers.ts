@@ -1,4 +1,4 @@
-import type { PierOption } from './types';
+import type { PierOption } from './types.ts';
 
 // `name` is the short place name riders see; `fullName` is the official station name (only
 // set where it differs) and is still searchable. Short names must stay unique.
@@ -25,7 +25,7 @@ export const ALL_LAKE_LUCERNE_PIERS: PierOption[] = [
   { id: '8508480', name: 'Kehrsiten', fullName: 'Kehrsiten Dorf' },
   { id: '8508489', name: 'Bürgenstock', fullName: 'Kehrsiten-Bürgenstock' },
   { id: '8508488', name: 'Küssnacht', fullName: 'Küssnacht am Rigi (See)' },
-  { id: '8508492', name: 'Luzern', fullName: 'Luzern Bahnhofquai' },
+  { id: '8508492', name: 'Luzern', fullName: 'Luzern Bahnhofquai', has_multiple_piers: true },
   { id: '8508484', name: 'Meggen', fullName: 'Meggen (See)' },
   { id: '8508504', name: 'Meggenhorn' },
   { id: '8508486', name: 'Merlischachen', fullName: 'Merlischachen (See)' },
@@ -38,7 +38,7 @@ export const ALL_LAKE_LUCERNE_PIERS: PierOption[] = [
   { id: '8508479', name: 'Tribschen' },
   { id: '8508459', name: 'Verkehrshaus', fullName: 'Verkehrshaus-Lido' },
   { id: '8508464', name: 'Vitznau' },
-  { id: '8508463', name: 'Weggis' },
+  { id: '8508463', name: 'Weggis', has_multiple_piers: true },
 ];
 
 // Ordered by tourist popularity (not alphabetically), for the empty-state
@@ -57,6 +57,11 @@ const PIERS_BY_ID = new Map(ALL_LAKE_LUCERNE_PIERS.map((pier) => [pier.id, pier]
 const PIERS_BY_OFFICIAL_NAME = new Map(
   ALL_LAKE_LUCERNE_PIERS.map((pier) => [(pier.fullName ?? pier.name).toLowerCase(), pier]),
 );
+
+// True when boats use several numbered piers at this station, so "Pier 2" tells the rider something.
+export function hasMultiplePiers(station: { id?: string }): boolean {
+  return (station.id && PIERS_BY_ID.get(station.id)?.has_multiple_piers) || false;
+}
 
 // Short rider-facing name for a station coming back from the API. Unknown stops fall back
 // to the official name without the "(See)" lake suffix.

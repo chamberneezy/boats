@@ -1,22 +1,46 @@
 import { ArrowRight } from 'lucide-react';
-import { pierLabel } from '../piers';
+import { hasMultiplePiers, pierLabel } from '../piers';
 import type { BoatConnection, Section, StopTime } from '../types';
-import { formatTime } from '../utils';
+import { formatShortDate, formatTime, timestampToDateTimeParts, todayDateString } from '../utils';
+import { resolveVesselForJourney } from '../utils/vesselResolver';
 import { Button } from './Button';
-import { CategoryPill } from './CategoryPill';
+import { AmenityPill, CategoryPill } from './CategoryPill';
 import { ConnectionSummary } from './ConnectionSummary';
+import { PierBadge } from './PierBadge';
 import { StatusBadge } from './StatusBadge';
 
 function stopTimestamp(stop: StopTime): number | null {
   return stop.arrivalTimestamp ?? stop.departureTimestamp;
 }
 
-// "Pier 1 · BAT 3600" — only the parts the data actually provides.
-function sectionMeta(section: Section): string {
-  const parts: string[] = [];
-  if (section.departure.platform) parts.push(`Pier ${section.departure.platform}`);
-  if (section.journey) parts.push(`${section.journey.category} ${section.journey.number}`.trim());
-  return parts.join(' · ');
+// "BAT 3600"
+function lineLabel(section: Section): string {
+  return section.journey ? `${section.journey.category} ${section.journey.number}`.trim() : '';
+}
+
+// The pier number, but only at stops that have several piers; elsewhere it would just be noise.
+function pierPlatform(section: Section): string | null {
+  return hasMultiplePiers(section.departure.station) ? section.departure.platform : null;
+}
+
+// "2 h 5 min" / "18 min"
+function formatWait(minutes: number): string {
+  if (minutes < 60) return `${minutes} min`;
+  const hours = Math.floor(minutes / 60);
+  return minutes % 60 === 0 ? `${hours} h` : `${hours} h ${minutes % 60} min`;
+}
+
+// Between two boats: where riders change and how long they wait there.
+function ChangeNote({ arriving, next }: { arriving: Section; next: Section }) {
+  const arrival = arriving.arrival.arrivalTimestamp;
+  const departure = next.departure.departureTimestamp;
+  const wait = arrival !== null && departure !== null ? Math.round((departure - arrival) / 60) : null;
+  return (
+    <div className="mt-5 rounded-[10px] bg-surface-sunken px-3.5 py-2.5 font-body text-xs text-deep-lake md:text-sm">
+      Change at <span className="font-display font-medium">{pierLabel(arriving.arrival.station)}</span>
+      {wait !== null && <> · {formatWait(wait)} wait</>}
+    </div>
+  );
 }
 
 function StopList({ section }: { section: Section }) {
@@ -52,6 +76,13 @@ export function TripDetails({ entry, onBack }: TripDetailsProps) {
   const first = entry.boatSections[0];
   const last = entry.boatSections[entry.boatSections.length - 1];
 
+  // The boat, when it is actually known (see utils/vesselResolver): usually null.
+  const departureTimestamp = first.departure.departureTimestamp;
+  const tripDate = departureTimestamp === null ? undefined : timestampToDateTimeParts(departureTimestamp).date;
+  const vessel = first.journey ? resolveVesselForJourney(first.journey.name, tripDate, lineLabel(first)) : null;
+  const operatingLabel = !tripDate || tripDate === todayDateString() ? 'Operating today' : `Operating ${formatShortDate(tripDate)}`;
+  const firstPier = pierPlatform(first);
+
   return (
     <div>
       <button
@@ -77,11 +108,25 @@ export function TripDetails({ entry, onBack }: TripDetailsProps) {
         </div>
 
         <div className="mb-4 flex flex-wrap items-center gap-2.5 md:mb-5">
-          {sectionMeta(first) && (
-            <span className="font-body text-xs uppercase tracking-[0.04em] text-stone-grey md:text-[13px]">{sectionMeta(first)}</span>
+          {firstPier && <PierBadge platform={firstPier} />}
+          {lineLabel(first) && (
+            <span className="font-body text-xs uppercase tracking-[0.04em] text-stone-grey md:text-[13px]">{lineLabel(first)}</span>
           )}
-          {first.journey && <CategoryPill category={first.journey.category} />}
+          {first.journey && <CategoryPill category={first.journey.category} vessel={vessel} />}
         </div>
+
+        {vessel && (
+          <div className="mb-4 md:mb-5">
+            <div className="font-display text-sm font-medium text-deep-lake md:text-base">
+              {operatingLabel}: {vessel.name}
+            </div>
+            <div className="mt-2 flex flex-wrap gap-1.5">
+              {vessel.amenities.map((tag) => (
+                <AmenityPill key={tag} tag={tag} />
+              ))}
+            </div>
+          </div>
+        )}
 
         <div className="mb-4 h-px bg-hairline md:mb-5" />
 
@@ -93,11 +138,13 @@ export function TripDetails({ entry, onBack }: TripDetailsProps) {
           {entry.boatSections.map((section, idx) => (
             <div key={idx}>
               {entry.boatSections.length > 1 && (
-                <div className="mb-3 font-body text-xs uppercase tracking-[0.04em] text-stone-grey md:text-[13px]">
-                  {sectionMeta(section) || `Leg ${idx + 1}`}
+                <div className="mb-3 flex flex-wrap items-center gap-2 font-body text-xs uppercase tracking-[0.04em] text-stone-grey md:text-[13px]">
+                  {pierPlatform(section) && <PierBadge platform={pierPlatform(section)!} />}
+                  {lineLabel(section) || `Leg ${idx + 1}`}
                 </div>
               )}
               <StopList section={section} />
+              {idx < entry.boatSections.length - 1 && <ChangeNote arriving={section} next={entry.boatSections[idx + 1]} />}
             </div>
           ))}
         </div>

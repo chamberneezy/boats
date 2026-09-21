@@ -4,7 +4,7 @@
 // Today this only writes to the console. To feed a real backend/log pipeline, send the
 // event from `reportDataSource` (e.g. navigator.sendBeacon to a logging endpoint).
 
-export type DataSource = 'live' | 'cache-fresh' | 'cache-stale' | 'bundled-fallback' | 'none';
+export type DataSource = 'package' | 'live' | 'cache-fresh' | 'cache-stale' | 'bundled-fallback' | 'none';
 
 export interface DataSourceEvent {
   source: DataSource;

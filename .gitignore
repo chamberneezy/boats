@@ -22,3 +22,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local Claude Code workspace settings (machine-specific, not for the repo)
+.claude/
+.claude/settings.local.json
+
+# Data pipeline: downloaded feeds and generated packages
+pipeline/.cache/
+pipeline/out/

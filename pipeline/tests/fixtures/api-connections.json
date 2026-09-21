@@ -1,0 +1,3942 @@
+{
+ "capturedAt": "2026-09-21T14:51:15.864Z",
+ "cases": [
+  {
+   "label": "Luzern -> Vitznau (direct)",
+   "from": "8508492",
+   "to": "8508464",
+   "date": "2026-09-22",
+   "time": "10:00",
+   "connections": [
+    {
+     "transfers": 0,
+     "departureSec": 36720,
+     "arrivalSec": 40140,
+     "legs": [
+      {
+       "from": "8508492",
+       "to": "8508464",
+       "line": "3600",
+       "kurs": "11",
+       "departureSec": 36720,
+       "arrivalSec": 40140
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 40320,
+     "arrivalSec": 43740,
+     "legs": [
+      {
+       "from": "8508492",
+       "to": "8508464",
+       "line": "3600",
+       "kurs": "13",
+       "departureSec": 40320,
+       "arrivalSec": 43740
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 43920,
+     "arrivalSec": 47340,
+     "legs": [
+      {
+       "from": "8508492",
+       "to": "8508464",
+       "line": "3600",
+       "kurs": "17",
+       "departureSec": 43920,
+       "arrivalSec": 47340
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 47520,
+     "arrivalSec": 50940,
+     "legs": [
+      {
+       "from": "8508492",
+       "to": "8508464",
+       "line": "3600",
+       "kurs": "21",
+       "departureSec": 47520,
+       "arrivalSec": 50940
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 51120,
+     "arrivalSec": 54540,
+     "legs": [
+      {
+       "from": "8508492",
+       "to": "8508464",
+       "line": "3600",
+       "kurs": "23",
+       "departureSec": 51120,
+       "arrivalSec": 54540
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 54720,
+     "arrivalSec": 58140,
+     "legs": [
+      {
+       "from": "8508492",
+       "to": "8508464",
+       "line": "3600",
+       "kurs": "25",
+       "departureSec": 54720,
+       "arrivalSec": 58140
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "Luzern -> Vitznau (direct)",
+   "from": "8508492",
+   "to": "8508464",
+   "date": "2026-09-27",
+   "time": "13:00",
+   "connections": [
+    {
+     "transfers": 0,
+     "departureSec": 47520,
+     "arrivalSec": 50940,
+     "legs": [
+      {
+       "from": "8508492",
+       "to": "8508464",
+       "line": "3600",
+       "kurs": "21",
+       "departureSec": 47520,
+       "arrivalSec": 50940
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 51120,
+     "arrivalSec": 54540,
+     "legs": [
+      {
+       "from": "8508492",
+       "to": "8508464",
+       "line": "3600",
+       "kurs": "23",
+       "departureSec": 51120,
+       "arrivalSec": 54540
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 54720,
+     "arrivalSec": 58140,
+     "legs": [
+      {
+       "from": "8508492",
+       "to": "8508464",
+       "line": "3600",
+       "kurs": "25",
+       "departureSec": 54720,
+       "arrivalSec": 58140
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 58320,
+     "arrivalSec": 61740,
+     "legs": [
+      {
+       "from": "8508492",
+       "to": "8508464",
+       "line": "3600",
+       "kurs": "27",
+       "departureSec": 58320,
+       "arrivalSec": 61740
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 119520,
+     "arrivalSec": 122940,
+     "legs": [
+      {
+       "from": "8508492",
+       "to": "8508464",
+       "line": "3600",
+       "kurs": "7",
+       "departureSec": 119520,
+       "arrivalSec": 122940
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 123120,
+     "arrivalSec": 126540,
+     "legs": [
+      {
+       "from": "8508492",
+       "to": "8508464",
+       "line": "3600",
+       "kurs": "11",
+       "departureSec": 123120,
+       "arrivalSec": 126540
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "Luzern -> Vitznau (direct)",
+   "from": "8508492",
+   "to": "8508464",
+   "date": "2026-09-23",
+   "time": "19:30",
+   "connections": [
+    {
+     "transfers": 0,
+     "departureSec": 119520,
+     "arrivalSec": 122940,
+     "legs": [
+      {
+       "from": "8508492",
+       "to": "8508464",
+       "line": "3600",
+       "kurs": "7",
+       "departureSec": 119520,
+       "arrivalSec": 122940
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 123120,
+     "arrivalSec": 126540,
+     "legs": [
+      {
+       "from": "8508492",
+       "to": "8508464",
+       "line": "3600",
+       "kurs": "11",
+       "departureSec": 123120,
+       "arrivalSec": 126540
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 126720,
+     "arrivalSec": 130140,
+     "legs": [
+      {
+       "from": "8508492",
+       "to": "8508464",
+       "line": "3600",
+       "kurs": "13",
+       "departureSec": 126720,
+       "arrivalSec": 130140
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 130320,
+     "arrivalSec": 133740,
+     "legs": [
+      {
+       "from": "8508492",
+       "to": "8508464",
+       "line": "3600",
+       "kurs": "17",
+       "departureSec": 130320,
+       "arrivalSec": 133740
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 133920,
+     "arrivalSec": 137340,
+     "legs": [
+      {
+       "from": "8508492",
+       "to": "8508464",
+       "line": "3600",
+       "kurs": "21",
+       "departureSec": 133920,
+       "arrivalSec": 137340
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 137520,
+     "arrivalSec": 140940,
+     "legs": [
+      {
+       "from": "8508492",
+       "to": "8508464",
+       "line": "3600",
+       "kurs": "23",
+       "departureSec": 137520,
+       "arrivalSec": 140940
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "Flüelen -> Luzern (direct)",
+   "from": "8508476",
+   "to": "8508492",
+   "date": "2026-09-22",
+   "time": "10:00",
+   "connections": [
+    {
+     "transfers": 0,
+     "departureSec": 39600,
+     "arrivalSec": 49620,
+     "legs": [
+      {
+       "from": "8508476",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "14",
+       "departureSec": 39600,
+       "arrivalSec": 49620
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 43200,
+     "arrivalSec": 53220,
+     "legs": [
+      {
+       "from": "8508476",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "18",
+       "departureSec": 43200,
+       "arrivalSec": 53220
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 46800,
+     "arrivalSec": 56820,
+     "legs": [
+      {
+       "from": "8508476",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "20",
+       "departureSec": 46800,
+       "arrivalSec": 56820
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 50400,
+     "arrivalSec": 60420,
+     "legs": [
+      {
+       "from": "8508476",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "24",
+       "departureSec": 50400,
+       "arrivalSec": 60420
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 54000,
+     "arrivalSec": 64020,
+     "legs": [
+      {
+       "from": "8508476",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "26",
+       "departureSec": 54000,
+       "arrivalSec": 64020
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 57600,
+     "arrivalSec": 67620,
+     "legs": [
+      {
+       "from": "8508476",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "30",
+       "departureSec": 57600,
+       "arrivalSec": 67620
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "Flüelen -> Luzern (direct)",
+   "from": "8508476",
+   "to": "8508492",
+   "date": "2026-09-27",
+   "time": "13:00",
+   "connections": [
+    {
+     "transfers": 0,
+     "departureSec": 46800,
+     "arrivalSec": 56820,
+     "legs": [
+      {
+       "from": "8508476",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "20",
+       "departureSec": 46800,
+       "arrivalSec": 56820
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 50400,
+     "arrivalSec": 60420,
+     "legs": [
+      {
+       "from": "8508476",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "24",
+       "departureSec": 50400,
+       "arrivalSec": 60420
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 54000,
+     "arrivalSec": 64020,
+     "legs": [
+      {
+       "from": "8508476",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "26",
+       "departureSec": 54000,
+       "arrivalSec": 64020
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 57600,
+     "arrivalSec": 67620,
+     "legs": [
+      {
+       "from": "8508476",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "30",
+       "departureSec": 57600,
+       "arrivalSec": 67620
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 121680,
+     "arrivalSec": 132420,
+     "legs": [
+      {
+       "from": "8508476",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "12",
+       "departureSec": 121680,
+       "arrivalSec": 132420
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 126000,
+     "arrivalSec": 136020,
+     "legs": [
+      {
+       "from": "8508476",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "14",
+       "departureSec": 126000,
+       "arrivalSec": 136020
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "Flüelen -> Luzern (direct)",
+   "from": "8508476",
+   "to": "8508492",
+   "date": "2026-09-23",
+   "time": "19:30",
+   "connections": [
+    {
+     "transfers": 0,
+     "departureSec": 121680,
+     "arrivalSec": 132420,
+     "legs": [
+      {
+       "from": "8508476",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "12",
+       "departureSec": 121680,
+       "arrivalSec": 132420
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 126000,
+     "arrivalSec": 136020,
+     "legs": [
+      {
+       "from": "8508476",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "14",
+       "departureSec": 126000,
+       "arrivalSec": 136020
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 129600,
+     "arrivalSec": 139620,
+     "legs": [
+      {
+       "from": "8508476",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "18",
+       "departureSec": 129600,
+       "arrivalSec": 139620
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 133200,
+     "arrivalSec": 143220,
+     "legs": [
+      {
+       "from": "8508476",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "20",
+       "departureSec": 133200,
+       "arrivalSec": 143220
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 136800,
+     "arrivalSec": 146820,
+     "legs": [
+      {
+       "from": "8508476",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "24",
+       "departureSec": 136800,
+       "arrivalSec": 146820
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 140400,
+     "arrivalSec": 150420,
+     "legs": [
+      {
+       "from": "8508476",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "26",
+       "departureSec": 140400,
+       "arrivalSec": 150420
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "Brunnen -> Weggis (direct)",
+   "from": "8508470",
+   "to": "8508463",
+   "date": "2026-09-22",
+   "time": "10:00",
+   "connections": [
+    {
+     "transfers": 0,
+     "departureSec": 38940,
+     "arrivalSec": 43500,
+     "legs": [
+      {
+       "from": "8508470",
+       "to": "8508463",
+       "line": "3600",
+       "kurs": "12",
+       "departureSec": 38940,
+       "arrivalSec": 43500
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 42540,
+     "arrivalSec": 47100,
+     "legs": [
+      {
+       "from": "8508470",
+       "to": "8508463",
+       "line": "3600",
+       "kurs": "14",
+       "departureSec": 42540,
+       "arrivalSec": 47100
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 46140,
+     "arrivalSec": 50700,
+     "legs": [
+      {
+       "from": "8508470",
+       "to": "8508463",
+       "line": "3600",
+       "kurs": "18",
+       "departureSec": 46140,
+       "arrivalSec": 50700
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 49740,
+     "arrivalSec": 54300,
+     "legs": [
+      {
+       "from": "8508470",
+       "to": "8508463",
+       "line": "3600",
+       "kurs": "20",
+       "departureSec": 49740,
+       "arrivalSec": 54300
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 53340,
+     "arrivalSec": 57900,
+     "legs": [
+      {
+       "from": "8508470",
+       "to": "8508463",
+       "line": "3600",
+       "kurs": "24",
+       "departureSec": 53340,
+       "arrivalSec": 57900
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 56940,
+     "arrivalSec": 61500,
+     "legs": [
+      {
+       "from": "8508470",
+       "to": "8508463",
+       "line": "3600",
+       "kurs": "26",
+       "departureSec": 56940,
+       "arrivalSec": 61500
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "Brunnen -> Weggis (direct)",
+   "from": "8508470",
+   "to": "8508463",
+   "date": "2026-09-27",
+   "time": "13:00",
+   "connections": [
+    {
+     "transfers": 0,
+     "departureSec": 49740,
+     "arrivalSec": 54300,
+     "legs": [
+      {
+       "from": "8508470",
+       "to": "8508463",
+       "line": "3600",
+       "kurs": "20",
+       "departureSec": 49740,
+       "arrivalSec": 54300
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 53340,
+     "arrivalSec": 57900,
+     "legs": [
+      {
+       "from": "8508470",
+       "to": "8508463",
+       "line": "3600",
+       "kurs": "24",
+       "departureSec": 53340,
+       "arrivalSec": 57900
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 56940,
+     "arrivalSec": 61500,
+     "legs": [
+      {
+       "from": "8508470",
+       "to": "8508463",
+       "line": "3600",
+       "kurs": "26",
+       "departureSec": 56940,
+       "arrivalSec": 61500
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 60540,
+     "arrivalSec": 65100,
+     "legs": [
+      {
+       "from": "8508470",
+       "to": "8508463",
+       "line": "3600",
+       "kurs": "30",
+       "departureSec": 60540,
+       "arrivalSec": 65100
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 119940,
+     "arrivalSec": 126300,
+     "legs": [
+      {
+       "from": "8508470",
+       "to": "8508463",
+       "line": "3600",
+       "kurs": "8",
+       "departureSec": 119940,
+       "arrivalSec": 126300
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 125340,
+     "arrivalSec": 129900,
+     "legs": [
+      {
+       "from": "8508470",
+       "to": "8508463",
+       "line": "3600",
+       "kurs": "12",
+       "departureSec": 125340,
+       "arrivalSec": 129900
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "Brunnen -> Weggis (direct)",
+   "from": "8508470",
+   "to": "8508463",
+   "date": "2026-09-23",
+   "time": "19:30",
+   "connections": [
+    {
+     "transfers": 0,
+     "departureSec": 119940,
+     "arrivalSec": 126300,
+     "legs": [
+      {
+       "from": "8508470",
+       "to": "8508463",
+       "line": "3600",
+       "kurs": "8",
+       "departureSec": 119940,
+       "arrivalSec": 126300
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 125340,
+     "arrivalSec": 129900,
+     "legs": [
+      {
+       "from": "8508470",
+       "to": "8508463",
+       "line": "3600",
+       "kurs": "12",
+       "departureSec": 125340,
+       "arrivalSec": 129900
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 128940,
+     "arrivalSec": 133500,
+     "legs": [
+      {
+       "from": "8508470",
+       "to": "8508463",
+       "line": "3600",
+       "kurs": "14",
+       "departureSec": 128940,
+       "arrivalSec": 133500
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 132540,
+     "arrivalSec": 137100,
+     "legs": [
+      {
+       "from": "8508470",
+       "to": "8508463",
+       "line": "3600",
+       "kurs": "18",
+       "departureSec": 132540,
+       "arrivalSec": 137100
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 136140,
+     "arrivalSec": 140700,
+     "legs": [
+      {
+       "from": "8508470",
+       "to": "8508463",
+       "line": "3600",
+       "kurs": "20",
+       "departureSec": 136140,
+       "arrivalSec": 140700
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 139740,
+     "arrivalSec": 144300,
+     "legs": [
+      {
+       "from": "8508470",
+       "to": "8508463",
+       "line": "3600",
+       "kurs": "24",
+       "departureSec": 139740,
+       "arrivalSec": 144300
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "Luzern -> Alpnachstad (direct)",
+   "from": "8508492",
+   "to": "8508503",
+   "date": "2026-09-22",
+   "time": "10:00",
+   "connections": [
+    {
+     "transfers": 0,
+     "departureSec": 38280,
+     "arrivalSec": 43500,
+     "legs": [
+      {
+       "from": "8508492",
+       "to": "8508503",
+       "line": "3601",
+       "kurs": "57",
+       "departureSec": 38280,
+       "arrivalSec": 43500
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 45480,
+     "arrivalSec": 49500,
+     "legs": [
+      {
+       "from": "8508492",
+       "to": "8508503",
+       "line": "3601",
+       "kurs": "61",
+       "departureSec": 45480,
+       "arrivalSec": 49500
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 49080,
+     "arrivalSec": 53820,
+     "legs": [
+      {
+       "from": "8508492",
+       "to": "8508503",
+       "line": "3601",
+       "kurs": "63",
+       "departureSec": 49080,
+       "arrivalSec": 53820
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 52680,
+     "arrivalSec": 58200,
+     "legs": [
+      {
+       "from": "8508492",
+       "to": "8508503",
+       "line": "3601",
+       "kurs": "65",
+       "departureSec": 52680,
+       "arrivalSec": 58200
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 59880,
+     "arrivalSec": 63300,
+     "legs": [
+      {
+       "from": "8508492",
+       "to": "8508503",
+       "line": "3601",
+       "kurs": "69",
+       "departureSec": 59880,
+       "arrivalSec": 63300
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 121080,
+     "arrivalSec": 125340,
+     "legs": [
+      {
+       "from": "8508492",
+       "to": "8508503",
+       "line": "3601",
+       "kurs": "55",
+       "departureSec": 121080,
+       "arrivalSec": 125340
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "Luzern -> Alpnachstad (direct)",
+   "from": "8508492",
+   "to": "8508503",
+   "date": "2026-09-27",
+   "time": "13:00",
+   "connections": [
+    {
+     "transfers": 0,
+     "departureSec": 49080,
+     "arrivalSec": 53820,
+     "legs": [
+      {
+       "from": "8508492",
+       "to": "8508503",
+       "line": "3601",
+       "kurs": "63",
+       "departureSec": 49080,
+       "arrivalSec": 53820
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 52680,
+     "arrivalSec": 58200,
+     "legs": [
+      {
+       "from": "8508492",
+       "to": "8508503",
+       "line": "3601",
+       "kurs": "65",
+       "departureSec": 52680,
+       "arrivalSec": 58200
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 59880,
+     "arrivalSec": 63300,
+     "legs": [
+      {
+       "from": "8508492",
+       "to": "8508503",
+       "line": "3601",
+       "kurs": "69",
+       "departureSec": 59880,
+       "arrivalSec": 63300
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 121080,
+     "arrivalSec": 125340,
+     "legs": [
+      {
+       "from": "8508492",
+       "to": "8508503",
+       "line": "3601",
+       "kurs": "55",
+       "departureSec": 121080,
+       "arrivalSec": 125340
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 124680,
+     "arrivalSec": 129900,
+     "legs": [
+      {
+       "from": "8508492",
+       "to": "8508503",
+       "line": "3601",
+       "kurs": "57",
+       "departureSec": 124680,
+       "arrivalSec": 129900
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 131880,
+     "arrivalSec": 135900,
+     "legs": [
+      {
+       "from": "8508492",
+       "to": "8508503",
+       "line": "3601",
+       "kurs": "61",
+       "departureSec": 131880,
+       "arrivalSec": 135900
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "Luzern -> Alpnachstad (direct)",
+   "from": "8508492",
+   "to": "8508503",
+   "date": "2026-09-23",
+   "time": "19:30",
+   "connections": [
+    {
+     "transfers": 0,
+     "departureSec": 121080,
+     "arrivalSec": 125340,
+     "legs": [
+      {
+       "from": "8508492",
+       "to": "8508503",
+       "line": "3601",
+       "kurs": "55",
+       "departureSec": 121080,
+       "arrivalSec": 125340
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 124680,
+     "arrivalSec": 129900,
+     "legs": [
+      {
+       "from": "8508492",
+       "to": "8508503",
+       "line": "3601",
+       "kurs": "57",
+       "departureSec": 124680,
+       "arrivalSec": 129900
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 131880,
+     "arrivalSec": 135900,
+     "legs": [
+      {
+       "from": "8508492",
+       "to": "8508503",
+       "line": "3601",
+       "kurs": "61",
+       "departureSec": 131880,
+       "arrivalSec": 135900
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 135480,
+     "arrivalSec": 140220,
+     "legs": [
+      {
+       "from": "8508492",
+       "to": "8508503",
+       "line": "3601",
+       "kurs": "63",
+       "departureSec": 135480,
+       "arrivalSec": 140220
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 139080,
+     "arrivalSec": 144600,
+     "legs": [
+      {
+       "from": "8508492",
+       "to": "8508503",
+       "line": "3601",
+       "kurs": "65",
+       "departureSec": 139080,
+       "arrivalSec": 144600
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 146280,
+     "arrivalSec": 149700,
+     "legs": [
+      {
+       "from": "8508492",
+       "to": "8508503",
+       "line": "3601",
+       "kurs": "69",
+       "departureSec": 146280,
+       "arrivalSec": 149700
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "Weggis -> Bürgenstock (direct or change at Luzern)",
+   "from": "8508463",
+   "to": "8508489",
+   "date": "2026-09-22",
+   "time": "10:00",
+   "connections": [
+    {
+     "transfers": 0,
+     "departureSec": 39900,
+     "arrivalSec": 40800,
+     "legs": [
+      {
+       "from": "8508463",
+       "to": "8508489",
+       "line": "3600",
+       "kurs": "8",
+       "departureSec": 39900,
+       "arrivalSec": 40800
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 43500,
+     "arrivalSec": 48720,
+     "legs": [
+      {
+       "from": "8508463",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "12",
+       "departureSec": 43500,
+       "arrivalSec": 46020
+      },
+      {
+       "from": "8508492",
+       "to": "8508489",
+       "line": "3602",
+       "kurs": "813",
+       "departureSec": 47220,
+       "arrivalSec": 48720
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 47100,
+     "arrivalSec": 52320,
+     "legs": [
+      {
+       "from": "8508463",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "14",
+       "departureSec": 47100,
+       "arrivalSec": 49620
+      },
+      {
+       "from": "8508492",
+       "to": "8508489",
+       "line": "3602",
+       "kurs": "815",
+       "departureSec": 50820,
+       "arrivalSec": 52320
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 50700,
+     "arrivalSec": 55920,
+     "legs": [
+      {
+       "from": "8508463",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "18",
+       "departureSec": 50700,
+       "arrivalSec": 53220
+      },
+      {
+       "from": "8508492",
+       "to": "8508489",
+       "line": "3602",
+       "kurs": "817",
+       "departureSec": 54420,
+       "arrivalSec": 55920
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 54300,
+     "arrivalSec": 59520,
+     "legs": [
+      {
+       "from": "8508463",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "20",
+       "departureSec": 54300,
+       "arrivalSec": 56820
+      },
+      {
+       "from": "8508492",
+       "to": "8508489",
+       "line": "3602",
+       "kurs": "819",
+       "departureSec": 58020,
+       "arrivalSec": 59520
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 57900,
+     "arrivalSec": 63120,
+     "legs": [
+      {
+       "from": "8508463",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "24",
+       "departureSec": 57900,
+       "arrivalSec": 60420
+      },
+      {
+       "from": "8508492",
+       "to": "8508489",
+       "line": "3602",
+       "kurs": "821",
+       "departureSec": 61620,
+       "arrivalSec": 63120
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "Weggis -> Bürgenstock (direct or change at Luzern)",
+   "from": "8508463",
+   "to": "8508489",
+   "date": "2026-09-27",
+   "time": "13:00",
+   "connections": [
+    {
+     "transfers": 1,
+     "departureSec": 47100,
+     "arrivalSec": 52320,
+     "legs": [
+      {
+       "from": "8508463",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "14",
+       "departureSec": 47100,
+       "arrivalSec": 49620
+      },
+      {
+       "from": "8508492",
+       "to": "8508489",
+       "line": "3602",
+       "kurs": "815",
+       "departureSec": 50820,
+       "arrivalSec": 52320
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 50700,
+     "arrivalSec": 55920,
+     "legs": [
+      {
+       "from": "8508463",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "18",
+       "departureSec": 50700,
+       "arrivalSec": 53220
+      },
+      {
+       "from": "8508492",
+       "to": "8508489",
+       "line": "3602",
+       "kurs": "817",
+       "departureSec": 54420,
+       "arrivalSec": 55920
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 54300,
+     "arrivalSec": 59520,
+     "legs": [
+      {
+       "from": "8508463",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "20",
+       "departureSec": 54300,
+       "arrivalSec": 56820
+      },
+      {
+       "from": "8508492",
+       "to": "8508489",
+       "line": "3602",
+       "kurs": "819",
+       "departureSec": 58020,
+       "arrivalSec": 59520
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 57900,
+     "arrivalSec": 63120,
+     "legs": [
+      {
+       "from": "8508463",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "24",
+       "departureSec": 57900,
+       "arrivalSec": 60420
+      },
+      {
+       "from": "8508492",
+       "to": "8508489",
+       "line": "3602",
+       "kurs": "821",
+       "departureSec": 61620,
+       "arrivalSec": 63120
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 61500,
+     "arrivalSec": 66720,
+     "legs": [
+      {
+       "from": "8508463",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "26",
+       "departureSec": 61500,
+       "arrivalSec": 64020
+      },
+      {
+       "from": "8508492",
+       "to": "8508489",
+       "line": "3602",
+       "kurs": "823",
+       "departureSec": 65220,
+       "arrivalSec": 66720
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 65100,
+     "arrivalSec": 70320,
+     "legs": [
+      {
+       "from": "8508463",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "30",
+       "departureSec": 65100,
+       "arrivalSec": 67620
+      },
+      {
+       "from": "8508492",
+       "to": "8508489",
+       "line": "3602",
+       "kurs": "825",
+       "departureSec": 68820,
+       "arrivalSec": 70320
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "Weggis -> Bürgenstock (direct or change at Luzern)",
+   "from": "8508463",
+   "to": "8508489",
+   "date": "2026-09-23",
+   "time": "19:30",
+   "connections": [
+    {
+     "transfers": 1,
+     "departureSec": 112020,
+     "arrivalSec": 120720,
+     "legs": [
+      {
+       "from": "8508463",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "4",
+       "departureSec": 112020,
+       "arrivalSec": 114120
+      },
+      {
+       "from": "8508492",
+       "to": "8508489",
+       "line": "3602",
+       "kurs": "805",
+       "departureSec": 119220,
+       "arrivalSec": 120720
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 126300,
+     "arrivalSec": 127200,
+     "legs": [
+      {
+       "from": "8508463",
+       "to": "8508489",
+       "line": "3600",
+       "kurs": "8",
+       "departureSec": 126300,
+       "arrivalSec": 127200
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 129900,
+     "arrivalSec": 135120,
+     "legs": [
+      {
+       "from": "8508463",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "12",
+       "departureSec": 129900,
+       "arrivalSec": 132420
+      },
+      {
+       "from": "8508492",
+       "to": "8508489",
+       "line": "3602",
+       "kurs": "813",
+       "departureSec": 133620,
+       "arrivalSec": 135120
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 133500,
+     "arrivalSec": 138720,
+     "legs": [
+      {
+       "from": "8508463",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "14",
+       "departureSec": 133500,
+       "arrivalSec": 136020
+      },
+      {
+       "from": "8508492",
+       "to": "8508489",
+       "line": "3602",
+       "kurs": "815",
+       "departureSec": 137220,
+       "arrivalSec": 138720
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 137100,
+     "arrivalSec": 142320,
+     "legs": [
+      {
+       "from": "8508463",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "18",
+       "departureSec": 137100,
+       "arrivalSec": 139620
+      },
+      {
+       "from": "8508492",
+       "to": "8508489",
+       "line": "3602",
+       "kurs": "817",
+       "departureSec": 140820,
+       "arrivalSec": 142320
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 140700,
+     "arrivalSec": 145920,
+     "legs": [
+      {
+       "from": "8508463",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "20",
+       "departureSec": 140700,
+       "arrivalSec": 143220
+      },
+      {
+       "from": "8508492",
+       "to": "8508489",
+       "line": "3602",
+       "kurs": "819",
+       "departureSec": 144420,
+       "arrivalSec": 145920
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "Vitznau -> Küssnacht (change at Luzern)",
+   "from": "8508464",
+   "to": "8508488",
+   "date": "2026-09-22",
+   "time": "10:00",
+   "connections": [
+    {
+     "transfers": 1,
+     "departureSec": 38940,
+     "arrivalSec": 46380,
+     "legs": [
+      {
+       "from": "8508464",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "8",
+       "departureSec": 38940,
+       "arrivalSec": 42420
+      },
+      {
+       "from": "8508492",
+       "to": "8508488",
+       "line": "3603",
+       "kurs": "153",
+       "departureSec": 43200,
+       "arrivalSec": 46380
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 125340,
+     "arrivalSec": 132780,
+     "legs": [
+      {
+       "from": "8508464",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "8",
+       "departureSec": 125340,
+       "arrivalSec": 128820
+      },
+      {
+       "from": "8508492",
+       "to": "8508488",
+       "line": "3603",
+       "kurs": "153",
+       "departureSec": 129600,
+       "arrivalSec": 132780
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 211740,
+     "arrivalSec": 219180,
+     "legs": [
+      {
+       "from": "8508464",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "8",
+       "departureSec": 211740,
+       "arrivalSec": 215220
+      },
+      {
+       "from": "8508492",
+       "to": "8508488",
+       "line": "3603",
+       "kurs": "153",
+       "departureSec": 216000,
+       "arrivalSec": 219180
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "Vitznau -> Küssnacht (change at Luzern)",
+   "from": "8508464",
+   "to": "8508488",
+   "date": "2026-09-27",
+   "time": "13:00",
+   "connections": [
+    {
+     "transfers": 1,
+     "departureSec": 125340,
+     "arrivalSec": 132780,
+     "legs": [
+      {
+       "from": "8508464",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "8",
+       "departureSec": 125340,
+       "arrivalSec": 128820
+      },
+      {
+       "from": "8508492",
+       "to": "8508488",
+       "line": "3603",
+       "kurs": "153",
+       "departureSec": 129600,
+       "arrivalSec": 132780
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 211740,
+     "arrivalSec": 219180,
+     "legs": [
+      {
+       "from": "8508464",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "8",
+       "departureSec": 211740,
+       "arrivalSec": 215220
+      },
+      {
+       "from": "8508492",
+       "to": "8508488",
+       "line": "3603",
+       "kurs": "153",
+       "departureSec": 216000,
+       "arrivalSec": 219180
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 298140,
+     "arrivalSec": 305580,
+     "legs": [
+      {
+       "from": "8508464",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "8",
+       "departureSec": 298140,
+       "arrivalSec": 301620
+      },
+      {
+       "from": "8508492",
+       "to": "8508488",
+       "line": "3603",
+       "kurs": "153",
+       "departureSec": 302400,
+       "arrivalSec": 305580
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "Vitznau -> Küssnacht (change at Luzern)",
+   "from": "8508464",
+   "to": "8508488",
+   "date": "2026-09-23",
+   "time": "19:30",
+   "connections": [
+    {
+     "transfers": 1,
+     "departureSec": 125340,
+     "arrivalSec": 132780,
+     "legs": [
+      {
+       "from": "8508464",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "8",
+       "departureSec": 125340,
+       "arrivalSec": 128820
+      },
+      {
+       "from": "8508492",
+       "to": "8508488",
+       "line": "3603",
+       "kurs": "153",
+       "departureSec": 129600,
+       "arrivalSec": 132780
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 211740,
+     "arrivalSec": 219180,
+     "legs": [
+      {
+       "from": "8508464",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "8",
+       "departureSec": 211740,
+       "arrivalSec": 215220
+      },
+      {
+       "from": "8508492",
+       "to": "8508488",
+       "line": "3603",
+       "kurs": "153",
+       "departureSec": 216000,
+       "arrivalSec": 219180
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 298140,
+     "arrivalSec": 305580,
+     "legs": [
+      {
+       "from": "8508464",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "8",
+       "departureSec": 298140,
+       "arrivalSec": 301620
+      },
+      {
+       "from": "8508492",
+       "to": "8508488",
+       "line": "3603",
+       "kurs": "153",
+       "departureSec": 302400,
+       "arrivalSec": 305580
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 332760,
+     "arrivalSec": 381180,
+     "legs": [
+      {
+       "from": "8508464",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "36",
+       "departureSec": 332760,
+       "arrivalSec": 337620
+      },
+      {
+       "from": "8508492",
+       "to": "8508488",
+       "line": "3603",
+       "kurs": "151",
+       "departureSec": 378000,
+       "arrivalSec": 381180
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "Flüelen -> Alpnachstad (change)",
+   "from": "8508476",
+   "to": "8508503",
+   "date": "2026-09-22",
+   "time": "10:00",
+   "connections": [
+    {
+     "transfers": 1,
+     "departureSec": 39600,
+     "arrivalSec": 53820,
+     "legs": [
+      {
+       "from": "8508476",
+       "to": "8508459",
+       "line": "3600",
+       "kurs": "14",
+       "departureSec": 39600,
+       "arrivalSec": 48900
+      },
+      {
+       "from": "8508459",
+       "to": "8508503",
+       "line": "3601",
+       "kurs": "63",
+       "departureSec": 49680,
+       "arrivalSec": 53820
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 43200,
+     "arrivalSec": 58200,
+     "legs": [
+      {
+       "from": "8508476",
+       "to": "8508459",
+       "line": "3600",
+       "kurs": "18",
+       "departureSec": 43200,
+       "arrivalSec": 52500
+      },
+      {
+       "from": "8508459",
+       "to": "8508503",
+       "line": "3601",
+       "kurs": "65",
+       "departureSec": 53280,
+       "arrivalSec": 58200
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 50400,
+     "arrivalSec": 63300,
+     "legs": [
+      {
+       "from": "8508476",
+       "to": "8508459",
+       "line": "3600",
+       "kurs": "24",
+       "departureSec": 50400,
+       "arrivalSec": 59700
+      },
+      {
+       "from": "8508459",
+       "to": "8508503",
+       "line": "3601",
+       "kurs": "69",
+       "departureSec": 60480,
+       "arrivalSec": 63300
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 57600,
+     "arrivalSec": 125340,
+     "legs": [
+      {
+       "from": "8508476",
+       "to": "8508459",
+       "line": "3600",
+       "kurs": "30",
+       "departureSec": 57600,
+       "arrivalSec": 66900
+      },
+      {
+       "from": "8508459",
+       "to": "8508503",
+       "line": "3601",
+       "kurs": "55",
+       "departureSec": 121680,
+       "arrivalSec": 125340
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 121680,
+     "arrivalSec": 135900,
+     "legs": [
+      {
+       "from": "8508476",
+       "to": "8508459",
+       "line": "3600",
+       "kurs": "12",
+       "departureSec": 121680,
+       "arrivalSec": 131700
+      },
+      {
+       "from": "8508459",
+       "to": "8508503",
+       "line": "3601",
+       "kurs": "61",
+       "departureSec": 132480,
+       "arrivalSec": 135900
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 126000,
+     "arrivalSec": 140220,
+     "legs": [
+      {
+       "from": "8508476",
+       "to": "8508459",
+       "line": "3600",
+       "kurs": "14",
+       "departureSec": 126000,
+       "arrivalSec": 135300
+      },
+      {
+       "from": "8508459",
+       "to": "8508503",
+       "line": "3601",
+       "kurs": "63",
+       "departureSec": 136080,
+       "arrivalSec": 140220
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "Flüelen -> Alpnachstad (change)",
+   "from": "8508476",
+   "to": "8508503",
+   "date": "2026-09-27",
+   "time": "13:00",
+   "connections": [
+    {
+     "transfers": 1,
+     "departureSec": 50400,
+     "arrivalSec": 63300,
+     "legs": [
+      {
+       "from": "8508476",
+       "to": "8508459",
+       "line": "3600",
+       "kurs": "24",
+       "departureSec": 50400,
+       "arrivalSec": 59700
+      },
+      {
+       "from": "8508459",
+       "to": "8508503",
+       "line": "3601",
+       "kurs": "69",
+       "departureSec": 60480,
+       "arrivalSec": 63300
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 57600,
+     "arrivalSec": 125340,
+     "legs": [
+      {
+       "from": "8508476",
+       "to": "8508459",
+       "line": "3600",
+       "kurs": "30",
+       "departureSec": 57600,
+       "arrivalSec": 66900
+      },
+      {
+       "from": "8508459",
+       "to": "8508503",
+       "line": "3601",
+       "kurs": "55",
+       "departureSec": 121680,
+       "arrivalSec": 125340
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 121680,
+     "arrivalSec": 135900,
+     "legs": [
+      {
+       "from": "8508476",
+       "to": "8508459",
+       "line": "3600",
+       "kurs": "12",
+       "departureSec": 121680,
+       "arrivalSec": 131700
+      },
+      {
+       "from": "8508459",
+       "to": "8508503",
+       "line": "3601",
+       "kurs": "61",
+       "departureSec": 132480,
+       "arrivalSec": 135900
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 126000,
+     "arrivalSec": 140220,
+     "legs": [
+      {
+       "from": "8508476",
+       "to": "8508459",
+       "line": "3600",
+       "kurs": "14",
+       "departureSec": 126000,
+       "arrivalSec": 135300
+      },
+      {
+       "from": "8508459",
+       "to": "8508503",
+       "line": "3601",
+       "kurs": "63",
+       "departureSec": 136080,
+       "arrivalSec": 140220
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 129600,
+     "arrivalSec": 144600,
+     "legs": [
+      {
+       "from": "8508476",
+       "to": "8508459",
+       "line": "3600",
+       "kurs": "18",
+       "departureSec": 129600,
+       "arrivalSec": 138900
+      },
+      {
+       "from": "8508459",
+       "to": "8508503",
+       "line": "3601",
+       "kurs": "65",
+       "departureSec": 139680,
+       "arrivalSec": 144600
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 136800,
+     "arrivalSec": 149700,
+     "legs": [
+      {
+       "from": "8508476",
+       "to": "8508459",
+       "line": "3600",
+       "kurs": "24",
+       "departureSec": 136800,
+       "arrivalSec": 146100
+      },
+      {
+       "from": "8508459",
+       "to": "8508503",
+       "line": "3601",
+       "kurs": "69",
+       "departureSec": 146880,
+       "arrivalSec": 149700
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "Flüelen -> Alpnachstad (change)",
+   "from": "8508476",
+   "to": "8508503",
+   "date": "2026-09-23",
+   "time": "19:30",
+   "connections": [
+    {
+     "transfers": 1,
+     "departureSec": 121680,
+     "arrivalSec": 135900,
+     "legs": [
+      {
+       "from": "8508476",
+       "to": "8508459",
+       "line": "3600",
+       "kurs": "12",
+       "departureSec": 121680,
+       "arrivalSec": 131700
+      },
+      {
+       "from": "8508459",
+       "to": "8508503",
+       "line": "3601",
+       "kurs": "61",
+       "departureSec": 132480,
+       "arrivalSec": 135900
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 126000,
+     "arrivalSec": 140220,
+     "legs": [
+      {
+       "from": "8508476",
+       "to": "8508459",
+       "line": "3600",
+       "kurs": "14",
+       "departureSec": 126000,
+       "arrivalSec": 135300
+      },
+      {
+       "from": "8508459",
+       "to": "8508503",
+       "line": "3601",
+       "kurs": "63",
+       "departureSec": 136080,
+       "arrivalSec": 140220
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 129600,
+     "arrivalSec": 144600,
+     "legs": [
+      {
+       "from": "8508476",
+       "to": "8508459",
+       "line": "3600",
+       "kurs": "18",
+       "departureSec": 129600,
+       "arrivalSec": 138900
+      },
+      {
+       "from": "8508459",
+       "to": "8508503",
+       "line": "3601",
+       "kurs": "65",
+       "departureSec": 139680,
+       "arrivalSec": 144600
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 136800,
+     "arrivalSec": 149700,
+     "legs": [
+      {
+       "from": "8508476",
+       "to": "8508459",
+       "line": "3600",
+       "kurs": "24",
+       "departureSec": 136800,
+       "arrivalSec": 146100
+      },
+      {
+       "from": "8508459",
+       "to": "8508503",
+       "line": "3601",
+       "kurs": "69",
+       "departureSec": 146880,
+       "arrivalSec": 149700
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 144000,
+     "arrivalSec": 211740,
+     "legs": [
+      {
+       "from": "8508476",
+       "to": "8508459",
+       "line": "3600",
+       "kurs": "30",
+       "departureSec": 144000,
+       "arrivalSec": 153300
+      },
+      {
+       "from": "8508459",
+       "to": "8508503",
+       "line": "3601",
+       "kurs": "55",
+       "departureSec": 208080,
+       "arrivalSec": 211740
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 208080,
+     "arrivalSec": 222300,
+     "legs": [
+      {
+       "from": "8508476",
+       "to": "8508459",
+       "line": "3600",
+       "kurs": "12",
+       "departureSec": 208080,
+       "arrivalSec": 218100
+      },
+      {
+       "from": "8508459",
+       "to": "8508503",
+       "line": "3601",
+       "kurs": "61",
+       "departureSec": 218880,
+       "arrivalSec": 222300
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "Beckenried -> Bürgenstock (change)",
+   "from": "8508467",
+   "to": "8508489",
+   "date": "2026-09-22",
+   "time": "10:00",
+   "connections": [
+    {
+     "transfers": 0,
+     "departureSec": 36000,
+     "arrivalSec": 40800,
+     "legs": [
+      {
+       "from": "8508467",
+       "to": "8508489",
+       "line": "3600",
+       "kurs": "8",
+       "departureSec": 36000,
+       "arrivalSec": 40800
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 41520,
+     "arrivalSec": 48720,
+     "legs": [
+      {
+       "from": "8508467",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "12",
+       "departureSec": 41520,
+       "arrivalSec": 46020
+      },
+      {
+       "from": "8508492",
+       "to": "8508489",
+       "line": "3602",
+       "kurs": "813",
+       "departureSec": 47220,
+       "arrivalSec": 48720
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 45120,
+     "arrivalSec": 52320,
+     "legs": [
+      {
+       "from": "8508467",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "14",
+       "departureSec": 45120,
+       "arrivalSec": 49620
+      },
+      {
+       "from": "8508492",
+       "to": "8508489",
+       "line": "3602",
+       "kurs": "815",
+       "departureSec": 50820,
+       "arrivalSec": 52320
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 48720,
+     "arrivalSec": 55920,
+     "legs": [
+      {
+       "from": "8508467",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "18",
+       "departureSec": 48720,
+       "arrivalSec": 53220
+      },
+      {
+       "from": "8508492",
+       "to": "8508489",
+       "line": "3602",
+       "kurs": "817",
+       "departureSec": 54420,
+       "arrivalSec": 55920
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 52320,
+     "arrivalSec": 59520,
+     "legs": [
+      {
+       "from": "8508467",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "20",
+       "departureSec": 52320,
+       "arrivalSec": 56820
+      },
+      {
+       "from": "8508492",
+       "to": "8508489",
+       "line": "3602",
+       "kurs": "819",
+       "departureSec": 58020,
+       "arrivalSec": 59520
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 55920,
+     "arrivalSec": 63120,
+     "legs": [
+      {
+       "from": "8508467",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "24",
+       "departureSec": 55920,
+       "arrivalSec": 60420
+      },
+      {
+       "from": "8508492",
+       "to": "8508489",
+       "line": "3602",
+       "kurs": "821",
+       "departureSec": 61620,
+       "arrivalSec": 63120
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "Beckenried -> Bürgenstock (change)",
+   "from": "8508467",
+   "to": "8508489",
+   "date": "2026-09-27",
+   "time": "13:00",
+   "connections": [
+    {
+     "transfers": 1,
+     "departureSec": 48720,
+     "arrivalSec": 55920,
+     "legs": [
+      {
+       "from": "8508467",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "18",
+       "departureSec": 48720,
+       "arrivalSec": 53220
+      },
+      {
+       "from": "8508492",
+       "to": "8508489",
+       "line": "3602",
+       "kurs": "817",
+       "departureSec": 54420,
+       "arrivalSec": 55920
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 52320,
+     "arrivalSec": 59520,
+     "legs": [
+      {
+       "from": "8508467",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "20",
+       "departureSec": 52320,
+       "arrivalSec": 56820
+      },
+      {
+       "from": "8508492",
+       "to": "8508489",
+       "line": "3602",
+       "kurs": "819",
+       "departureSec": 58020,
+       "arrivalSec": 59520
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 55920,
+     "arrivalSec": 63120,
+     "legs": [
+      {
+       "from": "8508467",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "24",
+       "departureSec": 55920,
+       "arrivalSec": 60420
+      },
+      {
+       "from": "8508492",
+       "to": "8508489",
+       "line": "3602",
+       "kurs": "821",
+       "departureSec": 61620,
+       "arrivalSec": 63120
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 59520,
+     "arrivalSec": 66720,
+     "legs": [
+      {
+       "from": "8508467",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "26",
+       "departureSec": 59520,
+       "arrivalSec": 64020
+      },
+      {
+       "from": "8508492",
+       "to": "8508489",
+       "line": "3602",
+       "kurs": "823",
+       "departureSec": 65220,
+       "arrivalSec": 66720
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 63120,
+     "arrivalSec": 70320,
+     "legs": [
+      {
+       "from": "8508467",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "30",
+       "departureSec": 63120,
+       "arrivalSec": 67620
+      },
+      {
+       "from": "8508492",
+       "to": "8508489",
+       "line": "3602",
+       "kurs": "825",
+       "departureSec": 68820,
+       "arrivalSec": 70320
+      }
+     ]
+    },
+    {
+     "transfers": 0,
+     "departureSec": 122400,
+     "arrivalSec": 127200,
+     "legs": [
+      {
+       "from": "8508467",
+       "to": "8508489",
+       "line": "3600",
+       "kurs": "8",
+       "departureSec": 122400,
+       "arrivalSec": 127200
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "Beckenried -> Bürgenstock (change)",
+   "from": "8508467",
+   "to": "8508489",
+   "date": "2026-09-23",
+   "time": "19:30",
+   "connections": [
+    {
+     "transfers": 0,
+     "departureSec": 122400,
+     "arrivalSec": 127200,
+     "legs": [
+      {
+       "from": "8508467",
+       "to": "8508489",
+       "line": "3600",
+       "kurs": "8",
+       "departureSec": 122400,
+       "arrivalSec": 127200
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 127920,
+     "arrivalSec": 135120,
+     "legs": [
+      {
+       "from": "8508467",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "12",
+       "departureSec": 127920,
+       "arrivalSec": 132420
+      },
+      {
+       "from": "8508492",
+       "to": "8508489",
+       "line": "3602",
+       "kurs": "813",
+       "departureSec": 133620,
+       "arrivalSec": 135120
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 131520,
+     "arrivalSec": 138720,
+     "legs": [
+      {
+       "from": "8508467",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "14",
+       "departureSec": 131520,
+       "arrivalSec": 136020
+      },
+      {
+       "from": "8508492",
+       "to": "8508489",
+       "line": "3602",
+       "kurs": "815",
+       "departureSec": 137220,
+       "arrivalSec": 138720
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 135120,
+     "arrivalSec": 142320,
+     "legs": [
+      {
+       "from": "8508467",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "18",
+       "departureSec": 135120,
+       "arrivalSec": 139620
+      },
+      {
+       "from": "8508492",
+       "to": "8508489",
+       "line": "3602",
+       "kurs": "817",
+       "departureSec": 140820,
+       "arrivalSec": 142320
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 138720,
+     "arrivalSec": 145920,
+     "legs": [
+      {
+       "from": "8508467",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "20",
+       "departureSec": 138720,
+       "arrivalSec": 143220
+      },
+      {
+       "from": "8508492",
+       "to": "8508489",
+       "line": "3602",
+       "kurs": "819",
+       "departureSec": 144420,
+       "arrivalSec": 145920
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 142320,
+     "arrivalSec": 149520,
+     "legs": [
+      {
+       "from": "8508467",
+       "to": "8508492",
+       "line": "3600",
+       "kurs": "24",
+       "departureSec": 142320,
+       "arrivalSec": 146820
+      },
+      {
+       "from": "8508492",
+       "to": "8508489",
+       "line": "3602",
+       "kurs": "821",
+       "departureSec": 148020,
+       "arrivalSec": 149520
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "Küssnacht -> Weggis (change)",
+   "from": "8508488",
+   "to": "8508463",
+   "date": "2026-09-22",
+   "time": "10:00",
+   "connections": [
+    {
+     "transfers": 1,
+     "departureSec": 46560,
+     "arrivalSec": 53580,
+     "legs": [
+      {
+       "from": "8508488",
+       "to": "8508459",
+       "line": "3603",
+       "kurs": "154",
+       "departureSec": 46560,
+       "arrivalSec": 48780
+      },
+      {
+       "from": "8508459",
+       "to": "8508463",
+       "line": "3600",
+       "kurs": "23",
+       "departureSec": 51720,
+       "arrivalSec": 53580
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 132960,
+     "arrivalSec": 139980,
+     "legs": [
+      {
+       "from": "8508488",
+       "to": "8508459",
+       "line": "3603",
+       "kurs": "154",
+       "departureSec": 132960,
+       "arrivalSec": 135180
+      },
+      {
+       "from": "8508459",
+       "to": "8508463",
+       "line": "3600",
+       "kurs": "23",
+       "departureSec": 138120,
+       "arrivalSec": 139980
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 219360,
+     "arrivalSec": 226380,
+     "legs": [
+      {
+       "from": "8508488",
+       "to": "8508459",
+       "line": "3603",
+       "kurs": "154",
+       "departureSec": 219360,
+       "arrivalSec": 221580
+      },
+      {
+       "from": "8508459",
+       "to": "8508463",
+       "line": "3600",
+       "kurs": "23",
+       "departureSec": 224520,
+       "arrivalSec": 226380
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 305760,
+     "arrivalSec": 312780,
+     "legs": [
+      {
+       "from": "8508488",
+       "to": "8508459",
+       "line": "3603",
+       "kurs": "154",
+       "departureSec": 305760,
+       "arrivalSec": 307980
+      },
+      {
+       "from": "8508459",
+       "to": "8508463",
+       "line": "3600",
+       "kurs": "23",
+       "departureSec": 310920,
+       "arrivalSec": 312780
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "Küssnacht -> Weggis (change)",
+   "from": "8508488",
+   "to": "8508463",
+   "date": "2026-09-27",
+   "time": "13:00",
+   "connections": [
+    {
+     "transfers": 1,
+     "departureSec": 132960,
+     "arrivalSec": 139980,
+     "legs": [
+      {
+       "from": "8508488",
+       "to": "8508459",
+       "line": "3603",
+       "kurs": "154",
+       "departureSec": 132960,
+       "arrivalSec": 135180
+      },
+      {
+       "from": "8508459",
+       "to": "8508463",
+       "line": "3600",
+       "kurs": "23",
+       "departureSec": 138120,
+       "arrivalSec": 139980
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 219360,
+     "arrivalSec": 226380,
+     "legs": [
+      {
+       "from": "8508488",
+       "to": "8508459",
+       "line": "3603",
+       "kurs": "154",
+       "departureSec": 219360,
+       "arrivalSec": 221580
+      },
+      {
+       "from": "8508459",
+       "to": "8508463",
+       "line": "3600",
+       "kurs": "23",
+       "departureSec": 224520,
+       "arrivalSec": 226380
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 305760,
+     "arrivalSec": 312780,
+     "legs": [
+      {
+       "from": "8508488",
+       "to": "8508459",
+       "line": "3603",
+       "kurs": "154",
+       "departureSec": 305760,
+       "arrivalSec": 307980
+      },
+      {
+       "from": "8508459",
+       "to": "8508463",
+       "line": "3600",
+       "kurs": "23",
+       "departureSec": 310920,
+       "arrivalSec": 312780
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "Küssnacht -> Weggis (change)",
+   "from": "8508488",
+   "to": "8508463",
+   "date": "2026-09-23",
+   "time": "19:30",
+   "connections": [
+    {
+     "transfers": 1,
+     "departureSec": 132960,
+     "arrivalSec": 139980,
+     "legs": [
+      {
+       "from": "8508488",
+       "to": "8508459",
+       "line": "3603",
+       "kurs": "154",
+       "departureSec": 132960,
+       "arrivalSec": 135180
+      },
+      {
+       "from": "8508459",
+       "to": "8508463",
+       "line": "3600",
+       "kurs": "23",
+       "departureSec": 138120,
+       "arrivalSec": 139980
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 219360,
+     "arrivalSec": 226380,
+     "legs": [
+      {
+       "from": "8508488",
+       "to": "8508459",
+       "line": "3603",
+       "kurs": "154",
+       "departureSec": 219360,
+       "arrivalSec": 221580
+      },
+      {
+       "from": "8508459",
+       "to": "8508463",
+       "line": "3600",
+       "kurs": "23",
+       "departureSec": 224520,
+       "arrivalSec": 226380
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 305760,
+     "arrivalSec": 312780,
+     "legs": [
+      {
+       "from": "8508488",
+       "to": "8508459",
+       "line": "3603",
+       "kurs": "154",
+       "departureSec": 305760,
+       "arrivalSec": 307980
+      },
+      {
+       "from": "8508459",
+       "to": "8508463",
+       "line": "3600",
+       "kurs": "23",
+       "departureSec": 310920,
+       "arrivalSec": 312780
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 381360,
+     "arrivalSec": 384780,
+     "legs": [
+      {
+       "from": "8508488",
+       "to": "8508462",
+       "line": "3603",
+       "kurs": "152",
+       "departureSec": 381360,
+       "arrivalSec": 383040
+      },
+      {
+       "from": "8508462",
+       "to": "8508463",
+       "line": "3600",
+       "kurs": "11",
+       "departureSec": 384180,
+       "arrivalSec": 384780
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 392160,
+     "arrivalSec": 399180,
+     "legs": [
+      {
+       "from": "8508488",
+       "to": "8508459",
+       "line": "3603",
+       "kurs": "154",
+       "departureSec": 392160,
+       "arrivalSec": 394380
+      },
+      {
+       "from": "8508459",
+       "to": "8508463",
+       "line": "3600",
+       "kurs": "23",
+       "departureSec": 397320,
+       "arrivalSec": 399180
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "Alpnachstad -> Vitznau (change)",
+   "from": "8508503",
+   "to": "8508464",
+   "date": "2026-09-22",
+   "time": "10:00",
+   "connections": [
+    {
+     "transfers": 1,
+     "departureSec": 39300,
+     "arrivalSec": 47340,
+     "legs": [
+      {
+       "from": "8508503",
+       "to": "8508459",
+       "line": "3601",
+       "kurs": "56",
+       "departureSec": 39300,
+       "arrivalSec": 43440
+      },
+      {
+       "from": "8508459",
+       "to": "8508464",
+       "line": "3600",
+       "kurs": "17",
+       "departureSec": 44520,
+       "arrivalSec": 47340
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 44520,
+     "arrivalSec": 50940,
+     "legs": [
+      {
+       "from": "8508503",
+       "to": "8508459",
+       "line": "3601",
+       "kurs": "58",
+       "departureSec": 44520,
+       "arrivalSec": 47760
+      },
+      {
+       "from": "8508459",
+       "to": "8508464",
+       "line": "3600",
+       "kurs": "21",
+       "departureSec": 48120,
+       "arrivalSec": 50940
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 50820,
+     "arrivalSec": 58140,
+     "legs": [
+      {
+       "from": "8508503",
+       "to": "8508459",
+       "line": "3601",
+       "kurs": "62",
+       "departureSec": 50820,
+       "arrivalSec": 54900
+      },
+      {
+       "from": "8508459",
+       "to": "8508464",
+       "line": "3600",
+       "kurs": "25",
+       "departureSec": 55320,
+       "arrivalSec": 58140
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 55020,
+     "arrivalSec": 61740,
+     "legs": [
+      {
+       "from": "8508503",
+       "to": "8508459",
+       "line": "3601",
+       "kurs": "64",
+       "departureSec": 55020,
+       "arrivalSec": 58380
+      },
+      {
+       "from": "8508459",
+       "to": "8508464",
+       "line": "3600",
+       "kurs": "27",
+       "departureSec": 58920,
+       "arrivalSec": 61740
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 63480,
+     "arrivalSec": 122940,
+     "legs": [
+      {
+       "from": "8508503",
+       "to": "8508492",
+       "line": "3601",
+       "kurs": "70",
+       "departureSec": 63480,
+       "arrivalSec": 67500
+      },
+      {
+       "from": "8508492",
+       "to": "8508464",
+       "line": "3600",
+       "kurs": "7",
+       "departureSec": 119520,
+       "arrivalSec": 122940
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 125700,
+     "arrivalSec": 133740,
+     "legs": [
+      {
+       "from": "8508503",
+       "to": "8508459",
+       "line": "3601",
+       "kurs": "56",
+       "departureSec": 125700,
+       "arrivalSec": 129840
+      },
+      {
+       "from": "8508459",
+       "to": "8508464",
+       "line": "3600",
+       "kurs": "17",
+       "departureSec": 130920,
+       "arrivalSec": 133740
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "Alpnachstad -> Vitznau (change)",
+   "from": "8508503",
+   "to": "8508464",
+   "date": "2026-09-27",
+   "time": "13:00",
+   "connections": [
+    {
+     "transfers": 1,
+     "departureSec": 50820,
+     "arrivalSec": 58140,
+     "legs": [
+      {
+       "from": "8508503",
+       "to": "8508459",
+       "line": "3601",
+       "kurs": "62",
+       "departureSec": 50820,
+       "arrivalSec": 54900
+      },
+      {
+       "from": "8508459",
+       "to": "8508464",
+       "line": "3600",
+       "kurs": "25",
+       "departureSec": 55320,
+       "arrivalSec": 58140
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 55020,
+     "arrivalSec": 61740,
+     "legs": [
+      {
+       "from": "8508503",
+       "to": "8508459",
+       "line": "3601",
+       "kurs": "64",
+       "departureSec": 55020,
+       "arrivalSec": 58380
+      },
+      {
+       "from": "8508459",
+       "to": "8508464",
+       "line": "3600",
+       "kurs": "27",
+       "departureSec": 58920,
+       "arrivalSec": 61740
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 63480,
+     "arrivalSec": 122940,
+     "legs": [
+      {
+       "from": "8508503",
+       "to": "8508492",
+       "line": "3601",
+       "kurs": "70",
+       "departureSec": 63480,
+       "arrivalSec": 67500
+      },
+      {
+       "from": "8508492",
+       "to": "8508464",
+       "line": "3600",
+       "kurs": "7",
+       "departureSec": 119520,
+       "arrivalSec": 122940
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 125700,
+     "arrivalSec": 133740,
+     "legs": [
+      {
+       "from": "8508503",
+       "to": "8508459",
+       "line": "3601",
+       "kurs": "56",
+       "departureSec": 125700,
+       "arrivalSec": 129840
+      },
+      {
+       "from": "8508459",
+       "to": "8508464",
+       "line": "3600",
+       "kurs": "17",
+       "departureSec": 130920,
+       "arrivalSec": 133740
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 130920,
+     "arrivalSec": 137340,
+     "legs": [
+      {
+       "from": "8508503",
+       "to": "8508459",
+       "line": "3601",
+       "kurs": "58",
+       "departureSec": 130920,
+       "arrivalSec": 134160
+      },
+      {
+       "from": "8508459",
+       "to": "8508464",
+       "line": "3600",
+       "kurs": "21",
+       "departureSec": 134520,
+       "arrivalSec": 137340
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 137220,
+     "arrivalSec": 144540,
+     "legs": [
+      {
+       "from": "8508503",
+       "to": "8508459",
+       "line": "3601",
+       "kurs": "62",
+       "departureSec": 137220,
+       "arrivalSec": 141300
+      },
+      {
+       "from": "8508459",
+       "to": "8508464",
+       "line": "3600",
+       "kurs": "25",
+       "departureSec": 141720,
+       "arrivalSec": 144540
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "Alpnachstad -> Vitznau (change)",
+   "from": "8508503",
+   "to": "8508464",
+   "date": "2026-09-23",
+   "time": "19:30",
+   "connections": [
+    {
+     "transfers": 1,
+     "departureSec": 125700,
+     "arrivalSec": 133740,
+     "legs": [
+      {
+       "from": "8508503",
+       "to": "8508459",
+       "line": "3601",
+       "kurs": "56",
+       "departureSec": 125700,
+       "arrivalSec": 129840
+      },
+      {
+       "from": "8508459",
+       "to": "8508464",
+       "line": "3600",
+       "kurs": "17",
+       "departureSec": 130920,
+       "arrivalSec": 133740
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 130920,
+     "arrivalSec": 137340,
+     "legs": [
+      {
+       "from": "8508503",
+       "to": "8508459",
+       "line": "3601",
+       "kurs": "58",
+       "departureSec": 130920,
+       "arrivalSec": 134160
+      },
+      {
+       "from": "8508459",
+       "to": "8508464",
+       "line": "3600",
+       "kurs": "21",
+       "departureSec": 134520,
+       "arrivalSec": 137340
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 137220,
+     "arrivalSec": 144540,
+     "legs": [
+      {
+       "from": "8508503",
+       "to": "8508459",
+       "line": "3601",
+       "kurs": "62",
+       "departureSec": 137220,
+       "arrivalSec": 141300
+      },
+      {
+       "from": "8508459",
+       "to": "8508464",
+       "line": "3600",
+       "kurs": "25",
+       "departureSec": 141720,
+       "arrivalSec": 144540
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 141420,
+     "arrivalSec": 148140,
+     "legs": [
+      {
+       "from": "8508503",
+       "to": "8508459",
+       "line": "3601",
+       "kurs": "64",
+       "departureSec": 141420,
+       "arrivalSec": 144780
+      },
+      {
+       "from": "8508459",
+       "to": "8508464",
+       "line": "3600",
+       "kurs": "27",
+       "departureSec": 145320,
+       "arrivalSec": 148140
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 149880,
+     "arrivalSec": 209340,
+     "legs": [
+      {
+       "from": "8508503",
+       "to": "8508492",
+       "line": "3601",
+       "kurs": "70",
+       "departureSec": 149880,
+       "arrivalSec": 153900
+      },
+      {
+       "from": "8508492",
+       "to": "8508464",
+       "line": "3600",
+       "kurs": "7",
+       "departureSec": 205920,
+       "arrivalSec": 209340
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 212100,
+     "arrivalSec": 220140,
+     "legs": [
+      {
+       "from": "8508503",
+       "to": "8508459",
+       "line": "3601",
+       "kurs": "56",
+       "departureSec": 212100,
+       "arrivalSec": 216240
+      },
+      {
+       "from": "8508459",
+       "to": "8508464",
+       "line": "3600",
+       "kurs": "17",
+       "departureSec": 217320,
+       "arrivalSec": 220140
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "Meggen -> Weggis",
+   "from": "8508484",
+   "to": "8508463",
+   "date": "2026-09-22",
+   "time": "10:00",
+   "connections": []
+  },
+  {
+   "label": "Meggen -> Weggis",
+   "from": "8508484",
+   "to": "8508463",
+   "date": "2026-09-27",
+   "time": "13:00",
+   "connections": []
+  },
+  {
+   "label": "Meggen -> Weggis",
+   "from": "8508484",
+   "to": "8508463",
+   "date": "2026-09-23",
+   "time": "19:30",
+   "connections": []
+  },
+  {
+   "label": "Bürgenstock -> Brunnen (change)",
+   "from": "8508489",
+   "to": "8508470",
+   "date": "2026-09-22",
+   "time": "10:00",
+   "connections": [
+    {
+     "transfers": 1,
+     "departureSec": 37980,
+     "arrivalSec": 47340,
+     "legs": [
+      {
+       "from": "8508489",
+       "to": "8508492",
+       "line": "3602",
+       "kurs": "808",
+       "departureSec": 37980,
+       "arrivalSec": 39720
+      },
+      {
+       "from": "8508492",
+       "to": "8508470",
+       "line": "3600",
+       "kurs": "13",
+       "departureSec": 40320,
+       "arrivalSec": 47340
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 41580,
+     "arrivalSec": 50940,
+     "legs": [
+      {
+       "from": "8508489",
+       "to": "8508492",
+       "line": "3602",
+       "kurs": "810",
+       "departureSec": 41580,
+       "arrivalSec": 43320
+      },
+      {
+       "from": "8508492",
+       "to": "8508470",
+       "line": "3600",
+       "kurs": "17",
+       "departureSec": 43920,
+       "arrivalSec": 50940
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 45180,
+     "arrivalSec": 54540,
+     "legs": [
+      {
+       "from": "8508489",
+       "to": "8508492",
+       "line": "3602",
+       "kurs": "812",
+       "departureSec": 45180,
+       "arrivalSec": 46920
+      },
+      {
+       "from": "8508492",
+       "to": "8508470",
+       "line": "3600",
+       "kurs": "21",
+       "departureSec": 47520,
+       "arrivalSec": 54540
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 48780,
+     "arrivalSec": 58140,
+     "legs": [
+      {
+       "from": "8508489",
+       "to": "8508492",
+       "line": "3602",
+       "kurs": "814",
+       "departureSec": 48780,
+       "arrivalSec": 50520
+      },
+      {
+       "from": "8508492",
+       "to": "8508470",
+       "line": "3600",
+       "kurs": "23",
+       "departureSec": 51120,
+       "arrivalSec": 58140
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 52380,
+     "arrivalSec": 61740,
+     "legs": [
+      {
+       "from": "8508489",
+       "to": "8508492",
+       "line": "3602",
+       "kurs": "816",
+       "departureSec": 52380,
+       "arrivalSec": 54120
+      },
+      {
+       "from": "8508492",
+       "to": "8508470",
+       "line": "3600",
+       "kurs": "25",
+       "departureSec": 54720,
+       "arrivalSec": 61740
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 55980,
+     "arrivalSec": 67260,
+     "legs": [
+      {
+       "from": "8508489",
+       "to": "8508492",
+       "line": "3602",
+       "kurs": "818",
+       "departureSec": 55980,
+       "arrivalSec": 57720
+      },
+      {
+       "from": "8508492",
+       "to": "8508470",
+       "line": "3600",
+       "kurs": "27",
+       "departureSec": 58320,
+       "arrivalSec": 67260
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "Bürgenstock -> Brunnen (change)",
+   "from": "8508489",
+   "to": "8508470",
+   "date": "2026-09-27",
+   "time": "13:00",
+   "connections": [
+    {
+     "transfers": 1,
+     "departureSec": 48780,
+     "arrivalSec": 58140,
+     "legs": [
+      {
+       "from": "8508489",
+       "to": "8508492",
+       "line": "3602",
+       "kurs": "814",
+       "departureSec": 48780,
+       "arrivalSec": 50520
+      },
+      {
+       "from": "8508492",
+       "to": "8508470",
+       "line": "3600",
+       "kurs": "23",
+       "departureSec": 51120,
+       "arrivalSec": 58140
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 52380,
+     "arrivalSec": 61740,
+     "legs": [
+      {
+       "from": "8508489",
+       "to": "8508492",
+       "line": "3602",
+       "kurs": "816",
+       "departureSec": 52380,
+       "arrivalSec": 54120
+      },
+      {
+       "from": "8508492",
+       "to": "8508470",
+       "line": "3600",
+       "kurs": "25",
+       "departureSec": 54720,
+       "arrivalSec": 61740
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 55980,
+     "arrivalSec": 67260,
+     "legs": [
+      {
+       "from": "8508489",
+       "to": "8508492",
+       "line": "3602",
+       "kurs": "818",
+       "departureSec": 55980,
+       "arrivalSec": 57720
+      },
+      {
+       "from": "8508492",
+       "to": "8508470",
+       "line": "3600",
+       "kurs": "27",
+       "departureSec": 58320,
+       "arrivalSec": 67260
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 81180,
+     "arrivalSec": 126540,
+     "legs": [
+      {
+       "from": "8508489",
+       "to": "8508492",
+       "line": "3602",
+       "kurs": "832",
+       "departureSec": 81180,
+       "arrivalSec": 82920
+      },
+      {
+       "from": "8508492",
+       "to": "8508470",
+       "line": "3600",
+       "kurs": "7",
+       "departureSec": 119520,
+       "arrivalSec": 126540
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 120780,
+     "arrivalSec": 130140,
+     "legs": [
+      {
+       "from": "8508489",
+       "to": "8508492",
+       "line": "3602",
+       "kurs": "806",
+       "departureSec": 120780,
+       "arrivalSec": 122520
+      },
+      {
+       "from": "8508492",
+       "to": "8508470",
+       "line": "3600",
+       "kurs": "11",
+       "departureSec": 123120,
+       "arrivalSec": 130140
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 124380,
+     "arrivalSec": 133740,
+     "legs": [
+      {
+       "from": "8508489",
+       "to": "8508492",
+       "line": "3602",
+       "kurs": "808",
+       "departureSec": 124380,
+       "arrivalSec": 126120
+      },
+      {
+       "from": "8508492",
+       "to": "8508470",
+       "line": "3600",
+       "kurs": "13",
+       "departureSec": 126720,
+       "arrivalSec": 133740
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "Bürgenstock -> Brunnen (change)",
+   "from": "8508489",
+   "to": "8508470",
+   "date": "2026-09-23",
+   "time": "19:30",
+   "connections": [
+    {
+     "transfers": 1,
+     "departureSec": 120780,
+     "arrivalSec": 130140,
+     "legs": [
+      {
+       "from": "8508489",
+       "to": "8508492",
+       "line": "3602",
+       "kurs": "806",
+       "departureSec": 120780,
+       "arrivalSec": 122520
+      },
+      {
+       "from": "8508492",
+       "to": "8508470",
+       "line": "3600",
+       "kurs": "11",
+       "departureSec": 123120,
+       "arrivalSec": 130140
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 124380,
+     "arrivalSec": 133740,
+     "legs": [
+      {
+       "from": "8508489",
+       "to": "8508492",
+       "line": "3602",
+       "kurs": "808",
+       "departureSec": 124380,
+       "arrivalSec": 126120
+      },
+      {
+       "from": "8508492",
+       "to": "8508470",
+       "line": "3600",
+       "kurs": "13",
+       "departureSec": 126720,
+       "arrivalSec": 133740
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 127980,
+     "arrivalSec": 137340,
+     "legs": [
+      {
+       "from": "8508489",
+       "to": "8508492",
+       "line": "3602",
+       "kurs": "810",
+       "departureSec": 127980,
+       "arrivalSec": 129720
+      },
+      {
+       "from": "8508492",
+       "to": "8508470",
+       "line": "3600",
+       "kurs": "17",
+       "departureSec": 130320,
+       "arrivalSec": 137340
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 131580,
+     "arrivalSec": 140940,
+     "legs": [
+      {
+       "from": "8508489",
+       "to": "8508492",
+       "line": "3602",
+       "kurs": "812",
+       "departureSec": 131580,
+       "arrivalSec": 133320
+      },
+      {
+       "from": "8508492",
+       "to": "8508470",
+       "line": "3600",
+       "kurs": "21",
+       "departureSec": 133920,
+       "arrivalSec": 140940
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 135180,
+     "arrivalSec": 144540,
+     "legs": [
+      {
+       "from": "8508489",
+       "to": "8508492",
+       "line": "3602",
+       "kurs": "814",
+       "departureSec": 135180,
+       "arrivalSec": 136920
+      },
+      {
+       "from": "8508492",
+       "to": "8508470",
+       "line": "3600",
+       "kurs": "23",
+       "departureSec": 137520,
+       "arrivalSec": 144540
+      }
+     ]
+    },
+    {
+     "transfers": 1,
+     "departureSec": 138780,
+     "arrivalSec": 148140,
+     "legs": [
+      {
+       "from": "8508489",
+       "to": "8508492",
+       "line": "3602",
+       "kurs": "816",
+       "departureSec": 138780,
+       "arrivalSec": 140520
+      },
+      {
+       "from": "8508492",
+       "to": "8508470",
+       "line": "3600",
+       "kurs": "25",
+       "departureSec": 141120,
+       "arrivalSec": 148140
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}
