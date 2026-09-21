@@ -27,15 +27,15 @@ function StopList({ section }: { section: Section }) {
       {stops.map((stop, idx) => {
         const isEndpoint = idx === 0 || idx === stops.length - 1;
         return (
-          <li key={idx} className="relative pb-[18px] last:pb-0">
+          <li key={idx} className="relative pb-[18px] last:pb-0 md:pb-6">
             <span
               aria-hidden="true"
-              className={`absolute -left-[22px] top-[3px] box-border h-2.5 w-2.5 rounded-full border-2 ${
+              className={`absolute -left-[22px] top-[3px] box-border md:top-1 h-2.5 w-2.5 rounded-full border-2 ${
                 isEndpoint ? 'border-alpine-sky bg-alpine-sky' : 'border-stone-grey bg-surface-card'
               }`}
             />
-            <div className={`font-body text-sm ${isEndpoint ? 'text-deep-lake' : 'text-stone-grey'}`}>{pierLabel(stop.station)}</div>
-            <div className="mt-px font-body text-xs tabular-nums text-stone-grey">{formatTime(stopTimestamp(stop))}</div>
+            <div className={`font-body text-sm md:text-base ${isEndpoint ? 'text-deep-lake' : 'text-stone-grey'}`}>{pierLabel(stop.station)}</div>
+            <div className="mt-px font-body text-xs tabular-nums text-stone-grey md:text-sm">{formatTime(stopTimestamp(stop))}</div>
           </li>
         );
       })}
@@ -63,19 +63,22 @@ export function TripDetails({ entry, onBack }: TripDetailsProps) {
         ← Back to departures
       </button>
 
-      <div className="max-w-[460px] rounded-[14px] bg-surface-card p-6 shadow-card md:rounded-[16px] md:p-8">
+      <div className="max-w-[460px] rounded-[14px] bg-surface-card p-6 shadow-card md:max-w-[780px] md:rounded-[16px] md:p-10">
         <div className="mb-3 flex items-start justify-between gap-3 md:mb-4">
-          <div className="flex min-w-0 flex-wrap items-center gap-x-2 font-display text-base font-medium text-alpine-sky md:text-lg">
+          <div className="flex min-w-0 flex-wrap items-center gap-x-2 font-display text-base font-medium text-alpine-sky md:text-xl">
             <span>{pierLabel(first.departure.station)}</span>
             <ArrowRight className="h-4 w-4 flex-shrink-0 text-stone-grey" strokeWidth={1.5} aria-hidden="true" />
             <span>{pierLabel(last.arrival.station)}</span>
           </div>
-          <StatusBadge status={entry.status} />
+          {/* Same height as the title's first line, so the dot is centred on the title text. */}
+          <span className="flex h-6 items-center md:h-7">
+            <StatusBadge status={entry.status} />
+          </span>
         </div>
 
         <div className="mb-4 flex flex-wrap items-center gap-2.5 md:mb-5">
           {sectionMeta(first) && (
-            <span className="font-body text-xs uppercase tracking-[0.04em] text-stone-grey">{sectionMeta(first)}</span>
+            <span className="font-body text-xs uppercase tracking-[0.04em] text-stone-grey md:text-[13px]">{sectionMeta(first)}</span>
           )}
           {first.journey && <CategoryPill category={first.journey.category} />}
         </div>
@@ -90,7 +93,7 @@ export function TripDetails({ entry, onBack }: TripDetailsProps) {
           {entry.boatSections.map((section, idx) => (
             <div key={idx}>
               {entry.boatSections.length > 1 && (
-                <div className="mb-3 font-body text-xs uppercase tracking-[0.04em] text-stone-grey">
+                <div className="mb-3 font-body text-xs uppercase tracking-[0.04em] text-stone-grey md:text-[13px]">
                   {sectionMeta(section) || `Leg ${idx + 1}`}
                 </div>
               )}

@@ -31,9 +31,9 @@
 - Schedules: Lake Lucerne uses real stationboard departures (one row per destination); other lakes use `src/data/sampleSchedules.ts`.
 
 ## Screens
-- Home opens with `SplashHero` at every size: full-screen owner photo, transparent header floating over it (white, soft top shade, scrolls away with it), shutter doors, hero headline, rule, tag line, then a "Select your lake" button that scrolls to the lakes. Motion is ported from the Lacus Splash v2 design (`src/splash/timeline.ts`); plays once per session, skipped for reduced motion.
+- Home opens with `SplashHero` at every size: full-width, full-screen owner photo (edge to edge; the copy and nav line up with the centred 1440px page container; the zoom shrinks on screens wider than ~2100px so the 2576px photo is never enlarged past its real size), transparent header floating over it (white, soft top shade, scrolls away with it), shutter doors, hero headline, rule, tag line, then a "Select your lake" button that scrolls to the lakes. Motion is ported from the Lacus Splash v2 design (`src/splash/timeline.ts`); plays once per session, skipped for reduced motion.
 - Menu (`src/components/Menu.tsx`; hamburger left of the logo on desktop, left on Home on phones): X on the left, "Menu" title, app icon on the right, a placeholder (disabled) search bar, then Home, Schedules, Tickets and Account ("Coming soon"). It slides in from the left and **pushes the page aside, never covering it**: phones, the menu fills the screen and the page slides fully out; desktop, a 400px drawer and the page narrows by 400px. Phones lock page scroll. Closes on X, Escape, the hamburger or navigation. State is in `src/menu.ts` (Layout in `App.tsx` reads it).
-- The trip page's "Back to departures" link is desktop-only; phones use the header back arrow.
+- The trip page's "Back to departures" link is desktop-only; phones use the header back arrow. On desktop the main column is wider than the map (58%, max 860px) and the trip card up to 780px.
 - Lake order (`src/lakes.ts`), same on every screen size (`LakeGroups`): Lucerne, Geneva, Zurich first, then Switzerland Tourism regions: Central Switzerland (Zug), Bernese Oberland (Thun, Brienz), Jura & Three-Lakes (Neuchâtel, Biel, Murten), Eastern Switzerland (Constance), Ticino (Lugano, Maggiore). Regions are collapsed; their cards and photos render only when opened.
 
 ## Design system (Lacus; source: Lacus Mockups and Lacus Design System in Claude Design)
@@ -47,4 +47,4 @@
 
 ## Photography
 - Lake card photos: `public/lakes/{lake-id}.jpg` (Wikimedia Commons, CC BY / CC BY-SA). Every photo needs a credit in `src/data/lakePhotos.ts` (shown under "Photo credits" on Home); use only licences that allow it. Cards fall back to a placeholder if a photo is missing.
-- Splash photos `public/splash/hero.jpg` (portrait ~900×1800) and `hero-desktop.jpg` (16:9 ~2200×1238) are the owner's own, no credit. Export new photos as JPEG without EXIF/GPS metadata.
+- Splash photos `public/splash/hero.jpg` (portrait 966×1932) and `hero-desktop.jpg` (16:9 2576×1449, full native width) are the owner's own, no credit. Export new photos as JPEG without EXIF/GPS metadata.

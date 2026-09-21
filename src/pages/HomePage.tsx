@@ -27,9 +27,10 @@ export function HomePage() {
 
   return (
     <>
-      <main className="mx-auto max-w-[1440px]">
-        <SplashHero onSelectLake={showLakes} />
+      {/* The splash photo runs edge to edge; the page content below sits in the centred container. */}
+      <SplashHero onSelectLake={showLakes} />
 
+      <main className="mx-auto max-w-[1440px]">
         <section id="lakes" className="flex flex-col gap-5 px-5 pb-5 pt-8 md:gap-8 md:px-16 md:pb-[72px] md:pt-20">
           <div>
             <h2 className="m-0 font-display text-lg font-medium text-deep-lake md:text-[28px]">Lakes we cover</h2>

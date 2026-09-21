@@ -17,7 +17,7 @@ export function SearchLayout({ children, showMapOnPhone }: SearchLayoutProps) {
       </div>
 
       <div className="flex flex-col gap-8 md:mt-8 lg:flex-row lg:items-start">
-        <div className="min-w-0 flex-1 lg:max-w-[760px]">{children}</div>
+        <div className="min-w-0 flex-1 lg:max-w-[860px] lg:basis-[58%]">{children}</div>
         <MapPlaceholder className={`min-w-[320px] flex-1 lg:flex lg:self-stretch ${showMapOnPhone ? 'flex' : 'hidden'}`} />
       </div>
     </main>

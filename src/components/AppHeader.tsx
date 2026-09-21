@@ -27,14 +27,8 @@ function WebNav({ section }: { section: Section }) {
     `font-display text-[15px] font-medium no-underline ${
       overlay ? (active ? 'text-white' : 'text-white/75') : active ? 'text-deep-lake' : 'text-stone-grey'
     }`;
-  return (
-    <div
-      className={`hidden items-center justify-between px-5 py-3 md:flex ${
-        overlay
-          ? 'absolute inset-x-0 top-0 z-20 px-16 py-5'
-          : 'border-b border-hairline bg-surface-page'
-      }`}
-    >
+  const content = (
+    <>
       <div className={`flex items-center gap-4 ${overlay ? 'text-white' : 'text-deep-lake'}`}>
         <MenuButton />
         <Link to="/" className="flex items-center gap-2.5 no-underline">
@@ -58,6 +52,18 @@ function WebNav({ section }: { section: Section }) {
           </span>
         ))}
       </nav>
+    </>
+  );
+
+  // Over the splash the content lines up with the page container (so it matches the hero copy on
+  // wide screens); on other pages it is the full-width solid bar.
+  return overlay ? (
+    <div className="absolute inset-x-0 top-0 z-20 hidden md:block">
+      <div className="mx-auto flex max-w-[1440px] items-center justify-between px-16 py-5">{content}</div>
+    </div>
+  ) : (
+    <div className="hidden items-center justify-between border-b border-hairline bg-surface-page px-5 py-3 md:flex">
+      {content}
     </div>
   );
 }

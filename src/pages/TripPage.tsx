@@ -79,7 +79,7 @@ export function TripPage() {
       {state.status === 'ready' && <TripDetails entry={state.entry} onBack={backToSearch} />}
 
       {state.status === 'loading' && (
-        <div className="max-w-[460px] rounded-[14px] bg-surface-card p-6 shadow-card md:rounded-[16px] md:p-8" aria-busy="true">
+        <div className="max-w-[460px] rounded-[14px] bg-surface-card p-6 shadow-card md:max-w-[780px] md:rounded-[16px] md:p-10" aria-busy="true">
           <div className="skel mb-5 h-4 w-[60%]" />
           <div className="skel mb-5 h-10 w-full" />
           <div className="skel h-24 w-full" />

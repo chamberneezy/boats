@@ -9,7 +9,7 @@ export type SummarySize = 'hero' | 'card' | 'detail';
 const SIZES: Record<SummarySize, { time: string; station: string; track: string }> = {
   hero: { time: 'text-[28px] md:text-[40px]', station: 'text-xs md:text-[15px]', track: 'h-[26px] md:h-8' },
   card: { time: 'text-xl md:text-[26px]', station: 'text-[11px] md:text-[13px]', track: 'h-5 md:h-6' },
-  detail: { time: 'text-[28px] md:text-4xl', station: 'text-[13px] md:text-sm', track: 'h-[26px] md:h-7' },
+  detail: { time: 'text-[28px] md:text-5xl', station: 'text-[13px] md:text-base', track: 'h-[26px] md:h-8' },
 };
 
 // Fraction of the journey elapsed right now: 0 before departure (boat waits at the
