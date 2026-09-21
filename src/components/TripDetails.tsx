@@ -89,6 +89,7 @@ export function TripDetails({ entry, onBack }: TripDetailsProps) {
   const vessels = entry.boatSections.map(vesselOf);
   const vessel = vessels[0] ?? null;
   const ticketUrl = shopTicketUrl(entry);
+  const hasAmenities = !!vessel && vessel.amenities.length > 0;
   const firstPier = pierPlatform(first);
 
   return (
@@ -115,7 +116,7 @@ export function TripDetails({ entry, onBack }: TripDetailsProps) {
           </span>
         </div>
 
-        <div className="mb-4 flex flex-wrap items-center gap-2.5 md:mb-5">
+        <div className={`flex flex-wrap items-center gap-2.5 ${hasAmenities ? 'mb-3 md:mb-3.5' : 'mb-4 md:mb-5'}`}>
           {firstPier && <PierBadge platform={firstPier} />}
           {/* The boat's name with its kind (ship / paddle steamer) as an icon right after it. */}
           <span className="inline-flex items-center gap-1.5 font-display text-sm font-medium text-deep-lake md:gap-2 md:text-base">
@@ -123,6 +124,14 @@ export function TripDetails({ entry, onBack }: TripDetailsProps) {
             {first.journey && <CategoryIcon category={first.journey.category} vessel={vessel} />}
           </span>
         </div>
+
+        {hasAmenities && (
+          <div className="mb-4 flex flex-wrap gap-2 md:mb-5" aria-label="On board">
+            {vessel.amenities.map((tag) => (
+              <AmenityIcon key={tag} tag={tag} />
+            ))}
+          </div>
+        )}
 
         <div className="mb-4 h-px bg-hairline md:mb-5" />
 
@@ -151,14 +160,6 @@ export function TripDetails({ entry, onBack }: TripDetailsProps) {
             </div>
           ))}
         </div>
-
-        {vessel && vessel.amenities.length > 0 && (
-          <div className="mb-6 flex flex-wrap gap-2 border-0 border-t border-solid border-hairline pt-5" aria-label="On board">
-            {vessel.amenities.map((tag) => (
-              <AmenityIcon key={tag} tag={tag} />
-            ))}
-          </div>
-        )}
 
         <Button fullWidth href={ticketUrl ?? undefined} disabled={!ticketUrl}>
           Buy ticket

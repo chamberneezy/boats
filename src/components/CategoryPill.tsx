@@ -80,9 +80,9 @@ export function AmenityIcon({ tag }: { tag: AmenityTag }) {
       role="img"
       aria-label={label}
       title={label}
-      className="inline-flex h-9 w-9 items-center justify-center rounded-[10px] bg-surface-sunken text-alpine-sky md:h-10 md:w-10"
+      className="inline-flex h-7 w-7 items-center justify-center rounded-[8px] bg-surface-sunken text-alpine-sky md:h-8 md:w-8 md:rounded-[10px]"
     >
-      <Icon className="h-[18px] w-[18px] md:h-5 md:w-5" strokeWidth={2} aria-hidden="true" />
+      <Icon className="h-3.5 w-3.5 md:h-4 md:w-4" strokeWidth={2} aria-hidden="true" />
     </span>
   );
 }

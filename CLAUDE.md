@@ -51,7 +51,7 @@
 - Status dots (`bg-status-*`): on time `#3F8F5C`, delayed `#C9762E`, cancelled `#B5473F`; never a CTA colour. On time and delayed blink; cancelled does not.
 - Radius 10–16px; no fully round buttons or inputs. Tabular numerals for times.
 - Tone: calm, precise, sentence case, no exclamation marks or emoji. No decorative gradients (soft shadows behind text on photos are fine).
-- Category pill (`CategoryPill`): neutral `bg-surface-sunken`; `BAT` (incl. electric) Ship icon "Motor vessel"; `BAV` Anchor icon "Paddle steamer". On phones cards show the icon only. On the trip page the boat's kind is a bare icon right after the boat's name (`CategoryIcon`), the boat's amenities are icon-only chips at the bottom of the card above "Buy ticket" (`AmenityIcon`, no names), and a "Legend" (`TripLegend`) under the card names exactly the icons shown there (boat kind and that boat's amenities; nothing when no boat is known and no icon shows).
+- Category pill (`CategoryPill`): neutral `bg-surface-sunken`; `BAT` (incl. electric) Ship icon "Motor vessel"; `BAV` Anchor icon "Paddle steamer". On phones cards show the icon only. On the trip page the boat's kind is a bare icon right after the boat's name (`CategoryIcon`), the boat's amenities are icon-only chips directly under the boat's name (`AmenityIcon`, no names), and a "Legend" (`TripLegend`) under the card names exactly the icons shown there (boat kind and that boat's amenities; nothing when no boat is known and no icon shows).
 
 ## Photography
 - Lake card photos: `public/lakes/{lake-id}.jpg` (Wikimedia Commons, CC BY / CC BY-SA). Every photo needs a credit in `src/data/lakePhotos.ts` (shown under "Photo credits" on Home); use only licences that allow it. Cards fall back to a placeholder if a photo is missing.
