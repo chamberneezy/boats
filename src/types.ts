@@ -98,32 +98,11 @@ export interface Vessel {
   description: string;
 }
 
-// Which boat sails a given Kurs on a given day.
-export interface KursAssignment {
-  kurs: string; // e.g. "000011" or "11"
-  vesselId: string;
-  vesselName: string;
-  date: string; // YYYY-MM-DD
-}
-
-// Shape of src/data/scraped/sgv-assignments.json (written by scripts/scrape-sgv.mjs).
-export interface SgvAssignmentRun {
-  outboundKurs: string;
-  returnKurs: string;
-  luzernDeparture: string | null;
-  luzernArrival: string | null;
-}
-
-export interface SgvAssignment {
-  vessel: string; // short name as SGV writes it, e.g. "Gallia"
-  category: string; // "BAV" for steamers
-  dates: string[]; // YYYY-MM-DD
-  dateRanges: { from: string; to: string; note?: string }[];
-  runs: SgvAssignmentRun[];
-}
-
-export interface SgvAssignmentsFile {
+// Shape of src/data/scraped/sgv-allocations.json (written by scripts/scrape-sgv.mjs): for each day,
+// the Kurs numbers (no leading zeros) every boat sails, under the name SGV writes ("DS Gallia",
+// "eMS Rütli"). Days SGV has not published yet are simply absent.
+export interface SgvAllocationsFile {
   source: string;
   fetchedAt: string;
-  assignments: SgvAssignment[];
+  dates: Record<string, Record<string, string[]>>; // YYYY-MM-DD -> boat name -> Kurs numbers
 }

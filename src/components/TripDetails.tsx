@@ -1,7 +1,8 @@
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ExternalLink } from 'lucide-react';
 import { hasMultiplePiers, pierLabel } from '../piers';
-import type { BoatConnection, Section, StopTime } from '../types';
-import { formatShortDate, formatTime, timestampToDateTimeParts, todayDateString } from '../utils';
+import { shopTicketUrl } from '../shopLink';
+import type { BoatConnection, Section, StopTime, Vessel } from '../types';
+import { formatTime, timestampToDateTimeParts } from '../utils';
 import { resolveVesselForJourney } from '../utils/vesselResolver';
 import { Button } from './Button';
 import { AmenityPill, CategoryPill } from './CategoryPill';
@@ -13,9 +14,17 @@ function stopTimestamp(stop: StopTime): number | null {
   return stop.arrivalTimestamp ?? stop.departureTimestamp;
 }
 
-// "BAT 3600"
+// "BAT 3600": only used to look the boat up, never shown to riders (they see the boat's name).
 function lineLabel(section: Section): string {
   return section.journey ? `${section.journey.category} ${section.journey.number}`.trim() : '';
+}
+
+// The boat sailing this leg, when it is actually known (see utils/vesselResolver): usually null.
+function vesselOf(section: Section): Vessel | null {
+  if (!section.journey) return null;
+  const departure = section.departure.departureTimestamp;
+  const date = departure === null ? undefined : timestampToDateTimeParts(departure).date;
+  return resolveVesselForJourney(section.journey.name, date, lineLabel(section));
 }
 
 // The pier number, but only at stops that have several piers; elsewhere it would just be noise.
@@ -76,11 +85,8 @@ export function TripDetails({ entry, onBack }: TripDetailsProps) {
   const first = entry.boatSections[0];
   const last = entry.boatSections[entry.boatSections.length - 1];
 
-  // The boat, when it is actually known (see utils/vesselResolver): usually null.
-  const departureTimestamp = first.departure.departureTimestamp;
-  const tripDate = departureTimestamp === null ? undefined : timestampToDateTimeParts(departureTimestamp).date;
-  const vessel = first.journey ? resolveVesselForJourney(first.journey.name, tripDate, lineLabel(first)) : null;
-  const operatingLabel = !tripDate || tripDate === todayDateString() ? 'Operating today' : `Operating ${formatShortDate(tripDate)}`;
+  const vessel = vesselOf(first);
+  const ticketUrl = shopTicketUrl(entry);
   const firstPier = pierPlatform(first);
 
   return (
@@ -109,22 +115,15 @@ export function TripDetails({ entry, onBack }: TripDetailsProps) {
 
         <div className="mb-4 flex flex-wrap items-center gap-2.5 md:mb-5">
           {firstPier && <PierBadge platform={firstPier} />}
-          {lineLabel(first) && (
-            <span className="font-body text-xs uppercase tracking-[0.04em] text-stone-grey md:text-[13px]">{lineLabel(first)}</span>
-          )}
+          {vessel && <span className="font-display text-sm font-medium text-deep-lake md:text-base">{vessel.name}</span>}
           {first.journey && <CategoryPill category={first.journey.category} vessel={vessel} />}
         </div>
 
-        {vessel && (
-          <div className="mb-4 md:mb-5">
-            <div className="font-display text-sm font-medium text-deep-lake md:text-base">
-              {operatingLabel}: {vessel.name}
-            </div>
-            <div className="mt-2 flex flex-wrap gap-1.5">
-              {vessel.amenities.map((tag) => (
-                <AmenityPill key={tag} tag={tag} />
-              ))}
-            </div>
+        {vessel && vessel.amenities.length > 0 && (
+          <div className="-mt-1.5 mb-4 flex flex-wrap gap-1.5 md:mb-5">
+            {vessel.amenities.map((tag) => (
+              <AmenityPill key={tag} tag={tag} />
+            ))}
           </div>
         )}
 
@@ -140,7 +139,7 @@ export function TripDetails({ entry, onBack }: TripDetailsProps) {
               {entry.boatSections.length > 1 && (
                 <div className="mb-3 flex flex-wrap items-center gap-2 font-body text-xs uppercase tracking-[0.04em] text-stone-grey md:text-[13px]">
                   {pierPlatform(section) && <PierBadge platform={pierPlatform(section)!} />}
-                  {lineLabel(section) || `Leg ${idx + 1}`}
+                  {vesselOf(section)?.name ?? `Leg ${idx + 1}`}
                 </div>
               )}
               <StopList section={section} />
@@ -149,8 +148,9 @@ export function TripDetails({ entry, onBack }: TripDetailsProps) {
           ))}
         </div>
 
-        <Button disabled fullWidth>
-          Reserve
+        <Button fullWidth href={ticketUrl ?? undefined} disabled={!ticketUrl}>
+          Buy ticket
+          {ticketUrl && <ExternalLink size={16} aria-hidden="true" />}
         </Button>
       </div>
     </div>

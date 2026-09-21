@@ -1,14 +1,15 @@
 // Works out which boat sails a given trip, when that is actually known.
 //
-// Known today: only the steamers SGV publishes on its "Schiffseinsätze" page, per Kurs pair and
-// day (src/data/scraped/sgv-assignments.json, written by scripts/scrape-sgv.mjs). Motor-ship
-// assignments are not published anywhere, and the catalog has no vessel -> line data (`lines` is
-// empty), so there is deliberately no "default boat" guess: an unknown trip resolves to null and
-// the UI shows nothing rather than an invented name.
+// Source: SGV's own "Schiffseinsätze" search, which names the boat for every Kurs and day it has
+// published (src/data/scraped/sgv-allocations.json, written by scripts/scrape-sgv.mjs; a rolling
+// window of about two months, motor ships and steamers alike). Beyond that window nothing is known
+// and the catalog has no vessel -> line data (`lines` is empty), so there is deliberately no
+// "default boat" guess: an unknown trip resolves to null and the UI shows nothing rather than an
+// invented name.
 
-import assignmentsFile from '../data/scraped/sgv-assignments.json';
+import allocationsFile from '../data/scraped/sgv-allocations.json';
 import { VESSELS } from '../data/vessels';
-import type { KursAssignment, SgvAssignmentsFile, Vessel } from '../types';
+import type { SgvAllocationsFile, Vessel } from '../types';
 import { todayDateString } from './index';
 
 // The Kurs (trip) number in a journey name, without leading zeros:
@@ -22,28 +23,20 @@ export function extractKurs(journeyName: string): string | null {
   return digits ? String(Number(digits[1])) : null;
 }
 
-// SGV writes steamers without their prefix ("Gallia"); the catalog names them "DS Gallia".
-function vesselFromScrapedName(name: string, category: string): Vessel | undefined {
-  const prefix = category === 'BAV' ? 'DS' : 'MS';
-  return Object.values(VESSELS).find((vessel) => vessel.name === `${prefix} ${name}`);
-}
+// SGV writes "DS Gallia", "MS Diamant", "eMS Rütli"; the catalog calls the electric boat "MS Rütli".
+// Boats are matched on the name without its prefix, which is unique across the fleet.
+const baseName = (name: string): string => name.replace(/^(?:DS|MS|eMS)\s+/, '');
+const VESSEL_BY_BASE_NAME = new Map(Object.values(VESSELS).map((vessel) => [baseName(vessel.name), vessel]));
 
-// Every published (Kurs, day) -> boat pair, flattened. A run "17_26" is two Kurs: out and back.
-// Date ranges (e.g. Uri's winter theme cruises) name no Kurs, so they contribute nothing here.
-const KURS_ASSIGNMENTS: KursAssignment[] = (assignmentsFile as SgvAssignmentsFile).assignments.flatMap((assignment) => {
-  const vessel = vesselFromScrapedName(assignment.vessel, assignment.category);
-  if (!vessel) return [];
-  return assignment.dates.flatMap((date) =>
-    assignment.runs.flatMap((run) =>
-      [run.outboundKurs, run.returnKurs].map((kurs) => ({
-        kurs: String(Number(kurs)),
-        vesselId: vessel.id,
-        vesselName: vessel.name,
-        date,
-      })),
-    ),
-  );
-});
+// "2026-09-20|17" -> the boat. A boat SGV names that the catalog lacks is skipped (never guessed).
+const VESSEL_BY_DAY_AND_KURS = new Map<string, Vessel>();
+for (const [date, day] of Object.entries((allocationsFile as SgvAllocationsFile).dates)) {
+  for (const [boat, kursList] of Object.entries(day)) {
+    const vessel = VESSEL_BY_BASE_NAME.get(baseName(boat));
+    if (!vessel) continue;
+    for (const kurs of kursList) VESSEL_BY_DAY_AND_KURS.set(`${date}|${String(Number(kurs))}`, vessel);
+  }
+}
 
 /**
  * The boat for a trip, or null when it is not known.
@@ -56,8 +49,8 @@ const KURS_ASSIGNMENTS: KursAssignment[] = (assignmentsFile as SgvAssignmentsFil
 export function resolveVesselForJourney(journeyName: string, date: string = todayDateString(), line?: string): Vessel | null {
   const kurs = extractKurs(journeyName);
   if (kurs) {
-    const assignment = KURS_ASSIGNMENTS.find((entry) => entry.kurs === kurs && entry.date === date);
-    if (assignment) return VESSELS[assignment.vesselId] ?? null;
+    const vessel = VESSEL_BY_DAY_AND_KURS.get(`${date}|${kurs}`);
+    if (vessel) return vessel;
   }
   if (line) {
     const onLine = Object.values(VESSELS).filter((vessel) => vessel.lines.includes(line));
