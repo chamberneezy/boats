@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
 import { loadUpcomingDepartures, type UpcomingDeparture } from '../connections';
 import { SAMPLE_SCHEDULES } from '../data/sampleSchedules';
-import { findPier } from '../routes';
-import { pierLabel } from '../piers';
+import { getHubPier, pierLabel } from '../piers';
 import { useDocumentTitle } from '../useDocumentTitle';
 import { formatShortDate, formatTime, isSameDay } from '../utils';
 
-const LUCERNE_PIER = findPier('8508492')!; // Luzern Bahnhofquai
 // Enough upcoming departures that every destination served from the pier turns up at least once.
 const FETCH_COUNT = 60;
 
@@ -23,19 +21,23 @@ function nextPerDestination(departures: UpcomingDeparture[]): UpcomingDeparture[
   return [...next.values()].sort((a, b) => a.timestamp - b.timestamp);
 }
 
-function LucerneDepartures() {
+function HubDepartures({ lakeId, pier }: { lakeId: string; pier: ReturnType<typeof getHubPier> }) {
   const [departures, setDepartures] = useState<UpcomingDeparture[] | null>(null);
   const [failed, setFailed] = useState(false);
 
   useEffect(() => {
+    if (!pier) {
+      setFailed(true);
+      return;
+    }
     let cancelled = false;
-    loadUpcomingDepartures(LUCERNE_PIER, FETCH_COUNT)
+    loadUpcomingDepartures(pier, FETCH_COUNT, lakeId)
       .then((found) => !cancelled && setDepartures(nextPerDestination(found)))
       .catch(() => !cancelled && setFailed(true));
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [lakeId, pier]);
 
   if (failed) {
     return <li className="px-4 py-3.5 font-body text-[13px] text-stone-grey">Departures are unavailable right now.</li>;
@@ -85,8 +87,8 @@ export function SchedulesPage() {
       </div>
 
       <div className="mt-2 rounded-[14px] border border-dashed border-alpine-sky/40 bg-surface-sunken px-4 py-3 font-body text-xs text-stone-grey md:mt-6 md:max-w-[760px] md:text-[13px]">
-        Lake Lucerne shows the next departure to each destination from Luzern Bahnhofquai. Departures for the other lakes are sample data
-        for illustration, not real timetables.
+        Lakes we cover show the next departure to each destination from their main pier. Departures for the other lakes are sample
+        data for illustration, not real timetables.
       </div>
 
       <div className="mt-[18px] grid grid-cols-1 gap-[18px] md:mt-8 md:grid-cols-2 md:gap-8">
@@ -95,7 +97,7 @@ export function SchedulesPage() {
             <h2 className="m-0 mb-2 font-display text-base font-semibold text-deep-lake">{lake.name}</h2>
             <ul className="m-0 list-none overflow-hidden rounded-[14px] bg-surface-card p-0 shadow-card">
               {lake.active ? (
-                <LucerneDepartures />
+                <HubDepartures lakeId={lake.id} pier={getHubPier(lake.id)} />
               ) : (
                 departures.map((departure) => (
                   <li key={departure.time} className={ROW}>

@@ -31,7 +31,7 @@ export function TripPage() {
   const [params] = useSearchParams();
   const location = useLocation();
   const navigate = useNavigate();
-  const trip = parseTripQuery(params);
+  const trip = parseTripQuery(params, lakeId ?? '');
 
   const [state, setState] = useState<LoadState>(() => initialState(trip, location.state));
 
@@ -46,7 +46,7 @@ export function TripPage() {
     let cancelled = false;
     // Search from one minute before departure so the sailing is the first result.
     const { date, time } = timestampToDateTimeParts(dep - 60);
-    searchConnections(from, to, date, time)
+    searchConnections(from, to, date, time, lakeId)
       .then((found) => {
         if (cancelled) return;
         const entry = found.find((candidate) => departureOf(candidate) === dep);

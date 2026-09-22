@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type Ref } from 'react';
 import { ArrowLeftRight, CalendarClock } from 'lucide-react';
-import { isExactPierName, searchLakeLucernePiers } from '../piers';
+import { isExactPierName, searchPiers } from '../piers';
 import type { PierOption } from '../types';
 import { formatDateTimeLabel } from '../utils';
 import { Button } from './Button';
@@ -9,6 +9,7 @@ type Tab = 'route' | 'datetime';
 type Field = 'origin' | 'destination';
 
 interface SearchFormProps {
+  lakeId: string;
   origin: PierOption;
   destination: PierOption;
   date: string;
@@ -29,6 +30,7 @@ interface SearchFormProps {
 const FIELD_PLACEHOLDER = 'Select a pier';
 
 interface PierPickerProps {
+  lakeId: string;
   align: 'left' | 'right';
   query: string;
   excludeId?: string;
@@ -37,8 +39,8 @@ interface PierPickerProps {
 
 // Suggestions for the field being typed in. With no text the popular piers are shown as
 // presets (or every remaining pier once the other field is chosen).
-function PierPicker({ align, query, excludeId, onPick }: PierPickerProps) {
-  const options = useMemo(() => searchLakeLucernePiers(query, excludeId), [query, excludeId]);
+function PierPicker({ lakeId, align, query, excludeId, onPick }: PierPickerProps) {
+  const options = useMemo(() => searchPiers(lakeId, query, excludeId), [lakeId, query, excludeId]);
 
   return (
     <ul
@@ -113,6 +115,7 @@ function PierField({ label, align, pier, draft, inputRef, onFocus, onBlur, onDra
 }
 
 export function SearchForm({
+  lakeId,
   origin,
   destination,
   date,
@@ -182,13 +185,13 @@ export function SearchForm({
     setTyped(text);
     if (!text.trim()) return;
     const excludeId = (field === 'origin' ? destination.id : origin.id) || undefined;
-    const matches = searchLakeLucernePiers(text, excludeId);
+    const matches = searchPiers(lakeId, text, excludeId);
     if (matches.length === 1 && isExactPierName(matches[0], text)) pick(field, matches[0]);
   }
 
   function pickFirstMatch(field: Field) {
     const excludeId = (field === 'origin' ? destination.id : origin.id) || undefined;
-    const [first] = searchLakeLucernePiers(typed ?? '', excludeId);
+    const [first] = searchPiers(lakeId, typed ?? '', excludeId);
     if (first) pick(field, first);
   }
 
@@ -291,6 +294,7 @@ export function SearchForm({
               {activeField && (
                 <PierPicker
                   key={activeField}
+                  lakeId={lakeId}
                   align={activeField === 'origin' ? 'left' : 'right'}
                   query={typed ?? ''}
                   excludeId={(activeField === 'origin' ? destination.id : origin.id) || undefined}

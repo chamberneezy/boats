@@ -98,8 +98,9 @@ export async function searchConnections(
   to: PierOption,
   date: string,
   time: string,
+  lakeId?: string,
 ): Promise<BoatConnection[]> {
-  const fromPackage = await packageConnections(from.id, to.id, date, time, RESULTS_PAGE_SIZE);
+  const fromPackage = await packageConnections(from.id, to.id, date, time, RESULTS_PAGE_SIZE, lakeId);
   if (fromPackage) {
     const results = deriveBoatConnections({ connections: fromPackage }, false);
     reportDataSource({ source: 'package', fromId: from.id, toId: to.id, date, time, resultCount: results.length });
@@ -180,8 +181,9 @@ export async function loadLaterConnections(
   to: PierOption,
   date: string,
   time: string,
+  lakeId?: string,
 ): Promise<BoatConnection[]> {
-  const fromPackage = await packageConnections(from.id, to.id, date, time, RESULTS_PAGE_SIZE);
+  const fromPackage = await packageConnections(from.id, to.id, date, time, RESULTS_PAGE_SIZE, lakeId);
   if (fromPackage) return deriveBoatConnections({ connections: fromPackage }, false);
   return deriveBoatConnections(await fetchConnectionsRaw(from, to, date, time), true);
 }
@@ -202,8 +204,8 @@ interface StationboardResponse {
 }
 
 /** The next boat departures from one pier, whatever their destination. */
-export async function loadUpcomingDepartures(pier: PierOption, limit = 6): Promise<UpcomingDeparture[]> {
-  const fromPackage = await packageUpcoming(pier.id, limit);
+export async function loadUpcomingDepartures(pier: PierOption, limit = 6, lakeId?: string): Promise<UpcomingDeparture[]> {
+  const fromPackage = await packageUpcoming(pier.id, limit, lakeId);
   if (fromPackage) {
     reportDataSource({ source: 'package', fromId: pier.id, toId: '', date: '', time: '', resultCount: fromPackage.length });
     return fromPackage;

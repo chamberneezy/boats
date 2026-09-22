@@ -1,25 +1,36 @@
-// Deep link into SGV's web shop for one sailing.
+// Ticket shop link for one sailing. What this points to depends on the lake, because the two
+// operators sell tickets completely differently:
 //
-// The shop's routing page takes the start and end station, the day and the time, runs its own
-// search and lets the rider pick the sailing and buy. Built only from data we hold; the shop's
-// ticket links with a journeyId/routeId are not used because those ids are issued by the shop's
-// backend for each search and cannot be computed here.
+// - Lake Lucerne (SGV) runs its own point-to-point routing shop. Deep-linked below with the
+//   start and end station, the day and the time; the shop runs its own search and lets the
+//   rider pick the sailing and buy. Built only from data we hold; the shop's ticket links with
+//   a journeyId/routeId are not used because those ids are issued by the shop's backend for
+//   each search and cannot be computed here.
+// - Lake Zurich (ZSG) sells no point-to-point tickets at all: its boats are fully integrated
+//   into ZVV (Zurich's public transport network) and riders buy an ordinary ZVV zone ticket
+//   (checked on zsg.ch's own fares page, 2026-09-22). We don't hold ZVV zone data for our
+//   piers, so there is nothing to deep-link a specific trip into - the rider is sent to the
+//   ZVV Ticketshop's homepage to pick their own fare. TODO: once we know each pier's ZVV zone,
+//   tell the rider which zone(s) they need before sending them off (tracked for later; not
+//   implemented yet).
 //
-// Stations are written "didok--<name>--<id>" and the shop matches that whole string against its own
-// station list, so the spelling must be exactly the shop's: "didok--fluelen--8508476" fills the
-// field, SGV's own page's "didok--Flueelen--8508476" does not (it opens with the field empty and no
-// results). There is no rule for the spelling (Luzern, Beckenried and Vitznau are capitalised, most
-// others lowercase, some carry another place's name), so it is a table. Every entry was checked in a
-// real browser, as both origin and destination (2026-09-21). Weggis is the shop's "Weggis
-// Schiffstation" (8505670), not our 8508463. A pier missing from the table gives no link (the
-// button stays disabled) rather than a link that opens with an empty field. Re-check the table
-// if the shop changes its stations.
+// SGV stations are written "didok--<name>--<id>" and the shop matches that whole string against
+// its own station list, so the spelling must be exactly the shop's: "didok--fluelen--8508476"
+// fills the field, SGV's own page's "didok--Flueelen--8508476" does not (it opens with the field
+// empty and no results). There is no rule for the spelling (Luzern, Beckenried and Vitznau are
+// capitalised, most others lowercase, some carry another place's name), so it is a table. Every
+// entry was checked in a real browser, as both origin and destination (2026-09-21). Weggis is the
+// shop's "Weggis Schiffstation" (8505670), not our 8508463. A Lucerne pier missing from the table
+// gives no link (the button stays disabled) rather than a link that opens with an empty field.
+// Re-check the table if the shop changes its stations.
 
-import { pierLabel } from './piers';
+import { lakeIdForPier, pierLabel } from './piers';
 import type { BoatConnection, StationLocation } from './types';
 import { timestampToDateTimeParts } from './utils';
 
 const SHOP_ROUTING_URL = 'https://webshop.lakelucerne.ch/en/routing';
+// Landing page only - no route or zone can be prefilled (see the note above).
+const ZVV_TICKETSHOP_URL = 'https://ticketshop.zvv.ch/home?0&lang=en';
 
 // Our pier id -> the shop's station token.
 const SHOP_STATION_TOKENS: Record<string, string> = {
@@ -75,6 +86,9 @@ export function shopTicketUrl(entry: BoatConnection): string | null {
   const last = entry.boatSections[entry.boatSections.length - 1];
   const departure = first?.departure.departureTimestamp;
   if (!first || !last || departure === null || departure === undefined) return null;
+
+  if (lakeIdForPier(first.departure.station.id) === 'lake-zurich') return ZVV_TICKETSHOP_URL;
+
   const from = stationParams('from', first.departure.station);
   const to = stationParams('to', last.arrival.station);
   if (!from || !to) return null;

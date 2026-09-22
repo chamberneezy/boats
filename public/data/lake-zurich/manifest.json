@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "lakeId": "lake-zurich",
+  "generatedAt": "2026-09-22T10:11:20.574Z",
+  "source": {
+    "name": "opentransportdata.swiss GTFS",
+    "feed": "gtfs_fp2026_20260919"
+  },
+  "timetable": {
+    "path": "timetable.56feb2137216.json",
+    "sha256": "56feb21372167946ad71187b36213c294d1e91b8265fa92c288fe366493be142",
+    "bytes": 58951
+  }
+}

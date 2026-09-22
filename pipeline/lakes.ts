@@ -21,4 +21,14 @@ export const LAKES: Record<string, LakeConfig> = {
     maxWaitMinutes: 960,
     transferMinutesByStop: {},
   },
+  'lake-zurich': {
+    id: 'lake-zurich',
+    // Matches "Zürichsee-Schifffahrtsgesellschaft AG (ZSG)" (agency_id 194), not the separate
+    // "Zürichsee-Fähre Horgen-Meilen AG" car ferry operator.
+    agencyNameIncludes: 'Zürichsee-Schifffahrtsgesellschaft',
+    boatCategories: ['BAT'], // No BAV (paddle steamer) route_desc is published for this operator.
+    minTransferMinutes: 5,
+    maxWaitMinutes: 960,
+    transferMinutesByStop: {},
+  },
 };

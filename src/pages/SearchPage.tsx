@@ -45,7 +45,7 @@ export function SearchPage() {
   const [params] = useSearchParams();
   const navigate = useNavigate();
 
-  const query = parseSearchQuery(params);
+  const query = parseSearchQuery(params, lakeId ?? '');
   const currentKey = query ? queryKey(query) : null;
 
   const [origin, setOrigin] = useState<PierOption>(() => (query && findPier(query.from)) || EMPTY_PIER);
@@ -76,7 +76,7 @@ export function SearchPage() {
     setError(null);
     setIsLoading(true);
     try {
-      const found = await searchConnections(from, to, q.date, q.time);
+      const found = await searchConnections(from, to, q.date, q.time, lakeId);
       if (requestId !== latestRequest.current) return;
       resultsMemory.set(queryKey(q), found);
       setResults(found);
@@ -90,7 +90,7 @@ export function SearchPage() {
     } finally {
       if (requestId === latestRequest.current) setIsLoading(false);
     }
-  }, []);
+  }, [lakeId]);
 
   // The URL is the source of truth: whenever it changes (new search, back, forward, a
   // shared link) the form and results follow it.
@@ -147,7 +147,7 @@ export function SearchPage() {
     setError(null);
     try {
       const { date: nextDate, time: nextTime } = timestampToDateTimeParts(lastDeparture + 60);
-      const more = await loadLaterConnections(findPier(query.from)!, findPier(query.to)!, nextDate, nextTime);
+      const more = await loadLaterConnections(findPier(query.from)!, findPier(query.to)!, nextDate, nextTime, lakeId);
       const combined = [...results, ...more];
       resultsMemory.set(queryKey(query), combined);
       setResults(combined);
@@ -181,6 +181,7 @@ export function SearchPage() {
   return (
     <SearchLayout showMapOnPhone={!hasSearched}>
       <SearchForm
+        lakeId={lake.id}
         origin={origin}
         destination={destination}
         date={date}
