@@ -10,6 +10,19 @@
 // Beyond either window nothing is known and the catalog has no vessel -> line data (`lines` is
 // empty), so there is deliberately no "default boat" guess: an unknown trip resolves to null and
 // the UI shows nothing rather than an invented name.
+//
+// ZSG gap (checked 2026-09-22, unlikely to be worth re-checking without a new lead): "Einsatz der
+// Schiffe" only ever names a boat for the long round-the-lake cruises (Kurs 101-118, e.g. Zürich
+// Bürkliplatz -> Rapperswil) and numbered private charters (2501+) - 30 of the 136 Kurs in a given
+// day's GTFS package. The regular high-frequency shuttle/cross-lake service (the low Kurs numbers,
+// e.g. Thalwil <-> Küsnacht) shows up in that tool only as one unlabelled block per route
+// ("Querverkehr Thalwil-Küsnacht") with no per-Kurs boat name and nothing to key a resolution by -
+// so most Zurich searches will correctly show no boat name, not a bug. Also checked and confirmed
+// to have no vessel name for the regular service: ZVV's own HAFAS API (departureBoard and
+// journeyDetail - these carry real-time disruption notices and even a live GPS position for the
+// vehicle on a trip, but no vessel identity field at all) and ZSG's official season timetable PDF
+// (zsg.ch/en/allocation-of-boats/, text-extracted and searched for every fleet name - no genuine
+// hits, only pier names that happen to share a boat's name, e.g. the "Wädenswil" pier).
 
 import sgvAllocationsFile from '../data/scraped/sgv-allocations.json';
 import zsgAllocationsFile from '../data/scraped/zsg-allocations.json';
