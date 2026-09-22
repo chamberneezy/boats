@@ -16,12 +16,16 @@
 //   ZSG nor Wikipedia publishes ENI numbers for this fleet. Pfannenstiel shares a combined page
 //   with Albis (zsg.ch groups them as the "Albis class") that only gives Albis's own numbers, so
 //   Pfannenstiel's description stays general rather than borrowing Albis's specific figures.
-// - `amenities` are provided by the owner for every boat here (both operators): still empty for
-//   ZSG's fleet - fill in from what the owner actually knows, never guessed from a vessel's class
-//   or size. Cross-checked against SGV's own pages where possible: the passenger lift
-//   ("Fahrgastlift") appears only for the Diamant, and an accessible WC ("Barrierefreies WC") is
-//   listed for every SGV boat here except the Bürgenstock and Unterwalden, whose pages don't say.
-//   Restaurant, bar, deck and similar tags could not be verified from either operator's pages.
+// - `amenities` are provided by the owner for every boat here (both operators), never guessed from
+//   a vessel's class or size. For SGV, cross-checked against SGV's own pages where possible: the
+//   passenger lift ("Fahrgastlift") appears only for the Diamant, and an accessible WC
+//   ("Barrierefreies WC") is listed for every SGV boat here except the Bürgenstock and Unterwalden,
+//   whose pages don't say; restaurant, bar, deck and similar tags could not be verified. For ZSG,
+//   supplied by the owner 2026-09-22 for 14 of the 17 boats (Forch, Wädenswil and Zimmerberg still
+//   have none - fill in the same way when known). One conflict was resolved against ZSG's own
+//   pages rather than the owner's list: MS Albis stays diesel (ZSG's combined Albis-class page and
+//   the deployment tool's own MS/EMS split both say diesel; only Pfannenstiel and Uetliberg in that
+//   class are electric) - its amenities were still applied since those don't depend on engine type.
 // - `lines` is [] everywhere for both operators: neither publishes which motor ship serves which line.
 
 import type { Vessel } from '../types';
@@ -207,7 +211,7 @@ export const VESSELS: Record<string, Vessel> = {
     eni: '',
     type: 'motor',
     lines: [],
-    amenities: [],
+    amenities: ['panorama-window', 'open-deck', 'bistro-snack', 'wheelchair'],
     description: 'Diesel motor ship, in service since 1997. Built by Bodan, 42.4 m long, 300 passengers.',
   },
   'zsg-ms-bachtel': {
@@ -216,7 +220,7 @@ export const VESSELS: Record<string, Vessel> = {
     eni: '',
     type: 'motor',
     lines: [],
-    amenities: [],
+    amenities: ['bistro-snack', 'open-deck'],
     description: 'Diesel motor ship, in service since 1962. Built by Bodan, 33.3 m long, 250 passengers.',
   },
   'zsg-ems-fluvius': {
@@ -225,7 +229,7 @@ export const VESSELS: Record<string, Vessel> = {
     eni: '',
     type: 'motor',
     lines: [],
-    amenities: [],
+    amenities: ['panorama-window', 'open-deck', 'audio-guide', 'wheelchair'],
     description: 'Electric motor ship.',
   },
   'zsg-ms-forch': {
@@ -243,7 +247,7 @@ export const VESSELS: Record<string, Vessel> = {
     eni: '',
     type: 'motor',
     lines: [],
-    amenities: [],
+    amenities: ['full-restaurant', 'open-deck', 'wheelchair'],
     description: 'Diesel motor ship, in service since 1964. Built by Bodan, 56 m long, 1000 passengers.',
   },
   'zsg-ms-limmat': {
@@ -252,7 +256,7 @@ export const VESSELS: Record<string, Vessel> = {
     eni: '',
     type: 'motor',
     lines: [],
-    amenities: [],
+    amenities: ['full-restaurant', 'panorama-window', 'wheelchair'],
     description: 'Diesel motor ship, in service since 1958. Built by Bodan, 51 m long, 700 passengers.',
   },
   'zsg-ms-linth': {
@@ -261,7 +265,7 @@ export const VESSELS: Record<string, Vessel> = {
     eni: '',
     type: 'motor',
     lines: [],
-    amenities: [],
+    amenities: ['full-restaurant', 'open-deck', 'wheelchair'],
     description: 'Diesel motor ship, in service since 1952. Built by Bodan, 54 m long, 850 passengers.',
   },
   'zsg-ems-navalis': {
@@ -270,7 +274,7 @@ export const VESSELS: Record<string, Vessel> = {
     eni: '',
     type: 'motor',
     lines: [],
-    amenities: [],
+    amenities: ['panorama-window', 'open-deck', 'audio-guide', 'wheelchair'],
     description: 'Electric motor ship.',
   },
   'zsg-ms-panta-rhei': {
@@ -279,7 +283,7 @@ export const VESSELS: Record<string, Vessel> = {
     eni: '',
     type: 'motor',
     lines: [],
-    amenities: [],
+    amenities: ['panorama-window', 'full-restaurant', 'wheelchair', 'elevator'],
     description: 'Diesel motor ship, in service since 2007. Built by ÖSWAG, 56.6 m long, 700 passengers.',
   },
   'zsg-ems-pfannenstiel': {
@@ -288,7 +292,7 @@ export const VESSELS: Record<string, Vessel> = {
     eni: '',
     type: 'motor',
     lines: [],
-    amenities: [],
+    amenities: ['panorama-window', 'open-deck', 'bistro-snack', 'wheelchair'],
     description: "Electric motor ship. ZSG's own pages group it in the \"Albis class\" alongside MS Albis and EMS Uetliberg.",
   },
   'zsg-ems-pontus': {
@@ -297,7 +301,7 @@ export const VESSELS: Record<string, Vessel> = {
     eni: '',
     type: 'motor',
     lines: [],
-    amenities: [],
+    amenities: ['panorama-window', 'open-deck', 'audio-guide', 'wheelchair'],
     description: 'Electric motor ship.',
   },
   'zsg-ms-santis': {
@@ -306,7 +310,7 @@ export const VESSELS: Record<string, Vessel> = {
     eni: '',
     type: 'motor',
     lines: [],
-    amenities: [],
+    amenities: ['bistro-snack', 'open-deck', 'wheelchair'],
     description: 'Diesel motor ship, in service since 1957. Built by Bodan, 42.5 m long, 300 passengers.',
   },
   'zsg-ds-stadt-rapperswil': {
@@ -315,7 +319,7 @@ export const VESSELS: Record<string, Vessel> = {
     eni: '',
     type: 'steam',
     lines: [],
-    amenities: [],
+    amenities: ['steam-paddle', 'full-restaurant', 'open-deck', 'wheelchair'],
     description: 'Paddle steamer, in service since 1914. Built by Escher Wyss, 59.1 m long, 750 passengers.',
   },
   'zsg-ds-stadt-zurich': {
@@ -324,7 +328,7 @@ export const VESSELS: Record<string, Vessel> = {
     eni: '',
     type: 'steam',
     lines: [],
-    amenities: [],
+    amenities: ['steam-paddle', 'full-restaurant', 'open-deck', 'wheelchair'],
     description: 'Paddle steamer, in service since 1909. Built by Escher Wyss, 59.1 m long, 750 passengers.',
   },
   'zsg-ems-uetliberg': {
@@ -333,7 +337,7 @@ export const VESSELS: Record<string, Vessel> = {
     eni: '',
     type: 'motor',
     lines: [],
-    amenities: [],
+    amenities: ['panorama-window', 'open-deck', 'bistro-snack', 'wheelchair'],
     description: 'Electric motor ship (Ampereship conversion completed 2025), in service since 1999. Built by Bodan, 43.4 m long, 300 passengers.',
   },
   'zsg-ms-wadenswil': {
