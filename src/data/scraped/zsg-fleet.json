@@ -1,0 +1,108 @@
+{
+  "source": "https://einsatzderschiffe.zsg.ch/",
+  "fetchedAt": "2026-09-22T13:41:46.170Z",
+  "vessels": [
+    {
+      "name": "Albis",
+      "type": "MS",
+      "category": "BAT",
+      "url": "https://www.zsg.ch/de/motorschiffe-albis-pfannenstiel-uetliberg.html"
+    },
+    {
+      "name": "Bachtel",
+      "type": "MS",
+      "category": "BAT",
+      "url": "https://www.zsg.ch/de/motorschiff-bachtel.html"
+    },
+    {
+      "name": "Fluvius",
+      "type": "EMS",
+      "category": "BAT",
+      "url": ""
+    },
+    {
+      "name": "Forch",
+      "type": "MS",
+      "category": "BAT",
+      "url": ""
+    },
+    {
+      "name": "Helvetia",
+      "type": "MS",
+      "category": "BAT",
+      "url": "https://www.zsg.ch/de/motorschiff-helvetia.html"
+    },
+    {
+      "name": "Limmat",
+      "type": "MS",
+      "category": "BAT",
+      "url": "https://www.zsg.ch/de/motorschiff-limmat.html"
+    },
+    {
+      "name": "Linth",
+      "type": "MS",
+      "category": "BAT",
+      "url": "https://www.zsg.ch/de/motorschiff-linth.html"
+    },
+    {
+      "name": "Navalis",
+      "type": "EMS",
+      "category": "BAT",
+      "url": ""
+    },
+    {
+      "name": "Panta Rhei",
+      "type": "MS",
+      "category": "BAT",
+      "url": "https://www.zsg.ch/de/motorschiff-panta-rhei.html"
+    },
+    {
+      "name": "Pfannenstiel",
+      "type": "EMS",
+      "category": "BAT",
+      "url": "https://www.zsg.ch/de/motorschiffe-albis-pfannenstiel-uetliberg.html"
+    },
+    {
+      "name": "Pontus",
+      "type": "EMS",
+      "category": "BAT",
+      "url": ""
+    },
+    {
+      "name": "Säntis",
+      "type": "MS",
+      "category": "BAT",
+      "url": "https://www.zsg.ch/de/motorschiff-saentis.html"
+    },
+    {
+      "name": "Stadt Rapperswil",
+      "type": "DS",
+      "category": "BAV",
+      "url": "https://www.zsg.ch/de/dampfschiff-stadt-rapperswil.html"
+    },
+    {
+      "name": "Stadt Zürich",
+      "type": "DS",
+      "category": "BAV",
+      "url": "https://www.zsg.ch/de/dampfschiff-stadt-zuerich.html"
+    },
+    {
+      "name": "Uetliberg",
+      "type": "EMS",
+      "category": "BAT",
+      "url": "https://www.zsg.ch/de/informationen/schiff-oder-halle-mieten/ems-uetliberg/"
+    },
+    {
+      "name": "Wädenswil",
+      "type": "MS",
+      "category": "BAT",
+      "url": "https://www.zsg.ch/de/motorschiff-waedenswil.html"
+    },
+    {
+      "name": "Zimmerberg",
+      "type": "MS",
+      "category": "BAT",
+      "url": ""
+    }
+  ]
+}

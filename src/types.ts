@@ -98,10 +98,11 @@ export interface Vessel {
   description: string;
 }
 
-// Shape of src/data/scraped/sgv-allocations.json (written by scripts/scrape-sgv.mjs): for each day,
-// the Kurs numbers (no leading zeros) every boat sails, under the name SGV writes ("DS Gallia",
-// "eMS Rütli"). Days SGV has not published yet are simply absent.
-export interface SgvAllocationsFile {
+// Shape of src/data/scraped/{sgv,zsg}-allocations.json (written by scripts/scrape-sgv.mjs and
+// scripts/scrape-zsg.mjs): for each day, the Kurs numbers (no leading zeros) every boat sails,
+// under the name the operator writes ("DS Gallia", "eMS Rütli", "MS Helvetia"). Days the operator
+// has not published yet are simply absent.
+export interface AllocationsFile {
   source: string;
   fetchedAt: string;
   dates: Record<string, Record<string, string[]>>; // YYYY-MM-DD -> boat name -> Kurs numbers

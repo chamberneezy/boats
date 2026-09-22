@@ -1,18 +1,28 @@
-// Static catalog of SGV (Lake Lucerne) vessels.
+// Static catalog of every lake's vessels: SGV (Lake Lucerne) below, ZSG (Lake Zurich) further down.
 //
 // Sources and what is (not) known:
-// - id, name, type and the factual line of each description come from SGV's own vessel pages
+// - SGV: id, name, type and the factual line of each description come from SGV's own vessel pages
 //   (lakelucerne.ch/de/informationen/unsere-schiffe/, "Informationen zum Schiff", read 2026-09-21).
-// - `amenities` are provided by the owner. Cross-checked against SGV's pages where possible:
-//   the passenger lift ("Fahrgastlift") appears only for the Diamant, and an accessible WC
-//   ("Barrierefreies WC") is listed for every boat here except the Bürgenstock and Unterwalden,
-//   whose pages don't say. Restaurant, bar, deck and similar tags could not be verified.
-// - `eni` was supplied by the owner for the Diamant and the five steamers; it is '' for the other
-//   boats because neither SGV nor Wikipedia publishes ENI numbers. Fill them in from the official
-//   ENI register; never guess them.
-// - `lines` is [] everywhere: SGV does not publish which motor ship serves which line.
-// - All 19 boats of SGV's fleet are here (the last four, Winkelried, Schwyz, Titlis and Rütli, have
-//   no build/size facts beyond what SGV's pages list).
+//   `eni` was supplied by the owner for the Diamant and the five steamers; it is '' for the other
+//   boats because neither SGV nor Wikipedia publishes ENI numbers. All 19 boats of SGV's fleet are
+//   here (the last four, Winkelried, Schwyz, Titlis and Rütli, have no build/size facts beyond
+//   what SGV's pages list).
+// - ZSG: id, name, type and the factual line of each description come from each boat's own page
+//   under zsg.ch/de/ (read 2026-09-22), linked from ZSG's deployment tool
+//   (einsatzderschiffe.zsg.ch, scraped by scripts/scrape-zsg.mjs into
+//   src/data/scraped/zsg-fleet.json). All 17 boats named by that tool are here; 5 of them
+//   (Fluvius, Forch, Navalis, Pontus, Zimmerberg) have no dedicated page linked from the tool, so
+//   they have no build/size facts either - not guessed. `eni` is '' for every ZSG boat: neither
+//   ZSG nor Wikipedia publishes ENI numbers for this fleet. Pfannenstiel shares a combined page
+//   with Albis (zsg.ch groups them as the "Albis class") that only gives Albis's own numbers, so
+//   Pfannenstiel's description stays general rather than borrowing Albis's specific figures.
+// - `amenities` are provided by the owner for every boat here (both operators): still empty for
+//   ZSG's fleet - fill in from what the owner actually knows, never guessed from a vessel's class
+//   or size. Cross-checked against SGV's own pages where possible: the passenger lift
+//   ("Fahrgastlift") appears only for the Diamant, and an accessible WC ("Barrierefreies WC") is
+//   listed for every SGV boat here except the Bürgenstock and Unterwalden, whose pages don't say.
+//   Restaurant, bar, deck and similar tags could not be verified from either operator's pages.
+// - `lines` is [] everywhere for both operators: neither publishes which motor ship serves which line.
 
 import type { Vessel } from '../types';
 
@@ -188,6 +198,161 @@ export const VESSELS: Record<string, Vessel> = {
     lines: [],
     amenities: ['steam-paddle', 'full-restaurant', 'wheelchair'],
     description: 'Paddle steamer, in service since 1913. Built by Escher Wyss, 63 m long.',
+  },
+
+  // ZSG (Lake Zurich) - see the file header for sourcing.
+  'zsg-ms-albis': {
+    id: 'zsg-ms-albis',
+    name: 'MS Albis',
+    eni: '',
+    type: 'motor',
+    lines: [],
+    amenities: [],
+    description: 'Diesel motor ship, in service since 1997. Built by Bodan, 42.4 m long, 300 passengers.',
+  },
+  'zsg-ms-bachtel': {
+    id: 'zsg-ms-bachtel',
+    name: 'MS Bachtel',
+    eni: '',
+    type: 'motor',
+    lines: [],
+    amenities: [],
+    description: 'Diesel motor ship, in service since 1962. Built by Bodan, 33.3 m long, 250 passengers.',
+  },
+  'zsg-ems-fluvius': {
+    id: 'zsg-ems-fluvius',
+    name: 'MS Fluvius',
+    eni: '',
+    type: 'motor',
+    lines: [],
+    amenities: [],
+    description: 'Electric motor ship.',
+  },
+  'zsg-ms-forch': {
+    id: 'zsg-ms-forch',
+    name: 'MS Forch',
+    eni: '',
+    type: 'motor',
+    lines: [],
+    amenities: [],
+    description: 'Motor ship.',
+  },
+  'zsg-ms-helvetia': {
+    id: 'zsg-ms-helvetia',
+    name: 'MS Helvetia',
+    eni: '',
+    type: 'motor',
+    lines: [],
+    amenities: [],
+    description: 'Diesel motor ship, in service since 1964. Built by Bodan, 56 m long, 1000 passengers.',
+  },
+  'zsg-ms-limmat': {
+    id: 'zsg-ms-limmat',
+    name: 'MS Limmat',
+    eni: '',
+    type: 'motor',
+    lines: [],
+    amenities: [],
+    description: 'Diesel motor ship, in service since 1958. Built by Bodan, 51 m long, 700 passengers.',
+  },
+  'zsg-ms-linth': {
+    id: 'zsg-ms-linth',
+    name: 'MS Linth',
+    eni: '',
+    type: 'motor',
+    lines: [],
+    amenities: [],
+    description: 'Diesel motor ship, in service since 1952. Built by Bodan, 54 m long, 850 passengers.',
+  },
+  'zsg-ems-navalis': {
+    id: 'zsg-ems-navalis',
+    name: 'MS Navalis',
+    eni: '',
+    type: 'motor',
+    lines: [],
+    amenities: [],
+    description: 'Electric motor ship.',
+  },
+  'zsg-ms-panta-rhei': {
+    id: 'zsg-ms-panta-rhei',
+    name: 'MS Panta Rhei',
+    eni: '',
+    type: 'motor',
+    lines: [],
+    amenities: [],
+    description: 'Diesel motor ship, in service since 2007. Built by ÖSWAG, 56.6 m long, 700 passengers.',
+  },
+  'zsg-ems-pfannenstiel': {
+    id: 'zsg-ems-pfannenstiel',
+    name: 'MS Pfannenstiel',
+    eni: '',
+    type: 'motor',
+    lines: [],
+    amenities: [],
+    description: "Electric motor ship. ZSG's own pages group it in the \"Albis class\" alongside MS Albis and EMS Uetliberg.",
+  },
+  'zsg-ems-pontus': {
+    id: 'zsg-ems-pontus',
+    name: 'MS Pontus',
+    eni: '',
+    type: 'motor',
+    lines: [],
+    amenities: [],
+    description: 'Electric motor ship.',
+  },
+  'zsg-ms-santis': {
+    id: 'zsg-ms-santis',
+    name: 'MS Säntis',
+    eni: '',
+    type: 'motor',
+    lines: [],
+    amenities: [],
+    description: 'Diesel motor ship, in service since 1957. Built by Bodan, 42.5 m long, 300 passengers.',
+  },
+  'zsg-ds-stadt-rapperswil': {
+    id: 'zsg-ds-stadt-rapperswil',
+    name: 'DS Stadt Rapperswil',
+    eni: '',
+    type: 'steam',
+    lines: [],
+    amenities: [],
+    description: 'Paddle steamer, in service since 1914. Built by Escher Wyss, 59.1 m long, 750 passengers.',
+  },
+  'zsg-ds-stadt-zurich': {
+    id: 'zsg-ds-stadt-zurich',
+    name: 'DS Stadt Zürich',
+    eni: '',
+    type: 'steam',
+    lines: [],
+    amenities: [],
+    description: 'Paddle steamer, in service since 1909. Built by Escher Wyss, 59.1 m long, 750 passengers.',
+  },
+  'zsg-ems-uetliberg': {
+    id: 'zsg-ems-uetliberg',
+    name: 'MS Uetliberg',
+    eni: '',
+    type: 'motor',
+    lines: [],
+    amenities: [],
+    description: 'Electric motor ship (Ampereship conversion completed 2025), in service since 1999. Built by Bodan, 43.4 m long, 300 passengers.',
+  },
+  'zsg-ms-wadenswil': {
+    id: 'zsg-ms-wadenswil',
+    name: 'MS Wädenswil',
+    eni: '',
+    type: 'motor',
+    lines: [],
+    amenities: [],
+    description: 'Diesel motor ship, in service since 1968. Built by Bodan, 48.2 m long, 600 passengers.',
+  },
+  'zsg-ms-zimmerberg': {
+    id: 'zsg-ms-zimmerberg',
+    name: 'MS Zimmerberg',
+    eni: '',
+    type: 'motor',
+    lines: [],
+    amenities: [],
+    description: 'Motor ship.',
   },
 };
 

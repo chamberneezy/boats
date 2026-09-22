@@ -1,5 +1,5 @@
 import { ArrowRight, ExternalLink } from 'lucide-react';
-import { hasMultiplePiers, pierLabel } from '../piers';
+import { hasMultiplePiers, lakeIdForPier, pierLabel } from '../piers';
 import { shopTicketUrl } from '../shopLink';
 import type { BoatConnection, Section, StopTime, Vessel } from '../types';
 import { formatTime, timestampToDateTimeParts } from '../utils';
@@ -23,9 +23,11 @@ function lineLabel(section: Section): string {
 // The boat sailing this leg, when it is actually known (see utils/vesselResolver): usually null.
 function vesselOf(section: Section): Vessel | null {
   if (!section.journey) return null;
+  const lakeId = lakeIdForPier(section.departure.station.id);
+  if (!lakeId) return null;
   const departure = section.departure.departureTimestamp;
   const date = departure === null ? undefined : timestampToDateTimeParts(departure).date;
-  return resolveVesselForJourney(section.journey.name, date, lineLabel(section));
+  return resolveVesselForJourney(section.journey.name, lakeId, date, lineLabel(section));
 }
 
 // The pier number, but only at stops that have several piers; elsewhere it would just be noise.
