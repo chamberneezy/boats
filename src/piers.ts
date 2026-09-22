@@ -70,14 +70,27 @@ export function pierLabel(station: { id?: string; name: string }): string {
   return known ? known.name : station.name.replace(/\s*\(See\)$/, '');
 }
 
+// Folds ü/ä/ö and other accented letters to their plain-letter equivalent so
+// riders can type "Kussnacht" or "Fluelen" and still find Küssnacht/Flüelen.
+function foldDiacritics(text: string): string {
+  return text.normalize('NFD').replace(/[̀-ͯ]/g, '');
+}
+
 function matchesQuery(pier: PierOption, query: string): boolean {
-  return pier.name.toLowerCase().includes(query) || (pier.fullName?.toLowerCase().includes(query) ?? false);
+  const folded = foldDiacritics(query);
+  return (
+    foldDiacritics(pier.name.toLowerCase()).includes(folded) ||
+    (pier.fullName ? foldDiacritics(pier.fullName.toLowerCase()).includes(folded) : false)
+  );
 }
 
 // True when `text` is exactly this pier's short or official name.
 export function isExactPierName(pier: PierOption, text: string): boolean {
-  const normalized = text.trim().toLowerCase();
-  return pier.name.toLowerCase() === normalized || pier.fullName?.toLowerCase() === normalized;
+  const normalized = foldDiacritics(text.trim().toLowerCase());
+  return (
+    foldDiacritics(pier.name.toLowerCase()) === normalized ||
+    (pier.fullName ? foldDiacritics(pier.fullName.toLowerCase()) === normalized : false)
+  );
 }
 
 // excludeId is the pier already chosen in the *other* field (origin when
