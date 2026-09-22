@@ -140,6 +140,13 @@ export function pierLabel(station: { id?: string; name: string }): string {
   return known ? known.name : station.name.replace(/\s*\(See\)$/, '');
 }
 
+// The pier's official station name (falling back to its short name) - the exact spelling other
+// operators' own search widgets (e.g. ZVV's timetable) expect when linking a pier by name.
+export function pierFullName(id: string): string | undefined {
+  const pier = PIERS_BY_ID.get(id);
+  return pier ? (pier.fullName ?? pier.name) : undefined;
+}
+
 // Folds ü/ä/ö and other accented letters to their plain-letter equivalent so
 // riders can type "Kussnacht" or "Fluelen" and still find Küssnacht/Flüelen.
 function foldDiacritics(text: string): string {

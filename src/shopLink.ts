@@ -6,13 +6,18 @@
 //   rider pick the sailing and buy. Built only from data we hold; the shop's ticket links with
 //   a journeyId/routeId are not used because those ids are issued by the shop's backend for
 //   each search and cannot be computed here.
-// - Lake Zurich (ZSG) sells no point-to-point tickets at all: its boats are fully integrated
+// - Lake Zurich (ZSG) sells no point-to-point tickets of its own: its boats are fully integrated
 //   into ZVV (Zurich's public transport network) and riders buy an ordinary ZVV zone ticket
-//   (checked on zsg.ch's own fares page, 2026-09-22). We don't hold ZVV zone data for our
-//   piers, so there is nothing to deep-link a specific trip into - the rider is sent to the
-//   ZVV Ticketshop's homepage to pick their own fare. TODO: once we know each pier's ZVV zone,
-//   tell the rider which zone(s) they need before sending them off (tracked for later; not
-//   implemented yet).
+//   (checked on zsg.ch's own fares page, 2026-09-22). ZVV's own timetable search
+//   (zvv.ch/en/timetable-and-information/timetable.html?tab=connections&...) takes plain station
+//   names and a date/time - no zone lookup needed on our side - and finds the same real
+//   connections we do, each with its own "Buy ticket" button that starts ZVV's purchase flow
+//   already scoped to the right zones and fare (checked in a real browser, 2026-09-22: e.g.
+//   Küsnacht ZH (See) -> Zürich Bürkliplatz (See) resolved to "Zones 110 140, CHF 3.60"). That
+//   button's own destination (ticketshop.zvv.ch/<opaque-id>/<opaque-id>) is issued by ZVV's
+//   backend only once the rider clicks it in their own session, the same way SGV's
+//   journeyId/routeId links are - so, same as for Lucerne, we deep-link into the search results,
+//   never try to jump straight to checkout.
 //
 // SGV stations are written "didok--<name>--<id>" and the shop matches that whole string against
 // its own station list, so the spelling must be exactly the shop's: "didok--fluelen--8508476"
@@ -24,12 +29,16 @@
 // gives no link (the button stays disabled) rather than a link that opens with an empty field.
 // Re-check the table if the shop changes its stations.
 
-import { lakeIdForPier, pierLabel } from './piers';
+import { lakeIdForPier, pierFullName, pierLabel } from './piers';
 import type { BoatConnection, StationLocation } from './types';
 import { timestampToDateTimeParts } from './utils';
 
 const SHOP_ROUTING_URL = 'https://webshop.lakelucerne.ch/en/routing';
-// Landing page only - no route or zone can be prefilled (see the note above).
+const ZVV_TIMETABLE_URL = 'https://www.zvv.ch/en/timetable-and-information/timetable.html';
+// products=16 is ZVV's own filter for boats only (copied from a real ZVV search, not guessed);
+// checked in a browser that it never mixes in bus/train results.
+const ZVV_BOAT_PRODUCTS = '16';
+// Fallback only - shouldn't be reachable since every Zurich pier we hold has a full name.
 const ZVV_TICKETSHOP_URL = 'https://ticketshop.zvv.ch/home?0&lang=en';
 
 // Our pier id -> the shop's station token.
@@ -87,7 +96,21 @@ export function shopTicketUrl(entry: BoatConnection): string | null {
   const departure = first?.departure.departureTimestamp;
   if (!first || !last || departure === null || departure === undefined) return null;
 
-  if (lakeIdForPier(first.departure.station.id) === 'lake-zurich') return ZVV_TICKETSHOP_URL;
+  if (lakeIdForPier(first.departure.station.id) === 'lake-zurich') {
+    const fromName = pierFullName(first.departure.station.id);
+    const toName = pierFullName(last.arrival.station.id);
+    if (!fromName || !toName) return ZVV_TICKETSHOP_URL;
+    const { date, time } = timestampToDateTimeParts(departure);
+    const params = new URLSearchParams({
+      tab: 'connections',
+      date,
+      time,
+      products: ZVV_BOAT_PRODUCTS,
+      fromname: fromName,
+      toname: toName,
+    });
+    return `${ZVV_TIMETABLE_URL}?${params}`;
+  }
 
   const from = stationParams('from', first.departure.station);
   const to = stationParams('to', last.arrival.station);
