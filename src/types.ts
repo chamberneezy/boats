@@ -67,6 +67,9 @@ export interface BoatConnection {
   connection: Connection;
   boatSections: Section[];
   status: ConnectionStatus | null;
+  // Rider-facing sentence for why `status` is 'cancelled', when known (e.g. a manual
+  // traffic-notice override). Never set for any other status.
+  disruptionReason: string | null;
 }
 
 // Things riders may care about on a boat. Tags are provided by the owner (see src/data/vessels.ts).

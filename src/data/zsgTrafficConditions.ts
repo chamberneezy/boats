@@ -20,8 +20,15 @@
 //   (dep. Rapperswil 12:40), cancelled for the whole low-water period, and Kurs 113/114
 //   additionally cancelled on 24 September only.
 const VALID_UNTIL = '2026-10-18';
+const VALID_UNTIL_LABEL = '18 October 2026';
+const THROUGH_NOTICE = `due to low water levels, through ${VALID_UNTIL_LABEL}.`;
 
-const FULLY_SUSPENDED_LINES = new Set(['3733', '3734', '3736', '3739']);
+const FULLY_SUSPENDED_LINES: Record<string, string> = {
+  '3733': 'Mini lake cruise',
+  '3734': 'Limmat River Boat Tour',
+  '3736': 'Ufenau-Shuttle',
+  '3739': 'Upper Lake service',
+};
 const BURKLIPLATZ = '8503651';
 const KILCHBERG = '8503677';
 const ERLENBACH = '8503659';
@@ -29,39 +36,48 @@ const KUSNACHT = '8503657';
 const THALWIL = '8503674';
 
 /**
- * True when a boat section is known to be cancelled by ZSG's current low-water notice. `fromTime`
- * is the section's own departure time, "HH:MM" Swiss local time (not the whole connection's).
+ * The rider-facing reason a boat section is cancelled by ZSG's current low-water notice, or
+ * `null` if it isn't affected. `fromTime` is the section's own departure time, "HH:MM" Swiss
+ * local time (not the whole connection's).
  */
-export function isZsgSectionDisrupted(
+export function zsgDisruptionReason(
   line: string,
   kurs: string | null,
   fromPierId: string,
   toPierId: string,
   fromTime: string,
   date: string,
-): boolean {
-  if (date > VALID_UNTIL) return false;
+): string | null {
+  if (date > VALID_UNTIL) return null;
 
-  if (FULLY_SUSPENDED_LINES.has(line)) return true;
+  const suspendedName = FULLY_SUSPENDED_LINES[line];
+  if (suspendedName) return `${suspendedName} suspended ${THROUGH_NOTICE}`;
 
   if (line === '3731') {
     const corridor = fromPierId === BURKLIPLATZ || fromPierId === KILCHBERG;
     const corridorTo = toPierId === BURKLIPLATZ || toPierId === KILCHBERG;
-    return !(corridor && corridorTo);
+    if (!(corridor && corridorTo)) {
+      return `Small lake cruise runs only between Bürkliplatz and Kilchberg ${THROUGH_NOTICE}`;
+    }
+    return null;
   }
 
   if (line === '3732') {
-    if (fromPierId === ERLENBACH || toPierId === ERLENBACH) return true;
-    if (fromPierId === KUSNACHT && fromTime === '15:28') return true;
-    if (fromPierId === THALWIL && fromTime === '16:13') return true;
-    return false;
+    if (fromPierId === ERLENBACH || toPierId === ERLENBACH) {
+      return `Erlenbach isn't served ${THROUGH_NOTICE}`;
+    }
+    if (fromPierId === KUSNACHT && fromTime === '15:28') return 'This sailing is cancelled due to low water levels.';
+    if (fromPierId === THALWIL && fromTime === '16:13') return 'This sailing is cancelled due to low water levels.';
+    return null;
   }
 
   if (line === '3730') {
-    if (kurs === '103' || kurs === '104') return true;
-    if ((kurs === '113' || kurs === '114') && date === '2026-09-24') return true;
-    return false;
+    if (kurs === '103' || kurs === '104') return `This sailing is cancelled ${THROUGH_NOTICE}`;
+    if ((kurs === '113' || kurs === '114') && date === '2026-09-24') {
+      return 'This sailing is cancelled due to low water levels (24 September only).';
+    }
+    return null;
   }
 
-  return false;
+  return null;
 }

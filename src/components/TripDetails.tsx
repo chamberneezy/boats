@@ -106,7 +106,7 @@ export function TripDetails({ entry, onBack }: TripDetailsProps) {
       </button>
 
       <div className="max-w-[460px] rounded-[14px] bg-surface-card p-6 shadow-card md:max-w-[780px] md:rounded-[16px] md:p-10">
-        <div className="mb-3 flex items-start justify-between gap-3 md:mb-4">
+        <div className={`flex items-start justify-between gap-3 ${entry.disruptionReason ? 'mb-1.5 md:mb-2' : 'mb-3 md:mb-4'}`}>
           <div className="flex min-w-0 flex-wrap items-center gap-x-2 font-display text-base font-medium text-alpine-sky md:text-xl">
             <span>{pierLabel(first.departure.station)}</span>
             <ArrowRight className="h-4 w-4 flex-shrink-0 text-stone-grey" strokeWidth={1.5} aria-hidden="true" />
@@ -117,6 +117,10 @@ export function TripDetails({ entry, onBack }: TripDetailsProps) {
             <StatusBadge status={entry.status} />
           </span>
         </div>
+
+        {entry.disruptionReason && (
+          <p className="mb-3 font-body text-xs leading-5 text-stone-grey md:mb-4 md:text-sm">{entry.disruptionReason}</p>
+        )}
 
         <div className={`flex flex-wrap items-center gap-2.5 ${hasAmenities ? 'mb-3 md:mb-3.5' : 'mb-4 md:mb-5'}`}>
           {firstPier && <PierBadge platform={firstPier} />}

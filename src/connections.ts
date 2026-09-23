@@ -13,7 +13,7 @@ import { readCachedConnections, writeCachedConnections } from './scheduleCache';
 import type { BoatConnection, Connection, ConnectionStatus, ConnectionsResponse, PierOption, Section } from './types';
 import { BOAT_CATEGORIES, timestampToDateTimeParts } from './utils';
 import { extractKurs } from './utils/vesselResolver';
-import { isZsgSectionDisrupted } from './data/zsgTrafficConditions';
+import { zsgDisruptionReason } from './data/zsgTrafficConditions';
 
 const RESULTS_PAGE_SIZE = 5;
 const REQUEST_TIMEOUT_MS = 20000;
@@ -40,15 +40,16 @@ function deriveStatus(connection: Connection): ConnectionStatus | null {
   return Math.max(...delays) > 0 ? 'delayed' : 'on-time';
 }
 
-// True when a leg is known-cancelled by ZSG's current low-water notice (src/data/zsgTrafficConditions.ts),
-// a manual override until that page publishes something computable. Harmless no-op for Lucerne:
-// SGV's line numbers never match a Zurich one.
-function isKnownDisrupted(section: Section): boolean {
-  if (!section.journey) return false;
+// The rider-facing reason a leg is known-cancelled by ZSG's current low-water notice
+// (src/data/zsgTrafficConditions.ts), a manual override until that page publishes something
+// computable, or null if it isn't affected. Harmless no-op for Lucerne: SGV's line numbers
+// never match a Zurich one.
+function knownDisruptionReason(section: Section): string | null {
+  if (!section.journey) return null;
   const departure = section.departure.departureTimestamp;
-  if (departure === null || departure === undefined) return false;
+  if (departure === null || departure === undefined) return null;
   const { date, time } = timestampToDateTimeParts(departure);
-  return isZsgSectionDisrupted(
+  return zsgDisruptionReason(
     section.journey.number,
     extractKurs(section.journey.name),
     section.departure.station.id,
@@ -67,8 +68,9 @@ function deriveBoatConnections(data: ConnectionsResponse, useRealtime: boolean):
         (section) => section.journey && BOAT_CATEGORIES.has(section.journey.category),
       );
       const baseStatus = useRealtime ? deriveStatus(connection) : ASSUME_ON_TIME_WITHOUT_REALTIME ? ('on-time' as const) : null;
-      const status: ConnectionStatus | null = boatSections.some(isKnownDisrupted) ? 'cancelled' : baseStatus;
-      return { connection, boatSections, status };
+      const disruptionReason = boatSections.map(knownDisruptionReason).find((reason) => reason !== null) ?? null;
+      const status: ConnectionStatus | null = disruptionReason ? 'cancelled' : baseStatus;
+      return { connection, boatSections, status, disruptionReason };
     })
     .filter((entry) => entry.boatSections.length > 0);
 }
