@@ -1,4 +1,4 @@
-import { ArrowRight, ExternalLink } from 'lucide-react';
+import { ArrowRight, ExternalLink, TriangleAlert } from 'lucide-react';
 import { hasMultiplePiers, lakeIdForPier, pierLabel } from '../piers';
 import { shopTicketUrl } from '../shopLink';
 import type { BoatConnection, Section, StopTime, Vessel } from '../types';
@@ -6,7 +6,7 @@ import { formatTime, timestampToDateTimeParts } from '../utils';
 import { resolveVesselForJourney } from '../utils/vesselResolver';
 import { Button } from './Button';
 import { TripLegend } from './TripLegend';
-import { AmenityIcon, CategoryIcon } from './CategoryPill';
+import { AmenityIcon, CategoryIcon, categoryInfo } from './CategoryPill';
 import { ConnectionSummary } from './ConnectionSummary';
 import { PierBadge } from './PierBadge';
 import { StatusBadge } from './StatusBadge';
@@ -58,12 +58,16 @@ function ChangeNote({ arriving, next }: { arriving: Section; next: Section }) {
 function StopList({ section }: { section: Section }) {
   const stops = section.journey?.passList?.length ? section.journey.passList : [section.departure, section.arrival];
   return (
-    <ol className="relative m-0 list-none p-0 pl-[22px]">
-      <span className="absolute bottom-1.5 left-[5px] top-1.5 w-px bg-hairline" aria-hidden="true" />
+    <ol className="m-0 list-none p-0 pl-[22px]">
       {stops.map((stop, idx) => {
         const isEndpoint = idx === 0 || idx === stops.length - 1;
         return (
           <li key={idx} className="relative pb-[18px] last:pb-0 md:pb-6">
+            {/* One segment per gap, dot-to-dot, anchored to this li's own box edges - so it
+                can't run past the last stop's dot regardless of that stop's text height. */}
+            {idx < stops.length - 1 && (
+              <span aria-hidden="true" className="absolute -left-[17px] top-1.5 -bottom-1.5 w-px bg-hairline" />
+            )}
             <span
               aria-hidden="true"
               className={`absolute -left-[22px] top-[3px] box-border md:top-1 h-2.5 w-2.5 rounded-full border-2 ${
@@ -119,14 +123,18 @@ export function TripDetails({ entry, onBack }: TripDetailsProps) {
         </div>
 
         {entry.disruptionReason && (
-          <p className="mb-3 font-body text-xs leading-5 text-stone-grey md:mb-4 md:text-sm">{entry.disruptionReason}</p>
+          <div className="mb-3 flex items-start gap-2 rounded-[10px] border border-status-cancelled/25 bg-status-cancelled/10 px-3.5 py-2.5 md:mb-4">
+            <TriangleAlert aria-hidden="true" className="mt-px h-4 w-4 flex-shrink-0 text-status-cancelled" strokeWidth={2} />
+            <p className="font-body text-xs leading-5 text-status-cancelled md:text-sm">{entry.disruptionReason}</p>
+          </div>
         )}
 
         <div className={`flex flex-wrap items-center gap-2.5 ${hasAmenities ? 'mb-3 md:mb-3.5' : 'mb-4 md:mb-5'}`}>
           {firstPier && <PierBadge platform={firstPier} />}
-          {/* The boat's name with its kind (ship / paddle steamer) as an icon right after it. */}
+          {/* The boat's name with its kind (ship / paddle steamer) as an icon right after it. When
+              the boat itself isn't known, fall back to its kind as text so this isn't a bare icon. */}
           <span className="inline-flex items-center gap-1.5 font-display text-sm font-medium text-deep-lake md:gap-2 md:text-base">
-            {vessel?.name}
+            {vessel?.name ?? (first.journey ? categoryInfo(first.journey.category, vessel).label : null)}
             {first.journey && <CategoryIcon category={first.journey.category} vessel={vessel} />}
           </span>
         </div>

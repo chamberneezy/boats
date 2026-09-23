@@ -28,13 +28,24 @@ interface RouteTrackProps {
   departure: StopTime;
   arrival: StopTime;
   isDirect: boolean;
+  // Where each change of boat happens along the journey, so the track can mark the
+  // stop instead of drawing one unbroken line straight through a connection that
+  // actually has a transfer.
+  transferTimestamps: number[];
   className: string;
 }
 
-function RouteTrack({ departure, arrival, isDirect, className }: RouteTrackProps) {
+function RouteTrack({ departure, arrival, isDirect, transferTimestamps, className }: RouteTrackProps) {
   const progress = journeyProgress(departure.departureTimestamp, arrival.arrivalTimestamp);
   // Keep the 14px-wide icon fully inside the track at both ends.
   const boatLeft = `calc(${progress * 100}% - ${progress * 14}px)`;
+
+  const departureTs = departure.departureTimestamp;
+  const arrivalTs = arrival.arrivalTimestamp;
+  const transferPositions =
+    departureTs !== null && arrivalTs !== null && arrivalTs > departureTs
+      ? transferTimestamps.map((ts) => ((ts - departureTs) / (arrivalTs - departureTs)) * 100)
+      : [];
 
   return (
     <div className={`relative flex w-full items-center ${className}`}>
@@ -43,6 +54,14 @@ function RouteTrack({ departure, arrival, isDirect, className }: RouteTrackProps
         <span className="absolute left-0 top-1/2 h-0.5 -translate-y-1/2 bg-alpine-sky" style={{ width: `${progress * 100}%` }} />
       )}
       {!isDirect && <span className="absolute left-0 top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-stone-grey" />}
+      {transferPositions.map((pos, idx) => (
+        <span
+          key={idx}
+          aria-hidden="true"
+          className="absolute top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-stone-grey bg-surface-card"
+          style={{ left: `${pos}%` }}
+        />
+      ))}
       <span className="h-2 w-2 flex-shrink-0 rounded-full bg-deep-lake md:h-2.5 md:w-2.5" />
       {isDirect && (
         <Ship
@@ -69,6 +88,10 @@ export function ConnectionSummary({ entry, size }: ConnectionSummaryProps) {
   const isDirect = boatSections.length === 1;
   const transfers = boatSections.length - 1;
   const transferLabel = isDirect ? 'Direct' : `${transfers} transfer${transfers > 1 ? 's' : ''}`;
+  const transferTimestamps = boatSections
+    .slice(0, -1)
+    .map((section) => section.arrival.arrivalTimestamp)
+    .filter((ts): ts is number => ts !== null);
   const s = SIZES[size];
 
   return (
@@ -87,7 +110,13 @@ export function ConnectionSummary({ entry, size }: ConnectionSummaryProps) {
           <div className={`mt-1.5 font-body text-stone-grey ${s.station}`}>{pierLabel(last.arrival.station)}</div>
         </div>
       </div>
-      <RouteTrack departure={first.departure} arrival={last.arrival} isDirect={isDirect} className={s.track} />
+      <RouteTrack
+        departure={first.departure}
+        arrival={last.arrival}
+        isDirect={isDirect}
+        transferTimestamps={transferTimestamps}
+        className={s.track}
+      />
       <div className="font-body text-xs text-stone-grey md:text-[13px]">
         {transferLabel} · {formatDuration(connection.duration)}
       </div>
