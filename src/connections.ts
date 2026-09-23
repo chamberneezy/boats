@@ -10,8 +10,10 @@ import { reportDataSource, type DataSource } from './dataSourceMonitor';
 import { packageConnections, packageUpcoming } from './timetable/client.ts';
 import { getFallbackConnections } from './fallbackTimetable';
 import { readCachedConnections, writeCachedConnections } from './scheduleCache';
-import type { BoatConnection, Connection, ConnectionStatus, ConnectionsResponse, PierOption } from './types';
-import { BOAT_CATEGORIES } from './utils';
+import type { BoatConnection, Connection, ConnectionStatus, ConnectionsResponse, PierOption, Section } from './types';
+import { BOAT_CATEGORIES, timestampToDateTimeParts } from './utils';
+import { extractKurs } from './utils/vesselResolver';
+import { isZsgSectionDisrupted } from './data/zsgTrafficConditions';
 
 const RESULTS_PAGE_SIZE = 5;
 const REQUEST_TIMEOUT_MS = 20000;
@@ -38,17 +40,36 @@ function deriveStatus(connection: Connection): ConnectionStatus | null {
   return Math.max(...delays) > 0 ? 'delayed' : 'on-time';
 }
 
+// True when a leg is known-cancelled by ZSG's current low-water notice (src/data/zsgTrafficConditions.ts),
+// a manual override until that page publishes something computable. Harmless no-op for Lucerne:
+// SGV's line numbers never match a Zurich one.
+function isKnownDisrupted(section: Section): boolean {
+  if (!section.journey) return false;
+  const departure = section.departure.departureTimestamp;
+  if (departure === null || departure === undefined) return false;
+  const { date, time } = timestampToDateTimeParts(departure);
+  return isZsgSectionDisrupted(
+    section.journey.number,
+    extractKurs(section.journey.name),
+    section.departure.station.id,
+    section.arrival.station.id,
+    time,
+    date,
+  );
+}
+
 // `useRealtime` is false for stale-cache and bundled-timetable results: delays captured
 // earlier (or never captured) must not be presented as current, so they get the default.
 function deriveBoatConnections(data: ConnectionsResponse, useRealtime: boolean): BoatConnection[] {
   return (data.connections ?? [])
-    .map((connection) => ({
-      connection,
-      boatSections: connection.sections.filter(
+    .map((connection) => {
+      const boatSections = connection.sections.filter(
         (section) => section.journey && BOAT_CATEGORIES.has(section.journey.category),
-      ),
-      status: useRealtime ? deriveStatus(connection) : ASSUME_ON_TIME_WITHOUT_REALTIME ? ('on-time' as const) : null,
-    }))
+      );
+      const baseStatus = useRealtime ? deriveStatus(connection) : ASSUME_ON_TIME_WITHOUT_REALTIME ? ('on-time' as const) : null;
+      const status: ConnectionStatus | null = boatSections.some(isKnownDisrupted) ? 'cancelled' : baseStatus;
+      return { connection, boatSections, status };
+    })
     .filter((entry) => entry.boatSections.length > 0);
 }
 
