@@ -75,7 +75,7 @@ export function TripPage() {
   };
 
   return (
-    <SearchLayout showMapOnPhone={false}>
+    <SearchLayout lakeName={lake.name} showMapOnPhone={false}>
       {state.status === 'ready' && <TripDetails entry={state.entry} onBack={backToSearch} />}
 
       {state.status === 'loading' && (

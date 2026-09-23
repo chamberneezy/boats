@@ -179,7 +179,7 @@ export function SearchPage() {
   const searchedQuery = query && searchedKey === queryKey(query) ? query : null;
 
   return (
-    <SearchLayout showMapOnPhone={!hasSearched}>
+    <SearchLayout lakeName={lake.name} showMapOnPhone={!hasSearched}>
       <SearchForm
         lakeId={lake.id}
         origin={origin}

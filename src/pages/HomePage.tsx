@@ -10,6 +10,9 @@ import { searchPath } from '../routes';
 
 const LOGO_SRC = `${import.meta.env.BASE_URL}logo-mark.svg`;
 
+// "Lake Lucerne and Lake Zurich" today; grows on its own as more lakes go active.
+const ACTIVE_LAKES_LABEL = new Intl.ListFormat('en').format(LAKES.filter((lake) => lake.active).map((lake) => lake.name));
+
 export function HomePage() {
   useDocumentTitle('Lacus — Switzerland’s lakes, on schedule');
   const navigate = useNavigate();
@@ -35,7 +38,8 @@ export function HomePage() {
           <div>
             <h2 className="m-0 font-display text-lg font-medium text-deep-lake md:text-[28px]">Lakes we cover</h2>
             <p className="m-0 mt-1.5 hidden font-body text-sm text-stone-grey md:block">
-              Reservations are open on Lake Lucerne. Other lakes are shown for reference and will open for booking soon.
+              Reservations are open on {ACTIVE_LAKES_LABEL}. Other lakes are shown for reference and will open for
+              booking soon.
             </p>
           </div>
 
@@ -75,7 +79,7 @@ export function HomePage() {
             <img src={LOGO_SRC} alt="" className="h-[22px] w-[22px] rounded-[5px]" />
             <span className="font-body text-[13px] text-stone-grey">Lacus — lake transit, Switzerland.</span>
           </div>
-          <span className="font-body text-[13px] text-stone-grey">Lake Lucerne · more lakes soon</span>
+          <span className="font-body text-[13px] text-stone-grey">{ACTIVE_LAKES_LABEL} · more lakes soon</span>
         </footer>
       </main>
     </>
