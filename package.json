@@ -9,6 +9,7 @@
     "lint": "oxlint",
     "scrape:sgv": "node scripts/scrape-sgv.mjs",
     "scrape:zsg": "node scripts/scrape-zsg.mjs",
+    "check:zsg-traffic": "node scripts/check-zsg-traffic.mjs",
     "preview": "vite preview",
     "build:data": "node --disable-warning=ExperimentalWarning pipeline/build-data.ts",
     "test:data": "node --disable-warning=ExperimentalWarning --test \"pipeline/tests/*.test.ts\""
