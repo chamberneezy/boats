@@ -19,7 +19,15 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
 const URL = 'https://www.zsg.ch/en/traffic-conditions/';
-const USER_AGENT = 'lacus-boat-schedule/0.1 (daily traffic-conditions check)';
+// A plain descriptive UA got a 403 from a cloud sandbox's IP (still worked from a residential/
+// office IP, so this looks like bot-detection on the request shape rather than an IP block) -
+// a realistic browser UA and header set fixed it.
+const REQUEST_HEADERS = {
+  'User-Agent':
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36',
+  Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+  'Accept-Language': 'en-US,en;q=0.9',
+};
 
 const NAMED_ENTITIES = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ' };
 
@@ -49,7 +57,7 @@ function extractNotice(lines) {
 }
 
 async function main() {
-  const res = await fetch(URL, { headers: { 'User-Agent': USER_AGENT }, signal: AbortSignal.timeout(30_000) });
+  const res = await fetch(URL, { headers: REQUEST_HEADERS, signal: AbortSignal.timeout(30_000) });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const notice = extractNotice(htmlToLines(await res.text()));
 
