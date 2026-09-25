@@ -2,6 +2,7 @@
 
 ## Stack and workflow
 - Vite + React + TypeScript, Tailwind v4 (tokens in `src/index.css` `@theme`), `lucide-react`, `react-router`.
+- Node 24 (Active LTS) is the standard runtime, switched from the older Node 20 (which reached end-of-life 2026-04). It is pinned in `.nvmrc`, required by `package.json` `engines` (`node >=24`), and used by both GitHub Actions workflows. Run `nvm use` (reads `.nvmrc`) before working locally. The requirement is real, not cosmetic: `pipeline/` runs `.ts` files directly via Node's native type stripping (needs Node >=22.18) and `react-router` needs Node >=22.22, so on older Node `npm run build:data` / `npm run test:data` fail with `Unknown file extension ".ts"`. The web app alone (`npm run dev` / `npm run build`) still runs on older Node, but standardise on 24.
 - Fonts: Kanit (500/600: headings, buttons, times) and Karma (400/500: body). No others.
 - Data API: `https://transport.opendata.ch/v1`.
 - Do not push to GitHub, nor suggest commits, without being asked first.
