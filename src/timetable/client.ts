@@ -18,6 +18,15 @@ const DEFAULT_LAKE = 'lake-lucerne';
 const FETCH_TIMEOUT_MS = 8000;
 const RETRY_AFTER_FAILURE_MS = 60_000;
 
+// Where the per-lake data packages are served from. Set `VITE_DATA_BASE_URL` (build-time) to a
+// CDN/bucket base so devices read the packages from there; left unset it falls back to the
+// site-relative `/data` path (used in dev and as a safety net). A trailing slash is enforced.
+const DATA_BASE_URL = (() => {
+  const configured = import.meta.env.VITE_DATA_BASE_URL?.trim();
+  const base = configured || `${import.meta.env.BASE_URL}data`;
+  return base.endsWith('/') ? base : `${base}/`;
+})();
+
 interface Loaded {
   pkg: TimetablePackage;
   index: SearchIndex;
@@ -55,7 +64,7 @@ async function fetchJson<T>(url: string, init?: RequestInit): Promise<T> {
 // The newest package, or null when the copy we already have (`knownSha`) is current or the server
 // speaks a newer format than this version of the app understands.
 async function fetchLatest(lakeId: string, knownSha?: string): Promise<Loaded | null> {
-  const base = `${import.meta.env.BASE_URL}data/${lakeId}/`;
+  const base = `${DATA_BASE_URL}${lakeId}/`;
   const manifest = await fetchJson<TimetableManifest>(`${base}manifest.json`, { cache: 'no-cache' });
   if (manifest.schemaVersion !== TIMETABLE_SCHEMA_VERSION || manifest.timetable.sha256 === knownSha) return null;
   const pkg = await fetchJson<TimetablePackage>(`${base}${manifest.timetable.path}`);
