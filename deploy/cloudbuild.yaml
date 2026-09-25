@@ -1,0 +1,10 @@
+# Builds the ingestion image (deploy/Dockerfile) and pushes it to Artifact Registry.
+# Usage: gcloud builds submit --config=deploy/cloudbuild.yaml --substitutions=_IMAGE=...
+substitutions:
+  _IMAGE: europe-west6-docker.pkg.dev/lacus-app-509713/lacus/ingest:latest
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args: ['build', '-t', '${_IMAGE}', '-f', 'deploy/Dockerfile', '.']
+images:
+  - ${_IMAGE}
+timeout: 1200s
