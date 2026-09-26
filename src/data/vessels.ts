@@ -27,6 +27,25 @@
 //   the deployment tool's own MS/EMS split both say diesel; only Pfannenstiel and Uetliberg in that
 //   class are electric) - its amenities were still applied since those don't depend on engine type.
 // - `lines` is [] everywhere for both operators: neither publishes which motor ship serves which line.
+// - CGN (Lake Geneva): id, name, type and the factual line of each description come from CGN's own
+//   fleet page (cgn.ch/en/fleet, read 2026-09-26). All 17 currently-operating boats named there are
+//   here (Thonon-les-Bains, an 18th boat announced on the same page, is excluded - "not yet
+//   commissioned" there, so it can never appear on a real trip). The five true Belle Époque
+//   steamers (La Suisse, Montreux, Simplon, Savoie, Rhône) are `type: 'steam'`; three further
+//   Belle Époque boats keep a paddle wheel for looks but are diesel-electric, not steam - `type:
+//   'motor'`, and they do NOT get the `steam-paddle` amenity, which specifically means a genuine
+//   steam experience. `amenities` currently holds only `wheelchair` for every CGN boat, sourced
+//   from CGN's own FAQ (cgn.ch/fr/faq, read 2026-09-26): an accessible WC is on every CGN boat
+//   except "Col-Vert", a vessel not in this catalog (not on the main fleet page, so never
+//   confirmed as a passenger boat). Anything beyond that (restaurant, bar, deck) is not yet
+//   sourced per boat - unlike SGV and ZSG, the owner has not supplied a list for this fleet either;
+//   fill in the same way when known. `eni` and `lines` are ''/[] for the same reason as the other
+//   two operators: not published, never guessed.
+//   Day-by-day Kurs-to-boat assignment comes from CGN's live "Prochains départs" board
+//   (qr.cgn.ch - not linked from the normal site, meant for QR codes at the piers; found via a
+//   link on cgn.ch's traffic-info page, reverse-engineered from the app's own JavaScript), scraped
+//   by scripts/scrape-cgn.mjs into src/data/scraped/cgn-allocations.json and matched in
+//   src/utils/vesselResolver.ts via `cgnRawForm`/`CGN_VESSEL_BY_RAW_NAME`.
 
 import type { Vessel } from '../types';
 
@@ -357,6 +376,162 @@ export const VESSELS: Record<string, Vessel> = {
     lines: [],
     amenities: [],
     description: 'Motor ship.',
+  },
+
+  // CGN (Lake Geneva) - see the file header for sourcing and the vessel-resolution gap.
+  'cgn-la-suisse': {
+    id: 'cgn-la-suisse',
+    name: 'La Suisse',
+    eni: '',
+    type: 'steam',
+    lines: [],
+    amenities: ['wheelchair'],
+    description: 'Paddle steamer, in service since 1910. Built by Sulzer Frères, 78.5 m long, 850 passengers.',
+  },
+  'cgn-montreux': {
+    id: 'cgn-montreux',
+    name: 'Montreux',
+    eni: '',
+    type: 'steam',
+    lines: [],
+    amenities: ['wheelchair'],
+    description: 'Paddle steamer, in service since 1904 - the oldest on Lake Geneva. Built by Sulzer Frères, 68.3 m long, 600 passengers.',
+  },
+  'cgn-simplon': {
+    id: 'cgn-simplon',
+    name: 'Simplon',
+    eni: '',
+    type: 'steam',
+    lines: [],
+    amenities: ['wheelchair'],
+    description: 'Paddle steamer, built 1915-1920. Built by Sulzer Frères, 78.5 m long, 850 passengers.',
+  },
+  'cgn-savoie': {
+    id: 'cgn-savoie',
+    name: 'Savoie',
+    eni: '',
+    type: 'steam',
+    lines: [],
+    amenities: ['wheelchair'],
+    description: 'Paddle steamer, in service since 1914. Built by Sulzer Frères, 68 m long, 650 passengers.',
+  },
+  'cgn-rhone': {
+    id: 'cgn-rhone',
+    name: 'Rhône',
+    eni: '',
+    type: 'steam',
+    lines: [],
+    amenities: ['wheelchair'],
+    description:
+      'Paddle steamer, in service since 1927. Built by Sulzer Frères, 68 m long, 600 passengers. Returned to service in 2022 after a three-year restoration.',
+  },
+  'cgn-vevey': {
+    id: 'cgn-vevey',
+    name: 'Vevey',
+    eni: '',
+    type: 'motor',
+    lines: [],
+    amenities: ['wheelchair'],
+    description: 'Belle Époque diesel-electric paddle-wheel boat (not steam), in service since 1907, 66 m long, 560 passengers.',
+  },
+  'cgn-italie': {
+    id: 'cgn-italie',
+    name: 'Italie',
+    eni: '',
+    type: 'motor',
+    lines: [],
+    amenities: ['wheelchair'],
+    description: 'Belle Époque diesel-electric paddle-wheel boat (not steam), in service since 1908, 66 m long, 560 passengers.',
+  },
+  'cgn-helvetie': {
+    id: 'cgn-helvetie',
+    name: 'Helvétie',
+    eni: '',
+    type: 'motor',
+    lines: [],
+    amenities: ['wheelchair'],
+    description: 'Belle Époque diesel-electric paddle-wheel boat (not steam), built 1926, 78.5 m long. Laid up since 2002.',
+  },
+  'cgn-evian-les-bains': {
+    id: 'cgn-evian-les-bains',
+    name: 'Évian-les-Bains',
+    eni: '',
+    type: 'motor',
+    lines: [],
+    amenities: ['wheelchair'],
+    description: 'Motor vessel, in service since 2024, 61.3 m long, 700 passengers.',
+  },
+  'cgn-henry-dunant': {
+    id: 'cgn-henry-dunant',
+    name: 'Henry-Dunant',
+    eni: '',
+    type: 'motor',
+    lines: [],
+    amenities: ['wheelchair'],
+    description: 'Motor vessel, in service since 1963, 50.2 m long, 550 passengers.',
+  },
+  'cgn-general-guisan': {
+    id: 'cgn-general-guisan',
+    name: 'Général-Guisan',
+    eni: '',
+    type: 'motor',
+    lines: [],
+    amenities: ['wheelchair'],
+    description: 'Motor vessel, in service since 1964, 50.2 m long, 550 passengers.',
+  },
+  'cgn-ville-de-geneve': {
+    id: 'cgn-ville-de-geneve',
+    name: 'Ville-de-Genève',
+    eni: '',
+    type: 'motor',
+    lines: [],
+    amenities: ['wheelchair'],
+    description: 'Motor vessel, in service since 1978, 47.2 m long, 560 passengers.',
+  },
+  'cgn-lausanne': {
+    id: 'cgn-lausanne',
+    name: 'Lausanne',
+    eni: '',
+    type: 'motor',
+    lines: [],
+    amenities: ['wheelchair'],
+    description: 'Motor vessel, in service since 1991, 78.8 m long, 1200 passengers.',
+  },
+  'cgn-leman': {
+    id: 'cgn-leman',
+    name: 'Léman',
+    eni: '',
+    type: 'motor',
+    lines: [],
+    amenities: ['wheelchair'],
+    description: 'Motor vessel, in service since 1990, 49.6 m long, 780 passengers.',
+  },
+  'cgn-morges': {
+    id: 'cgn-morges',
+    name: 'Morges',
+    eni: '',
+    type: 'motor',
+    lines: [],
+    amenities: ['wheelchair'],
+    description: 'Motor vessel, one of a pair built 2005-2006 alongside Lavaux, 30.8 m long, 200 passengers.',
+  },
+  'cgn-lavaux': {
+    id: 'cgn-lavaux',
+    name: 'Lavaux',
+    eni: '',
+    type: 'motor',
+    lines: [],
+    amenities: ['wheelchair'],
+    description: 'Motor vessel, one of a pair built 2005-2006 alongside Morges, 30.8 m long, 200 passengers.',
+  },
+  'cgn-valais': {
+    id: 'cgn-valais',
+    name: 'Valais',
+    eni: '',
+    type: 'motor',
+    lines: [],
+    amenities: ['wheelchair'],
+    description: 'Motor vessel, in service since 2008, 30.8 m long, 200 passengers.',
   },
 };
 

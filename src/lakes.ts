@@ -1,4 +1,4 @@
-// The twelve lakes shown on the home page. Only Lake Lucerne and Lake Zurich have schedule data so far.
+// The twelve lakes shown on the home page. Only Lake Lucerne, Lake Zurich and Lake Geneva have schedule data so far.
 export interface Lake {
   id: string;
   name: string;
@@ -10,7 +10,7 @@ export const DEFAULT_LAKE_ID = 'lake-lucerne';
 
 const LAKE_LIST: Lake[] = [
   { id: 'lake-lucerne', name: 'Lake Lucerne', localName: 'Vierwaldstättersee', active: true },
-  { id: 'lake-geneva', name: 'Lake Geneva', localName: 'Lac Léman', active: false },
+  { id: 'lake-geneva', name: 'Lake Geneva', localName: 'Lac Léman', active: true },
   { id: 'lake-thun', name: 'Lake Thun', localName: 'Thunersee', active: false },
   { id: 'lake-brienz', name: 'Lake Brienz', localName: 'Brienzersee', active: false },
   { id: 'lake-zurich', name: 'Lake Zurich', localName: 'Zürichsee', active: true },

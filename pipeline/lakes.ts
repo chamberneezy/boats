@@ -31,4 +31,15 @@ export const LAKES: Record<string, LakeConfig> = {
     maxWaitMinutes: 960,
     transferMinutesByStop: {},
   },
+  'lake-geneva': {
+    id: 'lake-geneva',
+    // Matches "CGN SA" (agency_id 184), the Compagnie Générale de Navigation. Excludes the
+    // separate "Mouettes genevoises SA" (agency_id 199), the small shuttle-boat operator
+    // within Geneva itself - a different, city-taxi-like service, not the lake network.
+    agencyNameIncludes: 'CGN',
+    boatCategories: ['BAT'], // No BAV (paddle steamer) route_desc is published for this operator either.
+    minTransferMinutes: 5,
+    maxWaitMinutes: 960,
+    transferMinutesByStop: {},
+  },
 };

@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "lakeId": "lake-geneva",
+  "generatedAt": "2026-09-26T15:34:25.823Z",
+  "source": {
+    "name": "opentransportdata.swiss GTFS",
+    "feed": "gtfs_fp2026_20260923"
+  },
+  "timetable": {
+    "path": "timetable.7655dc57573d.json",
+    "sha256": "7655dc57573d3126d18a26b19509ea47b87bcca6def343d869da3aa0353c27ef",
+    "bytes": 52964
+  }
+}

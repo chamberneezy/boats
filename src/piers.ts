@@ -82,9 +82,53 @@ export const ALL_LAKE_ZURICH_PIERS: PierOption[] = [
   { id: '8503653', name: 'Zürichhorn', fullName: 'Zürichhorn (See)' },
 ];
 
+// Verified Lac Léman (Lake Geneva) boat piers served by CGN (Compagnie Générale de Navigation,
+// agency_id 184 in the GTFS feed, route_desc "BAT" only - no paddle steamer category is
+// published for this operator either, same as Lake Zurich, despite CGN's fleet including real
+// Belle Époque paddle steamers). Cross-checked against the GTFS feed directly: every trip on
+// CGN's 7 routes, resolved to its 32 stops. No platform codes are published for any of them, so
+// none get the "Pier N" badge. Several piers share the "Genève-" or "Lausanne-" city prefix or a
+// canton suffix (GE/VD) in their official name; both are dropped for the short name the same way
+// Lake Zurich's list drops "Zürich " and "ZH"/"SZ" - kept in fullName.
+export const ALL_LAKE_GENEVA_PIERS: PierOption[] = [
+  { id: '8501231', name: 'Anières', fullName: 'Anières (lac)' },
+  { id: '8501232', name: 'Bellevue', fullName: 'Bellevue GE (lac)' },
+  { id: '8501079', name: 'Bouveret', fullName: 'Bouveret (lac)' },
+  { id: '8501234', name: 'Chillon', fullName: 'Château-de-Chillon (lac)' },
+  { id: '8501312', name: 'Clarens', fullName: 'Clarens (lac)' },
+  { id: '8501316', name: 'Coppet', fullName: 'Coppet (lac)' },
+  { id: '8501235', name: 'Corsier', fullName: 'Corsier GE (lac)' },
+  { id: '8501317', name: 'Cully', fullName: 'Cully (lac)' },
+  { id: '8501311', name: 'Eaux-Vives', fullName: 'Genève-Eaux-Vives (lac)' },
+  { id: '1401730', name: 'Evian', fullName: 'Evian-les-Bains (F) (lac)' },
+  { id: '8501239', name: 'Hermance', fullName: 'Hermance (lac)' },
+  { id: '8501236', name: 'Jardin-Anglais', fullName: 'Genève-Jardin-Anglais (lac)' },
+  { id: '1402700', name: 'Lugrin', fullName: 'Lugrin Tourronde (F) (lac)' },
+  { id: '8501318', name: 'Lutry', fullName: 'Lutry (lac)' },
+  { id: '8501237', name: 'Mont-Blanc', fullName: 'Genève-Mt-Blanc (lac)' },
+  { id: '8501077', name: 'Montreux', fullName: 'Montreux (lac)' },
+  { id: '8501228', name: 'Morges', fullName: 'Morges (lac)' },
+  { id: '1401766', name: 'Nernier', fullName: 'Nernier (F) (lac)' },
+  { id: '8501227', name: 'Nyon', fullName: 'Nyon (lac)' },
+  { id: '8501075', name: 'Ouchy', fullName: 'Lausanne-Ouchy (lac)' },
+  { id: '8501319', name: 'Pully', fullName: 'Pully (lac)' },
+  { id: '8501243', name: 'Rivaz-St-Saphorin', fullName: 'Rivaz-St-Saphorin (lac)' },
+  { id: '8501320', name: 'Rolle', fullName: 'Rolle (lac)' },
+  { id: '8501078', name: 'St-Gingolph', fullName: 'St-Gingolph (Suisse) (lac)' },
+  { id: '8501321', name: 'St-Prex', fullName: 'St-Prex (lac)' },
+  { id: '8501245', name: 'St-Sulpice', fullName: 'St-Sulpice VD (lac)' },
+  { id: '1401810', name: 'Thonon', fullName: 'Thonon-les-Bains (F) (lac)' },
+  { id: '8501322', name: 'Versoix', fullName: 'Versoix (lac)' },
+  { id: '8501248', name: 'Vevey', fullName: 'Vevey-Marché (lac)' },
+  { id: '8501314', name: 'Villeneuve', fullName: 'Villeneuve VD (lac)' },
+  { id: '1401847', name: 'Yvoire', fullName: 'Yvoire (F) (lac)' },
+  { id: '8501315', name: 'Céligny', fullName: 'Céligny (lac)' },
+];
+
 const PIERS_BY_LAKE: Record<string, PierOption[]> = {
   'lake-lucerne': ALL_LAKE_LUCERNE_PIERS,
   'lake-zurich': ALL_LAKE_ZURICH_PIERS,
+  'lake-geneva': ALL_LAKE_GENEVA_PIERS,
 };
 
 // Every pier across every lake we have data for. Pier ids (GTFS didok numbers) are unique
@@ -96,6 +140,7 @@ const ALL_PIERS: PierOption[] = Object.values(PIERS_BY_LAKE).flat();
 const POPULAR_PIER_IDS: Record<string, string[]> = {
   'lake-lucerne': ['8508492', '8508463', '8508464', '8508489', '8508470'],
   'lake-zurich': ['8503651', '8503667', '8503657', '8503661', '8503670'],
+  'lake-geneva': ['8501236', '8501075', '8501077', '8501248', '8501234'],
 };
 
 // A pier by id, scoped to one lake - used to validate URLs so a pier id from one lake's data
@@ -137,7 +182,8 @@ export function hasMultiplePiers(station: { id?: string }): boolean {
 // to the official name without the "(See)" lake suffix.
 export function pierLabel(station: { id?: string; name: string }): string {
   const known = (station.id && PIERS_BY_ID.get(station.id)) || PIERS_BY_OFFICIAL_NAME.get(station.name.toLowerCase());
-  return known ? known.name : station.name.replace(/\s*\(See\)$/, '');
+  // "(See)" is the German-lake suffix, "(lac)" the French one (Lake Geneva).
+  return known ? known.name : station.name.replace(/\s*\((See|lac)\)$/, '');
 }
 
 // The pier's official station name (falling back to its short name) - the exact spelling other

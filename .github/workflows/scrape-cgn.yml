@@ -1,0 +1,31 @@
+name: Scrape CGN boat deployments
+
+on:
+  schedule:
+    - cron: '20 5 * * *' # 07:20 Europe/Zurich (CEST); 06:20 once DST ends
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm ci
+      - run: npm run scrape:cgn
+      # Only ever stages the scraper's own output files - never anything hand-edited.
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/scraped/cgn-allocations.json src/data/scraped/cgn-trips.json
+          if git diff --cached --quiet; then
+            echo "No change to commit."
+          else
+            git commit -m "Daily CGN deployments scrape"
+            git push
+          fi

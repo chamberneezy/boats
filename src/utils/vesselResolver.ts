@@ -24,6 +24,7 @@
 // (zsg.ch/en/allocation-of-boats/, text-extracted and searched for every fleet name - no genuine
 // hits, only pier names that happen to share a boat's name, e.g. the "Wädenswil" pier).
 
+import cgnAllocationsFile from '../data/scraped/cgn-allocations.json';
 import sgvAllocationsFile from '../data/scraped/sgv-allocations.json';
 import zsgAllocationsFile from '../data/scraped/zsg-allocations.json';
 import { VESSELS } from '../data/vessels';
@@ -47,13 +48,30 @@ export function extractKurs(journeyName: string): string | null {
 const baseName = (name: string): string => name.replace(/^(?:DS|MS|EMS|eMS)\s+/, '');
 const VESSEL_BY_BASE_NAME = new Map(Object.values(VESSELS).map((vessel) => [baseName(vessel.name), vessel]));
 
+// CGN's live board (scripts/scrape-cgn.mjs) names boats upper-cased and accent-stripped, with
+// spaces turned into hyphens - "VILLE-DE-GENEVE" for the catalog's "Ville-de-Genève". Derived
+// from the catalog's own names (never a hand-typed guess), verified against 7 of the fleet's 17
+// boats live on 2026-09-26; any boat whose raw form doesn't match this derivation (a new addition,
+// a spelling CGN itself changes) is skipped like any other unknown name, not guessed at.
+const cgnRawForm = (name: string): string =>
+  name
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .toUpperCase()
+    .replace(/\s+/g, '-');
+const CGN_VESSEL_BY_RAW_NAME = new Map(
+  Object.values(VESSELS)
+    .filter((vessel) => vessel.id.startsWith('cgn-'))
+    .map((vessel) => [cgnRawForm(vessel.name), vessel]),
+);
+
 // "2026-09-20|17" -> the boat. A boat an operator names that the catalog lacks is skipped (never
 // guessed). Built per lake so two operators' allocations can never resolve into each other's trip.
-function buildDayAndKursIndex(allocations: AllocationsFile): Map<string, Vessel> {
+function buildDayAndKursIndex(allocations: AllocationsFile, resolve: (boat: string) => Vessel | undefined = (b) => VESSEL_BY_BASE_NAME.get(baseName(b))): Map<string, Vessel> {
   const index = new Map<string, Vessel>();
   for (const [date, day] of Object.entries(allocations.dates)) {
     for (const [boat, kursList] of Object.entries(day)) {
-      const vessel = VESSEL_BY_BASE_NAME.get(baseName(boat));
+      const vessel = resolve(boat);
       if (!vessel) continue;
       for (const kurs of kursList) index.set(`${date}|${String(Number(kurs))}`, vessel);
     }
@@ -64,6 +82,7 @@ function buildDayAndKursIndex(allocations: AllocationsFile): Map<string, Vessel>
 const INDEX_BY_LAKE: Record<string, Map<string, Vessel>> = {
   'lake-lucerne': buildDayAndKursIndex(sgvAllocationsFile as AllocationsFile),
   'lake-zurich': buildDayAndKursIndex(zsgAllocationsFile as AllocationsFile),
+  'lake-geneva': buildDayAndKursIndex(cgnAllocationsFile as AllocationsFile, (boat) => CGN_VESSEL_BY_RAW_NAME.get(boat)),
 };
 
 /**
