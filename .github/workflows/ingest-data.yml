@@ -1,0 +1,30 @@
+name: Publish timetable data
+
+# Fixed UTC times, so local time drifts by an hour across DST (same approach as
+# check-zsg-traffic.yml): 06:00/12:00/18:00 Europe/Zurich in CEST, one hour earlier once DST ends.
+on:
+  schedule:
+    - cron: '0 4,10,16 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write # for Workload Identity Federation (google-github-actions/auth)
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm ci
+      - uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ vars.GCP_WIF_PROVIDER }}
+          service_account: ${{ vars.GCP_INGEST_SERVICE_ACCOUNT }}
+      - uses: google-github-actions/setup-gcloud@v2
+      - run: ./deploy/publish.sh
+        env:
+          DATA_BUCKET: gs://lacus-data

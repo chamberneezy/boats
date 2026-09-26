@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 # Builds every lake's timetable package from the latest official GTFS and publishes the changed
-# files to the data bucket. Run by the Cloud Run job (see deploy/README.md). Expects DATA_BUCKET
-# in the environment (e.g. gs://lacus-data) and uses the job's service-account credentials (ADC)
-# for gcloud, so no keys are needed.
+# files to the data bucket. Run by the GitHub Actions ingestion workflow (see deploy/README.md
+# and .github/workflows/ingest-data.yml). Expects DATA_BUCKET in the environment (e.g.
+# gs://lacus-data) and uses the workflow's Workload-Identity-Federated credentials (ADC) for
+# gcloud, so no keys are needed.
 #
 # Each lake is built AND published before moving to the next. No top-level `set -e`: one lake's
 # build failure (a bad operator match, an upstream feed quirk) must not block the others from
