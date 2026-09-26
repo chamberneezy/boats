@@ -7,7 +7,7 @@
 // -> stale cache -> bundled timetable.
 
 import { reportDataSource, type DataSource } from './dataSourceMonitor';
-import { packageConnections, packageUpcoming } from './timetable/client.ts';
+import { packageConnections, packageReachablePiers, packageUpcoming } from './timetable/client.ts';
 import { getFallbackConnections } from './fallbackTimetable';
 import { readCachedConnections, writeCachedConnections } from './scheduleCache';
 import type { BoatConnection, Connection, ConnectionStatus, ConnectionsResponse, PierOption, Section } from './types';
@@ -196,6 +196,17 @@ export async function searchConnections(
   // Zero connections for a route that normally runs — the API's data backend is
   // likely degraded rather than there genuinely being no service.
   return serveCacheOrBundled(null);
+}
+
+/**
+ * Every pier the timetable package could connect `pierId` to (as origin if `direction` is
+ * 'from', as destination if 'to'), for filtering pier-picker suggestions. Null when the package
+ * isn't loaded yet or doesn't know the pier - callers should leave suggestions unfiltered then,
+ * never treat it as "nothing is reachable". No fallback chain: suggestions are a nice-to-have,
+ * not worth a public-API call, so this only ever answers from the on-device package.
+ */
+export async function loadReachablePiers(pierId: string, direction: 'from' | 'to', lakeId?: string): Promise<Set<string> | null> {
+  return packageReachablePiers(pierId, direction, lakeId);
 }
 
 /** The next page of departures from the given moment onward. */

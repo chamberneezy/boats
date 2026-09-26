@@ -7,7 +7,7 @@
 //                                       Search with results (pier ids, YYYY-MM-DD, HH:MM)
 //   /trip/lake-lucerne?from=&to=&dep=   One sailing (dep = departure unix seconds)
 
-import { ALL_LAKE_LUCERNE_PIERS, ALL_LAKE_ZURICH_PIERS, findPierInLake } from './piers';
+import { ALL_LAKE_GENEVA_PIERS, ALL_LAKE_LUCERNE_PIERS, ALL_LAKE_ZURICH_PIERS, findPierInLake } from './piers';
 import type { PierOption } from './types';
 
 // Pier ids are unique nationally, so a pier can be found without knowing which lake it belongs
@@ -15,7 +15,7 @@ import type { PierOption } from './types';
 // name for a query that parseSearchQuery/parseTripQuery already validated). Parsing a query from
 // the URL must use findPierInLake instead, so a pier id from one lake's data is never accepted
 // as valid for another lake's search or trip page.
-const ALL_PIERS: PierOption[] = [...ALL_LAKE_LUCERNE_PIERS, ...ALL_LAKE_ZURICH_PIERS];
+const ALL_PIERS: PierOption[] = [...ALL_LAKE_LUCERNE_PIERS, ...ALL_LAKE_ZURICH_PIERS, ...ALL_LAKE_GENEVA_PIERS];
 
 export interface SearchQuery {
   from: string;

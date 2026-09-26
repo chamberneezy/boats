@@ -216,15 +216,20 @@ export function isExactPierName(pier: PierOption, text: string): boolean {
   );
 }
 
-// excludeId is the pier already chosen in the *other* field (origin when
-// searching destinations, or vice versa) - it can't also be selected here.
-export function searchPiers(lakeId: string, query: string, excludeId?: string): PierOption[] {
+// excludeId is the pier already chosen in the *other* field (origin when searching
+// destinations, or vice versa) - it can't also be selected here. reachableIds, when given,
+// further narrows the pool to piers the timetable can actually connect to/from that other
+// field's pier (direct or one change) - so a route with no boat between two real piers never
+// shows up as a suggestion in the first place. Undefined (not just loaded yet, or no other
+// field chosen) means don't filter, same as before this existed.
+export function searchPiers(lakeId: string, query: string, excludeId?: string, reachableIds?: Set<string>): PierOption[] {
   const lakePiers = PIERS_BY_LAKE[lakeId] ?? [];
-  const pool = excludeId ? lakePiers.filter((pier) => pier.id !== excludeId) : lakePiers;
+  let pool = excludeId ? lakePiers.filter((pier) => pier.id !== excludeId) : lakePiers;
+  if (reachableIds) pool = pool.filter((pier) => reachableIds.has(pier.id));
 
   const trimmed = query.trim().toLowerCase();
   if (trimmed.length === 0) {
-    // Once the other field is filled in, show every remaining pier so the
+    // Once the other field is filled in, show every remaining (reachable) pier so the
     // user can scroll the full list instead of just the top 5 popular ones.
     return excludeId ? pool : getPopularPiers(lakeId);
   }

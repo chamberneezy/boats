@@ -6,7 +6,7 @@
 // the public API, which is the last resort.
 
 import type { Connection } from '../types.ts';
-import { createSearchIndex, findDepartures, findItineraries } from './search.ts';
+import { createSearchIndex, findDepartures, findItineraries, reachableFromStop, stopsReaching } from './search.ts';
 import type { SearchIndex } from './search.ts';
 import { toConnections, toUpcoming } from './toConnections.ts';
 import type { UpcomingItem } from './toConnections.ts';
@@ -122,6 +122,18 @@ export async function packageConnections(
   const [hours, minutes] = time.split(':').map(Number);
   const itineraries = findItineraries(loaded.index, { from: fromId, to: toId, date, afterSec: hours * 3600 + minutes * 60, limit });
   return toConnections(loaded.pkg, date, itineraries);
+}
+
+/**
+ * Every pier the package's search could ever connect `pierId` to (as origin if `direction` is
+ * 'from', as destination if 'to'), direct or with one change - for filtering pier suggestions,
+ * not a real search. Null only when the package itself isn't loaded/known yet; callers should
+ * then leave suggestions unfiltered rather than treat it as "nothing is reachable".
+ */
+export async function packageReachablePiers(pierId: string, direction: 'from' | 'to', lakeId = DEFAULT_LAKE): Promise<Set<string> | null> {
+  const loaded = await getTimetable(lakeId);
+  if (!loaded || !loaded.index.stopIds.includes(pierId)) return null;
+  return direction === 'from' ? reachableFromStop(loaded.index, pierId) : stopsReaching(loaded.index, pierId);
 }
 
 /** The next departures from one pier, or null when the package cannot answer. */

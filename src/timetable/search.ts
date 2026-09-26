@@ -231,6 +231,42 @@ export function findItineraries(index: SearchIndex, query: SearchQuery): Itinera
   return results.slice(0, limit);
 }
 
+// Every stop reachable from (or, with `forward: false`, able to reach) `id`, direct or with one
+// change - ignoring the clock and calendar entirely (i.e. "does some itinerary connect these two
+// ids, on some day"). Used to keep pier suggestions honest: never offer a pier nothing can ever
+// reach, in either field. Deliberately a superset of what any single date/time could offer (real
+// transfer-time and max-wait rules aren't applied here), so it only ever hides destinations that
+// are truly never connected, never one that merely isn't reachable today.
+function reachableIds(index: SearchIndex, id: string, forward: boolean): Set<string> {
+  const direct = new Set<string>();
+  const addOnwardStops = (visit: Visit, into: Set<string>) => {
+    const { trip, position } = visit;
+    if (forward) {
+      for (let p = position + 1; p < trip.stops.length; p++) into.add(index.stopIds[trip.stops[p][0]]);
+    } else {
+      for (let p = 0; p < position; p++) into.add(index.stopIds[trip.stops[p][0]]);
+    }
+  };
+  for (const visit of index.visitsByStop.get(id) ?? []) addOnwardStops(visit, direct);
+
+  const result = new Set(direct);
+  for (const changeStop of direct) {
+    for (const visit of index.visitsByStop.get(changeStop) ?? []) addOnwardStops(visit, result);
+  }
+  result.delete(id);
+  return result;
+}
+
+/** Every stop reachable from `from`, direct or with one change (see `reachableIds`). */
+export function reachableFromStop(index: SearchIndex, from: string): Set<string> {
+  return reachableIds(index, from, true);
+}
+
+/** Every stop that can reach `to`, direct or with one change (see `reachableIds`). */
+export function stopsReaching(index: SearchIndex, to: string): Set<string> {
+  return reachableIds(index, to, false);
+}
+
 export interface DepartureQuery {
   from: string; // pier id
   date: string; // YYYY-MM-DD (Swiss local date)

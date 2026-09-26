@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type Ref } from 'react';
 import { ArrowLeftRight, CalendarClock } from 'lucide-react';
+import { loadReachablePiers } from '../connections';
 import { isExactPierName, searchPiers } from '../piers';
 import type { PierOption } from '../types';
 import { formatDateTimeLabel } from '../utils';
@@ -34,13 +35,14 @@ interface PierPickerProps {
   align: 'left' | 'right';
   query: string;
   excludeId?: string;
+  reachableIds?: Set<string>;
   onPick: (pier: PierOption) => void;
 }
 
 // Suggestions for the field being typed in. With no text the popular piers are shown as
-// presets (or every remaining pier once the other field is chosen).
-function PierPicker({ lakeId, align, query, excludeId, onPick }: PierPickerProps) {
-  const options = useMemo(() => searchPiers(lakeId, query, excludeId), [lakeId, query, excludeId]);
+// presets (or every remaining reachable pier once the other field is chosen).
+function PierPicker({ lakeId, align, query, excludeId, reachableIds, onPick }: PierPickerProps) {
+  const options = useMemo(() => searchPiers(lakeId, query, excludeId, reachableIds), [lakeId, query, excludeId, reachableIds]);
 
   return (
     <ul
@@ -137,6 +139,25 @@ export function SearchForm({
   const [typed, setTyped] = useState<string | null>(null);
   const originInputRef = useRef<HTMLInputElement>(null);
 
+  // Piers the timetable can actually connect the *other* field's pier to/from, once it's chosen -
+  // so suggestions never include a route with no boat between two real piers. Undefined (no other
+  // field chosen yet, or the package hasn't loaded) means don't filter.
+  const [reachableIds, setReachableIds] = useState<Set<string> | undefined>(undefined);
+  useEffect(() => {
+    const anchorId = activeField === 'destination' ? origin.id : activeField === 'origin' ? destination.id : '';
+    if (!anchorId) {
+      setReachableIds(undefined);
+      return;
+    }
+    let cancelled = false;
+    loadReachablePiers(anchorId, activeField === 'destination' ? 'from' : 'to', lakeId).then((ids) => {
+      if (!cancelled) setReachableIds(ids ?? undefined);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [activeField, origin.id, destination.id, lakeId]);
+
   // Once a search has been made the form folds up. Whatever tab it was on, it must reopen on
   // the origin/destination tab when the rider taps the summary, not on date and time.
   useEffect(() => {
@@ -185,13 +206,13 @@ export function SearchForm({
     setTyped(text);
     if (!text.trim()) return;
     const excludeId = (field === 'origin' ? destination.id : origin.id) || undefined;
-    const matches = searchPiers(lakeId, text, excludeId);
+    const matches = searchPiers(lakeId, text, excludeId, reachableIds);
     if (matches.length === 1 && isExactPierName(matches[0], text)) pick(field, matches[0]);
   }
 
   function pickFirstMatch(field: Field) {
     const excludeId = (field === 'origin' ? destination.id : origin.id) || undefined;
-    const [first] = searchPiers(lakeId, typed ?? '', excludeId);
+    const [first] = searchPiers(lakeId, typed ?? '', excludeId, reachableIds);
     if (first) pick(field, first);
   }
 
@@ -298,6 +319,7 @@ export function SearchForm({
                   align={activeField === 'origin' ? 'left' : 'right'}
                   query={typed ?? ''}
                   excludeId={(activeField === 'origin' ? destination.id : origin.id) || undefined}
+                  reachableIds={reachableIds}
                   onPick={(pier) => pick(activeField, pier)}
                 />
               )}
