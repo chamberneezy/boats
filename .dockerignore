@@ -1,0 +1,9 @@
+.git
+node_modules
+dist
+pipeline/.cache
+pipeline/out
+public
+*.md
+.claude
+.cursor
