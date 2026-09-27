@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "lakeId": "lake-lucerne",
+  "generatedAt": "2026-09-27T14:50:05.363Z",
+  "source": "https://www.lakelucerne.ch/de/informationen/fahrplan-schiffseinsaetze/",
+  "vessels": {
+    "path": "vessels.f70f946653ea.json",
+    "sha256": "f70f946653ea177cc82acdf3d3733172d5e4b61d14f3105a7576ea375fd93e74",
+    "bytes": 91888
+  }
+}

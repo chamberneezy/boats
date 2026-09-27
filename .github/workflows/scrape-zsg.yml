@@ -1,0 +1,49 @@
+name: Scrape ZSG boat deployments
+
+on:
+  schedule:
+    - cron: '30 5 * * *' # 07:30 Europe/Zurich (CEST); 06:30 once DST ends
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# Shared with the other scrapers (scrape-sgv.yml, scrape-cgn.yml, check-zsg-traffic.yml): they all
+# commit to main on their own schedule, only ~10-20 minutes apart, and each can run long enough to
+# overlap the next one. Queues them instead of letting two pushes race (one wins, the other gets a
+# non-fast-forward rejection and its scrape is lost for the day).
+concurrency:
+  group: scraper-git-push
+  cancel-in-progress: false
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Full history, not the default shallow clone: the retry loop below rebases onto
+          # origin/main if another scraper pushed first, which needs real history to work with.
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm ci
+      - run: npm run scrape:zsg
+      # Only ever stages the scraper's own output files - never anything hand-edited.
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/scraped/zsg-fleet.json src/data/scraped/zsg-allocations.json src/data/scraped/zsg-trips.json
+          if git diff --cached --quiet; then
+            echo "No change to commit."
+          else
+            git commit -m "Daily ZSG deployments scrape"
+            # Belt-and-suspenders alongside the concurrency group above, in case something else
+            # (a manual push, a person) touched main in between.
+            for attempt in 1 2 3; do
+              git pull --rebase origin main && git push && break
+              [ "$attempt" = 3 ] && exit 1
+              sleep $((attempt * 5))
+            done
+          fi

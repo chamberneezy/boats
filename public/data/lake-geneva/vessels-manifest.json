@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "lakeId": "lake-geneva",
+  "generatedAt": "2026-09-27T14:50:05.683Z",
+  "source": "https://qr.cgn.ch/",
+  "vessels": {
+    "path": "vessels.a11bc97a23a2.json",
+    "sha256": "a11bc97a23a2057a715e2ecca8bc2d951737109453d47afa3c973363e7e808fd",
+    "bytes": 16638
+  }
+}

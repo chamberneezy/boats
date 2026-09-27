@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "lakeId": "lake-zurich",
+  "generatedAt": "2026-09-27T14:50:05.524Z",
+  "source": "https://einsatzderschiffe.zsg.ch/",
+  "vessels": {
+    "path": "vessels.8d3e9cecbf5a.json",
+    "sha256": "8d3e9cecbf5a2d27c3e66d455189c23715d2bec82bc769a0670ff7b9aa5552d6",
+    "bytes": 8957
+  }
+}

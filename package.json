@@ -13,6 +13,7 @@
     "check:zsg-traffic": "node scripts/check-zsg-traffic.mjs",
     "preview": "vite preview",
     "build:data": "node --disable-warning=ExperimentalWarning pipeline/build-data.ts",
+    "build:vessels": "node --disable-warning=ExperimentalWarning pipeline/build-vessels.ts",
     "test:data": "node --disable-warning=ExperimentalWarning --test \"pipeline/tests/*.test.ts\""
   },
   "dependencies": {

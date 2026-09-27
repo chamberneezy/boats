@@ -21,7 +21,7 @@ const RETRY_AFTER_FAILURE_MS = 60_000;
 // Where the per-lake data packages are served from. Set `VITE_DATA_BASE_URL` (build-time) to a
 // CDN/bucket base so devices read the packages from there; left unset it falls back to the
 // site-relative `/data` path (used in dev and as a safety net). A trailing slash is enforced.
-const DATA_BASE_URL = (() => {
+export const DATA_BASE_URL = (() => {
   const configured = import.meta.env.VITE_DATA_BASE_URL?.trim();
   const base = configured || `${import.meta.env.BASE_URL}data`;
   return base.endsWith('/') ? base : `${base}/`;

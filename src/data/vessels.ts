@@ -47,7 +47,7 @@
 //   by scripts/scrape-cgn.mjs into src/data/scraped/cgn-allocations.json and matched in
 //   src/utils/vesselResolver.ts via `cgnRawForm`/`CGN_VESSEL_BY_RAW_NAME`.
 
-import type { Vessel } from '../types';
+import type { Vessel } from '../types.ts';
 
 export const VESSELS: Record<string, Vessel> = {
   'ms-diamant': {

@@ -1,9 +1,10 @@
+import { useSyncExternalStore } from 'react';
 import { ArrowRight, ExternalLink, TriangleAlert } from 'lucide-react';
 import { hasMultiplePiers, lakeIdForPier, pierLabel } from '../piers';
 import { shopTicketUrl } from '../shopLink';
 import type { BoatConnection, Section, StopTime, Vessel } from '../types';
 import { formatTime, timestampToDateTimeParts } from '../utils';
-import { resolveVesselForJourney } from '../utils/vesselResolver';
+import { getVesselsVersion, resolveVesselForJourney, subscribeVessels } from '../utils/vesselResolver';
 import { Button } from './Button';
 import { TripLegend } from './TripLegend';
 import { AmenityIcon, CategoryIcon, categoryInfo } from './CategoryPill';
@@ -89,6 +90,11 @@ interface TripDetailsProps {
 }
 
 export function TripDetails({ entry, onBack }: TripDetailsProps) {
+  // resolveVesselForJourney reads a synchronous cache that fills in async, after this component's
+  // first render (see src/timetable/vesselsClient.ts) - this just re-renders once it does, so a
+  // boat name that arrives a moment later actually shows up instead of staying blank all trip.
+  useSyncExternalStore(subscribeVessels, getVesselsVersion, getVesselsVersion);
+
   const first = entry.boatSections[0];
   const last = entry.boatSections[entry.boatSections.length - 1];
 

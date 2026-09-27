@@ -86,3 +86,42 @@ export interface TimetableManifest {
   source: { name: string; feed: string };
   timetable: { path: string; sha256: string; bytes: number };
 }
+
+// Which boat sails which trip, published alongside the timetable so every client - web, iOS,
+// Android - gets it the same way instead of it being baked into one platform's build. Same
+// contract rules as TimetablePackage above: never change a field's meaning, bump
+// VESSELS_SCHEMA_VERSION instead.
+export const VESSELS_SCHEMA_VERSION = 1;
+
+export interface VesselInfo {
+  id: string; // e.g. "ms-diamant"
+  name: string; // e.g. "MS Diamant"
+  eni: string; // European Vessel Identification Number, '' when not published
+  type: 'motor' | 'steam' | 'catamaran';
+  lines: string[]; // lines the boat is known to serve, e.g. ["BAT 3600"]; [] = not published
+  amenities: string[]; // AmenityTag values (see src/types.ts) - kept as string[] here so this
+  // package format has no dependency on the app's own UI types
+  description: string;
+}
+
+export interface VesselsPackage {
+  schemaVersion: typeof VESSELS_SCHEMA_VERSION;
+  lakeId: string;
+  source: string; // where the boat-to-trip assignments come from, e.g. a scraper's SOURCE_URL
+  // Only the vessels that actually operate on this lake - never the full cross-lake catalog.
+  catalog: Record<string, VesselInfo>; // vessel id -> info
+  // Kurs-to-boat assignments, already resolved to catalog ids: every client does one map lookup,
+  // never re-implements an operator's own name spelling quirks (prefix-stripping, accent-folding,
+  // etc.) - that matching happens once, here, at publish time. YYYY-MM-DD -> Kurs number (no
+  // leading zeros) -> vessel id. A day/Kurs absent here means not known, never guessed.
+  allocations: Record<string, Record<string, string>>;
+}
+
+// Small file next to the vessels package, same role as TimetableManifest above.
+export interface VesselsManifest {
+  schemaVersion: typeof VESSELS_SCHEMA_VERSION;
+  lakeId: string;
+  generatedAt: string;
+  source: string;
+  vessels: { path: string; sha256: string; bytes: number };
+}
