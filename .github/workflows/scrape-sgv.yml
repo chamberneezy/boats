@@ -8,11 +8,23 @@ on:
 permissions:
   contents: write
 
+# Shared with the other two scrapers (scrape-cgn.yml, check-zsg-traffic.yml): they all commit to
+# main on their own schedule, only ~20 minutes apart, and each can run long enough to overlap the
+# next one. Queues them instead of letting two pushes race (one wins, the other gets a
+# non-fast-forward rejection and its scrape is lost for the day).
+concurrency:
+  group: scraper-git-push
+  cancel-in-progress: false
+
 jobs:
   scrape:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Full history, not the default shallow clone: the retry loop below rebases onto
+          # origin/main if another scraper pushed first, which needs real history to work with.
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 24
@@ -27,5 +39,11 @@ jobs:
             echo "No change to commit."
           else
             git commit -m "Daily SGV deployments scrape"
-            git push
+            # Belt-and-suspenders alongside the concurrency group above, in case something else
+            # (a manual push, a person) touched main in between.
+            for attempt in 1 2 3; do
+              git pull --rebase origin main && git push && break
+              [ "$attempt" = 3 ] && exit 1
+              sleep $((attempt * 5))
+            done
           fi
