@@ -40,7 +40,7 @@
 - `/` Home, `/schedules`, `/search/lake-lucerne`, `/search/lake-lucerne?from=&to=&date=&time=` (results), `/trip/lake-lucerne?from=&to=&dep=` (one sailing). The scheme is provisional; the owner will specify the final one.
 - The URL is the source of truth for search state; each trip is its own history entry; back/forward restore results without refetching.
 - GitHub Pages needs `public/404.html` plus the redirect script in `index.html`; remove both once hosting rewrites all paths to `index.html`.
-- Schedules: Lake Lucerne uses real stationboard departures (one row per destination); other lakes use `src/data/sampleSchedules.ts`.
+- Schedules: every active lake (`active: true` in `src/lakes.ts` — Lucerne, Geneva, Zurich) uses real stationboard departures from its hub pier (one row per destination, `SchedulesPage.tsx`'s `HubDepartures`, branches on `lake.active`); inactive lakes use `src/data/sampleSchedules.ts`.
 
 ## Screens
 - Home opens with `SplashHero` at every size: full-width, full-screen owner photo (edge to edge; the copy and nav line up with the centred 1440px page container; the zoom shrinks on screens wider than ~2100px so the 2576px photo is never enlarged past its real size), transparent header floating over it (white, soft top shade, scrolls away with it), shutter doors, hero headline, rule, tag line, then a "Select your lake" button that scrolls to the lakes. Motion is ported from the Lacus Splash v2 design (`src/splash/timeline.ts`); plays once per session, skipped for reduced motion.
