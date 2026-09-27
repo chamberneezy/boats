@@ -1,11 +1,17 @@
-// Searches a lake's timetable package on the device: direct boats and connections with one
-// change. Pure functions, no network and no DOM, so the same rules can be re-implemented (and
+// Searches a lake's timetable package on the device: direct boats and connections with up to two
+// changes. Pure functions, no network and no DOM, so the same rules can be re-implemented (and
 // tested against the same cases) in Swift and Kotlin for the native apps.
 
 import type { TimetablePackage, TimetableTrip } from './types.ts';
 
 const DAY_MS = 86_400_000;
 const DAY_SECONDS = 86_400;
+// How many further changes a search may use beyond the first boat. Journeys some lakes only serve
+// well via a scenic loop route (a change here doesn't mean a shuttle missed - it can be the only
+// way to a genuinely faster boat) need this to find their best connection at all: verified on
+// Lake Geneva, where the public API's fastest Ouchy-Montreux option needs two changes and a
+// one-change search misses it entirely in favor of a much slower one-change alternative.
+const MAX_CHANGES = 2;
 
 export interface SearchQuery {
   from: string; // pier id
@@ -156,40 +162,41 @@ function findForDay(index: SearchIndex, from: string, to: string, date: string, 
   }
   const found: Itinerary[] = [];
 
-  for (const visit of index.visitsByStop.get(from) ?? []) {
-    for (const first of (candidates.get(visit.trip.id) ?? []).filter((candidate) => !candidate.secondLegOnly)) {
-      const departure = first.trip.stops[visit.position][2] + first.offset;
-      if (departure < afterSec || visit.position === first.trip.stops.length - 1) continue;
+  // Every itinerary onward from `atStop`, appended to `legsSoFar`, using up to `changesLeft` more
+  // changes. Explores every viable branch rather than keeping only the single best option at each
+  // change point, so a genuinely faster itinerary with more changes is never hidden behind a
+  // slower one with fewer - dominated itineraries are filtered once at the very end instead.
+  function extend(atStop: string, earliestDeparture: number, latestDeparture: number, legsSoFar: Leg[], changesLeft: number, isFirstLeg: boolean): void {
+    for (const visit of index.visitsByStop.get(atStop) ?? []) {
+      for (const candidate of candidates.get(visit.trip.id) ?? []) {
+        if (isFirstLeg && candidate.secondLegOnly) continue;
+        if (legsSoFar.some((leg) => leg.tripId === candidate.trip.id)) continue; // never re-board the same run
+        const departure = candidate.trip.stops[visit.position][2] + candidate.offset;
+        if (departure < earliestDeparture || departure > latestDeparture || visit.position === candidate.trip.stops.length - 1) continue;
 
-      // Direct.
-      const target = positionOf(index, first.trip, to, visit.position);
-      if (target >= 0) found.push(itineraryOf([makeLeg(index, first, visit.position, target)]));
+        const target = positionOf(index, candidate.trip, to, visit.position);
+        if (target >= 0) found.push(itineraryOf([...legsSoFar, makeLeg(index, candidate, visit.position, target)]));
 
-      // One change: ride on to a later stop, then take a different trip from there to the destination.
-      for (let k = visit.position + 1; k < first.trip.stops.length; k++) {
-        const changeStop = index.stopIds[first.trip.stops[k][0]];
-        if (changeStop === to || changeStop === from) continue;
-        const arrival = first.trip.stops[k][1] + first.offset;
-        const minWait = (settings.transferMinutesByStop[changeStop] ?? settings.minTransferMinutes) * 60;
-        let best: { candidate: Candidate; position: number; target: number; departure: number } | null = null;
-        for (const change of index.visitsByStop.get(changeStop) ?? []) {
-          for (const second of candidates.get(change.trip.id) ?? []) {
-            if (second.trip.id === first.trip.id && second.offset === first.offset) continue;
-            const secondDeparture = second.trip.stops[change.position][2] + second.offset;
-            if (secondDeparture < arrival + minWait || secondDeparture - arrival > settings.maxWaitMinutes * 60) continue;
-            const secondTarget = positionOf(index, second.trip, to, change.position);
-            if (secondTarget < 0) continue;
-            if (!best || secondDeparture < best.departure) {
-              best = { candidate: second, position: change.position, target: secondTarget, departure: secondDeparture };
-            }
-          }
-        }
-        if (best) {
-          found.push(itineraryOf([makeLeg(index, first, visit.position, k), makeLeg(index, best.candidate, best.position, best.target)]));
+        if (changesLeft === 0) continue;
+        for (let k = visit.position + 1; k < candidate.trip.stops.length; k++) {
+          const changeStop = index.stopIds[candidate.trip.stops[k][0]];
+          if (changeStop === to || changeStop === from || changeStop === atStop) continue;
+          const arrival = candidate.trip.stops[k][1] + candidate.offset;
+          const minWait = (settings.transferMinutesByStop[changeStop] ?? settings.minTransferMinutes) * 60;
+          extend(
+            changeStop,
+            arrival + minWait,
+            arrival + settings.maxWaitMinutes * 60,
+            [...legsSoFar, makeLeg(index, candidate, visit.position, k)],
+            changesLeft - 1,
+            false,
+          );
         }
       }
     }
   }
+
+  extend(from, afterSec, Infinity, [], MAX_CHANGES, true);
 
   const unique = new Map<string, Itinerary>();
   for (const itinerary of found) {
@@ -238,7 +245,6 @@ export function findItineraries(index: SearchIndex, query: SearchQuery): Itinera
 // transfer-time and max-wait rules aren't applied here), so it only ever hides destinations that
 // are truly never connected, never one that merely isn't reachable today.
 function reachableIds(index: SearchIndex, id: string, forward: boolean): Set<string> {
-  const direct = new Set<string>();
   const addOnwardStops = (visit: Visit, into: Set<string>) => {
     const { trip, position } = visit;
     if (forward) {
@@ -247,22 +253,29 @@ function reachableIds(index: SearchIndex, id: string, forward: boolean): Set<str
       for (let p = 0; p < position; p++) into.add(index.stopIds[trip.stops[p][0]]);
     }
   };
-  for (const visit of index.visitsByStop.get(id) ?? []) addOnwardStops(visit, direct);
 
-  const result = new Set(direct);
-  for (const changeStop of direct) {
-    for (const visit of index.visitsByStop.get(changeStop) ?? []) addOnwardStops(visit, result);
+  // One round per boat: round 0 is direct, each further round is one more change - matches
+  // MAX_CHANGES so a suggestion is never hidden for a pair the real search actually can connect.
+  let frontier = new Set<string>([id]);
+  const result = new Set<string>();
+  for (let round = 0; round <= MAX_CHANGES; round++) {
+    const next = new Set<string>();
+    for (const stop of frontier) {
+      for (const visit of index.visitsByStop.get(stop) ?? []) addOnwardStops(visit, next);
+    }
+    for (const stop of next) result.add(stop);
+    frontier = next;
   }
   result.delete(id);
   return result;
 }
 
-/** Every stop reachable from `from`, direct or with one change (see `reachableIds`). */
+/** Every stop reachable from `from`, direct or up to two changes (see `reachableIds`). */
 export function reachableFromStop(index: SearchIndex, from: string): Set<string> {
   return reachableIds(index, from, true);
 }
 
-/** Every stop that can reach `to`, direct or with one change (see `reachableIds`). */
+/** Every stop that can reach `to`, direct or up to two changes (see `reachableIds`). */
 export function stopsReaching(index: SearchIndex, to: string): Set<string> {
   return reachableIds(index, to, false);
 }

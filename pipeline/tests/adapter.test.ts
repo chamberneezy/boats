@@ -49,12 +49,16 @@ test('a connection with a change is continuous in place and time', { skip: ready
   const found = findItineraries(index, { from: '8508464', to: '8508488', date: '2026-09-22', afterSec: 10 * 3600, limit: 3 }); // Vitznau -> Küssnacht
   const connections = toConnections(pkg, '2026-09-22', found);
   assert.ok(connections.length > 0);
+  assert.ok(connections.some((connection) => connection.sections.length > 1)); // the point of this test
   for (const connection of connections) {
-    assert.equal(connection.sections.length, 2);
-    const [a, b] = connection.sections;
-    assert.equal(a.arrival.station.id, b.departure.station.id); // changes boats where the first one lands
-    assert.ok((b.departure.departureTimestamp ?? 0) >= (a.arrival.arrivalTimestamp ?? Infinity) + 5 * 60);
-    assert.equal(connection.to.arrivalTimestamp, b.arrival.arrivalTimestamp);
+    assert.ok(connection.sections.length >= 1 && connection.sections.length <= 3); // direct, one or two changes
+    for (let i = 1; i < connection.sections.length; i++) {
+      const [a, b] = [connection.sections[i - 1], connection.sections[i]];
+      assert.equal(a.arrival.station.id, b.departure.station.id); // changes boats where the previous one lands
+      assert.ok((b.departure.departureTimestamp ?? 0) >= (a.arrival.arrivalTimestamp ?? Infinity) + 5 * 60);
+    }
+    const last = connection.sections[connection.sections.length - 1];
+    assert.equal(connection.to.arrivalTimestamp, last.arrival.arrivalTimestamp);
   }
 });
 

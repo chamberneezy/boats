@@ -126,7 +126,7 @@ export async function packageConnections(
 
 /**
  * Every pier the package's search could ever connect `pierId` to (as origin if `direction` is
- * 'from', as destination if 'to'), direct or with one change - for filtering pier suggestions,
+ * 'from', as destination if 'to'), direct or up to two changes - for filtering pier suggestions,
  * not a real search. Null only when the package itself isn't loaded/known yet; callers should
  * then leave suggestions unfiltered rather than treat it as "nothing is reachable".
  */

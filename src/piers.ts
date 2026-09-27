@@ -219,7 +219,7 @@ export function isExactPierName(pier: PierOption, text: string): boolean {
 // excludeId is the pier already chosen in the *other* field (origin when searching
 // destinations, or vice versa) - it can't also be selected here. reachableIds, when given,
 // further narrows the pool to piers the timetable can actually connect to/from that other
-// field's pier (direct or one change) - so a route with no boat between two real piers never
+// field's pier (direct or up to two changes, matching the real search) - so a route with no boat between two real piers never
 // shows up as a suggestion in the first place. Undefined (not just loaded yet, or no other
 // field chosen) means don't filter, same as before this existed.
 export function searchPiers(lakeId: string, query: string, excludeId?: string, reachableIds?: Set<string>): PierOption[] {
