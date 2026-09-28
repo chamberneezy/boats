@@ -29,6 +29,7 @@ interface SearchFormProps {
 }
 
 const FIELD_PLACEHOLDER = 'Select a pier';
+const EMPTY_PIER: PierOption = { id: '', name: '' };
 
 interface PierPickerProps {
   lakeId: string;
@@ -178,6 +179,16 @@ export function SearchForm({
     setTyped(null);
   }
 
+  // Leaving a field the rider cleared (backspaced to empty) but never picked a new pier in must
+  // actually clear it, not silently snap back to whatever was selected before - otherwise
+  // deleting the destination and tapping Origin looks like it did nothing.
+  function handleBlur(field: Field) {
+    if (typed !== null && !typed.trim()) {
+      (field === 'origin' ? onOriginChange : onDestinationChange)(EMPTY_PIER);
+    }
+    closePicker();
+  }
+
   function openField(field: Field) {
     setActiveField(field);
     setTyped(null);
@@ -282,7 +293,7 @@ export function SearchForm({
                   draft={activeField === 'origin' ? (typed ?? origin.name) : null}
                   inputRef={originInputRef}
                   onFocus={() => openField('origin')}
-                  onBlur={closePicker}
+                  onBlur={() => handleBlur('origin')}
                   onDraftChange={(text) => handleTyping('origin', text)}
                   onEnter={() => pickFirstMatch('origin')}
                   onEscape={closePicker}
@@ -305,7 +316,7 @@ export function SearchForm({
                   draft={activeField === 'destination' ? (typed ?? destination.name) : null}
                   inputRef={destinationInputRef}
                   onFocus={() => openField('destination')}
-                  onBlur={closePicker}
+                  onBlur={() => handleBlur('destination')}
                   onDraftChange={(text) => handleTyping('destination', text)}
                   onEnter={() => pickFirstMatch('destination')}
                   onEscape={closePicker}
