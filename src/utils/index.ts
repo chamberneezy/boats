@@ -20,7 +20,9 @@ export function formatDuration(duration: string): string {
   return `${minutes}min`;
 }
 
-export const BOAT_CATEGORIES = new Set(['BAT', 'BAV']);
+// FAE = car ferry (Zurich's Horgen-Meilen, Lucerne's Beckenried-Gersau, Constance's
+// Friedrichshafen-Romanshorn) - foot passengers ride these too, not just vehicles.
+export const BOAT_CATEGORIES = new Set(['BAT', 'BAV', 'FAE']);
 
 // Today, now, and the parts of a timestamp are all in Swiss time (see timetable/zurich.ts).
 export const todayDateString = (): string => zurichNow().date;

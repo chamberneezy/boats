@@ -20,20 +20,27 @@ export interface LakeConfig {
 export const LAKES: Record<string, LakeConfig> = {
   'lake-lucerne': {
     id: 'lake-lucerne',
+    // SGV itself is agency_id 185 ("Vierwaldstättersee"). The Beckenried<->Gersau car ferry is a
+    // completely separate, unrelated agency - "Fähre Beckenried-Gersau" (3190), no shared name
+    // substring - so it needs the same agencyId-array treatment as lake-constance. Added
+    // 2026-09-28: foot passengers ride this ferry too, not just vehicles.
     agencyNameIncludes: 'Vierwaldstättersee',
-    boatCategories: ['BAT', 'BAV'],
+    agencyId: ['185', '3190'],
+    boatCategories: ['BAT', 'BAV', 'FAE'],
     minTransferMinutes: 5,
-    maxWaitMinutes: 960,
+    maxWaitMinutes: 120,
     transferMinutesByStop: {},
   },
   'lake-zurich': {
     id: 'lake-zurich',
-    // Matches "Zürichsee-Schifffahrtsgesellschaft AG (ZSG)" (agency_id 194), not the separate
-    // "Zürichsee-Fähre Horgen-Meilen AG" car ferry operator.
-    agencyNameIncludes: 'Zürichsee-Schifffahrtsgesellschaft',
-    boatCategories: ['BAT'], // No BAV (paddle steamer) route_desc is published for this operator.
+    // Matches "Zürichsee-Schifffahrtsgesellschaft AG (ZSG)" (agency_id 194) AND (by the same
+    // "Zürichsee-" prefix) "Zürichsee-Fähre Horgen-Meilen AG" (agency_id 196), the Horgen<->Meilen
+    // car ferry - included on purpose since 2026-09-28 (foot passengers ride it too), not the
+    // naming near-miss this comment used to warn about.
+    agencyNameIncludes: 'Zürichsee-',
+    boatCategories: ['BAT', 'FAE'], // No BAV (paddle steamer) route_desc is published for either operator.
     minTransferMinutes: 5,
-    maxWaitMinutes: 960,
+    maxWaitMinutes: 120,
     transferMinutesByStop: {},
   },
   'lake-geneva': {
@@ -44,7 +51,7 @@ export const LAKES: Record<string, LakeConfig> = {
     agencyNameIncludes: 'CGN',
     boatCategories: ['BAT'], // No BAV (paddle steamer) route_desc is published for this operator either.
     minTransferMinutes: 5,
-    maxWaitMinutes: 960,
+    maxWaitMinutes: 120,
     transferMinutesByStop: {},
   },
   'lake-zug': {
@@ -54,7 +61,7 @@ export const LAKES: Record<string, LakeConfig> = {
     agencyNameIncludes: 'Schifffahrtsgesellschaft für den Zugersee',
     boatCategories: ['BAT'],
     minTransferMinutes: 5,
-    maxWaitMinutes: 960,
+    maxWaitMinutes: 120,
     transferMinutesByStop: {},
   },
   'lake-thun': {
@@ -65,7 +72,7 @@ export const LAKES: Record<string, LakeConfig> = {
     agencyNameIncludes: 'BLS Schifffahrt AG (ths)',
     boatCategories: ['BAT'],
     minTransferMinutes: 5,
-    maxWaitMinutes: 960,
+    maxWaitMinutes: 120,
     transferMinutesByStop: {},
   },
   'lake-brienz': {
@@ -74,7 +81,7 @@ export const LAKES: Record<string, LakeConfig> = {
     agencyNameIncludes: 'BLS Schifffahrt AG (brs)',
     boatCategories: ['BAT'],
     minTransferMinutes: 5,
-    maxWaitMinutes: 960,
+    maxWaitMinutes: 120,
     transferMinutesByStop: {},
   },
   'lake-biel': {
@@ -89,7 +96,7 @@ export const LAKES: Record<string, LakeConfig> = {
     agencyNameIncludes: 'Bielersee-Schifffahrts-Gesellschaft',
     boatCategories: ['BAT'],
     minTransferMinutes: 5,
-    maxWaitMinutes: 960,
+    maxWaitMinutes: 120,
     transferMinutesByStop: {},
   },
   'lake-neuchatel': {
@@ -104,7 +111,7 @@ export const LAKES: Record<string, LakeConfig> = {
     agencyNameIncludes: 'Lacs de Neuchâtel et Morat',
     boatCategories: ['BAT'],
     minTransferMinutes: 5,
-    maxWaitMinutes: 960,
+    maxWaitMinutes: 120,
     transferMinutesByStop: {},
   },
   'lake-murten': {
@@ -113,7 +120,7 @@ export const LAKES: Record<string, LakeConfig> = {
     agencyNameIncludes: 'Lacs de Neuchâtel et Morat',
     boatCategories: ['BAT'],
     minTransferMinutes: 5,
-    maxWaitMinutes: 960,
+    maxWaitMinutes: 120,
     transferMinutesByStop: {},
   },
   'lake-lugano': {
@@ -130,7 +137,7 @@ export const LAKES: Record<string, LakeConfig> = {
     agencyId: '188',
     boatCategories: ['BAT'],
     minTransferMinutes: 5,
-    maxWaitMinutes: 960,
+    maxWaitMinutes: 120,
     transferMinutesByStop: {},
   },
   'lake-maggiore': {
@@ -149,7 +156,7 @@ export const LAKES: Record<string, LakeConfig> = {
     agencyId: '190',
     boatCategories: ['BAT'],
     minTransferMinutes: 5,
-    maxWaitMinutes: 960,
+    maxWaitMinutes: 120,
     transferMinutesByStop: {},
   },
   'lake-constance': {
@@ -159,13 +166,13 @@ export const LAKES: Record<string, LakeConfig> = {
     // Austria -> Germany); "Bodensee-Schiffsbetriebe GmbH" (360) covers the rest of the German
     // shore, overlapping 195 at several ports. Together they give full international coverage,
     // confirmed 2026-09-28 - not the partial Swiss-only slice originally assumed. Both agencies
-    // also publish a Friedrichshafen<->Romanshorn car-ferry route (route_desc "FAE") - excluded
-    // automatically by boatCategories below, same as any other non-passenger-boat route type.
+    // also publish a Friedrichshafen<->Romanshorn car-ferry route (route_desc "FAE") - included
+    // since 2026-09-28 (foot passengers ride it too), same fix as Zurich and Lucerne's ferries.
     agencyNameIncludes: 'Bodensee-Schifffahrt',
     agencyId: ['195', '360'],
-    boatCategories: ['BAT'],
+    boatCategories: ['BAT', 'FAE'],
     minTransferMinutes: 5,
-    maxWaitMinutes: 960,
+    maxWaitMinutes: 120,
     transferMinutesByStop: {},
   },
 };

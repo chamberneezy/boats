@@ -39,6 +39,10 @@ export const ALL_LAKE_LUCERNE_PIERS: PierOption[] = [
   { id: '8508459', name: 'Verkehrshaus', fullName: 'Verkehrshaus-Lido' },
   { id: '8508464', name: 'Vitznau' },
   { id: '8508463', name: 'Weggis', has_multiple_piers: true },
+  // Beckenried<->Gersau car ferry (agency 3190, added 2026-09-28) - a different landing from the
+  // regular SGV piers at the same towns above, hence the "Fähre" disambiguator.
+  { id: '8530721', name: 'Beckenried Fähre', fullName: 'Beckenried Niederdorf (Fähre)' },
+  { id: '8530722', name: 'Gersau Fähre', fullName: 'Gersau Förstli (Fähre)' },
 ];
 
 // Verified Zürichsee (Lake Zurich) boat piers served by ZSG (Zürichsee-Schifffahrtsgesellschaft,
@@ -80,6 +84,10 @@ export const ALL_LAKE_ZURICH_PIERS: PierOption[] = [
   { id: '8503681', name: 'Wollishofen', fullName: 'Zürich Wollishofen (See)' },
   { id: '8503655', name: 'Zollikon', fullName: 'Zollikon (See)' },
   { id: '8503653', name: 'Zürichhorn', fullName: 'Zürichhorn (See)' },
+  // Horgen<->Meilen car ferry (agency 196, added 2026-09-28) - separate landings ("Autoquai" =
+  // car pier) from the regular ZSG piers at Horgen and Meilen above.
+  { id: '8530643', name: 'Horgen Autoquai' },
+  { id: '8530644', name: 'Meilen Autoquai' },
 ];
 
 // Verified Lac Léman (Lake Geneva) boat piers served by CGN (Compagnie Générale de Navigation,
@@ -338,6 +346,10 @@ export const ALL_LAKE_CONSTANCE_PIERS: PierOption[] = [
   { id: '8014608', name: 'Unteruhldingen', fullName: 'Unteruhldingen (Bodensee)' },
   { id: '8530835', name: 'Uttwil', fullName: 'Uttwil (See)' },
   { id: '8014653', name: 'Wasserburg', fullName: 'Wasserburg Hafen (Bodensee)' },
+  // Friedrichshafen<->Romanshorn car ferry (added 2026-09-28) - separate landings from the
+  // regular Friedrichshafen and Romanshorn piers above.
+  { id: '8011121', name: 'Friedrichshafen Fähre' },
+  { id: '8506346', name: 'Romanshorn Autoquai' },
 ];
 
 const PIERS_BY_LAKE: Record<string, PierOption[]> = {

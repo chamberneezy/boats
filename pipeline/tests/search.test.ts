@@ -19,6 +19,13 @@ interface ApiCase {
   connections: { transfers: number; departureSec: number; arrivalSec: number; legs: ApiLeg[] }[];
 }
 
+// Kept in sync with pipeline/lakes.ts's maxWaitMinutes: we intentionally stop offering a
+// connection whose layover is longer than this, even when the public API itself offers one - a
+// 10+ hour wait at a lake pier is never a real option, whatever the API says.
+const MAX_WAIT_MINUTES = 120;
+const longestLayoverMinutes = (legs: ApiLeg[]) =>
+  Math.max(0, ...legs.slice(1).map((leg, i) => (leg.departureSec - legs[i].arrivalSec) / 60));
+
 const signature = (legs: ApiLeg[]) => legs.map((l) => `${l.from}>${l.to} ${l.line}/${l.kurs} ${l.departureSec}-${l.arrivalSec}`).join(' + ');
 const ours = (it: Itinerary) =>
   signature(it.legs.map((l) => ({ from: l.fromStopId, to: l.toStopId, line: l.line, kurs: l.kurs, departureSec: l.departureSec, arrivalSec: l.arrivalSec })));
@@ -34,7 +41,8 @@ test('search agrees with the public API', { skip: ready ? false : 'build the pac
   let total = 0;
   let exact = 0;
   const beaten: string[] = []; // API options that are strictly worse than one of ours: hiding them is intended
-  const missing: string[] = []; // API options we neither reproduce nor beat: real gaps
+  const excludedLongWait: string[] = []; // API options with a layover longer than we now allow: intentional, see MAX_WAIT_MINUTES
+  const missing: string[] = []; // API options we neither reproduce, beat, nor intentionally exclude: real gaps
   const missingDirect: string[] = [];
   const extraShortChange: string[] = []; // our connections that change faster than the API ever does
   const apiShortestChange = Math.min(
@@ -55,6 +63,10 @@ test('search agrees with the public API', { skip: ready ? false : 'build the pac
         beaten.push(line);
         continue;
       }
+      if (longestLayoverMinutes(api.legs) > MAX_WAIT_MINUTES) {
+        excludedLongWait.push(line);
+        continue;
+      }
       missing.push(line);
       if (api.transfers === 0) missingDirect.push(line);
     }
@@ -65,7 +77,10 @@ test('search agrees with the public API', { skip: ready ? false : 'build the pac
       if (wait < apiShortestChange) extraShortChange.push(`${c.label} ${c.date} ${c.time}: change of ${wait} min`);
     }
   }
-  console.log(`${total} API connections: ${exact} reproduced exactly, ${beaten.length} beaten by a better option of ours (hidden on purpose), ${missing.length} real gaps`);
+  console.log(
+    `${total} API connections: ${exact} reproduced exactly, ${beaten.length} beaten by a better option of ours (hidden on purpose), ` +
+      `${excludedLongWait.length} excluded for a layover over ${MAX_WAIT_MINUTES} min (intentional), ${missing.length} real gaps`,
+  );
   console.log(`API's shortest change is ${apiShortestChange} min; connections of ours that change faster: ${extraShortChange.length}`);
   extraShortChange.slice(0, 6).forEach((m) => console.log('  SHORTER', m));
   missing.slice(0, 15).forEach((m) => console.log('  GAP', m));

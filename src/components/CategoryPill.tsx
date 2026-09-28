@@ -1,6 +1,7 @@
 import {
   Accessibility,
   ArrowUpDown,
+  Car,
   Coffee,
   Droplets,
   Flame,
@@ -27,8 +28,10 @@ interface CategoryPillProps {
   compactOnMobile?: boolean;
 }
 
-// The boat's kind as an icon and a name. A known boat's own type wins over the API's category.
+// The boat's kind as an icon and a name. A known boat's own type wins over the API's category -
+// car ferries are never in the vessel catalog, so this only ever applies when nothing is known.
 export function categoryInfo(category: string, vessel: Vessel | null = null): { label: string; Icon: LucideIcon } {
+  if (!vessel && category === 'FAE') return { label: 'Car ferry', Icon: Car };
   const isPaddleSteamer = vessel ? vessel.type === 'steam' : category === 'BAV';
   return isPaddleSteamer ? { label: 'Paddle steamer', Icon: PaddleSteamer } : { label: 'Motor vessel', Icon: Ship };
 }
