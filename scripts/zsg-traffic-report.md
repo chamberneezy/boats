@@ -1,3 +1,3 @@
 # ZSG traffic-conditions check
 
-No change — last checked 2026-09-27T10:14:45.157Z. Matches the previous snapshot.
+No change — last checked 2026-09-28T11:17:12.788Z. Matches the previous snapshot.
