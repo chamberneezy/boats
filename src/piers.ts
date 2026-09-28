@@ -359,6 +359,15 @@ const PIERS_BY_LAKE: Record<string, PierOption[]> = {
 // nationally, so lookups by id or official name never need to know which lake they're in.
 const ALL_PIERS: PierOption[] = Object.values(PIERS_BY_LAKE).flat();
 
+// A pier by id, not scoped to any lake - for code that already knows the id is valid (e.g.
+// rendering a pier's name for a query routes.ts already validated with findPierInLake) and
+// doesn't want to duplicate this list. Parsing a query from the URL must still use
+// findPierInLake, so a pier id from one lake's data is never accepted as valid for another
+// lake's search or trip page.
+export function findPier(id: string | null | undefined): PierOption | undefined {
+  return id ? PIERS_BY_ID.get(id) : undefined;
+}
+
 // Ordered by tourist popularity (not alphabetically), for the empty-state
 // dropdown and the quick-select chips.
 // First pass, not tourism-verified like the three lakes above (hub pier first, then a rough
