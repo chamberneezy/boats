@@ -125,3 +125,60 @@ export interface VesselsManifest {
   source: string;
   vessels: { path: string; sha256: string; bytes: number };
 }
+
+// How to build each lake's "Buy ticket" link - one file for every lake, hand-maintained in
+// src/data/shopLinks.json and published to the bucket root, so web, iOS and Android all render the
+// same links from the same data and a changed or new link needs no app release. Same contract
+// rules as above: never change a field's meaning, bump SHOP_LINKS_SCHEMA_VERSION instead.
+export const SHOP_LINKS_SCHEMA_VERSION = 1;
+
+// Placeholders a `search` rule's param values may contain. All times are Swiss (Europe/Zurich), for
+// the trip's first departure; `from` is that first departure's pier, `to` the last arrival's.
+//   {date} YYYY-MM-DD   {time} HH:MM
+//   {from.token} {to.token}        the pier's entry in `stations`
+//   {from.name} {to.name}          the rider-facing short pier name (pierLabel)
+//   {from.fullName} {to.fullName}  the official station name (pierFullName)
+// A value is sent as-is once placeholders are replaced. If any placeholder can't be filled (pier
+// not in `stations`, no full name, unknown placeholder), the link is `fallbackUrl`, or no link at
+// all (button disabled) when there is none.
+export const SHOP_LINK_PLACEHOLDERS = [
+  'date',
+  'time',
+  'from.token',
+  'to.token',
+  'from.name',
+  'to.name',
+  'from.fullName',
+  'to.fullName',
+] as const;
+
+export interface ShopLinkRule {
+  // Short name riders know the ticket issuer by ("SGV", "ZVV"); '' when there isn't one.
+  issuer: string;
+  // 'search': a link to this exact trip, `url` + `params` rendered as a query string.
+  // 'page': `url` as-is for every trip on the lake - the operator's ticket or timetable page,
+  // for shops that can't be deep-linked (see `note`).
+  kind: 'search' | 'page';
+  url: string;
+  // In order, [query param name, value template]; serialised like the browser's URLSearchParams
+  // (application/x-www-form-urlencoded: space -> '+', everything but A-Za-z0-9*-._ percent-encoded).
+  params?: [string, string][];
+  // Our pier id -> the operator's own station token, for {from.token}/{to.token}.
+  stations?: Record<string, string>;
+  fallbackUrl?: string;
+  // For humans: how this was verified, or why the lake has no trip link. Never shown to riders.
+  note: string;
+}
+
+export interface ShopLinksPackage {
+  schemaVersion: typeof SHOP_LINKS_SCHEMA_VERSION;
+  // Lake id -> rule. A lake that isn't here has no ticket link.
+  lakes: Record<string, ShopLinkRule>;
+}
+
+// Small file next to the shop-links package at the bucket root, same role as TimetableManifest.
+export interface ShopLinksManifest {
+  schemaVersion: typeof SHOP_LINKS_SCHEMA_VERSION;
+  generatedAt: string;
+  shopLinks: { path: string; sha256: string; bytes: number };
+}

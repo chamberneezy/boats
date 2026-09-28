@@ -1,0 +1,994 @@
+{
+  "generatedFrom": "src/timetable/shopLinkRender.ts",
+  "vectors": [
+    {
+      "description": "lake-lucerne: a trip between two popular piers",
+      "rule": {
+        "issuer": "SGV",
+        "kind": "search",
+        "url": "https://webshop.lakelucerne.ch/en/routing",
+        "params": [
+          [
+            "fromStation",
+            "{from.token}"
+          ],
+          [
+            "fromStationName",
+            "{from.name}"
+          ],
+          [
+            "toStation",
+            "{to.token}"
+          ],
+          [
+            "toStationName",
+            "{to.name}"
+          ],
+          [
+            "date",
+            "{date}"
+          ],
+          [
+            "time",
+            "{time}"
+          ],
+          [
+            "type",
+            "departure"
+          ]
+        ],
+        "stations": {
+          "8508463": "didok--Weggis+Schiffstation--8505670",
+          "8508492": "didok--Luzern--8508492"
+        },
+        "note": "SGV's own point-to-point shop. Tokens must be spelled exactly as the shop spells them (didok--fluelen--8508476 fills the field, SGV's own page's didok--Flueelen--8508476 does not); there is no rule, so it is a table, every entry checked in a real browser as origin and destination (2026-09-21). Weggis is the shop's Weggis Schiffstation (8505670), not our 8508463. Never use the shop's journeyId/routeId links: issued per search by its backend, not computable."
+      },
+      "trip": {
+        "from": {
+          "id": "8508492",
+          "name": "Luzern",
+          "fullName": "Luzern Bahnhofquai"
+        },
+        "to": {
+          "id": "8508463",
+          "name": "Weggis",
+          "fullName": "Weggis"
+        },
+        "date": "2026-07-15",
+        "time": "09:05"
+      },
+      "expected": "https://webshop.lakelucerne.ch/en/routing?fromStation=didok--Luzern--8508492&fromStationName=Luzern&toStation=didok--Weggis%2BSchiffstation--8505670&toStationName=Weggis&date=2026-07-15&time=09%3A05&type=departure"
+    },
+    {
+      "description": "lake-lucerne: departure pier has no token -> no link",
+      "rule": {
+        "issuer": "SGV",
+        "kind": "search",
+        "url": "https://webshop.lakelucerne.ch/en/routing",
+        "params": [
+          [
+            "fromStation",
+            "{from.token}"
+          ],
+          [
+            "fromStationName",
+            "{from.name}"
+          ],
+          [
+            "toStation",
+            "{to.token}"
+          ],
+          [
+            "toStationName",
+            "{to.name}"
+          ],
+          [
+            "date",
+            "{date}"
+          ],
+          [
+            "time",
+            "{time}"
+          ],
+          [
+            "type",
+            "departure"
+          ]
+        ],
+        "stations": {
+          "8508463": "didok--Weggis+Schiffstation--8505670"
+        },
+        "note": "SGV's own point-to-point shop. Tokens must be spelled exactly as the shop spells them (didok--fluelen--8508476 fills the field, SGV's own page's didok--Flueelen--8508476 does not); there is no rule, so it is a table, every entry checked in a real browser as origin and destination (2026-09-21). Weggis is the shop's Weggis Schiffstation (8505670), not our 8508463. Never use the shop's journeyId/routeId links: issued per search by its backend, not computable."
+      },
+      "trip": {
+        "from": {
+          "id": "9999999",
+          "name": "Somewhere"
+        },
+        "to": {
+          "id": "8508463",
+          "name": "Weggis",
+          "fullName": "Weggis"
+        },
+        "date": "2026-07-15",
+        "time": "09:05"
+      },
+      "expected": null
+    },
+    {
+      "description": "lake-lucerne: arrival pier has no token -> no link",
+      "rule": {
+        "issuer": "SGV",
+        "kind": "search",
+        "url": "https://webshop.lakelucerne.ch/en/routing",
+        "params": [
+          [
+            "fromStation",
+            "{from.token}"
+          ],
+          [
+            "fromStationName",
+            "{from.name}"
+          ],
+          [
+            "toStation",
+            "{to.token}"
+          ],
+          [
+            "toStationName",
+            "{to.name}"
+          ],
+          [
+            "date",
+            "{date}"
+          ],
+          [
+            "time",
+            "{time}"
+          ],
+          [
+            "type",
+            "departure"
+          ]
+        ],
+        "stations": {
+          "8508492": "didok--Luzern--8508492"
+        },
+        "note": "SGV's own point-to-point shop. Tokens must be spelled exactly as the shop spells them (didok--fluelen--8508476 fills the field, SGV's own page's didok--Flueelen--8508476 does not); there is no rule, so it is a table, every entry checked in a real browser as origin and destination (2026-09-21). Weggis is the shop's Weggis Schiffstation (8505670), not our 8508463. Never use the shop's journeyId/routeId links: issued per search by its backend, not computable."
+      },
+      "trip": {
+        "from": {
+          "id": "8508492",
+          "name": "Luzern",
+          "fullName": "Luzern Bahnhofquai"
+        },
+        "to": {
+          "id": "9999999",
+          "name": "Somewhere"
+        },
+        "date": "2026-07-15",
+        "time": "09:05"
+      },
+      "expected": null
+    },
+    {
+      "description": "lake-zurich: a trip between two popular piers",
+      "rule": {
+        "issuer": "ZVV",
+        "kind": "search",
+        "url": "https://www.zvv.ch/en/timetable-and-information/timetable.html",
+        "params": [
+          [
+            "tab",
+            "connections"
+          ],
+          [
+            "date",
+            "{date}"
+          ],
+          [
+            "time",
+            "{time}"
+          ],
+          [
+            "products",
+            "16"
+          ],
+          [
+            "fromname",
+            "{from.fullName}"
+          ],
+          [
+            "toname",
+            "{to.fullName}"
+          ]
+        ],
+        "fallbackUrl": "https://ticketshop.zvv.ch/home?0&lang=en",
+        "note": "ZSG sells no tickets of its own; its boats are ZVV zone fares (zsg.ch fares page, 2026-09-22). ZVV's timetable search takes official station names; each result has ZVV's own Buy ticket button already scoped to the right zones (checked in a browser, 2026-09-22). products=16 is ZVV's boats-only filter, copied from a real search. fallbackUrl only if a pier has no full name."
+      },
+      "trip": {
+        "from": {
+          "id": "8503651",
+          "name": "Bürkliplatz",
+          "fullName": "Zürich Bürkliplatz (See)"
+        },
+        "to": {
+          "id": "8503667",
+          "name": "Rapperswil",
+          "fullName": "Rapperswil SG (See)"
+        },
+        "date": "2026-07-15",
+        "time": "09:05"
+      },
+      "expected": "https://www.zvv.ch/en/timetable-and-information/timetable.html?tab=connections&date=2026-07-15&time=09%3A05&products=16&fromname=Z%C3%BCrich+B%C3%BCrkliplatz+%28See%29&toname=Rapperswil+SG+%28See%29"
+    },
+    {
+      "description": "lake-zurich: a pier with no official name -> fallbackUrl",
+      "rule": {
+        "issuer": "ZVV",
+        "kind": "search",
+        "url": "https://www.zvv.ch/en/timetable-and-information/timetable.html",
+        "params": [
+          [
+            "tab",
+            "connections"
+          ],
+          [
+            "date",
+            "{date}"
+          ],
+          [
+            "time",
+            "{time}"
+          ],
+          [
+            "products",
+            "16"
+          ],
+          [
+            "fromname",
+            "{from.fullName}"
+          ],
+          [
+            "toname",
+            "{to.fullName}"
+          ]
+        ],
+        "fallbackUrl": "https://ticketshop.zvv.ch/home?0&lang=en",
+        "note": "ZSG sells no tickets of its own; its boats are ZVV zone fares (zsg.ch fares page, 2026-09-22). ZVV's timetable search takes official station names; each result has ZVV's own Buy ticket button already scoped to the right zones (checked in a browser, 2026-09-22). products=16 is ZVV's boats-only filter, copied from a real search. fallbackUrl only if a pier has no full name."
+      },
+      "trip": {
+        "from": {
+          "id": "8503651",
+          "name": "Bürkliplatz",
+          "fullName": "Zürich Bürkliplatz (See)"
+        },
+        "to": {
+          "id": "9999999",
+          "name": "Somewhere"
+        },
+        "date": "2026-07-15",
+        "time": "09:05"
+      },
+      "expected": "https://ticketshop.zvv.ch/home?0&lang=en"
+    },
+    {
+      "description": "lake-geneva: a trip between two popular piers",
+      "rule": {
+        "issuer": "CGN",
+        "kind": "search",
+        "url": "https://www.cgn.ch/fr/trip/search/result/",
+        "params": [
+          [
+            "direction",
+            "1"
+          ],
+          [
+            "departure_date",
+            "{date}"
+          ],
+          [
+            "departure_station",
+            "{from.token}"
+          ],
+          [
+            "arrival_station",
+            "{to.token}"
+          ]
+        ],
+        "stations": {
+          "8501075": "LAUSA0",
+          "8501236": "GVEJA0"
+        },
+        "note": "CGN's Magento shop: a plain GET search, no session or CSRF token (requested directly 2026-09-28; station codes echoed back in the page's own later-departures link). Codes read from the shop's own station dropdown. No time param exists, so the link shows the whole day. Lugrin has no CGN code, so no link from/to it."
+      },
+      "trip": {
+        "from": {
+          "id": "8501236",
+          "name": "Jardin-Anglais",
+          "fullName": "Genève-Jardin-Anglais (lac)"
+        },
+        "to": {
+          "id": "8501075",
+          "name": "Ouchy",
+          "fullName": "Lausanne-Ouchy (lac)"
+        },
+        "date": "2026-07-15",
+        "time": "09:05"
+      },
+      "expected": "https://www.cgn.ch/fr/trip/search/result/?direction=1&departure_date=2026-07-15&departure_station=GVEJA0&arrival_station=LAUSA0"
+    },
+    {
+      "description": "lake-geneva: departure pier has no token -> no link",
+      "rule": {
+        "issuer": "CGN",
+        "kind": "search",
+        "url": "https://www.cgn.ch/fr/trip/search/result/",
+        "params": [
+          [
+            "direction",
+            "1"
+          ],
+          [
+            "departure_date",
+            "{date}"
+          ],
+          [
+            "departure_station",
+            "{from.token}"
+          ],
+          [
+            "arrival_station",
+            "{to.token}"
+          ]
+        ],
+        "stations": {
+          "8501075": "LAUSA0"
+        },
+        "note": "CGN's Magento shop: a plain GET search, no session or CSRF token (requested directly 2026-09-28; station codes echoed back in the page's own later-departures link). Codes read from the shop's own station dropdown. No time param exists, so the link shows the whole day. Lugrin has no CGN code, so no link from/to it."
+      },
+      "trip": {
+        "from": {
+          "id": "9999999",
+          "name": "Somewhere"
+        },
+        "to": {
+          "id": "8501075",
+          "name": "Ouchy",
+          "fullName": "Lausanne-Ouchy (lac)"
+        },
+        "date": "2026-07-15",
+        "time": "09:05"
+      },
+      "expected": null
+    },
+    {
+      "description": "lake-geneva: arrival pier has no token -> no link",
+      "rule": {
+        "issuer": "CGN",
+        "kind": "search",
+        "url": "https://www.cgn.ch/fr/trip/search/result/",
+        "params": [
+          [
+            "direction",
+            "1"
+          ],
+          [
+            "departure_date",
+            "{date}"
+          ],
+          [
+            "departure_station",
+            "{from.token}"
+          ],
+          [
+            "arrival_station",
+            "{to.token}"
+          ]
+        ],
+        "stations": {
+          "8501236": "GVEJA0"
+        },
+        "note": "CGN's Magento shop: a plain GET search, no session or CSRF token (requested directly 2026-09-28; station codes echoed back in the page's own later-departures link). Codes read from the shop's own station dropdown. No time param exists, so the link shows the whole day. Lugrin has no CGN code, so no link from/to it."
+      },
+      "trip": {
+        "from": {
+          "id": "8501236",
+          "name": "Jardin-Anglais",
+          "fullName": "Genève-Jardin-Anglais (lac)"
+        },
+        "to": {
+          "id": "9999999",
+          "name": "Somewhere"
+        },
+        "date": "2026-07-15",
+        "time": "09:05"
+      },
+      "expected": null
+    },
+    {
+      "description": "lake-lugano: a trip between two popular piers",
+      "rule": {
+        "issuer": "SNL",
+        "kind": "search",
+        "url": "https://ticket.lakelugano.ch/en/tickets",
+        "params": [
+          [
+            "departure_stop_id",
+            "{from.token}"
+          ],
+          [
+            "arrival_stop_id",
+            "{to.token}"
+          ],
+          [
+            "date",
+            "{date}"
+          ],
+          [
+            "time",
+            "{time}"
+          ]
+        ],
+        "stations": {
+          "8505550": "10",
+          "8505551": "13"
+        },
+        "note": "SNL's shop page reads departure_stop_id, arrival_stop_id, date and time off its own URL and runs the search (found in its JS bundle, 2026-09-28). Stop ids from its own GET /api/stops; confirmed by calling GET /api/trips with them (after POST /api/session) and getting real sailings and prices back. Cima, Gandria Confine, Oria, Osteno, Porlezza and S. Mamete never appear in /api/stops, so no link from/to them."
+      },
+      "trip": {
+        "from": {
+          "id": "8505550",
+          "name": "Lugano Centrale",
+          "fullName": "Lugano Centrale"
+        },
+        "to": {
+          "id": "8505551",
+          "name": "Gandria",
+          "fullName": "Gandria"
+        },
+        "date": "2026-07-15",
+        "time": "09:05"
+      },
+      "expected": "https://ticket.lakelugano.ch/en/tickets?departure_stop_id=10&arrival_stop_id=13&date=2026-07-15&time=09%3A05"
+    },
+    {
+      "description": "lake-lugano: departure pier has no token -> no link",
+      "rule": {
+        "issuer": "SNL",
+        "kind": "search",
+        "url": "https://ticket.lakelugano.ch/en/tickets",
+        "params": [
+          [
+            "departure_stop_id",
+            "{from.token}"
+          ],
+          [
+            "arrival_stop_id",
+            "{to.token}"
+          ],
+          [
+            "date",
+            "{date}"
+          ],
+          [
+            "time",
+            "{time}"
+          ]
+        ],
+        "stations": {
+          "8505551": "13"
+        },
+        "note": "SNL's shop page reads departure_stop_id, arrival_stop_id, date and time off its own URL and runs the search (found in its JS bundle, 2026-09-28). Stop ids from its own GET /api/stops; confirmed by calling GET /api/trips with them (after POST /api/session) and getting real sailings and prices back. Cima, Gandria Confine, Oria, Osteno, Porlezza and S. Mamete never appear in /api/stops, so no link from/to them."
+      },
+      "trip": {
+        "from": {
+          "id": "9999999",
+          "name": "Somewhere"
+        },
+        "to": {
+          "id": "8505551",
+          "name": "Gandria",
+          "fullName": "Gandria"
+        },
+        "date": "2026-07-15",
+        "time": "09:05"
+      },
+      "expected": null
+    },
+    {
+      "description": "lake-lugano: arrival pier has no token -> no link",
+      "rule": {
+        "issuer": "SNL",
+        "kind": "search",
+        "url": "https://ticket.lakelugano.ch/en/tickets",
+        "params": [
+          [
+            "departure_stop_id",
+            "{from.token}"
+          ],
+          [
+            "arrival_stop_id",
+            "{to.token}"
+          ],
+          [
+            "date",
+            "{date}"
+          ],
+          [
+            "time",
+            "{time}"
+          ]
+        ],
+        "stations": {
+          "8505550": "10"
+        },
+        "note": "SNL's shop page reads departure_stop_id, arrival_stop_id, date and time off its own URL and runs the search (found in its JS bundle, 2026-09-28). Stop ids from its own GET /api/stops; confirmed by calling GET /api/trips with them (after POST /api/session) and getting real sailings and prices back. Cima, Gandria Confine, Oria, Osteno, Porlezza and S. Mamete never appear in /api/stops, so no link from/to them."
+      },
+      "trip": {
+        "from": {
+          "id": "8505550",
+          "name": "Lugano Centrale",
+          "fullName": "Lugano Centrale"
+        },
+        "to": {
+          "id": "9999999",
+          "name": "Somewhere"
+        },
+        "date": "2026-07-15",
+        "time": "09:05"
+      },
+      "expected": null
+    },
+    {
+      "description": "lake-zug: a trip between two popular piers",
+      "rule": {
+        "issuer": "SGZ",
+        "kind": "page",
+        "url": "https://shop.e-guma.ch/zugersee-schifffahrt/en",
+        "note": "Zug sells fixed round-trip products online, no point-to-point fare, so there is no search to link into."
+      },
+      "trip": {
+        "from": {
+          "id": "8502251",
+          "name": "Zug",
+          "fullName": "Zug Bahnhofsteg (See)"
+        },
+        "to": {
+          "id": "8505060",
+          "name": "Arth am See",
+          "fullName": "Arth am See (Schiff)"
+        },
+        "date": "2026-07-15",
+        "time": "09:05"
+      },
+      "expected": "https://shop.e-guma.ch/zugersee-schifffahrt/en"
+    },
+    {
+      "description": "lake-thun: a trip between two popular piers",
+      "rule": {
+        "issuer": "BLS",
+        "kind": "page",
+        "url": "https://shop.bls-schiff.ch/en/tickets",
+        "note": "BLS shop is a Nuxt SPA (Cariboo platform, tenant bls_schiff) whose bundle reads nothing from the page URL (checked 2026-09-28)."
+      },
+      "trip": {
+        "from": {
+          "id": "8507150",
+          "name": "Thun",
+          "fullName": "Thun (See)"
+        },
+        "to": {
+          "id": "8507154",
+          "name": "Spiez",
+          "fullName": "Spiez Schiffstation"
+        },
+        "date": "2026-07-15",
+        "time": "09:05"
+      },
+      "expected": "https://shop.bls-schiff.ch/en/tickets"
+    },
+    {
+      "description": "lake-brienz: a trip between two popular piers",
+      "rule": {
+        "issuer": "BLS",
+        "kind": "page",
+        "url": "https://shop.bls-schiff.ch/en/tickets",
+        "note": "Same operator and shop as Lake Thun."
+      },
+      "trip": {
+        "from": {
+          "id": "8508370",
+          "name": "Interlaken Ost",
+          "fullName": "Interlaken Ost (See)"
+        },
+        "to": {
+          "id": "8508376",
+          "name": "Brienz",
+          "fullName": "Brienz (See)"
+        },
+        "date": "2026-07-15",
+        "time": "09:05"
+      },
+      "expected": "https://shop.bls-schiff.ch/en/tickets"
+    },
+    {
+      "description": "lake-biel: a trip between two popular piers",
+      "rule": {
+        "issuer": "BSG",
+        "kind": "page",
+        "url": "https://www.bielersee.ch/fahrplan",
+        "note": "TYPO3 search form needs a per-session cHash: submitting real place ids returned \"Kein Abfahrtsort gefunden\" (2026-09-28)."
+      },
+      "trip": {
+        "from": {
+          "id": "8504371",
+          "name": "Biel/Bienne",
+          "fullName": "Biel/Bienne (Schiff/bateau)"
+        },
+        "to": {
+          "id": "8504375",
+          "name": "Ligerz",
+          "fullName": "Ligerz (Schiff)"
+        },
+        "date": "2026-07-15",
+        "time": "09:05"
+      },
+      "expected": "https://www.bielersee.ch/fahrplan"
+    },
+    {
+      "description": "lake-neuchatel: a trip between two popular piers",
+      "rule": {
+        "issuer": "LNM",
+        "kind": "page",
+        "url": "https://www.lnm.ch/",
+        "note": "ASP.NET search needs a per-session __RequestVerificationToken: a GET with FromId/ToId returned the unchanged form (2026-09-28)."
+      },
+      "trip": {
+        "from": {
+          "id": "8504550",
+          "name": "Neuchâtel",
+          "fullName": "Neuchâtel (bateau)"
+        },
+        "to": {
+          "id": "8504577",
+          "name": "Murten/Morat",
+          "fullName": "Murten/Morat (Schiff/bateau)"
+        },
+        "date": "2026-07-15",
+        "time": "09:05"
+      },
+      "expected": "https://www.lnm.ch/"
+    },
+    {
+      "description": "lake-murten: a trip between two popular piers",
+      "rule": {
+        "issuer": "LNM",
+        "kind": "page",
+        "url": "https://www.lnm.ch/",
+        "note": "Same operator and shop as Lake Neuchatel."
+      },
+      "trip": {
+        "from": {
+          "id": "8504577",
+          "name": "Murten/Morat",
+          "fullName": "Murten/Morat (Schiff/bateau)"
+        },
+        "to": {
+          "id": "8504550",
+          "name": "Neuchâtel",
+          "fullName": "Neuchâtel (bateau)"
+        },
+        "date": "2026-07-15",
+        "time": "09:05"
+      },
+      "expected": "https://www.lnm.ch/"
+    },
+    {
+      "description": "lake-maggiore: a trip between two popular piers",
+      "rule": {
+        "issuer": "SNL",
+        "kind": "page",
+        "url": "https://www.lakelugano.ch/en/top/timetableticket",
+        "note": "SNL's ticket shop never lists a Maggiore stop (checked /api/stops on two dates) and no separate Maggiore shop exists, so this is SNL's timetable/ticket info page."
+      },
+      "trip": {
+        "from": {
+          "id": "8505469",
+          "name": "Locarno",
+          "fullName": "Locarno"
+        },
+        "to": {
+          "id": "8505573",
+          "name": "Ascona",
+          "fullName": "Ascona"
+        },
+        "date": "2026-07-15",
+        "time": "09:05"
+      },
+      "expected": "https://www.lakelugano.ch/en/top/timetableticket"
+    },
+    {
+      "description": "lake-constance: a trip between two popular piers",
+      "rule": {
+        "issuer": "",
+        "kind": "page",
+        "url": "https://www.bsb.de/de/fahrplan",
+        "note": "Two operators (SBS + BSB), both legacy reservation widgets with no query-string handling in their JS (2026-09-28). BSB schedule page covers the whole lake."
+      },
+      "trip": {
+        "from": {
+          "id": "8014587",
+          "name": "Konstanz",
+          "fullName": "Konstanz Hafen"
+        },
+        "to": {
+          "id": "8102338",
+          "name": "Bregenz",
+          "fullName": "Bregenz Hafen"
+        },
+        "date": "2026-07-15",
+        "time": "09:05"
+      },
+      "expected": "https://www.bsb.de/de/fahrplan"
+    },
+    {
+      "description": "encoding: space -> +, keep A-Za-z0-9*-._, percent-encode everything else as UTF-8 (ü -> %C3%BC, + -> %2B)",
+      "rule": {
+        "issuer": "TEST",
+        "kind": "search",
+        "url": "https://shop.example.ch/search",
+        "params": [
+          [
+            "from",
+            "{from.name}"
+          ],
+          [
+            "to",
+            "{to.fullName}"
+          ],
+          [
+            "tok",
+            "{from.token}"
+          ]
+        ],
+        "note": "synthetic",
+        "stations": {
+          "1": "didok--Weggis+Schiffstation--8505670"
+        }
+      },
+      "trip": {
+        "from": {
+          "id": "1",
+          "name": "Zürich Bürkliplatz (See) & Co's +1 = 50%/~*-._",
+          "fullName": "Küsnacht ZH (See)"
+        },
+        "to": {
+          "id": "1",
+          "name": "Zürich Bürkliplatz (See) & Co's +1 = 50%/~*-._",
+          "fullName": "Küsnacht ZH (See)"
+        },
+        "date": "2026-07-15",
+        "time": "09:05"
+      },
+      "expected": "https://shop.example.ch/search?from=Z%C3%BCrich+B%C3%BCrkliplatz+%28See%29+%26+Co%27s+%2B1+%3D+50%25%2F%7E*-._&to=K%C3%BCsnacht+ZH+%28See%29&tok=didok--Weggis%2BSchiffstation--8505670"
+    },
+    {
+      "description": "placeholders inside a longer value, and several in one value",
+      "rule": {
+        "issuer": "TEST",
+        "kind": "search",
+        "url": "https://shop.example.ch/search",
+        "params": [
+          [
+            "when",
+            "d={date}T{time}"
+          ],
+          [
+            "route",
+            "{from.name}->{to.name}"
+          ]
+        ],
+        "note": "synthetic"
+      },
+      "trip": {
+        "from": {
+          "id": "2",
+          "name": "Weggis",
+          "fullName": "Weggis (See)"
+        },
+        "to": {
+          "id": "1",
+          "name": "Zürich Bürkliplatz (See) & Co's +1 = 50%/~*-._",
+          "fullName": "Küsnacht ZH (See)"
+        },
+        "date": "2026-07-15",
+        "time": "09:05"
+      },
+      "expected": "https://shop.example.ch/search?when=d%3D2026-07-15T09%3A05&route=Weggis-%3EZ%C3%BCrich+B%C3%BCrkliplatz+%28See%29+%26+Co%27s+%2B1+%3D+50%25%2F%7E*-._"
+    },
+    {
+      "description": "a literal value with no placeholders is sent as-is; param order is kept",
+      "rule": {
+        "issuer": "TEST",
+        "kind": "search",
+        "url": "https://shop.example.ch/search",
+        "params": [
+          [
+            "z",
+            "1"
+          ],
+          [
+            "a",
+            "2"
+          ],
+          [
+            "m",
+            "x y"
+          ]
+        ],
+        "note": "synthetic"
+      },
+      "trip": {
+        "from": {
+          "id": "2",
+          "name": "Weggis",
+          "fullName": "Weggis (See)"
+        },
+        "to": {
+          "id": "2",
+          "name": "Weggis",
+          "fullName": "Weggis (See)"
+        },
+        "date": "2026-07-15",
+        "time": "09:05"
+      },
+      "expected": "https://shop.example.ch/search?z=1&a=2&m=x+y"
+    },
+    {
+      "description": "an unknown placeholder -> fallbackUrl",
+      "rule": {
+        "issuer": "TEST",
+        "kind": "search",
+        "url": "https://shop.example.ch/search",
+        "params": [
+          [
+            "x",
+            "{from.nope}"
+          ]
+        ],
+        "note": "synthetic",
+        "fallbackUrl": "https://shop.example.ch/"
+      },
+      "trip": {
+        "from": {
+          "id": "2",
+          "name": "Weggis",
+          "fullName": "Weggis (See)"
+        },
+        "to": {
+          "id": "2",
+          "name": "Weggis",
+          "fullName": "Weggis (See)"
+        },
+        "date": "2026-07-15",
+        "time": "09:05"
+      },
+      "expected": "https://shop.example.ch/"
+    },
+    {
+      "description": "an unknown placeholder and no fallbackUrl -> no link",
+      "rule": {
+        "issuer": "TEST",
+        "kind": "search",
+        "url": "https://shop.example.ch/search",
+        "params": [
+          [
+            "x",
+            "{nope}"
+          ]
+        ],
+        "note": "synthetic"
+      },
+      "trip": {
+        "from": {
+          "id": "2",
+          "name": "Weggis",
+          "fullName": "Weggis (See)"
+        },
+        "to": {
+          "id": "2",
+          "name": "Weggis",
+          "fullName": "Weggis (See)"
+        },
+        "date": "2026-07-15",
+        "time": "09:05"
+      },
+      "expected": null
+    },
+    {
+      "description": "a placeholder with an extra segment is unknown -> no link",
+      "rule": {
+        "issuer": "TEST",
+        "kind": "search",
+        "url": "https://shop.example.ch/search",
+        "params": [
+          [
+            "x",
+            "{from.token.id}"
+          ]
+        ],
+        "note": "synthetic",
+        "stations": {
+          "2": "W"
+        }
+      },
+      "trip": {
+        "from": {
+          "id": "2",
+          "name": "Weggis",
+          "fullName": "Weggis (See)"
+        },
+        "to": {
+          "id": "2",
+          "name": "Weggis",
+          "fullName": "Weggis (See)"
+        },
+        "date": "2026-07-15",
+        "time": "09:05"
+      },
+      "expected": null
+    },
+    {
+      "description": "a missing official name (fullName absent) can't be filled -> no link",
+      "rule": {
+        "issuer": "TEST",
+        "kind": "search",
+        "url": "https://shop.example.ch/search",
+        "params": [
+          [
+            "x",
+            "{from.fullName}"
+          ]
+        ],
+        "note": "synthetic"
+      },
+      "trip": {
+        "from": {
+          "id": "3",
+          "name": "Nowhere"
+        },
+        "to": {
+          "id": "2",
+          "name": "Weggis",
+          "fullName": "Weggis (See)"
+        },
+        "date": "2026-07-15",
+        "time": "09:05"
+      },
+      "expected": null
+    },
+    {
+      "description": "'page' ignores the trip entirely",
+      "rule": {
+        "issuer": "TEST",
+        "kind": "page",
+        "url": "https://shop.example.ch/tickets?lang=en",
+        "note": "synthetic"
+      },
+      "trip": {
+        "from": {
+          "id": "9999999",
+          "name": "Somewhere"
+        },
+        "to": {
+          "id": "9999999",
+          "name": "Somewhere"
+        },
+        "date": "2026-07-15",
+        "time": "09:05"
+      },
+      "expected": "https://shop.example.ch/tickets?lang=en"
+    }
+  ]
+}

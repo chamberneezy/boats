@@ -1,0 +1,196 @@
+{
+  "schemaVersion": 1,
+  "lakes": {
+    "lake-lucerne": {
+      "issuer": "SGV",
+      "kind": "search",
+      "url": "https://webshop.lakelucerne.ch/en/routing",
+      "params": [
+        ["fromStation", "{from.token}"],
+        ["fromStationName", "{from.name}"],
+        ["toStation", "{to.token}"],
+        ["toStationName", "{to.name}"],
+        ["date", "{date}"],
+        ["time", "{time}"],
+        ["type", "departure"]
+      ],
+      "stations": {
+        "8508459": "didok--Luzern--8508459",
+        "8508461": "didok--Luzern--8508461",
+        "8508462": "didok--Weggis--8508462",
+        "8508463": "didok--Weggis+Schiffstation--8505670",
+        "8508464": "didok--Vitznau--8508464",
+        "8508465": "didok--ennetbuergen--8508465",
+        "8508466": "didok--buochs--8508466",
+        "8508467": "didok--Beckenried--8508467",
+        "8508468": "didok--gersau--8508468",
+        "8508469": "didok--Weggis--8508469",
+        "8508470": "didok--brunnen--8508470",
+        "8508471": "didok--Weggis--8508471",
+        "8508472": "didok--Sisikon--8508472",
+        "8508473": "didok--Luzern--8508473",
+        "8508474": "didok--bauen--8508474",
+        "8508475": "didok--Luzern--8508475",
+        "8508476": "didok--fluelen--8508476",
+        "8508478": "didok--Luzern--8508478",
+        "8508479": "didok--Luzern--8508479",
+        "8508480": "didok--Luzern--8508480",
+        "8508481": "didok--Weggis--8508481",
+        "8508483": "didok--Stansstad--8508483",
+        "8508484": "didok--Meggen--8508484",
+        "8508485": "didok--Luzern--8508485",
+        "8508486": "didok--Merlischachen--8508486",
+        "8508487": "didok--Luzern--8508487",
+        "8508488": "didok--kuessnacht--8508488",
+        "8508489": "didok--kehrsitenbuergenstock--8508489",
+        "8508492": "didok--Luzern--8508492",
+        "8508503": "didok--alpnachstad--8508503",
+        "8508504": "didok--Luzern--8508504"
+      },
+      "note": "SGV's own point-to-point shop. Tokens must be spelled exactly as the shop spells them (didok--fluelen--8508476 fills the field, SGV's own page's didok--Flueelen--8508476 does not); there is no rule, so it is a table, every entry checked in a real browser as origin and destination (2026-09-21). Weggis is the shop's Weggis Schiffstation (8505670), not our 8508463. Never use the shop's journeyId/routeId links: issued per search by its backend, not computable."
+    },
+    "lake-zurich": {
+      "issuer": "ZVV",
+      "kind": "search",
+      "url": "https://www.zvv.ch/en/timetable-and-information/timetable.html",
+      "params": [
+        ["tab", "connections"],
+        ["date", "{date}"],
+        ["time", "{time}"],
+        ["products", "16"],
+        ["fromname", "{from.fullName}"],
+        ["toname", "{to.fullName}"]
+      ],
+      "fallbackUrl": "https://ticketshop.zvv.ch/home?0&lang=en",
+      "note": "ZSG sells no tickets of its own; its boats are ZVV zone fares (zsg.ch fares page, 2026-09-22). ZVV's timetable search takes official station names; each result has ZVV's own Buy ticket button already scoped to the right zones (checked in a browser, 2026-09-22). products=16 is ZVV's boats-only filter, copied from a real search. fallbackUrl only if a pier has no full name."
+    },
+    "lake-geneva": {
+      "issuer": "CGN",
+      "kind": "search",
+      "url": "https://www.cgn.ch/fr/trip/search/result/",
+      "params": [
+        ["direction", "1"],
+        ["departure_date", "{date}"],
+        ["departure_station", "{from.token}"],
+        ["arrival_station", "{to.token}"]
+      ],
+      "stations": {
+        "1401730": "EVIAN0",
+        "1401766": "NERNIER0",
+        "1401810": "THONON0",
+        "1401847": "YVOIRE0",
+        "8501075": "LAUSA0",
+        "8501077": "MONTR0",
+        "8501078": "STGIN0",
+        "8501079": "BOUVE0",
+        "8501227": "NYON0",
+        "8501228": "MORGE0",
+        "8501231": "ANIERES0",
+        "8501232": "BELLE0",
+        "8501234": "CHILL0",
+        "8501235": "CORSIER0",
+        "8501236": "GVEJA0",
+        "8501237": "GVEMB0",
+        "8501239": "HERMAN0",
+        "8501243": "RIVAZ0",
+        "8501245": "STSULP0",
+        "8501248": "VEVMA0",
+        "8501311": "GVEEV0",
+        "8501312": "CLARE0",
+        "8501314": "VILLE0",
+        "8501315": "CELIG0",
+        "8501316": "COPPE0",
+        "8501317": "CULLY0",
+        "8501318": "LUTRY0",
+        "8501319": "PULLY0",
+        "8501320": "ROLLE0",
+        "8501321": "STPRE0",
+        "8501322": "VERSO0"
+      },
+      "note": "CGN's Magento shop: a plain GET search, no session or CSRF token (requested directly 2026-09-28; station codes echoed back in the page's own later-departures link). Codes read from the shop's own station dropdown. No time param exists, so the link shows the whole day. Lugrin has no CGN code, so no link from/to it."
+    },
+    "lake-lugano": {
+      "issuer": "SNL",
+      "kind": "search",
+      "url": "https://ticket.lakelugano.ch/en/tickets",
+      "params": [
+        ["departure_stop_id", "{from.token}"],
+        ["arrival_stop_id", "{to.token}"],
+        ["date", "{date}"],
+        ["time", "{time}"]
+      ],
+      "stations": {
+        "1300106": "14",
+        "1300110": "85",
+        "1300112": "18",
+        "8505535": "15",
+        "8505536": "80",
+        "8505541": "92",
+        "8505543": "12",
+        "8505544": "90",
+        "8505545": "100",
+        "8505550": "10",
+        "8505551": "13",
+        "8505553": "11",
+        "8505556": "16",
+        "8505557": "17",
+        "8505650": "74",
+        "8505655": "89",
+        "8505656": "91",
+        "8505674": "83",
+        "8505677": "84",
+        "8531259": "77",
+        "8587842": "73"
+      },
+      "note": "SNL's shop page reads departure_stop_id, arrival_stop_id, date and time off its own URL and runs the search (found in its JS bundle, 2026-09-28). Stop ids from its own GET /api/stops; confirmed by calling GET /api/trips with them (after POST /api/session) and getting real sailings and prices back. Cima, Gandria Confine, Oria, Osteno, Porlezza and S. Mamete never appear in /api/stops, so no link from/to them."
+    },
+    "lake-zug": {
+      "issuer": "SGZ",
+      "kind": "page",
+      "url": "https://shop.e-guma.ch/zugersee-schifffahrt/en",
+      "note": "Zug sells fixed round-trip products online, no point-to-point fare, so there is no search to link into."
+    },
+    "lake-thun": {
+      "issuer": "BLS",
+      "kind": "page",
+      "url": "https://shop.bls-schiff.ch/en/tickets",
+      "note": "BLS shop is a Nuxt SPA (Cariboo platform, tenant bls_schiff) whose bundle reads nothing from the page URL (checked 2026-09-28)."
+    },
+    "lake-brienz": {
+      "issuer": "BLS",
+      "kind": "page",
+      "url": "https://shop.bls-schiff.ch/en/tickets",
+      "note": "Same operator and shop as Lake Thun."
+    },
+    "lake-biel": {
+      "issuer": "BSG",
+      "kind": "page",
+      "url": "https://www.bielersee.ch/fahrplan",
+      "note": "TYPO3 search form needs a per-session cHash: submitting real place ids returned \"Kein Abfahrtsort gefunden\" (2026-09-28)."
+    },
+    "lake-neuchatel": {
+      "issuer": "LNM",
+      "kind": "page",
+      "url": "https://www.lnm.ch/",
+      "note": "ASP.NET search needs a per-session __RequestVerificationToken: a GET with FromId/ToId returned the unchanged form (2026-09-28)."
+    },
+    "lake-murten": {
+      "issuer": "LNM",
+      "kind": "page",
+      "url": "https://www.lnm.ch/",
+      "note": "Same operator and shop as Lake Neuchatel."
+    },
+    "lake-maggiore": {
+      "issuer": "SNL",
+      "kind": "page",
+      "url": "https://www.lakelugano.ch/en/top/timetableticket",
+      "note": "SNL's ticket shop never lists a Maggiore stop (checked /api/stops on two dates) and no separate Maggiore shop exists, so this is SNL's timetable/ticket info page."
+    },
+    "lake-constance": {
+      "issuer": "",
+      "kind": "page",
+      "url": "https://www.bsb.de/de/fahrplan",
+      "note": "Two operators (SBS + BSB), both legacy reservation widgets with no query-string handling in their JS (2026-09-28). BSB schedule page covers the whole lake."
+    }
+  }
+}

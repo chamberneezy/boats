@@ -60,8 +60,23 @@ for lake in ${LAKES}; do
     --cache-control="public, max-age=300, must-revalidate" || true
 done
 
+# Every lake's "Buy ticket" rule, one file at the bucket root (see src/shopLink.ts). iOS and Android
+# fetch it like the packages above; the web bundles the same source file. A validation failure
+# keeps the last good copy live and fails the job so it gets fixed.
+echo "== Building shop links =="
+if npm run build:shop-links -- --out "${OUT}" &&
+  gcloud storage rsync "${OUT}/shop-links" "${DATA_BUCKET}"; then
+  gcloud storage objects update "${DATA_BUCKET}/shop-links.*.json" \
+    --cache-control="public, max-age=31536000, immutable" || true
+  gcloud storage objects update "${DATA_BUCKET}/shop-links-manifest.json" \
+    --cache-control="public, max-age=300, must-revalidate" || true
+else
+  echo "!! shop links failed to build or publish." >&2
+  FAILED="${FAILED} shop-links"
+fi
+
 if [ -n "${FAILED}" ]; then
-  echo "Done, but these lakes did NOT publish:${FAILED}" >&2
+  echo "Done, but these did NOT publish:${FAILED}" >&2
   exit 1
 fi
 echo "Done."
