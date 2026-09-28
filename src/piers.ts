@@ -125,10 +125,234 @@ export const ALL_LAKE_GENEVA_PIERS: PierOption[] = [
   { id: '8501315', name: 'Céligny', fullName: 'Céligny (lac)' },
 ];
 
+// Verified Zugersee (Lake Zug) boat piers served by the Schifffahrtsgesellschaft für den
+// Zugersee AG (agency 186 in the GTFS feed) - the whole, small operator network, no exclusions
+// needed. Derived directly from that operator's own GTFS routes/stops (2026-09-28), so unlike
+// the three lakes above there was no train/bus name collision to check against: every stop here
+// came from the boat operator's own stop_times, not a general station search.
+export const ALL_LAKE_ZUG_PIERS: PierOption[] = [
+  { id: '8505060', name: 'Arth am See', fullName: 'Arth am See (Schiff)' },
+  { id: '8502253', name: 'Buonas', fullName: 'Buonas (See)' },
+  { id: '8502250', name: 'Cham', fullName: 'Cham (See)' },
+  { id: '8502257', name: 'Immensee', fullName: 'Immensee (See)' },
+  { id: '8502252', name: 'Oberwil bei Zug', fullName: 'Oberwil bei Zug (See)' },
+  { id: '8502254', name: 'Risch', fullName: 'Risch (See)' },
+  { id: '8502258', name: 'Walchwil', fullName: 'Walchwil (See)' },
+  { id: '8502251', name: 'Zug', fullName: 'Zug Bahnhofsteg (See)' },
+];
+
+// Verified Thunersee (Lake Thun) boat piers served by BLS Schifffahrt AG's Thunersee agency
+// (agency 192; see pipeline/lakes.ts for why this operator needs an agency-name suffix to
+// separate it from its own Brienzersee agency). Same derivation method as Lake Zug above.
+export const ALL_LAKE_THUN_PIERS: PierOption[] = [
+  { id: '8507156', name: 'Beatenbucht', fullName: 'Beatenbucht (See)' },
+  { id: '8507157', name: 'Beatushöhlen-Sundlauenen' },
+  { id: '8507164', name: 'Einigen', fullName: 'Einigen (See)' },
+  { id: '8507166', name: 'Faulensee', fullName: 'Faulensee (See)' },
+  { id: '8507153', name: 'Gunten', fullName: 'Gunten (See)' },
+  { id: '8507159', name: 'Gwatt Deltapark', fullName: 'Gwatt Deltapark (See)' },
+  { id: '8507151', name: 'Hilterfingen', fullName: 'Hilterfingen (See)' },
+  { id: '8507161', name: 'Hünibach', fullName: 'Hünibach (See)' },
+  { id: '8507169', name: 'Interlaken West', fullName: 'Interlaken West (See)' },
+  { id: '8507167', name: 'Leissigen', fullName: 'Leissigen (See)' },
+  { id: '8507155', name: 'Merligen', fullName: 'Merligen (See)' },
+  { id: '8507158', name: 'Neuhaus (Unterseen)', fullName: 'Neuhaus (Unterseen) (See)' },
+  { id: '8507152', name: 'Oberhofen am Thunersee' },
+  { id: '8507154', name: 'Spiez', fullName: 'Spiez Schiffstation' },
+  { id: '8507150', name: 'Thun', fullName: 'Thun (See)' },
+];
+
+// Verified Brienzersee (Lake Brienz) boat piers served by BLS Schifffahrt AG's Brienzersee
+// agency (agency 183 - the other half of the same operator as Lake Thun above).
+export const ALL_LAKE_BRIENZ_PIERS: PierOption[] = [
+  { id: '8508371', name: 'Bönigen' },
+  { id: '8508376', name: 'Brienz', fullName: 'Brienz (See)' },
+  { id: '8508378', name: 'Giessbach', fullName: 'Giessbach See' },
+  { id: '8508370', name: 'Interlaken Ost', fullName: 'Interlaken Ost (See)' },
+  { id: '8508379', name: 'Iseltwald', fullName: 'Iseltwald (See)' },
+  { id: '8508373', name: 'Niederried', fullName: 'Niederried (See)' },
+  { id: '8508374', name: 'Oberried am Brienzersee', fullName: 'Oberried am Brienzersee (See)' },
+  { id: '8508372', name: 'Ringgenberg', fullName: 'Ringgenberg (See)' },
+];
+
+// Verified Bielersee (Lake Biel) boat piers served by the Bielersee-Schifffahrts-Gesellschaft AG
+// (agency 182). This operator's own routes reach past Lake Biel through the Zihl/Broye canals as
+// far as Neuchâtel, Murten and Solothurn - a real, published through-service, not a data error -
+// so several piers below (Biel/Bienne, Erlach, Ligerz, La Neuveville, St. Petersinsel Nord,
+// Sugiez, Thielle-Wavre, Twann) are also listed under lake-neuchatel/lake-murten below. Both
+// listings are correct: riders picking either lake can really reach the shared piers, same as the
+// real boats. See pipeline/lakes.ts's lake-biel entry for the pipeline-side note on this overlap.
+export const ALL_LAKE_BIEL_PIERS: PierOption[] = [
+  { id: '8504365', name: 'Altreu' },
+  { id: '8504371', name: 'Biel/Bienne', fullName: 'Biel/Bienne (Schiff/bateau)' },
+  { id: '8504368', name: 'Brügg', fullName: 'Brügg (Schiff)' },
+  { id: '8504366', name: 'Büren', fullName: 'Büren (Schiff)' },
+  { id: '8504373', name: 'Engelberg-Wingreis' },
+  { id: '8504378', name: 'Erlach', fullName: 'Erlach (Schiff)' },
+  { id: '8504363', name: 'Grenchen', fullName: 'Grenchen (Schiff)' },
+  { id: '8504377', name: 'La Neuveville', fullName: 'La Neuveville (bateau)' },
+  { id: '8504571', name: 'La Sauge', fullName: 'La Sauge (bateau)' },
+  { id: '8504566', name: 'La Tène' },
+  { id: '8504565', name: 'Le Landeron', fullName: 'Le Landeron débarcadère' },
+  { id: '8504375', name: 'Ligerz', fullName: 'Ligerz (Schiff)' },
+  { id: '8504577', name: 'Murten/Morat', fullName: 'Murten/Morat (Schiff/bateau)' },
+  { id: '8504550', name: 'Neuchâtel', fullName: 'Neuchâtel (bateau)' },
+  { id: '8504369', name: 'Nidau', fullName: 'Nidau (Schiff)' },
+  { id: '8504364', name: 'Port' },
+  { id: '8504379', name: 'Solothurn', fullName: 'Solothurn (Schiff)' },
+  { id: '8504376', name: 'St. Petersinsel Nord' },
+  { id: '8504572', name: 'Sugiez', fullName: 'Sugiez (bateau)' },
+  { id: '8504567', name: 'Thielle-Wavre' },
+  { id: '8504499', name: 'Trois-Lacs', fullName: 'Trois-Lacs (camping)' },
+  { id: '8504372', name: 'Tüscherz', fullName: 'Tüscherz (Schiff)' },
+  { id: '8504374', name: 'Twann', fullName: 'Twann (Schiff)' },
+];
+
+// Verified Neuenburgersee/Murtensee (Lake Neuchâtel/Lake Murten) boat piers served by "Lacs de
+// Neuchâtel et Morat" (LNM, agency 189) - one operator running both lakes as a single connected
+// network (canal-linked; routes mix stops from both lakes, e.g. one route calls at both
+// Neuchâtel and Murten/Morat). It can't be split by route or stop into two independent networks,
+// so lake-neuchatel and lake-murten intentionally share this exact same pier list - picking
+// either lake gives the real, full network either name is actually part of (see
+// pipeline/lakes.ts). Some piers here (Biel/Bienne, Erlach, Ligerz, etc.) are also part of Lake
+// Biel's own list above, for the same reason.
+export const ALL_LAKE_NEUCHATEL_MURTEN_PIERS: PierOption[] = [
+  { id: '8504552', name: 'Auvernier', fullName: 'Auvernier (bateau)' },
+  { id: '8504559', name: 'Bevaix', fullName: 'Bevaix (bateau)' },
+  { id: '8504371', name: 'Biel/Bienne', fullName: 'Biel/Bienne (Schiff/bateau)' },
+  { id: '8504563', name: 'Chevroux' },
+  { id: '8530793', name: 'Cortaillod', fullName: 'Cortaillod (bateau)' },
+  { id: '8504561', name: 'Cudrefin' },
+  { id: '8504378', name: 'Erlach', fullName: 'Erlach (Schiff)' },
+  { id: '8504564', name: 'Estavayer-le-Lac', fullName: 'Estavayer-le-Lac (bateau)' },
+  { id: '8530821', name: 'Faoug', fullName: 'Faoug débarcadère' },
+  { id: '8504554', name: 'Gorgier-Chez-le-Bart' },
+  { id: '8504808', name: 'Hauterive NE', fullName: 'Hauterive NE débarcadère' },
+  { id: '8504377', name: 'La Neuveville', fullName: 'La Neuveville (bateau)' },
+  { id: '8504571', name: 'La Sauge', fullName: 'La Sauge (bateau)' },
+  { id: '8504566', name: 'La Tène' },
+  { id: '8504565', name: 'Le Landeron', fullName: 'Le Landeron débarcadère' },
+  { id: '8504375', name: 'Ligerz', fullName: 'Ligerz (Schiff)' },
+  { id: '8504574', name: 'Môtier (Vully)' },
+  { id: '8504577', name: 'Murten/Morat', fullName: 'Murten/Morat (Schiff/bateau)' },
+  { id: '8504550', name: 'Neuchâtel', fullName: 'Neuchâtel (bateau)' },
+  { id: '8504551', name: 'Neuchâtel-Serrières', fullName: 'Neuchâtel-Serrières (bateau)' },
+  { id: '8504562', name: 'Portalban' },
+  { id: '8504573', name: 'Praz' },
+  { id: '8504555', name: 'St-Aubin NE', fullName: 'St-Aubin NE (bateau)' },
+  { id: '8504560', name: 'St-Blaise', fullName: 'St-Blaise (bateau)' },
+  { id: '8504376', name: 'St. Petersinsel Nord' },
+  { id: '8504572', name: 'Sugiez', fullName: 'Sugiez (bateau)' },
+  { id: '8504567', name: 'Thielle-Wavre' },
+  { id: '8504499', name: 'Trois-Lacs', fullName: 'Trois-Lacs (camping)' },
+  { id: '8504374', name: 'Twann', fullName: 'Twann (Schiff)' },
+  { id: '8504575', name: 'Vallamand' },
+];
+
+// Verified Lago di Lugano (Lake Lugano) boat piers served by the "Lago di Lugano" agency
+// (agency_id 188 - see pipeline/lakes.ts for why this needs an exact agency_id match rather than
+// a name match). Includes the lake's Italian-shore piers (Porto Ceresio, Osteno, Porlezza,
+// S. Mamete, Ponte Tresa (Italia)), same precedent as Lake Geneva's French-shore piers above.
+export const ALL_LAKE_LUGANO_PIERS: PierOption[] = [
+  { id: '8505650', name: 'Bissone' },
+  { id: '8505556', name: 'Brusino Arsizio' },
+  { id: '8505536', name: 'Brusino Arsizio Funivia' },
+  { id: '1300106', name: 'Campione' },
+  { id: '8505545', name: 'Cantine di Gandria' },
+  { id: '8505655', name: 'Caprino' },
+  { id: '8505674', name: 'Caslano' },
+  { id: '8587842', name: 'Cassarate' },
+  { id: '1300107', name: 'Cima' },
+  { id: '8505551', name: 'Gandria' },
+  { id: '8505538', name: 'Gandria Confine' },
+  { id: '8505541', name: 'Grotto Elvezia' },
+  { id: '8505544', name: 'Grotto Pescatori' },
+  { id: '8505550', name: 'Lugano Centrale' },
+  { id: '8531259', name: 'Maroggia' },
+  { id: '8505535', name: 'Melide Swissminiatur' },
+  { id: '8505557', name: 'Morcote' },
+  { id: '8505656', name: 'Museo doganale svizzero' },
+  { id: '1300108', name: 'Oria' },
+  { id: '1300109', name: 'Osteno' },
+  { id: '8505553', name: 'Paradiso' },
+  { id: '1300110', name: 'Ponte Tresa (Italia)' },
+  { id: '8505677', name: 'Ponte Tresa' },
+  { id: '1300111', name: 'Porlezza' },
+  { id: '1300112', name: 'Porto Ceresio' },
+  { id: '1300113', name: 'S. Mamete' },
+  { id: '8505543', name: 'S. Rocco' },
+];
+
+// Verified Lago Maggiore (Lake Maggiore) boat piers served by the same agency as Lake Lugano's
+// naming trap above (agency_id 190 - see pipeline/lakes.ts) - deliberately the Swiss-shore slice
+// only, plus Cannobio, the one Italian stop this operator's own routes already reach. The larger
+// Italian network further south (Stresa, Verbania, the Borromean Islands, run by Navigazione
+// Laghi) has no open feed found as of 2026-09-28 - not included here.
+export const ALL_LAKE_MAGGIORE_PIERS: PierOption[] = [
+  { id: '8505573', name: 'Ascona' },
+  { id: '8505524', name: 'Brissago' },
+  { id: '1300091', name: 'Cannobio' },
+  { id: '8505574', name: 'Gerra (Gambarogno)' },
+  { id: '8505577', name: 'Isole di Brissago' },
+  { id: '8505469', name: 'Locarno' },
+  { id: '8505570', name: 'Magadino' },
+  { id: '8505854', name: 'Porto Ronco' },
+  { id: '8505518', name: 'S. Nazzaro' },
+  { id: '8505519', name: 'Tenero' },
+  { id: '8505571', name: 'Vira (Gambarogno)' },
+];
+
+// Verified Bodensee (Lake Constance) boat piers served by "Schweizerische Bodensee-Schifffahrt
+// AG" (agency 195) and "Bodensee-Schiffsbetriebe GmbH" (agency 360) together - two agencies
+// genuinely needed for full coverage, not a naming trap (see pipeline/lakes.ts). Spans all three
+// shore countries: Switzerland (Altnau, Arbon, Bottighofen, Güttingen, Horn, Kreuzlingen,
+// Romanshorn, Rorschach, Uttwil), Austria (Bregenz), Germany (everything else). The
+// Friedrichshafen<->Romanshorn car ferry (route_desc "FAE") is excluded by boatCategories, same
+// as any other non-passenger-boat route type - never appears here.
+export const ALL_LAKE_CONSTANCE_PIERS: PierOption[] = [
+  { id: '8530834', name: 'Altnau', fullName: 'Altnau (See)' },
+  { id: '8506110', name: 'Arbon', fullName: 'Arbon (See)' },
+  { id: '8530720', name: 'Bottighofen', fullName: 'Bottighofen (See)' },
+  { id: '8102338', name: 'Bregenz', fullName: 'Bregenz Hafen' },
+  { id: '8014592', name: 'Dingelsdorf', fullName: 'Dingelsdorf (Bodensee)' },
+  { id: '8014649', name: 'Friedrichshafen', fullName: 'Friedrichshafen Hafen (See)' },
+  { id: '8595982', name: 'Güttingen', fullName: 'Güttingen (See)' },
+  { id: '8014613', name: 'Hagnau', fullName: 'Hagnau (Bodensee)' },
+  { id: '8506111', name: 'Horn', fullName: 'Horn (See)' },
+  { id: '8014614', name: 'Immenstaad', fullName: 'Immenstaad (Bodensee)' },
+  { id: '8014575', name: 'Iznang', fullName: 'Iznang (See)' },
+  { id: '8014587', name: 'Konstanz', fullName: 'Konstanz Hafen' },
+  { id: '8014651', name: 'Kressbronn', fullName: 'Kressbronn Hafen' },
+  { id: '8506165', name: 'Kreuzlingen', fullName: 'Kreuzlingen Hafen (See)' },
+  { id: '8014650', name: 'Langenargen', fullName: 'Langenargen Hafen' },
+  { id: '8014655', name: 'Lindau', fullName: 'Lindau Hafen' },
+  { id: '8099992', name: 'Mainau', fullName: 'Mainau (Bodensee)' },
+  { id: '8506160', name: 'Mannenbach', fullName: 'Mannenbach (See)' },
+  { id: '8014611', name: 'Meersburg', fullName: 'Meersburg (Bodensee)' },
+  { id: '8014652', name: 'Nonnenhorn', fullName: 'Nonnenhorn Hafen' },
+  { id: '1101805', name: 'Radolfzell', fullName: 'Radolfzell (Bodensee)' },
+  { id: '1101894', name: 'Reichenau', fullName: 'Reichenau (See)' },
+  { id: '8506112', name: 'Romanshorn', fullName: 'Romanshorn (See)' },
+  { id: '8506113', name: 'Rorschach', fullName: 'Rorschach Hafen (See)' },
+  { id: '8099998', name: 'Überlingen', fullName: 'Überlingen Hafen' },
+  { id: '8014608', name: 'Unteruhldingen', fullName: 'Unteruhldingen (Bodensee)' },
+  { id: '8530835', name: 'Uttwil', fullName: 'Uttwil (See)' },
+  { id: '8014653', name: 'Wasserburg', fullName: 'Wasserburg Hafen (Bodensee)' },
+];
+
 const PIERS_BY_LAKE: Record<string, PierOption[]> = {
   'lake-lucerne': ALL_LAKE_LUCERNE_PIERS,
   'lake-zurich': ALL_LAKE_ZURICH_PIERS,
   'lake-geneva': ALL_LAKE_GENEVA_PIERS,
+  'lake-zug': ALL_LAKE_ZUG_PIERS,
+  'lake-thun': ALL_LAKE_THUN_PIERS,
+  'lake-brienz': ALL_LAKE_BRIENZ_PIERS,
+  'lake-biel': ALL_LAKE_BIEL_PIERS,
+  'lake-neuchatel': ALL_LAKE_NEUCHATEL_MURTEN_PIERS,
+  'lake-murten': ALL_LAKE_NEUCHATEL_MURTEN_PIERS,
+  'lake-lugano': ALL_LAKE_LUGANO_PIERS,
+  'lake-maggiore': ALL_LAKE_MAGGIORE_PIERS,
+  'lake-constance': ALL_LAKE_CONSTANCE_PIERS,
 };
 
 // Every pier across every lake we have data for. Pier ids (GTFS didok numbers) are unique
@@ -137,10 +361,21 @@ const ALL_PIERS: PierOption[] = Object.values(PIERS_BY_LAKE).flat();
 
 // Ordered by tourist popularity (not alphabetically), for the empty-state
 // dropdown and the quick-select chips.
+// First pass, not tourism-verified like the three lakes above (hub pier first, then a rough
+// guess at the best-known stops) - worth a real review once these lakes see traffic.
 const POPULAR_PIER_IDS: Record<string, string[]> = {
   'lake-lucerne': ['8508492', '8508463', '8508464', '8508489', '8508470'],
   'lake-zurich': ['8503651', '8503667', '8503657', '8503661', '8503670'],
   'lake-geneva': ['8501236', '8501075', '8501077', '8501248', '8501234'],
+  'lake-zug': ['8502251', '8505060', '8502258', '8502250', '8502257'],
+  'lake-thun': ['8507150', '8507154', '8507169', '8507156', '8507151'],
+  'lake-brienz': ['8508370', '8508376', '8508378', '8508379', '8508371'],
+  'lake-biel': ['8504371', '8504375', '8504377', '8504376', '8504374'],
+  'lake-neuchatel': ['8504550', '8504577', '8504564', '8504571', '8504561'],
+  'lake-murten': ['8504577', '8504550', '8504572', '8530821', '8504573'],
+  'lake-lugano': ['8505550', '8505551', '8505557', '8505535', '8505553'],
+  'lake-maggiore': ['8505469', '8505573', '8505577', '8505524', '1300091'],
+  'lake-constance': ['8014587', '8102338', '8014655', '8014611', '8099992'],
 };
 
 // A pier by id, scoped to one lake - used to validate URLs so a pier id from one lake's data

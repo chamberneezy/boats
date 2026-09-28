@@ -57,11 +57,15 @@ export async function buildPackage(
   log: (message: string) => void = () => {},
 ): Promise<TimetablePackage> {
   // 1. The lake's operator, then its boat routes and trips.
+  const wantedAgencyIds = lake.agencyId ? (Array.isArray(lake.agencyId) ? lake.agencyId : [lake.agencyId]) : null;
   const agencyIds = new Set<string>();
   await readTable(zipPath, 'agency.txt', () => true, (row) => {
-    if (row.agency_name.includes(lake.agencyNameIncludes)) agencyIds.add(row.agency_id);
+    const matches = wantedAgencyIds ? wantedAgencyIds.includes(row.agency_id) : row.agency_name.includes(lake.agencyNameIncludes);
+    if (matches) agencyIds.add(row.agency_id);
   });
-  if (agencyIds.size === 0) throw new Error(`No operator matching "${lake.agencyNameIncludes}" in the feed`);
+  if (agencyIds.size === 0) {
+    throw new Error(`No operator matching ${wantedAgencyIds ? `agency_id "${wantedAgencyIds.join(',')}"` : `"${lake.agencyNameIncludes}"`} in the feed`);
+  }
 
   const routes = new Map<string, { line: string; category: string }>();
   await readTable(zipPath, 'routes.txt', () => true, (row) => {

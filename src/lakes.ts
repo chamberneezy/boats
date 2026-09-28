@@ -1,4 +1,5 @@
-// The twelve lakes shown on the home page. Only Lake Lucerne, Lake Zurich and Lake Geneva have schedule data so far.
+// The twelve lakes shown on the home page. All twelve have real schedule data (see
+// pipeline/lakes.ts for how each lake's operator(s) are matched in the GTFS feed).
 export interface Lake {
   id: string;
   name: string;
@@ -11,16 +12,16 @@ export const DEFAULT_LAKE_ID = 'lake-lucerne';
 const LAKE_LIST: Lake[] = [
   { id: 'lake-lucerne', name: 'Lake Lucerne', localName: 'Vierwaldstättersee', active: true },
   { id: 'lake-geneva', name: 'Lake Geneva', localName: 'Lac Léman', active: true },
-  { id: 'lake-thun', name: 'Lake Thun', localName: 'Thunersee', active: false },
-  { id: 'lake-brienz', name: 'Lake Brienz', localName: 'Brienzersee', active: false },
+  { id: 'lake-thun', name: 'Lake Thun', localName: 'Thunersee', active: true },
+  { id: 'lake-brienz', name: 'Lake Brienz', localName: 'Brienzersee', active: true },
   { id: 'lake-zurich', name: 'Lake Zurich', localName: 'Zürichsee', active: true },
-  { id: 'lake-lugano', name: 'Lake Lugano', localName: 'Lago di Lugano', active: false },
-  { id: 'lake-maggiore', name: 'Lake Maggiore', localName: 'Lago Maggiore', active: false },
-  { id: 'lake-constance', name: 'Lake Constance', localName: 'Bodensee', active: false },
-  { id: 'lake-neuchatel', name: 'Lake Neuchâtel', localName: 'Lac de Neuchâtel', active: false },
-  { id: 'lake-biel', name: 'Lake Biel', localName: 'Bielersee', active: false },
-  { id: 'lake-murten', name: 'Lake Murten', localName: 'Murtensee', active: false },
-  { id: 'lake-zug', name: 'Lake Zug', localName: 'Zugersee', active: false },
+  { id: 'lake-lugano', name: 'Lake Lugano', localName: 'Lago di Lugano', active: true },
+  { id: 'lake-maggiore', name: 'Lake Maggiore', localName: 'Lago Maggiore', active: true },
+  { id: 'lake-constance', name: 'Lake Constance', localName: 'Bodensee', active: true },
+  { id: 'lake-neuchatel', name: 'Lake Neuchâtel', localName: 'Lac de Neuchâtel', active: true },
+  { id: 'lake-biel', name: 'Lake Biel', localName: 'Bielersee', active: true },
+  { id: 'lake-murten', name: 'Lake Murten', localName: 'Murtensee', active: true },
+  { id: 'lake-zug', name: 'Lake Zug', localName: 'Zugersee', active: true },
 ];
 
 const lakeById = (id: string): Lake => LAKE_LIST.find((lake) => lake.id === id)!;
