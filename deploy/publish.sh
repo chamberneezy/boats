@@ -63,13 +63,20 @@ done
 # Every lake's "Buy ticket" rule, one file at the bucket root (see src/shopLink.ts). iOS and Android
 # fetch it like the packages above; the web bundles the same source file. A validation failure
 # keeps the last good copy live and fails the job so it gets fixed.
+# Copied as named objects, not rsynced: rsync into the bucket root needs storage.buckets.get, which
+# the ingest service account deliberately doesn't have (the lake folders above are prefixes, so
+# they never need it). The hashed file goes first so the manifest never names a missing file.
 echo "== Building shop links =="
-if npm run build:shop-links -- --out "${OUT}" &&
-  gcloud storage rsync "${OUT}/shop-links" "${DATA_BUCKET}"; then
-  gcloud storage objects update "${DATA_BUCKET}/shop-links.*.json" \
-    --cache-control="public, max-age=31536000, immutable" || true
-  gcloud storage objects update "${DATA_BUCKET}/shop-links-manifest.json" \
-    --cache-control="public, max-age=300, must-revalidate" || true
+SHOP_LINKS_FILE=""
+if npm run build:shop-links -- --out "${OUT}"; then
+  SHOP_LINKS_FILE="$(cd "${OUT}/shop-links" && ls shop-links.*.json | grep -E '^shop-links\.[0-9a-f]+\.json$')"
+fi
+if [ -n "${SHOP_LINKS_FILE}" ] &&
+  gcloud storage cp --no-clobber --cache-control="public, max-age=31536000, immutable" \
+    "${OUT}/shop-links/${SHOP_LINKS_FILE}" "${DATA_BUCKET}/${SHOP_LINKS_FILE}" &&
+  gcloud storage cp --cache-control="public, max-age=300, must-revalidate" \
+    "${OUT}/shop-links/shop-links-manifest.json" "${DATA_BUCKET}/shop-links-manifest.json"; then
+  echo "Published ${SHOP_LINKS_FILE} to ${DATA_BUCKET}"
 else
   echo "!! shop links failed to build or publish." >&2
   FAILED="${FAILED} shop-links"
