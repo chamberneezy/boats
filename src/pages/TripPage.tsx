@@ -76,7 +76,7 @@ export function TripPage() {
 
   return (
     <SearchLayout lakeName={lake.name} showMapOnPhone={false}>
-      {state.status === 'ready' && <TripDetails entry={state.entry} onBack={backToSearch} />}
+      {state.status === 'ready' && <TripDetails entry={state.entry} lakeId={lake.id} onBack={backToSearch} />}
 
       {state.status === 'loading' && (
         <div className="max-w-[460px] rounded-[14px] bg-surface-card p-6 shadow-card md:max-w-[780px] md:rounded-[16px] md:p-10" aria-busy="true">

@@ -87,8 +87,9 @@ export function SchedulesPage() {
       </div>
 
       <div className="mt-2 rounded-[14px] border border-dashed border-alpine-sky/40 bg-surface-sunken px-4 py-3 font-body text-xs text-stone-grey md:mt-6 md:max-w-[760px] md:text-[13px]">
-        Lakes we cover show the next departure to each destination from their main pier. Departures for the other lakes are sample
-        data for illustration, not real timetables.
+        Each lake shows the next departure to each destination from its main pier.
+        {SAMPLE_SCHEDULES.some(({ lake }) => !lake.active) &&
+          ' Departures for lakes we don’t cover yet are sample data for illustration, not real timetables.'}
       </div>
 
       <div className="mt-[18px] grid grid-cols-1 gap-[18px] md:mt-8 md:grid-cols-2 md:gap-8">

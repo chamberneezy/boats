@@ -315,8 +315,8 @@ export const ALL_LAKE_MAGGIORE_PIERS: PierOption[] = [
 // genuinely needed for full coverage, not a naming trap (see pipeline/lakes.ts). Spans all three
 // shore countries: Switzerland (Altnau, Arbon, Bottighofen, Güttingen, Horn, Kreuzlingen,
 // Romanshorn, Rorschach, Uttwil), Austria (Bregenz), Germany (everything else). The
-// Friedrichshafen<->Romanshorn car ferry (route_desc "FAE") is excluded by boatCategories, same
-// as any other non-passenger-boat route type - never appears here.
+// Friedrichshafen<->Romanshorn car ferry (route_desc "FAE") is included since 2026-09-28 - foot
+// passengers ride it too - from its own landings, listed at the end.
 export const ALL_LAKE_CONSTANCE_PIERS: PierOption[] = [
   { id: '8530834', name: 'Altnau', fullName: 'Altnau (See)' },
   { id: '8506110', name: 'Arbon', fullName: 'Arbon (See)' },
@@ -403,12 +403,6 @@ const POPULAR_PIER_IDS: Record<string, string[]> = {
 // can never be treated as valid for another lake's search or trip page.
 export function findPierInLake(lakeId: string, id: string | null | undefined): PierOption | undefined {
   return (PIERS_BY_LAKE[lakeId] ?? []).find((pier) => pier.id === id);
-}
-
-// Which lake a pier id belongs to - lets code that only has a pier id (e.g. a trip's stations)
-// pick the right ticket shop, vessel data, etc. without the caller having to thread a lakeId through.
-export function lakeIdForPier(id: string): string | undefined {
-  return Object.entries(PIERS_BY_LAKE).find(([, piers]) => piers.some((pier) => pier.id === id))?.[0];
 }
 
 export function getPopularPiers(lakeId: string): PierOption[] {

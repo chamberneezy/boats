@@ -19,7 +19,7 @@
 // placeholders, every lake covered).
 
 import shopLinksJson from './data/shopLinks.json';
-import { lakeIdForPier, pierFullName, pierLabel } from './piers';
+import { pierFullName, pierLabel } from './piers';
 import { renderShopLink } from './timetable/shopLinkRender';
 import type { ShopLinksPackage } from './timetable/types';
 import type { BoatConnection, StationLocation } from './types';
@@ -31,17 +31,18 @@ const end = (station: StationLocation) => ({ id: station.id, name: pierLabel(sta
 
 /**
  * The shop link for a trip: first departure to last arrival (a trip with changes is one ticket),
- * at the first departure's Swiss time, by the rule of the lake the first departure is on. Null when
- * the trip lacks what the link needs.
+ * at the first departure's Swiss time, by the rule of the lake the trip was searched on. Never the
+ * lake guessed from a pier: 14 piers are on both Lake Biel and Neuchatel/Murten, and each lake's
+ * timetable only holds its own operator's boats, so the searched lake is what names the shop.
+ * Null when the trip lacks what the link needs.
  */
-export function shopTicketUrl(entry: BoatConnection): string | null {
+export function shopTicketUrl(entry: BoatConnection, lakeId: string): string | null {
   const first = entry.boatSections[0];
   const last = entry.boatSections[entry.boatSections.length - 1];
   const departure = first?.departure.departureTimestamp;
   if (!first || !last || departure === null || departure === undefined) return null;
 
-  const lakeId = lakeIdForPier(first.departure.station.id);
-  const rule = lakeId ? SHOP_LINKS.lakes[lakeId] : undefined;
+  const rule = SHOP_LINKS.lakes[lakeId];
   if (!rule) return null;
 
   const { date, time } = timestampToDateTimeParts(departure);

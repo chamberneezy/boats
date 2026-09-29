@@ -91,8 +91,8 @@ export const LAKES: Record<string, LakeConfig> = {
     // Aare - real through-service, not a data error - so this package's stops include some piers
     // also published under lake-neuchatel/lake-murten (agency 189, below). Both packages are
     // correct; a rider searching from either lake can reach the shared piers, same as the real
-    // boats. `lakeIdForPier` will resolve a shared pier to whichever of these lakes is checked
-    // first - harmless today since none of these six lakes have ticket-shop or vessel data yet.
+    // boats. So a pier id alone can't tell which lake (or operator) a trip is on: anything
+    // per-lake - ticket shop, boat names - must use the lake the trip was searched on.
     agencyNameIncludes: 'Bielersee-Schifffahrts-Gesellschaft',
     boatCategories: ['BAT'],
     minTransferMinutes: 5,
