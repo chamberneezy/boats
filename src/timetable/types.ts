@@ -126,6 +126,52 @@ export interface VesselsManifest {
   vessels: { path: string; sha256: string; bytes: number };
 }
 
+// Special cruises: evening and themed sailings an operator deploys a boat for but that are not in
+// the public timetable (a Kurs + first departure + last arrival the TimetablePackage doesn't run
+// that day). Paid native apps only - the web app never shows them. Published per lake next to the
+// timetable (<lake>/cruises-manifest.json + cruises.<hash>.json) for lakes whose operator publishes
+// its deployments (Lucerne: SGV, Zurich: ZSG). The operator gives no name or description for
+// them, so there is none here: only day, Kurs, stops and times. The boat comes from the vessels
+// package (allocations[date][kurs]), which already resolves every Kurs, cruises included.
+// Same contract rules as above: never change a field's meaning, bump CRUISES_SCHEMA_VERSION.
+export const CRUISES_SCHEMA_VERSION = 1;
+
+export interface CruiseStop {
+  // Our pier id, resolved from the operator's stop name at publish time (so clients never match
+  // names); null only if the operator names a stop we don't have.
+  pierId: string | null;
+  name: string; // the operator's own spelling, e.g. "Küssnacht am Rigi"
+  // Seconds after midnight of the cruise's `date`, Swiss time; can exceed 86400 past midnight,
+  // same convention as TimetableStopTime.
+  time: number;
+}
+
+export interface Cruise {
+  date: string; // YYYY-MM-DD, Swiss service day
+  kurs: string; // without leading zeros, e.g. "108" - the key into the vessels package's allocations
+  stops: CruiseStop[]; // in sailing order, at least two
+}
+
+export interface CruisesPackage {
+  schemaVersion: typeof CRUISES_SCHEMA_VERSION;
+  lakeId: string;
+  source: string; // the operator page the deployments were scraped from
+  // The days that were checked: a day in this range with no cruise means none is deployed, a day
+  // outside it means unknown. Starts at the publish day (past days are dropped).
+  validFrom: string;
+  validUntil: string;
+  cruises: Cruise[]; // sorted by date, then first departure
+}
+
+// Small file next to the cruises package, same role as TimetableManifest above.
+export interface CruisesManifest {
+  schemaVersion: typeof CRUISES_SCHEMA_VERSION;
+  lakeId: string;
+  generatedAt: string;
+  source: string;
+  cruises: { path: string; sha256: string; bytes: number };
+}
+
 // How to build each lake's "Buy ticket" link - one file for every lake, hand-maintained in
 // src/data/shopLinks.json and published to the bucket root, so web, iOS and Android all render the
 // same links from the same data and a changed or new link needs no app release. Same contract

@@ -37,6 +37,13 @@ for lake in ${LAKES}; do
     echo "!! ${lake} vessels failed to build; publishing the timetable without it." >&2
   fi
 
+  # Special cruises for the paid apps (see pipeline/cruises.ts), compared against the timetable just
+  # built above - same best-effort rule as vessels. Lakes without scraped deployments skip cleanly.
+  echo "== Building ${lake} cruises =="
+  if ! npm run build:cruises -- --lake "${lake}" --out "${OUT}"; then
+    echo "!! ${lake} cruises failed to build; publishing the timetable without it." >&2
+  fi
+
   echo "== Publishing ${lake} to ${DATA_BUCKET}/${lake} =="
   # Upload changed files only (rsync skips identical ones). No --delete-unmatched: content-hashed
   # files are immutable, and keeping the previous one lets in-flight downloads finish. Both the
@@ -58,6 +65,12 @@ for lake in ${LAKES}; do
     --cache-control="public, max-age=31536000, immutable" || true
   gcloud storage objects update "${DATA_BUCKET}/${lake}/vessels-manifest.json" \
     --cache-control="public, max-age=300, must-revalidate" || true
+  if [ -f "${OUT}/${lake}/cruises-manifest.json" ]; then
+    gcloud storage objects update "${DATA_BUCKET}/${lake}/cruises.*.json" \
+      --cache-control="public, max-age=31536000, immutable" || true
+    gcloud storage objects update "${DATA_BUCKET}/${lake}/cruises-manifest.json" \
+      --cache-control="public, max-age=300, must-revalidate" || true
+  fi
 done
 
 # Every lake's "Buy ticket" rule, one file at the bucket root (see src/shopLink.ts). iOS and Android

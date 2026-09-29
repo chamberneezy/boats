@@ -14,6 +14,7 @@
     "preview": "vite preview",
     "build:data": "node --disable-warning=ExperimentalWarning pipeline/build-data.ts",
     "build:vessels": "node --disable-warning=ExperimentalWarning pipeline/build-vessels.ts",
+    "build:cruises": "node --disable-warning=ExperimentalWarning pipeline/build-cruises.ts",
     "build:shop-links": "node --disable-warning=ExperimentalWarning pipeline/build-shop-links.ts",
     "test:data": "node --disable-warning=ExperimentalWarning --test \"pipeline/tests/*.test.ts\""
   },
