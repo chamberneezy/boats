@@ -30,3 +30,6 @@ dist-ssr
 # Data pipeline: downloaded feeds and generated packages
 pipeline/.cache/
 pipeline/out/
+
+# Claude Code project notes: kept local, never pushed
+CLAUDE.md
