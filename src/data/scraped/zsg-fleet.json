@@ -1,6 +1,6 @@
 {
   "source": "https://einsatzderschiffe.zsg.ch/",
-  "fetchedAt": "2026-09-22T13:41:46.170Z",
+  "fetchedAt": "2026-10-02T11:18:32.400Z",
   "vessels": [
     {
       "name": "Albis",
@@ -60,7 +60,7 @@
       "name": "Pfannenstiel",
       "type": "EMS",
       "category": "BAT",
-      "url": "https://www.zsg.ch/de/motorschiffe-albis-pfannenstiel-uetliberg.html"
+      "url": " https://www.zsg.ch/de/informationen/schiff-oder-halle-mieten/ems-pfannenstiel"
     },
     {
       "name": "Pontus",
