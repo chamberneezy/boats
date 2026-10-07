@@ -6,8 +6,8 @@ import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { test } from 'node:test';
 import type { TimetableManifest, TimetablePackage } from '../../src/timetable/types.ts';
-import { CRUISE_SOURCES, detectCruises, pierResolver } from '../cruises.ts';
-import type { ScrapedTrips } from '../cruises.ts';
+import { CRUISE_SOURCES, CRUISE_TITLES_FILE, OPERATOR_CRUISES_FILE, detectCruises, englishTitle, operatorCruises, pierResolver } from '../cruises.ts';
+import type { OperatorCruisesFile, ScrapedTrips } from '../cruises.ts';
 
 const stop = (id: string, name: string, shortName: string) => ({ id, name, shortName, lat: 0, lon: 0, hasMultiplePiers: false });
 // Two days from 2026-10-01; service 0 runs both days (bits 0 and 1 set).
@@ -30,19 +30,26 @@ const scraped: ScrapedTrips = {
   routes: {
     regular: [['10:00', 'Luzern'], ['10:40', 'Weggis']],
     evening: [['23:30', 'Luzern'], ['00:15', 'Kussnacht am Rigi'], ['00:50', 'Nowhere']],
+    split: [['10:00', 'Luzern'], ['10:40', 'Weggis'], ['11:20', 'Luzern']],
+    shuttle: [['12:05', 'Luzern'], ['12:15', 'Weggis'], ['12:30', 'Luzern']],
   },
   days: {
     '2026-09-30': { '108': 'evening' }, // before "today": dropped
     '2026-10-01': { '029': 'regular', '108': 'evening' },
-    '2026-10-02': { '29': 'evening' }, // a public Kurs number, but not its public times that day
+    '2026-10-02': {
+      '29': 'evening', // a regular line's Kurs on an extra run: not a special cruise
+      '208': 'evening',
+      '210': 'split', // the operator files the public 10:00 boat under another Kurs (ZSG's 2501/2502 case)
+      '212': 'shuttle', // a 25-minute loop that is no public sailing: a shuttle, not a cruise
+    },
   },
 };
 
-test('a deployed Kurs the public timetable does not run that day is a special cruise', () => {
+test('a deployed Kurs that is no public sailing that day, and no regular line, is a special cruise', () => {
   const { pkg, unresolvedNames } = detectCruises('lake-test', timetable, scraped, '2026-10-01');
   assert.equal(pkg.validFrom, '2026-10-01');
   assert.equal(pkg.validUntil, '2026-10-02');
-  assert.deepEqual(pkg.cruises.map((c) => `${c.date} ${c.kurs}`), ['2026-10-01 108', '2026-10-02 29']);
+  assert.deepEqual(pkg.cruises.map((c) => `${c.date} ${c.kurs}`), ['2026-10-01 108', '2026-10-02 208']);
   // Times are seconds after the cruise day's midnight and keep counting past it.
   assert.deepEqual(pkg.cruises[0].stops, [
     { pierId: '1', name: 'Luzern', time: 23 * 3600 + 30 * 60 },
@@ -70,3 +77,44 @@ for (const [lakeId, file] of Object.entries(CRUISE_SOURCES)) {
     assert.deepEqual([...names].filter((name) => !resolve(name)), []);
   });
 }
+
+test('operator-listed cruises: regular-sailing packages, shuttles and English titles', () => {
+  const lake = { ...timetable, lakeId: 'lake-biel' };
+  const departure = (date: string, depart: string, arrive: string) => ({ date, from: 'Luzern', depart, to: 'Luzern', arrive });
+  const file: OperatorCruisesFile = {
+    operators: {
+      bsg: {
+        source: 'https://example.ch/events',
+        fetchedAt: '2026-10-01T00:00:00Z',
+        cruises: [
+          // Lunch on the public 10:00 boat (Kurs 29): a package, also after the timetable's last day.
+          { id: 'bsg:lunch', url: 'https://example.ch/lunch', title: { de: 'Mittagsfahrt' }, departures: [departure('2026-10-01', '10:00', '12:00'), departure('2026-10-05', '10:00', '12:00')] },
+          // An evening fondue boat: kept, also after the timetable's last day; a 30-minute run is a shuttle.
+          {
+            id: 'bsg:fondue',
+            url: 'https://example.ch/fondue',
+            title: { de: 'Fondue-Schiff' },
+            price: { amount: 68, currency: 'CHF' },
+            departures: [departure('2026-10-02', '19:00', '22:00'), { ...departure('2026-10-09', '19:00', '00:30'), soldOut: true }, departure('2026-10-03', '19:00', '19:30')],
+          },
+        ],
+      },
+    },
+  };
+  const { cruises, untranslated } = operatorCruises('lake-biel', lake, file, { 'Fondue-Schiff': 'Fondue boat' }, '2026-10-01');
+  assert.deepEqual(cruises.map((c) => `${c.date} ${c.title?.en}`), ['2026-10-02 Fondue boat', '2026-10-09 Fondue boat']);
+  assert.deepEqual(untranslated, ['Mittagsfahrt']);
+  const late = cruises[1];
+  assert.equal(late.kurs, '');
+  assert.equal(late.soldOut, true);
+  assert.deepEqual(late.price, { amount: 68, currency: 'CHF' });
+  assert.equal(late.stops[1].time, 86400 + 30 * 60); // past midnight keeps counting
+});
+
+const operatorFile = join(import.meta.dirname, '..', '..', OPERATOR_CRUISES_FILE);
+test('every operator-listed cruise has an English title', { skip: !existsSync(operatorFile) && 'no scraped operator cruises' }, () => {
+  const file: OperatorCruisesFile = JSON.parse(readFileSync(operatorFile, 'utf8'));
+  const titles = JSON.parse(readFileSync(join(import.meta.dirname, '..', '..', CRUISE_TITLES_FILE), 'utf8'));
+  const missing = Object.values(file.operators).flatMap((o) => o.cruises.filter((c) => !englishTitle(c, titles)).map((c) => Object.values(c.title)[0]));
+  assert.deepEqual(missing, [], `add an English title to ${CRUISE_TITLES_FILE}`);
+});

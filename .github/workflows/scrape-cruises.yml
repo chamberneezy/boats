@@ -1,0 +1,51 @@
+name: Scrape operators' special cruises
+
+on:
+  schedule:
+    - cron: '40 5 * * *' # 07:40 Europe/Zurich (CEST); 06:40 once DST ends
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# Shared with the other scrapers (scrape-sgv.yml, scrape-zsg.yml, scrape-cgn.yml,
+# check-zsg-traffic.yml): they all commit to main on close schedules, so they queue instead of
+# racing each other's push.
+concurrency:
+  group: scraper-git-push
+  cancel-in-progress: false
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm ci
+      # A failing operator keeps its last good data and fails the run (so it shows up here), but
+      # whatever the other operators returned is still committed.
+      - run: npm run scrape:cruises
+        continue-on-error: true
+        id: scrape
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/scraped/operator-cruises.json
+          if git diff --cached --quiet; then
+            echo "No change to commit."
+          else
+            git commit -m "Daily operators' cruises scrape"
+            for attempt in 1 2 3; do
+              git pull --rebase origin main && git push && break
+              [ "$attempt" = 3 ] && exit 1
+              sleep $((attempt * 5))
+            done
+          fi
+      - if: steps.scrape.outcome == 'failure'
+        run: |
+          echo "At least one operator's cruise page could not be read; its last good data was kept."
+          exit 1

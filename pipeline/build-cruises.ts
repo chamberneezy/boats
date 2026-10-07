@@ -1,11 +1,12 @@
 // Builds a lake's special-cruises package and its manifest (see CruisesPackage in
-// src/timetable/types.ts) from that lake's scraped deployments and its freshly built timetable
-// package - so run it after build:data for the same --out. Paid native apps read it; the web app
-// never shows special cruises.
+// src/timetable/types.ts) from that lake's scraped deployments (SGV, ZSG) and/or its operators'
+// own event pages (scripts/scrape-cruises.mjs), checked against its freshly built timetable package
+// - so run it after build:data for the same --out. Paid native apps read it; the web app never shows
+// special cruises.
 //
 //   npm run build:cruises -- --lake lake-lucerne [--out dir]
 //
-// A lake whose operator publishes no per-day deployments exits cleanly with nothing published.
+// A lake with neither source exits cleanly with nothing published.
 // Nothing is rewritten when the data is identical to what is already in the output folder.
 
 import { createHash } from 'node:crypto';
@@ -15,8 +16,8 @@ import { parseArgs } from 'node:util';
 import { CRUISES_SCHEMA_VERSION } from '../src/timetable/types.ts';
 import type { CruisesManifest, TimetableManifest, TimetablePackage } from '../src/timetable/types.ts';
 import { zurichParts } from '../src/timetable/zurich.ts';
-import { CRUISE_SOURCES, detectCruises } from './cruises.ts';
-import type { ScrapedTrips } from './cruises.ts';
+import { CRUISE_SOURCES, CRUISE_TITLES_FILE, OPERATOR_CRUISE_LAKES, OPERATOR_CRUISES_FILE, detectCruises, operatorCruises } from './cruises.ts';
+import type { OperatorCruisesFile, ScrapedTrips } from './cruises.ts';
 
 const { values } = parseArgs({
   options: {
@@ -26,8 +27,9 @@ const { values } = parseArgs({
 });
 const lakeId = values.lake!;
 const sourceFile = CRUISE_SOURCES[lakeId];
-if (!sourceFile) {
-  console.log(`${lakeId}: its operator publishes no per-day deployments; no cruises to publish.`);
+const hasOperatorCruises = Object.values(OPERATOR_CRUISE_LAKES).some((o) => o.lakes.includes(lakeId));
+if (!sourceFile && !hasOperatorCruises) {
+  console.log(`${lakeId}: no deployments and no operator event pages are read for this lake; no cruises to publish.`);
   process.exit(0);
 }
 
@@ -39,10 +41,29 @@ if (!existsSync(timetableManifestPath)) {
 }
 const timetableManifest: TimetableManifest = JSON.parse(readFileSync(timetableManifestPath, 'utf8'));
 const timetable: TimetablePackage = JSON.parse(readFileSync(join(outDir, timetableManifest.timetable.path), 'utf8'));
-const scraped: ScrapedTrips = JSON.parse(readFileSync(join(import.meta.dirname, '..', sourceFile), 'utf8'));
-
 const today = zurichParts(Math.floor(Date.now() / 1000)).date;
-const { pkg, unresolvedNames } = detectCruises(lakeId, timetable, scraped, today);
+const root = join(import.meta.dirname, '..');
+const deployed = sourceFile
+  ? detectCruises(lakeId, timetable, JSON.parse(readFileSync(join(root, sourceFile), 'utf8')) as ScrapedTrips, today)
+  : null;
+const operatorFile = join(root, OPERATOR_CRUISES_FILE);
+const listed = hasOperatorCruises && existsSync(operatorFile)
+  ? operatorCruises(lakeId, timetable, JSON.parse(readFileSync(operatorFile, 'utf8')) as OperatorCruisesFile, JSON.parse(readFileSync(join(root, CRUISE_TITLES_FILE), 'utf8')), today)
+  : null;
+const cruises = [...(deployed?.pkg.cruises ?? []), ...(listed?.cruises ?? [])].sort(
+  (a, b) => a.date.localeCompare(b.date) || a.stops[0].time - b.stops[0].time || a.kurs.localeCompare(b.kurs),
+);
+const lastListed = listed?.cruises.reduce((max, c) => (c.date > max ? c.date : max), today) ?? today;
+const pkg = {
+  schemaVersion: CRUISES_SCHEMA_VERSION,
+  lakeId,
+  source: deployed?.pkg.source ?? listed?.sources.join(' ') ?? '',
+  validFrom: deployed?.pkg.validFrom ?? today,
+  validUntil: [deployed?.pkg.validUntil ?? today, lastListed].sort().pop()!,
+  cruises,
+};
+const unresolvedNames = [...new Set([...(deployed?.unresolvedNames ?? []), ...(listed?.unresolvedNames ?? [])])].sort();
+if (listed?.untranslated.length) console.warn(`${lakeId}: no English title for: ${listed.untranslated.join(', ')} (add them to ${CRUISE_TITLES_FILE})`);
 
 const manifestPath = join(outDir, 'cruises-manifest.json');
 const previous: CruisesManifest | null = existsSync(manifestPath) ? JSON.parse(readFileSync(manifestPath, 'utf8')) : null;

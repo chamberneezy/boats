@@ -146,16 +146,30 @@ export interface CruiseStop {
   time: number;
 }
 
+// Text in the languages an operator (or our reviewed translation) provides; `en` is always present
+// on operator-listed cruises. More languages are added later without changing this shape.
+export type LocalizedText = Partial<Record<'en' | 'de' | 'fr' | 'it', string>>;
+
 export interface Cruise {
   date: string; // YYYY-MM-DD, Swiss service day
-  kurs: string; // without leading zeros, e.g. "108" - the key into the vessels package's allocations
+  // Without leading zeros, e.g. "108" - the key into the vessels package's allocations. Empty ("")
+  // for a cruise found on the operator's own event pages, which give no Kurs (so no boat lookup).
+  kurs: string;
   stops: CruiseStop[]; // in sailing order, at least two
+  // Optional, only on cruises found on the operator's own event pages (added 2026-10-07; additive,
+  // older clients ignore them). Always the operator's own information, never invented.
+  operator?: string; // e.g. "BSG", "LNM", "SGZ", "Vorarlberg Lines"
+  title?: LocalizedText; // the operator's name for the cruise ("Fondue-Schiff"), with an English `en`
+  description?: LocalizedText; // only where the operator writes one in that language
+  url?: string; // the operator's page for this cruise, which is also where it's booked
+  price?: { amount: number; currency: 'CHF' | 'EUR' }; // the adult price, "from"
+  soldOut?: boolean; // the operator marks this date as fully booked
 }
 
 export interface CruisesPackage {
   schemaVersion: typeof CRUISES_SCHEMA_VERSION;
   lakeId: string;
-  source: string; // the operator page the deployments were scraped from
+  source: string; // the operator page the deployments (or, for operator-listed cruises, the events) were scraped from
   // The days that were checked: a day in this range with no cruise means none is deployed, a day
   // outside it means unknown. Starts at the publish day (past days are dropped).
   validFrom: string;
