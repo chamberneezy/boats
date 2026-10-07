@@ -10,6 +10,7 @@
     "scrape:sgv": "node scripts/scrape-sgv.mjs",
     "scrape:zsg": "node scripts/scrape-zsg.mjs",
     "scrape:cgn": "node scripts/scrape-cgn.mjs",
+    "scrape:cruises": "node scripts/scrape-cruises.mjs",
     "check:zsg-traffic": "node scripts/check-zsg-traffic.mjs",
     "preview": "vite preview",
     "build:data": "node --disable-warning=ExperimentalWarning pipeline/build-data.ts",
@@ -19,6 +20,7 @@
     "test:data": "node --disable-warning=ExperimentalWarning --test \"pipeline/tests/*.test.ts\""
   },
   "dependencies": {
+    "firebase": "^12.19.0",
     "lucide-react": "^1.26.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",

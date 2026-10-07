@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Menu, Search, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router';
+import { ACCOUNTS_ENABLED } from '../account/auth';
 import { MenuContext, useMenu } from '../menu';
+import { ACCOUNT_PATH } from '../routes';
 
 const LOGO_SRC = `${import.meta.env.BASE_URL}logo-mark.svg`;
 
-// Inert until those screens exist.
-const MENU_INERT_ITEMS = ['Tickets', 'Account'];
+// Inert until those screens exist. Account is live wherever accounts are configured (dev today).
+const MENU_INERT_ITEMS = ACCOUNTS_ENABLED ? ['Tickets'] : ['Tickets', 'Account'];
 
 // The menu slides in from the left and pushes the page aside, never covering it. Phones: it fills
 // the whole screen and the page slides fully out of view. Desktop: a 400px drawer, and Layout
@@ -91,6 +93,11 @@ export function MenuPanel() {
               <span className="font-body text-xs uppercase tracking-[0.06em]">Coming soon</span>
             </div>
           ))}
+          {ACCOUNTS_ENABLED && (
+            <Link to={ACCOUNT_PATH} onClick={close} className={`${row} text-deep-lake`}>
+              Account
+            </Link>
+          )}
         </nav>
       </div>
     </div>

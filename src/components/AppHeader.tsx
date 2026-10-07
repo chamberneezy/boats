@@ -1,7 +1,7 @@
 import { ArrowLeft, Search } from 'lucide-react';
 import { Link, matchPath, useLocation, useNavigate } from 'react-router';
 import { DEFAULT_LAKE_ID, LAKES } from '../lakes';
-import { searchPath } from '../routes';
+import { ACCOUNT_PATH, searchPath } from '../routes';
 import { MenuButton } from './Menu';
 import { useMenu } from '../menu';
 
@@ -11,10 +11,11 @@ const SEARCH_TO = searchPath(DEFAULT_LAKE_ID);
 // Inert until that screen exists.
 const WEB_INERT_ITEMS = ['Help'];
 
-type Section = 'home' | 'search' | 'schedules';
+type Section = 'home' | 'search' | 'schedules' | 'account';
 
 function useSection(pathname: string): { section: Section; lakeName: string | null } {
   if (pathname.startsWith('/schedules')) return { section: 'schedules', lakeName: 'Scheduled' };
+  if (pathname.startsWith(ACCOUNT_PATH)) return { section: 'account', lakeName: 'Account' };
   const lakeId = (matchPath('/search/:lake', pathname) ?? matchPath('/trip/:lake', pathname))?.params.lake;
   if (!lakeId) return { section: 'home', lakeName: null };
   return { section: 'search', lakeName: LAKES.find((lake) => lake.id === lakeId)?.name ?? null };

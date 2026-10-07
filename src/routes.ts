@@ -6,10 +6,14 @@
 //   /search/lake-lucerne?from=&to=&date=&time=
 //                                       Search with results (pier ids, YYYY-MM-DD, HH:MM)
 //   /trip/lake-lucerne?from=&to=&dep=   One sailing (dep = departure unix seconds)
+//   /account                            Account (sign in, sign out, delete); also where emailed
+//                                       sign-in links land
 
 import { findPier, findPierInLake } from './piers';
 
 export { findPier };
+
+export const ACCOUNT_PATH = '/account';
 
 export interface SearchQuery {
   from: string;

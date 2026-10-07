@@ -3,10 +3,12 @@ import { Navigate, Outlet, Route, Routes, useLocation, useNavigationType } from 
 import { AppHeader } from './components/AppHeader';
 import { MenuPanel, MenuProvider } from './components/Menu';
 import { useMenu } from './menu';
+import { AccountPage } from './pages/AccountPage';
 import { HomePage } from './pages/HomePage';
 import { SchedulesPage } from './pages/SchedulesPage';
 import { SearchPage } from './pages/SearchPage';
 import { TripPage } from './pages/TripPage';
+import { ACCOUNT_PATH } from './routes';
 
 // New pages open at the top; going back or forward keeps the browser's own scroll position.
 function ScrollToTop() {
@@ -47,6 +49,7 @@ function App() {
         <Route path="/schedules" element={<SchedulesPage />} />
         <Route path="/search/:lake" element={<SearchPage />} />
         <Route path="/trip/:lake" element={<TripPage />} />
+        <Route path={ACCOUNT_PATH} element={<AccountPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
       </Routes>
