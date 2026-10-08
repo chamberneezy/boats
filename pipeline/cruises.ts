@@ -3,7 +3,7 @@
 // tests/cruises.test.ts.
 
 import { CRUISES_SCHEMA_VERSION } from '../src/timetable/types.ts';
-import type { CruisesPackage, CruiseStop, TimetablePackage } from '../src/timetable/types.ts';
+import type { Cruise, CruisesPackage, CruiseStop, TimetablePackage } from '../src/timetable/types.ts';
 
 // The scraped deployments file per lake: { source, fetchedAt, routes: { id: [["HH:MM", stop name], …] },
 // days: { YYYY-MM-DD: { kurs: routeId } } }. Only operators whose scraper records which Kurs runs
@@ -148,6 +148,8 @@ export const OPERATOR_CRUISE_LAKES: Record<string, { name: string; lakes: string
   bsg: { name: 'BSG', lakes: ['lake-biel'] },
   lnm: { name: 'LNM', lakes: ['lake-neuchatel', 'lake-murten'] },
   sgz: { name: 'SGZ', lakes: ['lake-zug'] },
+  // SGV's pages name Lucerne's deployed cruises (see nameDeployedCruises) rather than add their own.
+  sgv: { name: 'SGV', lakes: ['lake-lucerne'] },
   vlines: { name: 'Vorarlberg Lines', lakes: ['lake-constance'] },
 };
 export const OPERATOR_CRUISES_FILE = 'src/data/scraped/operator-cruises.json';
@@ -173,6 +175,9 @@ export interface OperatorCruise {
   description?: Partial<Record<Lang, string>>;
   price?: { amount: number; currency: 'CHF' | 'EUR' };
   departures: OperatorDeparture[];
+  // SGV only: an open-ended "every <weekday>" page, which names matching deployments but adds no dates.
+  weekday?: number;
+  template?: OperatorDeparture;
 }
 export interface OperatorCruisesFile {
   operators: Record<string, { source: string; fetchedAt: string; cruises: OperatorCruise[] }>;
@@ -268,4 +273,65 @@ export function operatorCruises(
     }
   }
   return { cruises, sources, unresolvedNames: [...unresolved].sort(), untranslated: [...untranslated].sort() };
+}
+
+// --- Naming deployed cruises from the operator's own pages (SGV) --------------------------------------
+
+/** Departure within this of the operator's stated time counts as the same sailing. */
+const SAME_SAILING_SECONDS = 20 * 60;
+const weekdayOf = (iso: string): number => new Date(`${iso}T12:00:00Z`).getUTCDay();
+
+export interface ListedTemplate {
+  weekday: number; // 0 = Sunday
+  pierId: string | null;
+  time: number; // seconds after midnight
+  fields: Pick<Cruise, 'title' | 'description' | 'url' | 'price'>;
+}
+
+/**
+ * Lucerne has both kinds of source: the deployments (which boat, which day, which stops) and SGV's
+ * own cruise pages (name, price, description, page). A deployed cruise takes the page's fields when
+ * the page lists that date (or, for an open-ended "every Sunday" page, that weekday) from the same pier
+ * within SAME_SAILING_SECONDS; it keeps its Kurs, so the boat is still found, and gets no `operator`, so
+ * the boat stays its identity. A page's dated sailing that no deployment matches is kept only past the
+ * deployments' last day (SGV publishes deployments about two months ahead; New Year's Eve shows up
+ * here first), and is then a cruise of its own with operator "SGV".
+ */
+export function nameDeployedCruises(deployed: Cruise[], listed: Cruise[], templates: ListedTemplate[], deployedUntil: string): Cruise[] {
+  const fieldsOf = (c: Cruise) => ({
+    ...(c.title ? { title: c.title } : {}),
+    ...(c.description ? { description: c.description } : {}),
+    ...(c.url ? { url: c.url } : {}),
+    ...(c.price ? { price: c.price } : {}),
+  });
+  const used = new Set<Cruise>();
+  const named = deployed.map((d) => {
+    const first = d.stops[0];
+    const match =
+      listed.find((l) => !used.has(l) && l.date === d.date && l.stops[0].pierId === first.pierId && Math.abs(l.stops[0].time - first.time) <= SAME_SAILING_SECONDS) ?? null;
+    if (match) {
+      used.add(match);
+      return { ...d, ...fieldsOf(match), ...(match.soldOut ? { soldOut: true } : {}) };
+    }
+    const template = templates.find((t) => t.weekday === weekdayOf(d.date) && t.pierId === first.pierId && Math.abs(t.time - first.time) <= SAME_SAILING_SECONDS);
+    return template ? { ...d, ...template.fields } : d;
+  });
+  // Several boats on one event (Klausjagen: four boats leaving Luzern 18:30-18:50, all back 22:50): an
+  // unnamed boat with the same day, first and last pier and return, leaving within 30 minutes of a
+  // named one, takes that one's name.
+  const sameEvent = (a: Cruise, b: Cruise) =>
+    a.date === b.date &&
+    a.stops[0].pierId === b.stops[0].pierId &&
+    a.stops[a.stops.length - 1].pierId === b.stops[b.stops.length - 1].pierId &&
+    a.stops[a.stops.length - 1].time === b.stops[b.stops.length - 1].time &&
+    Math.abs(a.stops[0].time - b.stops[0].time) <= 30 * 60;
+  for (let i = 0; i < named.length; i++) {
+    if (named[i].title) continue;
+    const sibling = named.find((n) => n.title && sameEvent(n, named[i]));
+    if (sibling) named[i] = { ...named[i], ...fieldsOf(sibling) };
+  }
+  // The page's own dated entry for a day a deployment already has is used, not added again.
+  for (const l of listed) if (named.some((d) => d.date === l.date && d.title === l.title && l.title)) used.add(l);
+  const beyond = listed.filter((l) => !used.has(l) && l.date > deployedUntil);
+  return [...named, ...beyond];
 }

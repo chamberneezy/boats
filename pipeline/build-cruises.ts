@@ -16,7 +16,8 @@ import { parseArgs } from 'node:util';
 import { CRUISES_SCHEMA_VERSION } from '../src/timetable/types.ts';
 import type { CruisesManifest, TimetableManifest, TimetablePackage } from '../src/timetable/types.ts';
 import { zurichParts } from '../src/timetable/zurich.ts';
-import { CRUISE_SOURCES, CRUISE_TITLES_FILE, OPERATOR_CRUISE_LAKES, OPERATOR_CRUISES_FILE, detectCruises, operatorCruises } from './cruises.ts';
+import { CRUISE_SOURCES, CRUISE_TITLES_FILE, OPERATOR_CRUISE_LAKES, OPERATOR_CRUISES_FILE, detectCruises, nameDeployedCruises, operatorCruises, pierResolver } from './cruises.ts';
+import type { ListedTemplate } from './cruises.ts';
 import type { OperatorCruisesFile, ScrapedTrips } from './cruises.ts';
 
 const { values } = parseArgs({
@@ -47,10 +48,24 @@ const deployed = sourceFile
   ? detectCruises(lakeId, timetable, JSON.parse(readFileSync(join(root, sourceFile), 'utf8')) as ScrapedTrips, today)
   : null;
 const operatorFile = join(root, OPERATOR_CRUISES_FILE);
-const listed = hasOperatorCruises && existsSync(operatorFile)
-  ? operatorCruises(lakeId, timetable, JSON.parse(readFileSync(operatorFile, 'utf8')) as OperatorCruisesFile, JSON.parse(readFileSync(join(root, CRUISE_TITLES_FILE), 'utf8')), today)
+const operatorData: OperatorCruisesFile | null = hasOperatorCruises && existsSync(operatorFile) ? JSON.parse(readFileSync(operatorFile, 'utf8')) : null;
+const listed = operatorData
+  ? operatorCruises(lakeId, timetable, operatorData, JSON.parse(readFileSync(join(root, CRUISE_TITLES_FILE), 'utf8')), today)
   : null;
-const cruises = [...(deployed?.pkg.cruises ?? []), ...(listed?.cruises ?? [])].sort(
+// Open-ended "every <weekday>" pages (SGV) only name matching deployments.
+const resolvePier = pierResolver(timetable);
+const templates: ListedTemplate[] = Object.entries(OPERATOR_CRUISE_LAKES)
+  .filter(([, o]) => o.lakes.includes(lakeId))
+  .flatMap(([id]) => operatorData?.operators[id]?.cruises ?? [])
+  .filter((c) => c.weekday !== undefined && c.template)
+  .map((c) => ({
+    weekday: c.weekday!,
+    pierId: resolvePier(c.template!.from),
+    time: Number(c.template!.depart.slice(0, 2)) * 3600 + Number(c.template!.depart.slice(3, 5)) * 60,
+    fields: { title: { en: c.title.en ?? Object.values(c.title)[0]! }, ...(c.description ? { description: c.description } : {}), url: c.url, ...(c.price ? { price: c.price } : {}) },
+  }));
+const combined = deployed && listed ? nameDeployedCruises(deployed.pkg.cruises, listed.cruises, templates, deployed.pkg.validUntil) : [...(deployed?.pkg.cruises ?? []), ...(listed?.cruises ?? [])];
+const cruises = combined.sort(
   (a, b) => a.date.localeCompare(b.date) || a.stops[0].time - b.stops[0].time || a.kurs.localeCompare(b.kurs),
 );
 const lastListed = listed?.cruises.reduce((max, c) => (c.date > max ? c.date : max), today) ?? today;

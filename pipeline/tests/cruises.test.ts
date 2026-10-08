@@ -6,7 +6,9 @@ import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { test } from 'node:test';
 import type { TimetableManifest, TimetablePackage } from '../../src/timetable/types.ts';
-import { CRUISE_SOURCES, CRUISE_TITLES_FILE, OPERATOR_CRUISES_FILE, detectCruises, englishTitle, operatorCruises, pierResolver } from '../cruises.ts';
+import { CRUISE_SOURCES, CRUISE_TITLES_FILE, OPERATOR_CRUISES_FILE, detectCruises, englishTitle, nameDeployedCruises, operatorCruises, pierResolver } from '../cruises.ts';
+// @ts-expect-error - plain JavaScript script, no type declarations
+import { sgvDates } from '../../scripts/scrape-cruises.mjs';
 import type { OperatorCruisesFile, ScrapedTrips } from '../cruises.ts';
 
 const stop = (id: string, name: string, shortName: string) => ({ id, name, shortName, lat: 0, lon: 0, hasMultiplePiers: false });
@@ -117,4 +119,44 @@ test('every operator-listed cruise has an English title', { skip: !existsSync(op
   const titles = JSON.parse(readFileSync(join(import.meta.dirname, '..', '..', CRUISE_TITLES_FILE), 'utf8'));
   const missing = Object.values(file.operators).flatMap((o) => o.cruises.filter((c) => !englishTitle(c, titles)).map((c) => Object.values(c.title)[0]));
   assert.deepEqual(missing, [], `add an English title to ${CRUISE_TITLES_FILE}`);
+});
+
+test("SGV's date wording", () => {
+  assert.deepEqual(sgvDates('Every Friday from 4 September to 16 October 2026 Except 25 September 2026').dates, ['2026-09-04', '2026-09-11', '2026-09-18', '2026-10-02', '2026-10-09', '2026-10-16']);
+  assert.deepEqual(sgvDates('Every Friday from 23 October 2026 to 19 March 2027 Except: 25 December, 1 January 2027').dates.slice(8, 11), ['2026-12-18', '2027-01-08', '2027-01-15']);
+  const fairy = sgvDates('Wednesday, 14 October 2026 | Fully booked Wednesday, 11 November 2026 | Fully booked Wednesday, 6 January 2027');
+  assert.deepEqual(fairy.dates, ['2026-10-14', '2026-11-11', '2027-01-06']);
+  assert.deepEqual(fairy.soldOut, ['2026-10-14', '2026-11-11']);
+  assert.deepEqual(sgvDates('Every Sunday Excluding public holidays'), { dates: [], recurring: 0, soldOut: [] });
+  assert.equal(sgvDates('Daily').dates.length, 0);
+});
+
+test('SGV pages name the deployed cruises; unmatched pages only past the deployments', () => {
+  const stops = (dep: number, arr: number) => [
+    { pierId: '1', name: 'Luzern', time: dep },
+    { pierId: '1', name: 'Luzern', time: arr },
+  ];
+  const deployed = [
+    { date: '2026-12-04', kurs: '651', stops: stops(18.5 * 3600, 22 * 3600 + 50 * 60) },
+    { date: '2026-12-04', kurs: '654', stops: stops(18 * 3600 + 50 * 60, 22 * 3600 + 50 * 60) }, // same event, a later boat
+    { date: '2026-12-06', kurs: '101', stops: stops(10.5 * 3600, 13 * 3600) }, // a Sunday
+    { date: '2026-12-09', kurs: '500', stops: stops(19 * 3600, 21 * 3600) }, // nothing describes it
+  ];
+  const listed = [
+    { date: '2026-12-04', kurs: '', stops: stops(18.5 * 3600, 22 * 3600 + 50 * 60), title: { en: 'Klausjagen' }, url: 'https://example.ch/k', soldOut: true, operator: 'SGV' },
+    { date: '2026-12-08', kurs: '', stops: stops(19 * 3600, 21 * 3600), title: { en: 'Inside the window, no deployment' }, url: 'https://example.ch/x', operator: 'SGV' },
+    { date: '2026-12-31', kurs: '', stops: stops(19.5 * 3600, 24.5 * 3600), title: { en: 'New Year' }, url: 'https://example.ch/ny', operator: 'SGV' },
+  ];
+  const templates = [{ weekday: 0, pierId: '1', time: 10.5 * 3600 + 5 * 60, fields: { title: { en: 'Brunch' }, url: 'https://example.ch/b' } }];
+  const out = nameDeployedCruises(deployed, listed, templates, '2026-12-10');
+  assert.deepEqual(out.map((c) => `${c.date} ${c.kurs || '-'} ${c.title?.en ?? '(untitled)'}`), [
+    '2026-12-04 651 Klausjagen',
+    '2026-12-04 654 Klausjagen',
+    '2026-12-06 101 Brunch',
+    '2026-12-09 500 (untitled)',
+    '2026-12-31 - New Year',
+  ]);
+  assert.equal(out[0].soldOut, true);
+  assert.equal(out[0].operator, undefined); // the boat stays the identity of a deployed cruise
+  assert.equal(out[4].operator, 'SGV');
 });

@@ -11,6 +11,8 @@
 //   lnm     Navigation Lacs de Neuchâtel et Morat                       lnm.ch/Nos-croisieres
 //   sgz     Schifffahrtsgesellschaft für den Zugersee                    zugersee-schifffahrt.ch
 //   vlines  Vorarlberg Lines (Lake Constance, from Bregenz)              vorarlberg-lines.at
+//   sgv     SGV (Lake Lucerne): names, prices and pages for the cruises found in its deployments
+//                                                                         webshop.lakelucerne.ch
 //
 // Output (machine-owned, never hand-edit): src/data/scraped/operator-cruises.json
 //   { operators: { <id>: { source, fetchedAt, cruises: [{ id, url, title: { <lang>: text },
@@ -249,7 +251,110 @@ async function readVlines() {
   return { source: `${VL}/en/cruises`, cruises };
 }
 
-const READERS = { bsg: readBsg, lnm: readLnm, sgz: readSgz, vlines: readVlines };
+// --- SGV ------------------------------------------------------------------------------------------
+// The webshop's English cruise pages, exactly as its site map lists them (/en/stories/<slug>). Its
+// robots.txt asks tools to stay out of /stories/details/*, /map/*, /graphql and any URL with a query,
+// so this reads only the listed pages, as plain HTML (server-rendered). Each boat cruise has
+// "Date: Every Friday from 20 November to 18 December 2026" (or "Thursday, 31 December 2026"),
+// "Departure from Lucerne 19:20 h", "Arrival in Lucerne 21:45 h" and the price. Pages with no boat
+// timetable (train tours, Rigi, group bookings) yield no departures and are skipped. A recurrence
+// with no end date ("Every Sunday") gives no dates of its own: pipeline/cruises.ts only uses it to
+// name the deployments it matches.
+const SGV_SHOP = 'https://webshop.lakelucerne.ch';
+const ENGLISH_MONTHS = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
+const WEEKDAYS = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+// SGV's English page names -> the pier names in the timetable.
+const SGV_PIERS = { Lucerne: 'Luzern', Küssnacht: 'Küssnacht am Rigi', 'Küssnacht am Rigi': 'Küssnacht am Rigi', Flüelen: 'Flüelen', Weggis: 'Weggis', Vitznau: 'Vitznau', Brunnen: 'Brunnen' };
+const isoOf = (d) => d.toISOString().slice(0, 10);
+function englishDate(text, fallbackYear) {
+  const m = /(\d{1,2}) (January|February|March|April|May|June|July|August|September|October|November|December)(?: (\d{4}))?/i.exec(text);
+  if (!m) return null;
+  const year = Number(m[3] ?? fallbackYear);
+  return new Date(Date.UTC(year, ENGLISH_MONTHS.indexOf(m[2].toLowerCase()), Number(m[1])));
+}
+/** "Every Friday from 23 October 2026 to 19 March 2027 Except: 25 December, 1 January 2027" -> ISO dates. */
+export function sgvDates(expr) {
+  // "Wednesday, 14 October 2026 | Fully booked Wednesday, 11 November 2026 | Fully booked Wednesday, 6 January 2027"
+  const singles = [...expr.matchAll(/(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday), (\d{1,2} \w+ \d{4})/gi)];
+  if (singles.length && !/^\s*Every/i.test(expr)) {
+    const soldOut = [];
+    const dates = singles.map((m, i) => {
+      const after = expr.slice(m.index + m[0].length, singles[i + 1]?.index ?? expr.length);
+      const iso = isoOf(englishDate(m[1]));
+      if (/fully booked|sold out/i.test(after)) soldOut.push(iso);
+      return iso;
+    });
+    return { dates, recurring: null, soldOut };
+  }
+  const every = /Every (Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)(?: from (\d{1,2} \w+(?: \d{4})?) to (\d{1,2} \w+ \d{4}))?/i.exec(expr);
+  if (!every) return { dates: [], recurring: null, soldOut: [] };
+  const weekday = WEEKDAYS.indexOf(every[1].toLowerCase());
+  if (!every[2]) return { dates: [], recurring: weekday, soldOut: [] }; // open-ended: names deployments only
+  const end = englishDate(every[3]);
+  let start = englishDate(every[2], end.getUTCFullYear());
+  if (start > end) start = englishDate(every[2], end.getUTCFullYear() - 1);
+  const rest = expr.slice(every.index + every[0].length);
+  const except = /Excep(?:t|ting)[:\s]+(.*?)(?:Includ|$)/i.exec(rest)?.[1] ?? /\(except ([^)]*)\)/i.exec(rest)?.[1] ?? '';
+  // A date without a year ("25 December") takes the year that puts it inside the range.
+  const inRange = (s) => {
+    const d = englishDate(s, end.getUTCFullYear());
+    if (d && d > end) d.setUTCFullYear(d.getUTCFullYear() - 1);
+    return d && d >= start && d <= end ? d : null;
+  };
+  const skip = new Set([...except.matchAll(/\d{1,2} \w+(?: \d{4})?/g)].map((m) => inRange(m[0])).filter(Boolean).map(isoOf));
+  const add = [...(/Includ(?:ing|es)[:\s]+(.*)$/i.exec(rest)?.[1] ?? '').matchAll(/\d{1,2} \w+(?: \d{4})?/g)].map((m) => inRange(m[0])).filter(Boolean).map(isoOf);
+  const dates = [];
+  for (let d = new Date(start); d <= end; d.setUTCDate(d.getUTCDate() + 1)) if (d.getUTCDay() === weekday && !skip.has(isoOf(d))) dates.push(isoOf(d));
+  // A dated range names its own dates only; it is no open-ended weekday template.
+  return { dates: [...new Set([...dates, ...add])].sort(), recurring: null, soldOut: [] };
+}
+async function readSgv() {
+  const sitemap = await fetchText(`${SGV_SHOP}/sitemap.xml`);
+  // The cruise stories, plus the family boat products (Fairy tale ship, Craft ship): only slugs that
+  // name a boat, so day tickets, passes and mountain or wellness packages are never even fetched.
+  const pages = [
+    ...new Set([
+      ...[...sitemap.matchAll(/<loc>(https:\/\/webshop\.lakelucerne\.ch\/en\/stories\/[a-z0-9-]+)<\/loc>/g)].map((m) => m[1]),
+      ...[...sitemap.matchAll(/<loc>(https:\/\/webshop\.lakelucerne\.ch\/en\/products\/[a-z0-9-]*(?:ship|steamer|steamboat)[a-z0-9-]*)<\/loc>/g)].map((m) => m[1]),
+    ]),
+  ];
+  const cruises = [];
+  for (const url of pages) {
+    const html = await fetchText(url);
+    const body = text(html.replace(/<script.*?<\/script>|<style.*?<\/style>/gs, ''));
+    const title = text(/<h1[^>]*>(.*?)<\/h1>/s.exec(html)?.[1] ?? '');
+    // "Departure from Lucerne 19:20 h" / "Lucerne from 19:20 h"; "Arrival in Lucerne 21:45 h" / "Lucerne arrival 21:45 h".
+    const PIER = '([A-ZÄÖÜ][\\p{L}-]+(?: am Rigi)?)';
+    // The short "Lucerne from 19:20" form only counts for a known pier ("Transport from 18:00" is not one).
+    const KNOWN = `(${Object.keys(SGV_PIERS).join('|')})`;
+    const deps = [...body.matchAll(new RegExp(`(?:Departure (?:from |in )?${PIER} |${KNOWN} from )(\\d{1,2})[:.](\\d{2})`, 'gu'))].map((m) => [m[0], m[1] ?? m[2], m[3], m[4]]);
+    const arrs = [...body.matchAll(new RegExp(`(?:Arrival (?:in |at )?${PIER} |${KNOWN} arrival )(\\d{1,2})[:.](\\d{2})`, 'gu'))].map((m) => [m[0], m[1] ?? m[2], m[3], m[4]]);
+    if (!title || !deps.length || !arrs.length) continue; // no boat timetable on this page
+    const pier = (name) => SGV_PIERS[name] ?? name;
+    // "Departure from Lucerne 19:12 / 19:30" on some pages are alternative times, not two stops.
+    const boardings = deps.filter((m, i) => i === 0 || pier(m[1]) !== pier(deps[i - 1][1]));
+    const stops = [...boardings.map((m) => ({ pier: pier(m[1]), time: hhmm(m[2], m[3]) })), { pier: pier(arrs[arrs.length - 1][1]), time: hhmm(arrs[arrs.length - 1][2], arrs[arrs.length - 1][3]) }];
+    const dateExpr = /Dates?\s?: (.*?)(?: Duration| Pier| Timetable| Time:| Package| Price)/.exec(body)?.[1] ?? '';
+    const { dates, recurring, soldOut } = sgvDates(dateExpr);
+    if (!dates.length && recurring === null) continue; // "Daily" (a package on scheduled boats) or not announced
+    const description = decode(/<meta name="description" content="([^"]*)"/.exec(html)?.[1] ?? '').trim();
+    const price = amount(/(?:price|Adults?)[^C]{0,40}CHF ?([\d.]+)/i.exec(body)?.[1] ?? /CHF ?([\d.]+)/.exec(body)?.[1] ?? '');
+    const slug = url.split('/').pop();
+    const mk = (date) => ({ date, from: stops[0].pier, depart: stops[0].time, to: stops[stops.length - 1].pier, arrive: stops[stops.length - 1].time, stops, ...(soldOut.includes(date) ? { soldOut: true } : {}) });
+    cruises.push({
+      id: `sgv:${slug}`,
+      url,
+      title: { en: title },
+      ...(description ? { description: { en: description } } : {}),
+      ...(price ? { price: { amount: price, currency: 'CHF' } } : {}),
+      ...(recurring !== null ? { weekday: recurring, template: mk('') } : {}),
+      departures: dates.map(mk),
+    });
+  }
+  return { source: `${SGV_SHOP}/en/`, cruises };
+}
+
+const READERS = { bsg: readBsg, lnm: readLnm, sgz: readSgz, vlines: readVlines, sgv: readSgv };
 
 // --- Main -----------------------------------------------------------------------------------------
 async function main() {
@@ -273,7 +378,7 @@ async function main() {
       const { source, cruises } = await reader();
       const upcoming = cruises
         .map((c) => ({ ...c, departures: c.departures.filter((d) => d.date >= today).sort((a, b) => (a.date + a.depart).localeCompare(b.date + b.depart)) }))
-        .filter((c) => c.departures.length)
+        .filter((c) => c.departures.length || c.weekday !== undefined)
         .sort((a, b) => a.id.localeCompare(b.id));
       if (!cruises.length) throw new Error('no cruise found: the page layout has probably changed');
       next.operators[id] = { source, fetchedAt: new Date().toISOString(), cruises: upcoming };
@@ -297,7 +402,10 @@ async function main() {
   if (failed.length) process.exit(1);
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exit(1);
-});
+// Run only when started as a script, not when a test imports sgvDates.
+if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {
+  main().catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
+}
