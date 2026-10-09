@@ -2,7 +2,7 @@
  "operators": {
   "bsg": {
    "source": "https://www.bielersee.ch/events",
-   "fetchedAt": "2026-10-08T12:15:22.861Z",
+   "fetchedAt": "2026-10-09T12:07:23.387Z",
    "cruises": [
     {
      "id": "bsg:adventsbrunch",
@@ -640,7 +640,7 @@
   },
   "lnm": {
    "source": "https://www.lnm.ch/Nos-croisieres",
-   "fetchedAt": "2026-10-08T12:15:29.527Z",
+   "fetchedAt": "2026-10-09T12:07:29.994Z",
    "cruises": [
     {
      "id": "lnm:Croisiere-Brunch-Neuchatel",
@@ -754,7 +754,7 @@
   },
   "sgz": {
    "source": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/",
-   "fetchedAt": "2026-10-08T12:15:49.456Z",
+   "fetchedAt": "2026-10-09T12:07:50.554Z",
    "cruises": [
     {
      "id": "sgz:abenteuerschiff",
@@ -770,14 +770,6 @@
       "currency": "CHF"
      },
      "departures": [
-      {
-       "date": "2026-10-08",
-       "from": "Zug Bahnhofsteg",
-       "depart": "15:15",
-       "to": "Zug Bahnhofsteg",
-       "arrive": "17:30",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/542/19590/74?lang=en"
-      },
       {
        "date": "2026-10-09",
        "from": "Zug Bahnhofsteg",
@@ -874,14 +866,6 @@
       "currency": "CHF"
      },
      "departures": [
-      {
-       "date": "2026-10-08",
-       "from": "Zug Bahnhofsteg",
-       "depart": "15:15",
-       "to": "Zug Bahnhofsteg",
-       "arrive": "17:30",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/542/19590/68?lang=en"
-      },
       {
        "date": "2026-10-09",
        "from": "Zug Bahnhofsteg",
@@ -1111,6 +1095,54 @@
      ]
     },
     {
+     "id": "sgz:games-cruise-sgz",
+     "url": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/experience/games-cruise-sgz/",
+     "title": {
+      "en": "Games cruise"
+     },
+     "description": {
+      "en": "Held on the dates listed below. The standard cruise fares apply."
+     },
+     "price": {
+      "amount": 43.2,
+      "currency": "CHF"
+     },
+     "departures": [
+      {
+       "date": "2027-04-18",
+       "from": "Zug Bahnhofsteg",
+       "depart": "15:15",
+       "to": "Zug Bahnhofsteg",
+       "arrive": "17:30",
+       "booking": "https://reservation.zvb.ch/buchung-tischplatz/608/21722/24?lang=en"
+      },
+      {
+       "date": "2027-06-06",
+       "from": "Zug Bahnhofsteg",
+       "depart": "15:15",
+       "to": "Zug Bahnhofsteg",
+       "arrive": "17:30",
+       "booking": "https://reservation.zvb.ch/buchung-tischplatz/608/21771/24?lang=en"
+      },
+      {
+       "date": "2027-07-04",
+       "from": "Zug Bahnhofsteg",
+       "depart": "15:15",
+       "to": "Zug Bahnhofsteg",
+       "arrive": "17:30",
+       "booking": "https://reservation.zvb.ch/buchung-tischplatz/608/21799/24?lang=en"
+      },
+      {
+       "date": "2027-10-17",
+       "from": "Zug Bahnhofsteg",
+       "depart": "15:15",
+       "to": "Zug Bahnhofsteg",
+       "arrive": "17:30",
+       "booking": "https://reservation.zvb.ch/buchung-tischplatz/608/21904/24?lang=en"
+      }
+     ]
+    },
+    {
      "id": "sgz:horror-dinner",
      "url": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/experience/horror-dinner/",
      "title": {
@@ -1145,28 +1177,13 @@
      },
      "departures": [
       {
-       "date": "2026-10-08",
-       "from": "Zug Bahnhofsteg",
-       "depart": "09:45",
-       "to": "Zug Bahnhofsteg",
-       "arrive": "11:55",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/540/19182/87?lang=en"
-      },
-      {
-       "date": "2026-10-08",
-       "from": "Zug Bahnhofsteg",
-       "depart": "15:15",
-       "to": "Zug Bahnhofsteg",
-       "arrive": "17:30",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/542/19590/87?lang=en"
-      },
-      {
        "date": "2026-10-09",
        "from": "Zug Bahnhofsteg",
        "depart": "09:45",
        "to": "Zug Bahnhofsteg",
        "arrive": "11:55",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/540/19183/87?lang=en"
+       "booking": "javascript:void(0);",
+       "soldOut": true
       },
       {
        "date": "2026-10-09",
@@ -1304,14 +1321,6 @@
       "currency": "CHF"
      },
      "departures": [
-      {
-       "date": "2026-10-08",
-       "from": "Zug Bahnhofsteg",
-       "depart": "15:15",
-       "to": "Zug Bahnhofsteg",
-       "arrive": "17:30",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/542/19590/67?lang=en"
-      },
       {
        "date": "2026-10-09",
        "from": "Zug Bahnhofsteg",
@@ -1475,20 +1484,13 @@
      },
      "departures": [
       {
-       "date": "2026-10-08",
-       "from": "Zug Bahnhofsteg",
-       "depart": "09:45",
-       "to": "Zug Bahnhofsteg",
-       "arrive": "11:55",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/540/19182/83?lang=en"
-      },
-      {
        "date": "2026-10-09",
        "from": "Zug Bahnhofsteg",
        "depart": "09:45",
        "to": "Zug Bahnhofsteg",
        "arrive": "11:55",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/540/19183/83?lang=en"
+       "booking": "javascript:void(0);",
+       "soldOut": true
       },
       {
        "date": "2026-10-10",
@@ -1562,14 +1564,6 @@
       "currency": "CHF"
      },
      "departures": [
-      {
-       "date": "2026-10-08",
-       "from": "Zug Bahnhofsteg",
-       "depart": "15:15",
-       "to": "Zug Bahnhofsteg",
-       "arrive": "17:30",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/542/19590/9?lang=en"
-      },
       {
        "date": "2026-10-09",
        "from": "Zug Bahnhofsteg",
@@ -1691,20 +1685,13 @@
      },
      "departures": [
       {
-       "date": "2026-10-08",
-       "from": "Zug Bahnhofsteg",
-       "depart": "09:45",
-       "to": "Zug Bahnhofsteg",
-       "arrive": "11:55",
-       "booking": "https://shop.rigi.ch/de/products/von-zug-auf-die-koenigin-der-berge?lang=en"
-      },
-      {
        "date": "2026-10-09",
        "from": "Zug Bahnhofsteg",
        "depart": "09:45",
        "to": "Zug Bahnhofsteg",
        "arrive": "11:55",
-       "booking": "https://shop.rigi.ch/de/products/von-zug-auf-die-koenigin-der-berge?lang=en"
+       "booking": "javascript:void(0);",
+       "soldOut": true
       },
       {
        "date": "2026-10-10",
@@ -1853,20 +1840,13 @@
      },
      "departures": [
       {
-       "date": "2026-10-08",
-       "from": "Zug Bahnhofsteg",
-       "depart": "09:45",
-       "to": "Zug Bahnhofsteg",
-       "arrive": "11:55",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/540/19182/43?lang=en"
-      },
-      {
        "date": "2026-10-09",
        "from": "Zug Bahnhofsteg",
        "depart": "09:45",
        "to": "Zug Bahnhofsteg",
        "arrive": "11:55",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/540/19183/43?lang=en"
+       "booking": "javascript:void(0);",
+       "soldOut": true
       },
       {
        "date": "2026-10-10",
@@ -1930,7 +1910,7 @@
   },
   "vlines": {
    "source": "https://www.vorarlberg-lines.at/en/cruises",
-   "fetchedAt": "2026-10-08T12:17:18.206Z",
+   "fetchedAt": "2026-10-09T12:09:12.727Z",
    "cruises": [
     {
      "id": "vlines:captains-brunch-1",
@@ -2581,23 +2561,6 @@
      },
      "departures": [
       {
-       "date": "2026-10-08",
-       "from": "Bregenz",
-       "depart": "19:30",
-       "to": "Bregenz",
-       "arrive": "22:30",
-       "stops": [
-        {
-         "pier": "Bregenz",
-         "time": "19:30"
-        },
-        {
-         "pier": "Bregenz",
-         "time": "22:30"
-        }
-       ]
-      },
-      {
        "date": "2026-10-30",
        "from": "Bregenz",
        "depart": "19:30",
@@ -3015,8 +2978,107 @@
   },
   "sgv": {
    "source": "https://webshop.lakelucerne.ch/en/",
-   "fetchedAt": "2026-10-08T14:00:17.941Z",
+   "fetchedAt": "2026-10-09T12:10:05.155Z",
    "cruises": [
+    {
+     "id": "sgv:1-august-motor-vessel",
+     "url": "https://webshop.lakelucerne.ch/en/stories/1-august-motor-vessel",
+     "title": {
+      "en": "1 August with a 3-course meal on a motor vessel"
+     },
+     "description": {
+      "en": "Celebrate Swiss National Day on a motor vessel with a 3-course dinner. Enjoy the Brunnen fireworks on Lake Lucerne during this festive evening cruise."
+     },
+     "price": {
+      "amount": 132,
+      "currency": "CHF"
+     },
+     "departures": [
+      {
+       "date": "2027-08-01",
+       "from": "Luzern",
+       "depart": "19:45",
+       "to": "Luzern",
+       "arrive": "23:35",
+       "stops": [
+        {
+         "pier": "Luzern",
+         "time": "19:45"
+        },
+        {
+         "pier": "Luzern",
+         "time": "23:35"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "sgv:1-august-steamboat",
+     "url": "https://webshop.lakelucerne.ch/en/stories/1-august-steamboat",
+     "title": {
+      "en": "1 August with a 3-course meal on a steamboat"
+     },
+     "description": {
+      "en": "Celebrate Swiss National Day on a historic steamboat with a 3-course dinner. Enjoy the Brunnen fireworks on Lake Lucerne. Book your evening cruise."
+     },
+     "price": {
+      "amount": 147,
+      "currency": "CHF"
+     },
+     "departures": [
+      {
+       "date": "2027-08-01",
+       "from": "Luzern",
+       "depart": "19:45",
+       "to": "Luzern",
+       "arrive": "23:35",
+       "stops": [
+        {
+         "pier": "Luzern",
+         "time": "19:45"
+        },
+        {
+         "pier": "Luzern",
+         "time": "23:35"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "sgv:1st-august-schiller-gallia",
+     "url": "https://webshop.lakelucerne.ch/en/stories/1st-august-schiller-gallia",
+     "title": {
+      "en": "1st August with or without Table Reservation"
+     },
+     "description": {
+      "en": "Swiss National Day event on Lake Lucerne. Cruise to the Brunnen fireworks with optional 3-course dinner or transfer without table reservation."
+     },
+     "price": {
+      "amount": 132,
+      "currency": "CHF"
+     },
+     "departures": [
+      {
+       "date": "2027-08-01",
+       "from": "Luzern",
+       "depart": "19:45",
+       "to": "Luzern",
+       "arrive": "23:35",
+       "stops": [
+        {
+         "pier": "Luzern",
+         "time": "19:45"
+        },
+        {
+         "pier": "Luzern",
+         "time": "23:35"
+        }
+       ]
+      }
+     ]
+    },
     {
      "id": "sgv:breakfast-cruise",
      "url": "https://webshop.lakelucerne.ch/en/stories/breakfast-cruise",
