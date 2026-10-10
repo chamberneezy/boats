@@ -8,12 +8,14 @@
 //   /trip/lake-lucerne?from=&to=&dep=   One sailing (dep = departure unix seconds)
 //   /account                            Account (sign in, sign out, delete); also where emailed
 //                                       sign-in links land
+//   /coming-soon                        Coming-soon page (full-screen, no header)
 
 import { findPier, findPierInLake } from './piers';
 
 export { findPier };
 
 export const ACCOUNT_PATH = '/account';
+export const COMING_SOON_PATH = '/coming-soon';
 
 export interface SearchQuery {
   from: string;
