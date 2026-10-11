@@ -158,13 +158,16 @@ const loadImg = src => new Promise((res, rej) => { const i = new Image(); i.onlo
 function pixels(img) { const c = document.createElement('canvas'); c.width = img.width; c.height = img.height; const g = c.getContext('2d', { willReadFrequently: true }); g.drawImage(img, 0, 0); return g.getImageData(0, 0, c.width, c.height).data; }
 export async function mountRelief(container, labelsEl, opts = {}) {
   const P = 26, base = opts.data || 'data/';
-  const [meta, demImg, maskImg] = await Promise.all([fetch(base + 'lucerne.json').then(r => r.json()), loadImg(base + 'lucerne-dem.png'), loadImg(base + 'lucerne-mask.png')]);
+  const [meta, demImg, maskImg] = await Promise.all([fetch(base + 'lucerne.json').then(r => r.json()), loadImg(base + (opts.dem || 'lucerne-dem.png')), loadImg(base + 'lucerne-mask.png')]);
   const baseShift = opts.shift ?? 0.2;
   const { renderer, scene, camera, size, setShift } = setup(container, HEX.lake, baseShift);
   const W = meta.W, H = meta.H, WORLD = 360, s = WORLD / W, unitM = meta.mpp / s, EX = opts.exaggeration ?? 1.25;
   const dem = pixels(demImg), msk = pixels(maskImg);
-  const elev = (px, py) => { px = clamp(px, 0, W - 1.001); py = clamp(py, 0, H - 1.001); const x = Math.floor(px), y = Math.floor(py), fx = px - x, fy = py - y;
-    const e = (i, j) => { const k = ((j * W) + i) * 4; return dem[k] * 256 + dem[k + 1] + dem[k + 2] / 256 - 32768; };
+  // Lacus web: the terrain image may be a whole-number fraction of the map's size (opts.dem, e.g. the half-size file
+  // phones load). DS is that factor; each of its pixels is the average of a DS x DS block, centred on that block.
+  const DW = demImg.width, DH = demImg.height, DS = Math.max(1, Math.round(W / DW));
+  const elev = (px, py) => { px = clamp((px - (DS - 1) / 2) / DS, 0, DW - 1.001); py = clamp((py - (DS - 1) / 2) / DS, 0, DH - 1.001); const x = Math.floor(px), y = Math.floor(py), fx = px - x, fy = py - y;
+    const e = (i, j) => { const k = ((j * DW) + i) * 4; return dem[k] * 256 + dem[k + 1] + dem[k + 2] / 256 - 32768; };
     return lerp(lerp(e(x, y), e(x + 1, y), fx), lerp(e(x, y + 1), e(x + 1, y + 1), fx), fy); };
   const toWorld = (px, py) => [(px - W / 2) * s, (py - H / 2) * s];
   const EDGE = 26;

@@ -72,7 +72,10 @@ h1{margin:0;font-family:var(--font-display);font-weight:600;font-size:clamp(40px
 // while the headline shares the screen (kept close to the later zoom, so the move between them is small), and on screens narrower than 16:9 (the routes must stay in view top to bottom,
 // so a wider screen cannot come closer still). ?zoom= and ?follow= override, for tuning.
 const q = new URLSearchParams(location.search), wide = a => Math.min(Math.max(a / (16 / 9), 0.85), 1), fixed = Number(q.get('zoom')) || 0;
-mountRelief(document.getElementById('stage'), document.getElementById('labels'), { calmEl: document.getElementById('copy'), barEl: document.getElementById('bar'), lakeEl: document.getElementById('lakeTitle'), titleEl: document.getElementById('routeTitle'),
+// Phones load a half-size terrain image (0.7 MB, not 3.2 MB): the 3D surface has fewer points than even that holds.
+// Desktops keep the full one. ?dem=full or ?dem=half overrides, for comparing the two.
+const lightTerrain = (new URLSearchParams(location.search).get('dem') || (Math.min(screen.width, screen.height) < 700 ? 'half' : 'full')) === 'half';
+mountRelief(document.getElementById('stage'), document.getElementById('labels'), { dem: lightTerrain ? 'lucerne-dem-half.png' : undefined, calmEl: document.getElementById('copy'), barEl: document.getElementById('bar'), lakeEl: document.getElementById('lakeTitle'), titleEl: document.getElementById('routeTitle'),
   zoom: fixed || (a => 1.3 * wide(a)), zoomIntro: fixed || (a => 1.16 * wide(a)), follow: q.get('follow') != null ? Number(q.get('follow')) : 0.35,
   // Owner, 2026-10-11: the designed pace (6 s opening, 10 s a route) was too slow: 2.5 s and 3 s. ?intro= and ?route= override.
   introSeconds: Number(q.get('intro')) || 2.5, routeSeconds: Number(q.get('route')) || 3 });</script>
