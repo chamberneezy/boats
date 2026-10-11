@@ -1,11 +1,13 @@
-// "Select on map": eight Lake Lucerne piers. The first tap is the departure, the second the
-// arrival, a third starts again. It plays Luzern to Vitznau by itself until a pier is tapped.
+// "Select on map": eight Lake Lucerne piers on a still of the hero's relief map. The first tap is
+// the departure, the second the arrival, a third starts again. It plays Luzern to Vitznau by itself
+// until a pier is tapped. The chosen stretch is drawn along the boat route, over the water.
 import { useRef, useState, type CSSProperties } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { Button } from '../components/Button';
-import { MAP_LAKE_ID, MAP_PIERS, dur, searchHref, type MapPier } from './data';
+import { MAP_LAKE_ID, MAP_PIERS, dur, homeAsset, searchHref, type MapPier } from './data';
 import { useInterval, useIsMobile, useOnScreen, useReducedMotion } from './hooks';
 import { AppCard, Field, MapLines, StepRail, type Step } from './parts';
+import { RELIEF_TALL, RELIEF_WIDE } from './reliefMap';
 
 const STEPS = 8;
 const EXAMPLE = { from: 0, to: 4 };
@@ -41,8 +43,17 @@ export function MapDemo() {
     else setManual({ from, to });
   };
 
-  // The chosen stretch runs along the piers in between, in lake order.
-  const stretch = both ? MAP_PIERS.slice(Math.min(from, to), Math.max(from, to) + 1) : [MAP_PIERS[Math.max(from, 0)], MAP_PIERS[Math.max(from, 0)]];
+  // The still for this layout, and each pier's place on it.
+  const view = mobile ? RELIEF_TALL : RELIEF_WIDE;
+  const place = (i: number) => view.piers[MAP_PIERS[i].pier.id];
+  // The chosen stretch follows the boat route between the two piers, drawn from the departure.
+  const stretch = (() => {
+    if (!both) return [];
+    const a = place(from), b = place(to);
+    const along = view.route.slice(Math.min(a.at, b.at), Math.max(a.at, b.at) + 1);
+    if (a.at > b.at) along.reverse();
+    return [[a.x, a.y] as const, ...along, [b.x, b.y] as const];
+  })();
   const minutes = both ? Math.abs(MAP_PIERS[to].minutes - MAP_PIERS[from].minutes) : 0;
   const routeHref = both ? searchHref(MAP_LAKE_ID, MAP_PIERS[from].pier, MAP_PIERS[to].pier) : searchHref(MAP_LAKE_ID);
   const fromName = from >= 0 ? MAP_PIERS[from].pier.name : '';
@@ -75,17 +86,19 @@ export function MapDemo() {
   );
 
   const map = (
-    <div className="hm-map">
-      <MapLines all={MAP_PIERS} selected={stretch} drawn={both} dash={mobile ? '3 6' : '3 7'} transition="stroke-dashoffset 1.2s ease" />
+    <div className="hm-map" style={{ aspectRatio: view.aspect }}>
+      <img className="hm-map-img" src={homeAsset(view.src)} alt="" loading="lazy" />
+      {/* Keyed by the stretch so a new route draws from its start instead of morphing from the last. */}
+      <MapLines key={`${from}-${to}`} all={view.route} selected={stretch} drawn={both} dash={mobile ? '2 6' : '2 7'} transition="stroke-dashoffset 1.2s ease" />
       {MAP_PIERS.map((p, i) => {
         const chosen = i === from || i === to;
         const tag = i === from ? 'From' : i === to ? 'To' : '';
         const size = chosen ? 18 : 12;
         return (
-          <div key={p.pier.id} className="hm-pier" style={{ left: `${p.x}%`, top: `${p.y}%` }}>
+          <div key={p.pier.id} className="hm-pier" style={{ left: `${place(i).x}%`, top: `${place(i).y}%` }}>
             <div className="hm-pier-pulse" style={{ opacity: pulse === i ? 1 : 0, transform: `scale(${pulse === i ? 1 : 0.4})` }} />
             <button type="button" className="hm-pier-hit" onClick={pick(i)} aria-label={`${p.pier.name}${tag ? `, ${tag.toLowerCase()}` : ''}`} aria-pressed={chosen}>
-              <span style={{ width: size, height: size, background: chosen ? 'var(--color-chalk)' : 'var(--hm-card-dark)' }} />
+              <span style={{ width: size, height: size, background: chosen ? 'var(--color-chalk)' : 'var(--color-deep-lake)' }} />
             </button>
             {mobile ? (
               // On a phone only the two chosen piers are named, under their dots.
@@ -104,6 +117,13 @@ export function MapDemo() {
           </div>
         );
       })}
+      <span className="hm-map-caption">
+        Elevation: Mapzen Terrain Tiles · Lakes ©{' '}
+        <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">
+          OpenStreetMap
+        </a>{' '}
+        contributors
+      </span>
       {!mobile && (
         <>
           <div className="hm-card hm-map-card">
@@ -120,7 +140,6 @@ export function MapDemo() {
               </Link>
             </div>
           </div>
-          <span className="hm-map-caption">Lake Lucerne · schematic pier positions</span>
         </>
       )}
     </div>

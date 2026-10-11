@@ -280,6 +280,12 @@ export async function mountRelief(container, labelsEl, opts = {}) {
     }
     return { x, z, R: Rr };
   }
+  // Lacus web: lets a host page ask where a map pixel, or a route, lands on screen with the camera as it stands
+  // (fractions of the view's width and height). Used once, to place the pier dots over a still of this map.
+  window.__heroProbe = {
+    point: (px, py, h = 0.5) => { const [x, z] = toWorld(px, py); tmp.set(x, h, z).project(camera); return [(tmp.x + 1) / 2, (1 - tmp.y) / 2]; },
+    route: (k, n = 160) => routes[k].rc.getSpacedPoints(n).map(q => { tmp.set(q.x, 0.5, q.z).project(camera); return [(tmp.x + 1) / 2, (1 - tmp.y) / 2]; }),
+    meta, names: routes.map(r => r.name), canvas: renderer.domElement };
   let fitKey = '';
   run(1e9, t => {
     if (size.w !== lastW || size.h !== lastH) { lastH = size.h; if (barEl) calmY = clamp(1 - (barEl.offsetTop - 28) / size.h, 0.08, 0.55);

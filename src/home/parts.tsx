@@ -1,6 +1,6 @@
 // Small pieces shared by the Home page's sections.
 import { useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
-import { STORE_URLS, type MapPier } from './data';
+import { STORE_URLS } from './data';
 
 const CHALK = 'var(--color-chalk)';
 const SKY = 'var(--color-alpine-sky)';
@@ -133,26 +133,15 @@ export function Field({
   );
 }
 
+type Point = readonly [x: number, y: number];
+
 /**
- * The map's lines: every pier joined by a dotted line, and the chosen stretch as a solid one that
- * draws itself when `drawn` turns true. Drawn in the panel's own pixels (measured), so the stroke
- * is even and the draw-on runs the whole length whatever the panel's shape.
+ * The map's lines, over the still of the relief map: the boat route as a faint dotted line, and
+ * the chosen stretch as a solid one that draws itself when `drawn` turns true. Points are
+ * percentages of the panel; they are drawn in the panel's own pixels (measured), so the stroke is
+ * even and the draw-on runs the whole length.
  */
-export function MapLines({
-  all,
-  selected,
-  drawn,
-  transition,
-  dash,
-  style,
-}: {
-  all: MapPier[];
-  selected: MapPier[];
-  drawn: boolean;
-  transition: string;
-  dash: string;
-  style?: CSSProperties;
-}) {
+export function MapLines({ all, selected, drawn, transition, dash }: { all: readonly Point[]; selected: readonly Point[]; drawn: boolean; transition: string; dash: string }) {
   const ref = useRef<SVGSVGElement>(null);
   const [size, setSize] = useState<{ w: number; h: number } | null>(null);
   useLayoutEffect(() => {
@@ -167,17 +156,17 @@ export function MapLines({
     observer.observe(node);
     return () => observer.disconnect();
   }, []);
-  const pts = (piers: MapPier[]) => (size ? piers.map((p) => `${(p.x / 100) * size.w},${(p.y / 100) * size.h}`).join(' ') : '');
+  const pts = (points: readonly Point[]) => (size ? points.map(([x, y]) => `${((x / 100) * size.w).toFixed(1)},${((y / 100) * size.h).toFixed(1)}`).join(' ') : '');
   return (
-    <svg ref={ref} className="hm-st-svg" viewBox={size ? `0 0 ${size.w} ${size.h}` : undefined} aria-hidden="true" style={style}>
+    <svg ref={ref} className="hm-st-svg" viewBox={size ? `0 0 ${size.w} ${size.h}` : undefined} aria-hidden="true">
       {size && (
         <>
-          <polyline points={pts(all)} fill="none" stroke="rgba(242,240,233,0.28)" strokeWidth="2" strokeDasharray={dash} strokeLinecap="round" />
+          <polyline points={pts(all)} fill="none" stroke="rgba(242,240,233,0.45)" strokeWidth="2" strokeDasharray={dash} strokeLinecap="round" strokeLinejoin="round" />
           <polyline
             points={pts(selected)}
             fill="none"
             stroke="#F2F0E9"
-            strokeWidth="3"
+            strokeWidth="3.5"
             strokeLinecap="round"
             strokeLinejoin="round"
             pathLength={1}

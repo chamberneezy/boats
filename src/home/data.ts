@@ -12,6 +12,7 @@ export const STAGE_MAP_SRC = `${BASE}hero/stage.html`;
 export const LOGO_SRC = `${BASE}logo-mark.svg`;
 export const lakePhotoLarge = (lakeId: string) => `${BASE}lakes/full/${lakeId}-1920.jpg`;
 export const homePhoto = (key: string) => `${BASE}home/${key}.jpg`;
+export const homeAsset = (file: string) => `${BASE}home/${file}`;
 
 // The apps are not in the stores yet: with no URL the badges are shown but are not links.
 export const STORE_URLS: { ios: string | null; android: string | null } = { ios: null, android: null };
@@ -35,32 +36,31 @@ export function searchHref(lakeId: string, from?: PierOption | null, to?: PierOp
   return searchPath(lakeId, { from: from.id, to: to.id, date: now.date, time: now.time.slice(0, 5) });
 }
 
-// The map demo: eight Lake Lucerne piers at their real positions, with the minutes a boat takes
-// from Luzern (from the handoff; the map is a schematic, the search gives the real times).
+// The map demo: eight Lake Lucerne piers, in lake order from Luzern to Flüelen, with the minutes a
+// boat takes from Luzern (from the handoff; the search gives the real times) and the side of the dot
+// its name sits on. Their places on the map are in reliefMap.ts.
 const LUCERNE = 'lake-lucerne';
-const MAP_SOURCE: [id: string, lon: number, lat: number, minutes: number, labelSide: 'b' | 't' | 'r' | 'l'][] = [
-  ['8508492', 8.3093, 47.0505, 0, 'b'], // Luzern
-  ['8508459', 8.3365, 47.0525, 10, 't'], // Verkehrshaus
-  ['8508462', 8.403, 47.044, 31, 't'], // Hertenstein
-  ['8508463', 8.4339, 47.0333, 41, 'r'], // Weggis
-  ['8508464', 8.4836, 47.0103, 57, 'r'], // Vitznau
-  ['8508468', 8.5249, 46.9935, 80, 'b'], // Gersau
-  ['8508470', 8.6038, 46.9947, 100, 't'], // Brunnen
-  ['8508476', 8.6236, 46.9041, 165, 'l'], // Flüelen
+const MAP_SOURCE: [id: string, minutes: number, labelSide: 'b' | 't' | 'r' | 'l'][] = [
+  ['8508492', 0, 'l'], // Luzern
+  ['8508459', 10, 't'], // Verkehrshaus
+  ['8508462', 31, 't'], // Hertenstein
+  ['8508463', 41, 'b'], // Weggis
+  ['8508464', 57, 'r'], // Vitznau
+  ['8508468', 80, 'b'], // Gersau
+  ['8508470', 100, 't'], // Brunnen
+  ['8508476', 165, 'l'], // Flüelen
 ];
 
 export interface MapPier {
   pier: PierOption;
-  x: number; // percent of the panel's width
-  y: number; // percent of the panel's height
   minutes: number;
   side: 'b' | 't' | 'r' | 'l';
 }
 
-export const MAP_PIERS: MapPier[] = MAP_SOURCE.map(([id, lon, lat, minutes, side]) => {
+export const MAP_PIERS: MapPier[] = MAP_SOURCE.map(([id, minutes, side]) => {
   const pier = findPierInLake(LUCERNE, id);
   if (!pier) throw new Error(`Unknown pier id: ${id}`);
-  return { pier, minutes, side, x: 6 + ((lon - 8.29) / 0.36) * 86, y: 10 + ((47.07 - lat) / 0.19) * 80 };
+  return { pier, minutes, side };
 });
 export const MAP_LAKE_ID = LUCERNE;
 
