@@ -89,10 +89,10 @@ export const LAKE_PHOTOS: Record<string, LakePhotoCredit> = {
     sourceUrl: 'https://commons.wikimedia.org/wiki/File:Aerial_image_of_Lake_Murten_(view_from_the_northeast).jpg',
   },
   'lake-zug': {
-    title: 'Blick auf Zugersee mit Rigi und Berner Alpen',
-    author: 'Pfister-hotz',
+    title: 'Blick auf den Zugersee und Rigi',
+    author: 'VEVI Immensee',
     license: 'CC BY-SA 4.0',
     licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/',
-    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Blick_auf_Zugersee_mit_Rigi_und_Berner_Alpen.jpg',
+    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Blick_auf_den_Zugersee_und_Rigi.jpg',
   },
 };
