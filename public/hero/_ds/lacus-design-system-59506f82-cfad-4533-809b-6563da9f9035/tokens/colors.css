@@ -1,0 +1,42 @@
+:root{
+/* base palette */
+--deep-lake:#16384A;
+--alpine-sky:#4A90A4;
+--glacier-mist:#EDF3F4;
+--stone-grey:#8D9A9C;
+--chalk:#F2F0E9;
+--sunline-gold:#C99A4B;
+--sunline-gold-pressed:#B4863A;
+--white:#FFFFFF;
+
+/* semantic - light surface (default) */
+--surface-page:var(--glacier-mist);
+--surface-card:var(--white);
+--surface-sunken:#E2EBEC;
+--text-primary:var(--deep-lake);
+--text-secondary:var(--alpine-sky);
+--text-muted:var(--stone-grey);
+--text-on-dark:var(--chalk);
+--border-hairline:rgba(74,144,164,0.28);
+--border-input:var(--stone-grey);
+--border-input-focus:var(--deep-lake);
+
+/* semantic - dark surface (in-transit UI) */
+--surface-page-dark:var(--deep-lake);
+--surface-card-dark:#1D4459;
+--border-hairline-dark:rgba(242,240,233,0.18);
+
+/* CTA - always gold, never varies by surface */
+--cta-fill:var(--sunline-gold);
+--cta-fill-pressed:var(--sunline-gold-pressed);
+--cta-text:#FFFFFF;
+--cta-disabled-fill:#D8CBA8;
+--cta-disabled-text:#F7F3E9;
+
+/* status indicator dots (schedule state only — never used as a CTA color) */
+--status-on-time:#3F8F5C;
+--status-delayed:#C9762E;
+--status-cancelled:#B5473F;
+}
+@keyframes lacus-status-blink{0%,100%{opacity:1}50%{opacity:.25}
+}

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Navigate, Outlet, Route, Routes, useLocation, useNavigationType } from 'react-router';
-import { AppHeader } from './components/AppHeader';
+import { AppHeader, HomeBar } from './components/AppHeader';
 import { MenuPanel, MenuProvider } from './components/Menu';
 import { useMenu } from './menu';
 import { AccountPage } from './pages/AccountPage';
@@ -26,11 +26,13 @@ function Layout() {
   return (
     <>
       <MenuPanel />
+      {/* Outside the page wrapper: the wrapper is moved with `translate`, which would unpin a fixed bar. */}
+      <HomeBar />
       {/* An open menu pushes the page aside: on phones it slides fully out of view (the menu fills
           the screen), on desktop the page narrows by the drawer's 400px so nothing is covered. */}
       <div
         className={`relative min-h-screen bg-surface-page text-deep-lake transition-[margin,translate] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
-          open ? 'translate-x-full md:translate-x-0 md:ml-[400px]' : ''
+          open ? 'translate-x-full md:translate-x-0 md:mr-[400px]' : ''
         }`}
       >
         <ScrollToTop />

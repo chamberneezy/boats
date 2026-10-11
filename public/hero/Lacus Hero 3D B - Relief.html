@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lacus Hero 3D B — Relief</title>
+<link rel="stylesheet" href="_ds/lacus-design-system-59506f82-cfad-4533-809b-6563da9f9035/styles.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.184.0/build/three.module.js"
+  },
+  "integrity": {
+    "https://unpkg.com/three@0.184.0/build/three.module.js": "sha384-8FCZ1eVO6it4+pbec2aDtnTrwjWXZLJRC+MAGCIPDgsYnUrl/E0A2YlF8ioMKI/J",
+    "https://unpkg.com/three@0.184.0/build/three.core.js": "sha384-dw2ooPewaEIrAgl6oFDBmmBWCE9oW9LxRGcfwZ0hLvEprzo202wXl7vCYHRlSnOT"
+  }
+}
+</script>
+<style>
+html,body{margin:0;height:100%;background:var(--glacier-mist)}
+a{color:var(--deep-lake)}a:hover{color:var(--alpine-sky)}
+.hero{position:relative;width:100%;height:100vh;min-height:600px;overflow:hidden}
+.stage,.labels{position:absolute;inset:0}.labels{pointer-events:none}
+.copy{position:absolute;display:flex;flex-direction:column;gap:20px;max-width:540px;z-index:2}
+.eyebrow{display:flex;align-items:center;gap:12px;font-family:var(--font-display);font-weight:500;font-size:15px;letter-spacing:.06em}
+.eyebrow i{width:28px;height:2px;background:var(--alpine-sky)}
+h1{margin:0;font-family:var(--font-display);font-weight:600;font-size:clamp(40px,5.4vw,76px);line-height:1.04;letter-spacing:-.01em;text-wrap:balance}
+.copy p{margin:0;font-family:var(--font-body);font-size:clamp(17px,1.4vw,20px);line-height:1.5;text-wrap:pretty;max-width:440px}
+.cta{align-self:flex-start;margin-top:8px;font-family:var(--font-display);font-weight:500;font-size:17px;line-height:20px;padding:16px 30px;border:0;border-radius:var(--radius-md,12px);background:var(--cta-fill);color:var(--cta-text);cursor:pointer;transition:background-color 120ms ease}
+.cta:active{background:var(--cta-fill-pressed)}
+
+@media (max-width: 699px) {
+  .hero{height:100svh;min-height:560px}
+  #copy{top:auto !important;bottom:calc(36px + var(--sb, 0px));left:20px !important;right:20px;max-width:none;gap:14px}
+  #copy h1{font-size:44px}
+  #copy p{font-size:17px}
+  #copy .cta{align-self:stretch;text-align:center;margin-top:6px}
+  #bar{bottom:calc(24px + var(--sb, 0px)) !important;left:20px !important;right:20px !important;gap:12px !important}
+  #copy{display:none !important}
+  #bar h2{font-size:17px !important;line-height:1.3 !important}
+  #bar .cta{align-self:stretch;text-align:center;font-size:15px !important;padding:12px 20px !important}
+  #brand img{width:32px !important;height:32px !important}
+  #brand span{font-size:20px !important}
+  #brand{top:calc(16px + var(--st, 0px)) !important;left:20px !important}
+  #lakeTitle{top:calc(20px + var(--st, 0px)) !important;right:20px !important;font-size:14px !important}
+  #lakeTitle i{width:18px !important}
+  #routeTitle{top:calc(44px + var(--st, 0px)) !important;right:20px !important;font-size:13px !important}
+  .labels .end span:first-child{font-size:17px !important}
+  .labels .end span:last-child{font-size:14px !important}
+  .labels .mid span:first-child{font-size:13px !important}
+  .labels .mid span:last-child{font-size:12px !important}
+  #attr{font-size:10px !important;right:12px !important;bottom:calc(8px + var(--sb, 0px)) !important}
+}
+</style></head><body style="background:var(--deep-lake)">
+<section class="hero" data-screen-label="Hero B — Relief" style="background:var(--deep-lake)">
+  <div class="stage" id="stage"></div>
+  <div class="labels" id="labels"></div>
+  <div class="copy" id="copy" style="left:clamp(20px,6vw,104px);top:50%;transform:translateY(-50%);color:var(--chalk)">
+    <div class="eyebrow"><i style="background:var(--stone-grey)"></i>Lake Lucerne</div>
+    <h1>Every pier.<br>Every boat.</h1>
+    <p>11 more Swiss lakes available.</p>
+    <button class="cta">Explore Lacus</button>
+  </div>
+  <div id="bar" style="position:absolute;left:clamp(20px,6vw,104px);right:clamp(20px,6vw,104px);bottom:48px;display:flex;flex-direction:column;align-items:flex-start;gap:16px;opacity:0;pointer-events:none;z-index:2;color:var(--chalk)">
+    <h2 style="margin:0;font-family:var(--font-display);font-weight:600;font-size:clamp(20px,2vw,30px);line-height:1.2;letter-spacing:-.005em;text-wrap:balance">Every pier, every boat. All Swiss lakes available.</h2>
+    <button class="cta" style="margin-top:0;font-size:15px;padding:12px 22px">Explore Lacus</button>
+  </div>
+  <a href="#" id="brand" aria-label="Lacus home" style="position:absolute;left:clamp(20px,6vw,104px);top:32px;display:flex;align-items:center;gap:12px;z-index:2;text-decoration:none;color:var(--chalk)"><img src="assets/logo-mark.svg" alt="" style="width:40px;height:40px;display:block"><span style="font-family:var(--font-display);font-weight:600;font-size:24px;letter-spacing:.01em;line-height:1">Lacus</span></a>
+  <div id="lakeTitle" style="position:absolute;right:clamp(20px,4vw,56px);top:36px;display:flex;align-items:center;gap:12px;font-family:var(--font-display);font-weight:500;font-size:18px;letter-spacing:.04em;color:var(--chalk);opacity:0;z-index:2"><i style="width:28px;height:2px;background:var(--stone-grey)"></i>Lake Lucerne</div>
+  <div id="routeTitle" style="position:absolute;right:clamp(20px,4vw,56px);top:68px;font-family:var(--font-display);font-weight:500;font-size:16px;letter-spacing:.04em;color:var(--chalk);opacity:0;z-index:2"></div>
+  <div id="attr" style="position:absolute;right:16px;bottom:10px;font-family:var(--font-body);font-size:12px;color:var(--stone-grey);z-index:2">Elevation: Mapzen Terrain Tiles · Lakes © <a href="https://www.openstreetmap.org/copyright" style="color:var(--stone-grey)">OpenStreetMap</a> contributors</div>
+</section>
+<script>{const q=new URLSearchParams(location.search);const r=document.documentElement.style;r.setProperty("--st",(q.get("st")||0)+"px");r.setProperty("--sb",(q.get("sb")||0)+"px");}</script>
+<script type="module">import { mountRelief } from './lacus-3d.js'; // Lacus web (owner, 2026-10-11): on wide screens the camera comes closer so the map fills the hero; a little less
+// while the headline shares the screen (kept close to the later zoom, so the move between them is small), and on screens narrower than 16:9 (the routes must stay in view top to bottom,
+// so a wider screen cannot come closer still). ?zoom= and ?follow= override, for tuning.
+const q = new URLSearchParams(location.search), wide = a => Math.min(Math.max(a / (16 / 9), 0.85), 1), fixed = Number(q.get('zoom')) || 0;
+mountRelief(document.getElementById('stage'), document.getElementById('labels'), { calmEl: document.getElementById('copy'), barEl: document.getElementById('bar'), lakeEl: document.getElementById('lakeTitle'), titleEl: document.getElementById('routeTitle'),
+  zoom: fixed || (a => 1.3 * wide(a)), zoomIntro: fixed || (a => 1.16 * wide(a)), follow: q.get('follow') != null ? Number(q.get('follow')) : 0.35,
+  // Owner, 2026-10-11: the designed pace (6 s opening, 10 s a route) was too slow: 2.5 s and 3 s. ?intro= and ?route= override.
+  introSeconds: Number(q.get('intro')) || 2.5, routeSeconds: Number(q.get('route')) || 3 });</script>
+</body></html>

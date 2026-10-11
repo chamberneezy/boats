@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@500;600&family=Karma:wght@400;500&display=swap');
+:root{
+--font-display:'Kanit',sans-serif;
+--font-body:'Karma',serif;
+
+--weight-heading-regular:500;
+--weight-heading-strong:600;
+--weight-body-regular:400;
+--weight-body-emphasis:500;
+
+--size-display:40px;--lh-display:48px;
+--size-h1:28px;--lh-h1:34px;
+--size-h2:22px;--lh-h2:28px;
+--size-h3:18px;--lh-h3:24px;
+--size-body:16px;--lh-body:24px;
+--size-body-sm:14px;--lh-body-sm:20px;
+--size-caption:12px;--lh-caption:16px;--tracking-caption:0.06em;
+--size-button:15px;--lh-button:20px;
+}

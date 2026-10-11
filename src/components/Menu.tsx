@@ -10,9 +10,9 @@ const LOGO_SRC = `${import.meta.env.BASE_URL}logo-mark.svg`;
 // Inert until those screens exist. Account is live wherever accounts are configured (dev today).
 const MENU_INERT_ITEMS = ACCOUNTS_ENABLED ? ['Tickets'] : ['Tickets', 'Account'];
 
-// The menu slides in from the left and pushes the page aside, never covering it. Phones: it fills
-// the whole screen and the page slides fully out of view. Desktop: a 400px drawer, and Layout
-// narrows the page by the same 400px.
+// The menu pushes the page aside, never covering it. Phones: it slides in from the left, fills the
+// whole screen, and the page slides fully out of view. Desktop: a 400px drawer on the right, where
+// its button is, and Layout narrows the page by the same 400px.
 export function MenuProvider({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
@@ -50,8 +50,8 @@ export function MenuPanel() {
       aria-modal={open}
       aria-label="Menu"
       aria-hidden={!open}
-      className={`fixed inset-y-0 left-0 z-50 flex w-full flex-col overflow-y-auto bg-surface-page text-deep-lake transition-[translate,visibility] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none md:w-[400px] md:shadow-card ${
-        open ? 'visible translate-x-0' : 'invisible -translate-x-full'
+      className={`fixed inset-y-0 left-0 z-50 flex w-full flex-col overflow-y-auto bg-surface-page text-deep-lake transition-[translate,visibility] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none md:left-auto md:right-0 md:w-[400px] md:shadow-card ${
+        open ? 'visible translate-x-0' : 'invisible -translate-x-full md:translate-x-full'
       }`}
     >
       <div className="flex items-center justify-between gap-3 px-5 pb-2 pt-4 md:px-8 md:pt-6">
@@ -105,7 +105,8 @@ export function MenuPanel() {
 }
 
 // The hamburger. Its colour is inherited so it suits the bar it sits in; it also closes the menu.
-export function MenuButton() {
+// `large` is the 44px version for a bar where it is the only control.
+export function MenuButton({ large = false }: { large?: boolean }) {
   const { open, setOpen } = useMenu();
   return (
     <button
@@ -113,9 +114,9 @@ export function MenuButton() {
       aria-label="Menu"
       aria-expanded={open}
       onClick={() => setOpen(!open)}
-      className="flex h-6 w-6 cursor-pointer items-center justify-center border-0 bg-transparent p-0 text-inherit"
+      className={`flex cursor-pointer items-center justify-center border-0 bg-transparent p-0 text-inherit ${large ? 'h-11 w-11' : 'h-6 w-6'}`}
     >
-      <Menu className="h-[18px] w-[18px]" strokeWidth={2} />
+      <Menu className={large ? 'h-[22px] w-[22px]' : 'h-[18px] w-[18px]'} strokeWidth={2} />
     </button>
   );
 }

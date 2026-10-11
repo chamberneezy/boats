@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { ArrowLeft, Search } from 'lucide-react';
 import { Link, matchPath, useLocation, useNavigate } from 'react-router';
 import { DEFAULT_LAKE_ID, LAKES } from '../lakes';
@@ -29,38 +30,32 @@ function WebNav({ section }: { section: Section }) {
     `font-display text-[15px] font-medium no-underline ${
       overlay ? (active ? 'text-white' : 'text-white/75') : active ? 'text-deep-lake' : 'text-stone-grey'
     }`;
-  // While the menu is open the drawer shows the X and the logo itself, so the pushed page must not
-  // repeat them beside it: the left group fades out (its space is kept, so the links don't move).
-  const { open: menuOpen } = useMenu();
   const content = (
     <>
-      <div
-        className={`flex items-center gap-4 transition-[opacity,visibility] duration-300 motion-reduce:transition-none ${
-          overlay ? 'text-white' : 'text-deep-lake'
-        } ${menuOpen ? 'invisible opacity-0' : ''}`}
-      >
+      <Link to="/" className={`flex items-center gap-2.5 no-underline ${overlay ? 'text-white' : 'text-deep-lake'}`}>
+        <img src={LOGO_SRC} alt="" className="h-7 w-7 rounded-md" />
+        <span className="font-display text-lg font-medium leading-6 text-inherit">Lacus</span>
+      </Link>
+      {/* The menu button ends the bar on the right, the side its drawer opens on. */}
+      <div className={`flex items-center gap-6 ${overlay ? 'text-white' : 'text-deep-lake'}`}>
+        <nav className="flex gap-6" aria-label="Main">
+          <Link to="/" aria-current={section === 'home' ? 'page' : undefined} className={linkClass(section === 'home')}>
+            Home
+          </Link>
+          <Link to={SEARCH_TO} aria-current={section === 'search' ? 'page' : undefined} className={linkClass(section === 'search')}>
+            Search sailings
+          </Link>
+          <Link to="/schedules" aria-current={section === 'schedules' ? 'page' : undefined} className={linkClass(section === 'schedules')}>
+            Timetables
+          </Link>
+          {WEB_INERT_ITEMS.map((item) => (
+            <span key={item} className={`font-display text-[15px] font-medium ${overlay ? 'text-white/75' : 'text-stone-grey'}`}>
+              {item}
+            </span>
+          ))}
+        </nav>
         <MenuButton />
-        <Link to="/" className="flex items-center gap-2.5 no-underline">
-          <img src={LOGO_SRC} alt="" className="h-7 w-7 rounded-md" />
-          <span className="font-display text-lg font-medium leading-6 text-inherit">Lacus</span>
-        </Link>
       </div>
-      <nav className="flex gap-6" aria-label="Main">
-        <Link to="/" aria-current={section === 'home' ? 'page' : undefined} className={linkClass(section === 'home')}>
-          Home
-        </Link>
-        <Link to={SEARCH_TO} aria-current={section === 'search' ? 'page' : undefined} className={linkClass(section === 'search')}>
-          Search sailings
-        </Link>
-        <Link to="/schedules" aria-current={section === 'schedules' ? 'page' : undefined} className={linkClass(section === 'schedules')}>
-          Timetables
-        </Link>
-        {WEB_INERT_ITEMS.map((item) => (
-          <span key={item} className={`font-display text-[15px] font-medium ${overlay ? 'text-white/75' : 'text-stone-grey'}`}>
-            {item}
-          </span>
-        ))}
-      </nav>
     </>
   );
 
@@ -128,9 +123,58 @@ function MobileBar({ section, lakeName }: { section: Section; lakeName: string |
   );
 }
 
+// Home's bar. The page opens with the hero alone; once the visitor has scrolled past it this bar
+// slides in, pinned to the top: the logo on the left (back to the top) and the menu on the right.
+// Everything else is in the menu, so nothing competes with the hero.
+export function HomeBar() {
+  const { pathname } = useLocation();
+  const { open } = useMenu();
+  const isHome = pathname === '/';
+  const [past, setPast] = useState(false);
+
+  useEffect(() => {
+    if (!isHome) return;
+    const update = () => {
+      const hero = document.querySelector('.hm-hero');
+      setPast(hero ? hero.getBoundingClientRect().bottom < 72 : window.scrollY > 0);
+    };
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    return () => {
+      window.removeEventListener('scroll', update);
+      window.removeEventListener('resize', update);
+    };
+  }, [isHome]);
+
+  if (!isHome) return null;
+  const toTop = () => {
+    const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+  };
+  return (
+    <div
+      className={`fixed left-0 top-0 z-30 bg-surface-page/90 text-deep-lake backdrop-blur-md transition-[translate,opacity,visibility,right] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
+        open ? 'right-0 md:right-[400px]' : 'right-0'
+      } ${past ? 'visible translate-y-0 opacity-100' : 'invisible -translate-y-full opacity-0'}`}
+    >
+      <div className="mx-auto flex h-14 max-w-[1440px] items-center justify-between pl-5 pr-2.5 md:h-16 md:pl-16 md:pr-[54px]">
+        <button type="button" onClick={toTop} aria-label="Lacus, back to the top" className="flex cursor-pointer items-center gap-2.5 border-0 bg-transparent p-0 text-inherit">
+          <img src={LOGO_SRC} alt="" className="h-7 w-7 rounded-md" />
+          <span className="font-display text-lg font-medium leading-6">Lacus</span>
+        </button>
+        <MenuButton large />
+      </div>
+    </div>
+  );
+}
+
 export function AppHeader() {
   const { pathname } = useLocation();
   const { section, lakeName } = useSection(pathname);
+  // Home has no bar in the page: its 3D hero carries the logo and fills the first screen, and
+  // HomeBar appears once the visitor has scrolled past it.
+  if (section === 'home') return null;
   return (
     <header>
       <WebNav section={section} />

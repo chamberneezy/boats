@@ -1,87 +1,119 @@
+// Home (design handoff "Lacus hero web/README-Web-Home.md"): the 3D hero of Lake Lucerne, the
+// three-feature stage, a live demo of each feature, and the directory of the twelve lakes. Every
+// link leads into the search with the visitor's choice filled in.
+import { useEffect, useMemo, useRef } from 'react';
 import { useNavigate } from 'react-router';
-import { CtaBand } from '../components/CtaBand';
-import { LakeGroups } from '../components/LakeGroups';
-import { SplashHero } from '../components/SplashHero';
+import { HOME_PHOTOS } from '../data/homePhotos';
 import { LAKE_PHOTOS } from '../data/lakePhotos';
-import { useDocumentTitle } from '../useDocumentTitle';
-import { useFavorites } from '../useFavorites';
+import { CruisesDemo } from '../home/CruisesDemo';
+import { CRUISE_LAKES, useCruiseSets } from '../home/cruises';
+import { HERO_SRC, LOGO_SRC } from '../home/data';
+import { FeatureStage } from '../home/FeatureStage';
+import { LakeDirectory } from '../home/LakeDirectory';
+import { MapDemo } from '../home/MapDemo';
+import { SearchDemo } from '../home/SearchDemo';
+import '../home/home.css';
 import { DEFAULT_LAKE_ID, LAKES } from '../lakes';
 import { searchPath } from '../routes';
+import { useDocumentTitle } from '../useDocumentTitle';
 
-const LOGO_SRC = `${import.meta.env.BASE_URL}logo-mark.svg`;
-
-// "Lake Lucerne and Lake Zurich" today; grows on its own as more lakes go active.
-const ACTIVE_LAKES_LABEL = new Intl.ListFormat('en').format(LAKES.filter((lake) => lake.active).map((lake) => lake.name));
+const CREDITS = [
+  ...LAKES.filter((lake) => lake.id in LAKE_PHOTOS).map((lake) => ({ label: lake.name, photo: LAKE_PHOTOS[lake.id] })),
+  ...Object.values(HOME_PHOTOS).map((photo) => ({ label: 'Cruises', photo })),
+];
 
 export function HomePage() {
-  useDocumentTitle('Lacus — Switzerland’s lakes, on schedule');
+  useDocumentTitle('Lacus — Every pier, every boat');
   const navigate = useNavigate();
-  const { favorites, toggle } = useFavorites();
-  const goToSearch = () => navigate(searchPath(DEFAULT_LAKE_ID));
-  const showLakes = () => {
-    const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-    document.getElementById('lakes')?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+  const cruiseSets = useCruiseSets();
+
+  // Until the cruises have loaded, the lakes the teaser covers carry the tag; then the lakes that
+  // really have an upcoming cruise.
+  const cruiseLakeIds = useMemo(
+    () => new Set(cruiseSets.length ? cruiseSets.map((set) => set.lakeId) : CRUISE_LAKES.map((lake) => lake.id)),
+    [cruiseSets],
+  );
+  // The stage's fan of three: the next cruise of each of the first three lakes.
+  const stageCruises = useMemo(() => cruiseSets.map((set) => set.items[0]).slice(0, 3), [cruiseSets]);
+
+  // The hero draws a 3D scene every frame: stop it while it is scrolled out of view.
+  const hero = useRef<HTMLIFrameElement>(null);
+  useEffect(() => {
+    const frame = hero.current;
+    if (!frame || typeof IntersectionObserver === 'undefined') return;
+    const observer = new IntersectionObserver(([entry]) => {
+      const map = frame.contentWindow as (Window & { __heroPaused?: boolean }) | null;
+      if (map) map.__heroPaused = !entry.isIntersecting;
+    });
+    observer.observe(frame);
+    return () => observer.disconnect();
+  }, []);
+
+  // The hero is a page of its own in a frame (same origin). Its "Explore Lacus" buttons open the
+  // search; its logo links to Home, which is this page.
+  const wireHero = (frame: HTMLIFrameElement) => {
+    try {
+      const doc = frame.contentDocument;
+      if (!doc) return;
+      doc.querySelectorAll('button.cta').forEach((button) => button.addEventListener('click', () => navigate(searchPath(DEFAULT_LAKE_ID))));
+      doc.getElementById('brand')?.addEventListener('click', (event) => event.preventDefault());
+    } catch {
+      // A frame that cannot be reached keeps its own behaviour.
+    }
   };
 
-  const bands = [
-    { title: 'Reserve your Lake Lucerne crossing', body: 'Departs from Lucerne, Weggis, Vitznau and Flüelen.' },
-    { title: 'Book ahead for peak departures', body: 'Cabins are heated. Light rain does not cancel a crossing.' },
-  ];
-
   return (
-    <>
-      {/* The splash photo runs edge to edge; the page content below sits in the centred container. */}
-      <SplashHero onSelectLake={showLakes} />
+    <div className="hm">
+      <div className="hm-hero">
+        <iframe ref={hero} src={HERO_SRC} title="Lake Lucerne, its piers and boat routes" onLoad={(event) => wireHero(event.currentTarget)} />
+      </div>
 
-      <main className="mx-auto max-w-[1440px]">
-        <section id="lakes" className="flex flex-col gap-5 px-5 pb-5 pt-8 md:gap-8 md:px-16 md:pb-[72px] md:pt-20">
-          <div>
-            <h2 className="m-0 font-display text-lg font-medium text-deep-lake md:text-[28px]">Lakes we cover</h2>
-            <p className="m-0 mt-1.5 hidden font-body text-sm text-stone-grey md:block">
-              Reservations are open on {ACTIVE_LAKES_LABEL}. Other lakes are shown for reference and will open for
-              booking soon.
-            </p>
+      <main>
+        <div className="hm-wrap">
+          <FeatureStage cruises={stageCruises} />
+        </div>
+
+        <div className="hm-dark">
+          <div className="hm-wrap">
+            <SearchDemo />
+            <div className="hm-rule" />
+            <MapDemo />
+            <div className="hm-rule" />
+            <CruisesDemo sets={cruiseSets} />
           </div>
+        </div>
 
-          <LakeGroups
-            favorites={favorites}
-            onToggleFavorite={toggle}
-            afterPopular={<CtaBand {...bands[0]} buttonLabel="Search sailings" onClick={goToSearch} />}
-          />
-          <CtaBand {...bands[1]} buttonLabel="Search sailings" onClick={goToSearch} />
-        </section>
+        <div className="hm-wrap">
+          <LakeDirectory cruiseLakeIds={cruiseLakeIds} />
 
-        <details className="px-5 pb-8 md:px-16 md:pb-10">
-          <summary className="cursor-pointer font-body text-[13px] text-stone-grey">Photo credits</summary>
-          <ul className="m-0 mt-3 list-none space-y-1.5 p-0 font-body text-xs text-stone-grey">
-            {LAKES.filter((lake) => lake.id in LAKE_PHOTOS)
-              .map((lake) => ({ label: lake.name, photo: LAKE_PHOTOS[lake.id] }))
-              .map(({ label, photo }) => {
-              return (
-                <li key={label}>
+          <details className="hm-credits">
+            <summary>Photo credits</summary>
+            <ul>
+              {CREDITS.map(({ label, photo }) => (
+                <li key={photo.sourceUrl}>
                   {label}:{' '}
-                  <a href={photo.sourceUrl} target="_blank" rel="noreferrer" className="text-alpine-sky">
+                  <a href={photo.sourceUrl} target="_blank" rel="noreferrer">
                     {photo.title}
                   </a>{' '}
                   by {photo.author},{' '}
-                  <a href={photo.licenseUrl} target="_blank" rel="noreferrer" className="text-alpine-sky">
+                  <a href={photo.licenseUrl} target="_blank" rel="noreferrer">
                     {photo.license}
                   </a>
                   . Resized and cropped.
                 </li>
-              );
-            })}
-          </ul>
-        </details>
+              ))}
+            </ul>
+          </details>
 
-        <footer className="hidden items-center justify-between border-t border-hairline px-16 py-6 md:flex">
-          <div className="flex items-center gap-2">
-            <img src={LOGO_SRC} alt="" className="h-[22px] w-[22px] rounded-[5px]" />
-            <span className="font-body text-[13px] text-stone-grey">Lacus — lake transit, Switzerland.</span>
-          </div>
-          <span className="font-body text-[13px] text-stone-grey">{ACTIVE_LAKES_LABEL} · more lakes soon</span>
-        </footer>
+          <footer className="hm-foot">
+            <div>
+              <img src={LOGO_SRC} alt="" />
+              <span>Lacus · lake transit, Switzerland.</span>
+            </div>
+            <span>Photos: Wikimedia Commons contributors</span>
+          </footer>
+        </div>
       </main>
-    </>
+    </div>
   );
 }
