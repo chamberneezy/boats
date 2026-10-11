@@ -46,12 +46,13 @@ async function fetchText(url, init = {}) {
   for (let attempt = 1; attempt <= RETRIES; attempt++) {
     try {
       const res = await fetch(url, { ...init, headers: { 'User-Agent': USER_AGENT, ...(init.headers ?? {}) }, signal: AbortSignal.timeout(30_000) });
-      if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
+      if (!res.ok) throw Object.assign(new Error(`HTTP ${res.status} for ${url}`), { status: res.status });
       const text = await res.text();
       await sleep(REQUEST_DELAY_MS);
       return text;
     } catch (error) {
       lastError = error;
+      if (error.status === 404) break; // gone, not flaky: no point retrying
       await sleep(1000 * attempt);
     }
   }
@@ -94,7 +95,13 @@ async function readBsg() {
   const cruises = [];
   for (const slug of slugs) {
     const url = `${BSG}/events/event/${slug}`;
-    const html = await fetchText(url);
+    // The index keeps linking an event for a while after its page is taken down (the Oktoberfest
+    // boat, 2026-10-10): skip that event instead of failing the whole lake.
+    const html = await fetchText(url).catch((error) => {
+      if (error.status === 404) return null;
+      throw error;
+    });
+    if (html === null) continue;
     const box = /<h4>Diese Fahrt<\/h4>(.*?)<\/ul>/s.exec(html)?.[1];
     if (!box) continue;
     const pier = text(/icon-Small_Abfahrtsort">(.*?)<\/span>/s.exec(box)?.[1] ?? '');

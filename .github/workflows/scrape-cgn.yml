@@ -8,12 +8,13 @@ on:
 permissions:
   contents: write
 
-# Shared with the other two scrapers (scrape-sgv.yml, check-zsg-traffic.yml): they all commit to
-# main on their own schedule, only ~20 minutes apart, and each can run long enough to overlap the
-# next one. Queues them instead of letting two pushes race (one wins, the other gets a
-# non-fast-forward rejection and its scrape is lost for the day).
+# One run of this workflow at a time. The other scrapers (scrape-sgv, scrape-zsg, scrape-cgn,
+# scrape-cruises, check-zsg-traffic) also commit to main at about the same time, each to its own
+# files; the pull --rebase retry below settles those pushes. They must NOT share one concurrency
+# group: a group holds only one waiting run, so with five workflows starting together the ones in
+# the middle were cancelled (ZSG's scrape was cancelled every day from 2026-10-08 to 2026-10-11).
 concurrency:
-  group: scraper-git-push
+  group: scraper-cgn
   cancel-in-progress: false
 
 jobs:
@@ -39,11 +40,10 @@ jobs:
             echo "No change to commit."
           else
             git commit -m "Daily CGN deployments scrape"
-            # Belt-and-suspenders alongside the concurrency group above, in case something else
-            # (a manual push, a person) touched main in between.
-            for attempt in 1 2 3; do
+            # Another scraper, or a person, may have pushed to main in between.
+            for attempt in 1 2 3 4 5 6; do
               git pull --rebase origin main && git push && break
-              [ "$attempt" = 3 ] && exit 1
+              [ "$attempt" = 6 ] && exit 1
               sleep $((attempt * 5))
             done
           fi
