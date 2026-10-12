@@ -1,5 +1,5 @@
 // Small pieces shared by the Home page's sections.
-import { useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 import { STORE_URLS } from './data';
 
 const CHALK = 'var(--color-chalk)';
@@ -103,6 +103,7 @@ export function Field({
   value,
   filled = true,
   highlighted = false,
+  caret = false,
   className = '',
   onClick,
   valueStyle,
@@ -111,6 +112,7 @@ export function Field({
   value: string;
   filled?: boolean;
   highlighted?: boolean;
+  caret?: boolean; // a text cursor after the value, while the search demo types in it
   className?: string;
   onClick?: () => void;
   valueStyle?: CSSProperties;
@@ -119,7 +121,10 @@ export function Field({
   const content = (
     <>
       <span>{label}</span>
-      <span style={{ color: filled ? DEEP : 'var(--color-stone-grey)', ...valueStyle }}>{value}</span>
+      <span style={{ color: filled ? DEEP : 'var(--color-stone-grey)', ...valueStyle }}>
+        {value}
+        {caret && <i className="hm-caret" />}
+      </span>
     </>
   );
   return onClick ? (
@@ -130,51 +135,5 @@ export function Field({
     <div className={`hm-field ${className}`} style={style}>
       {content}
     </div>
-  );
-}
-
-type Point = readonly [x: number, y: number];
-
-/**
- * The map's lines, over the still of the relief map: the boat route as a faint dotted line, and
- * the chosen stretch as a solid one that draws itself when `drawn` turns true. Points are
- * percentages of the panel; they are drawn in the panel's own pixels (measured), so the stroke is
- * even and the draw-on runs the whole length.
- */
-export function MapLines({ all, selected, drawn, transition, dash }: { all: readonly Point[]; selected: readonly Point[]; drawn: boolean; transition: string; dash: string }) {
-  const ref = useRef<SVGSVGElement>(null);
-  const [size, setSize] = useState<{ w: number; h: number } | null>(null);
-  useLayoutEffect(() => {
-    const node = ref.current;
-    if (!node) return;
-    const measure = () => {
-      const box = node.getBoundingClientRect();
-      if (box.width > 0 && box.height > 0) setSize({ w: box.width, h: box.height });
-    };
-    measure();
-    const observer = new ResizeObserver(measure);
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
-  const pts = (points: readonly Point[]) => (size ? points.map(([x, y]) => `${((x / 100) * size.w).toFixed(1)},${((y / 100) * size.h).toFixed(1)}`).join(' ') : '');
-  return (
-    <svg ref={ref} className="hm-st-svg" viewBox={size ? `0 0 ${size.w} ${size.h}` : undefined} aria-hidden="true">
-      {size && (
-        <>
-          <polyline points={pts(all)} fill="none" stroke="rgba(242,240,233,0.45)" strokeWidth="2" strokeDasharray={dash} strokeLinecap="round" strokeLinejoin="round" />
-          <polyline
-            points={pts(selected)}
-            fill="none"
-            stroke="#F2F0E9"
-            strokeWidth="3.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            pathLength={1}
-            strokeDasharray="1"
-            style={{ strokeDashoffset: drawn ? 0 : 1, transition }}
-          />
-        </>
-      )}
-    </svg>
   );
 }

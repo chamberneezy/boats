@@ -55,6 +55,21 @@
   border: 0;
   display: block;
 }
+/* Level with the hero's logo (32px from the top, 40px high); the icon's right edge sits on the
+   hero's own right inset. Below 700px the hero uses its phone layout (logo 16px down, 32px high). */
+.hm-hero-menu {
+  position: absolute;
+  top: 30px;
+  right: calc(clamp(20px, 4vw, 56px) - 11px);
+  z-index: 2;
+  color: var(--color-chalk);
+}
+@media (max-width: 699px) {
+  .hm-hero-menu {
+    top: 10px;
+    right: 9px;
+  }
+}
 
 /* Cards and fields (the search-card field style: no borders, hairlines between fields). */
 .hm-card {
@@ -380,6 +395,17 @@
   background: var(--color-deep-lake);
   color: var(--color-chalk);
 }
+.hm-intro {
+  padding: 104px 64px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.hm-intro-title {
+  margin: 0;
+  font: 600 56px/62px var(--font-display);
+  color: var(--color-chalk);
+}
 .hm-demo {
   display: grid;
   gap: 64px;
@@ -471,38 +497,37 @@
   font: 400 14px/1.4 var(--font-body);
   color: var(--color-alpine-sky);
 }
-.hm .hm-replay {
-  font: 500 15px/1.4 var(--font-display);
-  color: var(--color-chalk);
-}
-.hm-mode {
-  font: 400 13px/1.4 var(--font-body);
-  color: var(--color-alpine-sky);
-}
 
 /* Search demo */
 .hm-sd-card .hm-field {
   padding: 20px 24px;
   gap: 4px;
-  cursor: pointer;
 }
-.hm-sd-card .hm-field--lake {
-  flex: 1.3;
+.hm-caret {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 2px;
+  vertical-align: -0.12em;
+  background: var(--color-deep-lake);
+  animation: hm-blink 1s steps(1) infinite;
 }
-.hm-sd-bar {
-  padding: 16px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+@keyframes hm-blink {
+  50% {
+    opacity: 0;
+  }
 }
-.hm-sd-bar > span {
+/* Suggestions, then trips: the room is kept so the page below does not move as they change. */
+.hm-sd-below {
+  min-height: 268px;
+}
+.hm-results-note {
+  margin-top: 14px;
   font: 400 14px/1.4 var(--font-body);
   color: var(--hm-muted);
 }
-.hm-ring {
-  border-radius: 12px;
-  transition: box-shadow 0.3s ease;
+.hm-sd-card .hm-field--lake {
+  flex: 1.3;
 }
 .hm-options {
   padding: 12px 24px;
@@ -517,9 +542,6 @@
   font: 400 16px/1.4 var(--font-body);
   color: var(--color-deep-lake);
   transition: background 0.3s ease;
-}
-.hm .hm-option:hover {
-  color: var(--color-alpine-sky);
 }
 .hm-results {
   padding: 8px 24px 16px;
@@ -546,82 +568,51 @@
   color: var(--hm-muted);
   font-variant-numeric: tabular-nums;
 }
-.hm-results-link {
-  align-self: flex-start;
-  font: 500 15px/1.4 var(--font-display);
-  margin-top: 14px;
-}
-.hm a.hm-results-link:hover,
-.hm a.hm-text-link:hover {
-  color: var(--color-alpine-sky);
-}
 
 /* Map demo */
 .hm-map {
   position: relative;
-  /* The height follows the still's shape (aspect-ratio, set inline): the piers are placed in
-     percentages of the picture, so the panel must keep its proportions. */
+  aspect-ratio: 3 / 2;
   border-radius: 16px;
   background: var(--hm-card-dark);
   overflow: hidden;
 }
-.hm-map-img {
+.hm-map-frame {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  border: 0;
   display: block;
 }
-.hm-pier {
+.hm-map-tools {
   position: absolute;
-  width: 0;
-  height: 0;
+  left: 16px;
+  top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
-.hm-pier-pulse {
-  position: absolute;
-  left: -20px;
-  top: -20px;
+.hm .hm-map-tools button {
   width: 40px;
   height: 40px;
-  border-radius: 50%;
-  border: 2px solid var(--color-chalk);
-  box-sizing: border-box;
-  transition:
-    opacity 0.5s ease,
-    transform 0.5s ease;
-  pointer-events: none;
-}
-.hm .hm-pier-hit {
-  position: absolute;
-  left: -14px;
-  top: -14px;
-  width: 28px;
-  height: 28px;
+  border-radius: 12px;
+  background: var(--color-chalk);
+  color: var(--color-deep-lake);
+  font: 500 20px/1 var(--font-display);
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: var(--shadow-card);
 }
-.hm-pier-hit > span {
-  border-radius: 50%;
-  border: 2px solid var(--color-chalk);
-  box-sizing: border-box;
-  transition: all 0.3s ease;
-}
-.hm .hm-pier-label {
+.hm-map-hint {
   position: absolute;
-  display: flex;
-  gap: 4px;
-  white-space: nowrap;
-}
-.hm-pier-label > span:first-child {
-  font: 500 14px/1.4 var(--font-display);
+  left: 16px;
+  bottom: 30px;
+  font: 400 12px/1.4 var(--font-body);
   color: var(--color-chalk);
   text-shadow: 0 1px 6px rgba(12, 36, 49, 0.9);
-}
-.hm-pier-label .hm-tag {
-  padding: 2px 6px;
-  transition: opacity 0.3s ease;
+  pointer-events: none;
 }
 .hm-map-card {
   position: absolute;
@@ -644,14 +635,11 @@
   font: 400 14px/1.4 var(--font-body);
   color: var(--hm-muted);
 }
-.hm-text-link {
-  font: 500 15px/1.4 var(--font-display);
-  transition: opacity 0.3s ease;
-}
 .hm-map-caption {
   position: absolute;
   left: 16px;
   bottom: 10px;
+  text-shadow: 0 1px 6px rgba(12, 36, 49, 0.9);
   font: 400 11px/1.4 var(--font-body);
   color: var(--color-stone-grey);
 }
@@ -1097,8 +1085,7 @@
   .hm-st-tag > div > span:last-child {
     font-size: 13px;
   }
-  .hm-st-tag .hm-tag,
-  .hm-pier-label .hm-tag {
+  .hm-st-tag .hm-tag {
     font-size: 10px;
     border-radius: 5px;
     padding: 2px 6px;
@@ -1141,8 +1128,22 @@
     gap: 22px;
     padding: 56px 20px;
   }
+  .hm-intro {
+    padding: 64px 20px 0;
+    gap: 10px;
+  }
+  .hm-intro-title {
+    font: 600 32px/38px var(--font-display);
+  }
   .hm-demo--first {
-    padding: 64px 20px 56px;
+    padding: 40px 20px 56px;
+  }
+  .hm-sd-below {
+    min-height: 196px;
+  }
+  .hm-results-note {
+    margin-top: 10px;
+    font-size: 13px;
   }
   .hm-demo--last {
     padding: 56px 0 64px;
@@ -1181,22 +1182,10 @@
   .hm-note {
     font-size: 13px;
   }
-  .hm .hm-replay {
-    font-size: 14px;
-  }
-  .hm-between {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-  }
   .hm-sd-card .hm-field,
   .hm-m-card .hm-field {
     padding: 12px 16px;
     gap: 2px;
-  }
-  .hm-sd-btn {
-    padding: 4px 16px 16px;
   }
   .hm-options {
     padding: 8px 16px;
@@ -1228,40 +1217,22 @@
     color: var(--hm-muted);
     font-variant-numeric: tabular-nums;
   }
-  .hm-pier-pulse {
-    left: -18px;
-    top: -18px;
-    width: 36px;
-    height: 36px;
+  .hm-map {
+    aspect-ratio: 1 / 1.05;
   }
-  .hm .hm-pier-hit {
-    left: -22px;
-    top: -22px;
-    width: 44px;
-    height: 44px;
+  .hm-map-tools {
+    left: 12px;
+    top: 12px;
   }
-  .hm .hm-pier-label {
-    top: 14px;
-    left: 0;
-    transform: translateX(-30%);
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 3px;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-  }
-  .hm-pier-label > span:first-child {
-    font-size: 13px;
-    order: 2;
+  .hm-map-hint,
+  .hm-map-caption {
+    left: 12px;
   }
   .hm-map-foot {
     padding: 12px 16px;
   }
   .hm-map-foot > span {
     font-size: 13px;
-  }
-  .hm .hm-map-foot .hm-replay {
-    color: var(--color-alpine-sky);
   }
   .hm-app {
     gap: 14px;

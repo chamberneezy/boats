@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lake Lucerne, its piers</title>
+<!-- Lacus web: the relief map as a map, for the Home page's "Select on map": drag to move, pinch or
+     Ctrl-scroll to zoom, tap a pier. The host page keeps the choice and tells this page what to show
+     (window.__map); this page reports taps by postMessage. See relief-map.js. -->
+<link rel="stylesheet" href="_ds/lacus-design-system-59506f82-cfad-4533-809b-6563da9f9035/styles.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.184.0/build/three.module.js"
+  },
+  "integrity": {
+    "https://unpkg.com/three@0.184.0/build/three.module.js": "sha384-8FCZ1eVO6it4+pbec2aDtnTrwjWXZLJRC+MAGCIPDgsYnUrl/E0A2YlF8ioMKI/J",
+    "https://unpkg.com/three@0.184.0/build/three.core.js": "sha384-dw2ooPewaEIrAgl6oFDBmmBWCE9oW9LxRGcfwZ0hLvEprzo202wXl7vCYHRlSnOT"
+  }
+}
+</script>
+<style>
+html,body{margin:0;height:100%;background:var(--deep-lake);overflow:hidden}
+.stage,.labels{position:absolute;inset:0}.labels{pointer-events:none;overflow:hidden}
+</style></head><body>
+<div class="stage" id="stage"></div>
+<div class="labels" id="labels"></div>
+<script type="module">
+import { mountRelief } from './lacus-3d.js';
+import { interactiveMap } from './relief-map.js';
+const q = new URLSearchParams(location.search);
+// The wider cut of the lake (more of the mountains around it), on a finer surface; its elevation
+// image is the half-size one on every device, which already holds more than the surface shows.
+const lake = q.get('lake') || 'lucerne-wide';
+const only = q.get('only') ? q.get('only').split(',') : null;
+mountRelief(document.getElementById('stage'), document.getElementById('labels'), { lake, dem: lake + '-dem-half.png', shift: 0, segments: 560,
+  interactive: (ctx) => interactiveMap(ctx, { only }) });
+</script>
+</body></html>

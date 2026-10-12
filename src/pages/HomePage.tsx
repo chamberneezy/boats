@@ -1,6 +1,6 @@
-// Home (design handoff "Lacus hero web/README-Web-Home.md"): the 3D hero of Lake Lucerne, the
-// three-feature stage, a live demo of each feature, and the directory of the twelve lakes. Every
-// link leads into the search with the visitor's choice filled in.
+// Home (design handoff "design-web/README-Web-Home.md"): the 3D hero of Lake Lucerne, a demo of
+// each of the three features, and the directory of the twelve lakes. Every link leads into the
+// search.
 import { useEffect, useMemo, useRef } from 'react';
 import { useNavigate } from 'react-router';
 import { HOME_PHOTOS } from '../data/homePhotos';
@@ -8,11 +8,11 @@ import { LAKE_PHOTOS } from '../data/lakePhotos';
 import { CruisesDemo } from '../home/CruisesDemo';
 import { CRUISE_LAKES, useCruiseSets } from '../home/cruises';
 import { HERO_SRC, LOGO_SRC } from '../home/data';
-import { FeatureStage } from '../home/FeatureStage';
 import { LakeDirectory } from '../home/LakeDirectory';
 import { MapDemo } from '../home/MapDemo';
 import { SearchDemo } from '../home/SearchDemo';
 import '../home/home.css';
+import { MenuButton } from '../components/Menu';
 import { DEFAULT_LAKE_ID, LAKES } from '../lakes';
 import { searchPath } from '../routes';
 import { useDocumentTitle } from '../useDocumentTitle';
@@ -33,17 +33,15 @@ export function HomePage() {
     () => new Set(cruiseSets.length ? cruiseSets.map((set) => set.lakeId) : CRUISE_LAKES.map((lake) => lake.id)),
     [cruiseSets],
   );
-  // The stage's fan of three: the next cruise of each of the first three lakes.
-  const stageCruises = useMemo(() => cruiseSets.map((set) => set.items[0]).slice(0, 3), [cruiseSets]);
 
   // The hero draws a 3D scene every frame: stop it while it is scrolled out of view.
   const hero = useRef<HTMLIFrameElement>(null);
   useEffect(() => {
     const frame = hero.current;
     if (!frame || typeof IntersectionObserver === 'undefined') return;
-    const observer = new IntersectionObserver(([entry]) => {
+    const observer = new IntersectionObserver((entries) => {
       const map = frame.contentWindow as (Window & { __heroPaused?: boolean }) | null;
-      if (map) map.__heroPaused = !entry.isIntersecting;
+      if (map) map.__heroPaused = !entries[entries.length - 1].isIntersecting;
     });
     observer.observe(frame);
     return () => observer.disconnect();
@@ -66,15 +64,19 @@ export function HomePage() {
     <div className="hm">
       <div className="hm-hero">
         <iframe ref={hero} src={HERO_SRC} title="Lake Lucerne, its piers and boat routes" onLoad={(event) => wireHero(event.currentTarget)} />
+        {/* The menu, level with the hero's own logo; it scrolls away with the hero. */}
+        <div className="hm-hero-menu">
+          <MenuButton large />
+        </div>
       </div>
 
       <main>
-        <div className="hm-wrap">
-          <FeatureStage cruises={stageCruises} />
-        </div>
-
         <div className="hm-dark">
           <div className="hm-wrap">
+            <div className="hm-intro">
+              <span className="hm-eyebrow">What Lacus does</span>
+              <h2 className="hm-intro-title">Search it. Point at it. Book the evening.</h2>
+            </div>
             <SearchDemo />
             <div className="hm-rule" />
             <MapDemo />

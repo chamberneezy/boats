@@ -27,7 +27,8 @@ export function useOnScreen(ref: RefObject<Element | null>, threshold = 0.05): b
       setInView(true);
       return;
     }
-    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), { threshold });
+    // Several changes can arrive together (a busy page): the last one is the current state.
+    const observer = new IntersectionObserver((entries) => setInView(entries[entries.length - 1].isIntersecting), { threshold });
     observer.observe(node);
     return () => observer.disconnect();
   }, [ref, threshold]);

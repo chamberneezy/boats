@@ -33,3 +33,5 @@ pipeline/out/
 
 # Claude Code project notes: kept local, never pushed
 CLAUDE.md
+pipeline/relief/.cache/
+pipeline/relief/out/

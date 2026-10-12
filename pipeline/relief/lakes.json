@@ -1,0 +1,114 @@
+{
+  "lucerne": {
+    "osm": {
+      "type": "relation",
+      "id": 1442399
+    },
+    "zoom": 12,
+    "lakeLevel": 434,
+    "alsoWater": [
+      {
+        "type": "relation",
+        "id": 540344,
+        "name": "Zugersee"
+      },
+      {
+        "type": "relation",
+        "id": 20055,
+        "name": "Lauerzersee"
+      },
+      {
+        "type": "way",
+        "id": 136647452,
+        "name": "Sarnersee"
+      }
+    ],
+    "lakeId": "lake-lucerne",
+    "name": "Lake Lucerne",
+    "routes": [
+      [
+        "8508492",
+        "8508476"
+      ],
+      [
+        "8508492",
+        "8508503"
+      ],
+      [
+        "8508470",
+        "8508476"
+      ],
+      [
+        "8508492",
+        "8508464"
+      ],
+      [
+        "8508464",
+        "8508467"
+      ]
+    ],
+    "center": [
+      10,
+      0,
+      6
+    ]
+  },
+  "zurich": {
+    "lakeId": "lake-zurich",
+    "name": "Lake Zurich",
+    "osm": {
+      "type": "relation",
+      "id": 32362
+    }
+  },
+  "lucerne-wide": {
+    "osm": {
+      "type": "relation",
+      "id": 1442399
+    },
+    "zoom": 12,
+    "lakeLevel": 434,
+    "alsoWater": [
+      {
+        "type": "relation",
+        "id": 540344,
+        "name": "Zugersee"
+      },
+      {
+        "type": "relation",
+        "id": 20055,
+        "name": "Lauerzersee"
+      },
+      {
+        "type": "way",
+        "id": 136647452,
+        "name": "Sarnersee"
+      }
+    ],
+    "lakeId": "lake-lucerne",
+    "name": "Lake Lucerne",
+    "routes": [
+      [
+        "8508492",
+        "8508476"
+      ],
+      [
+        "8508492",
+        "8508503"
+      ],
+      [
+        "8508470",
+        "8508476"
+      ],
+      [
+        "8508492",
+        "8508464"
+      ],
+      [
+        "8508464",
+        "8508467"
+      ]
+    ],
+    "margin": 420
+  }
+}

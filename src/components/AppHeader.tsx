@@ -4,7 +4,6 @@ import { Link, matchPath, useLocation, useNavigate } from 'react-router';
 import { DEFAULT_LAKE_ID, LAKES } from '../lakes';
 import { ACCOUNT_PATH, searchPath } from '../routes';
 import { MenuButton } from './Menu';
-import { useMenu } from '../menu';
 
 const LOGO_SRC = `${import.meta.env.BASE_URL}logo-mark.svg`;
 const SEARCH_TO = searchPath(DEFAULT_LAKE_ID);
@@ -123,20 +122,27 @@ function MobileBar({ section, lakeName }: { section: Section; lakeName: string |
   );
 }
 
-// Home's bar. The page opens with the hero alone; once the visitor has scrolled past it this bar
-// slides in, pinned to the top: the logo on the left (back to the top) and the menu on the right.
-// Everything else is in the menu, so nothing competes with the hero.
+// Home's bar, phones only (owner, 2026-10-12). The hero carries the logo and the menu button; once
+// the visitor has scrolled past it this bar takes over, in the page's own Deep Lake: logo on the
+// left (back to the top), menu on the right. It is away while the page moves down and comes back
+// when it moves up, so it never lies on what is being read. Desktop has no bar on Home.
 export function HomeBar() {
   const { pathname } = useLocation();
-  const { open } = useMenu();
   const isHome = pathname === '/';
-  const [past, setPast] = useState(false);
+  const [shown, setShown] = useState(false);
 
   useEffect(() => {
     if (!isHome) return;
+    let last = window.scrollY;
     const update = () => {
+      const y = window.scrollY;
       const hero = document.querySelector('.hm-hero');
-      setPast(hero ? hero.getBoundingClientRect().bottom < 72 : window.scrollY > 0);
+      const past = hero ? hero.getBoundingClientRect().bottom < 0 : y > 0;
+      // A few pixels of slack, so a resting thumb does not flick it in and out.
+      if (!past) setShown(false);
+      else if (y < last - 6) setShown(true);
+      else if (y > last + 6) setShown(false);
+      if (Math.abs(y - last) > 6) last = y;
     };
     update();
     window.addEventListener('scroll', update, { passive: true });
@@ -154,11 +160,11 @@ export function HomeBar() {
   };
   return (
     <div
-      className={`fixed left-0 top-0 z-30 bg-surface-page/90 text-deep-lake backdrop-blur-md transition-[translate,opacity,visibility,right] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
-        open ? 'right-0 md:right-[400px]' : 'right-0'
-      } ${past ? 'visible translate-y-0 opacity-100' : 'invisible -translate-y-full opacity-0'}`}
+      className={`fixed inset-x-0 top-0 z-30 bg-deep-lake/90 text-chalk backdrop-blur-md transition-[translate,opacity,visibility] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none md:hidden ${
+        shown ? 'visible translate-y-0 opacity-100' : 'invisible -translate-y-full opacity-0'
+      }`}
     >
-      <div className="mx-auto flex h-14 max-w-[1440px] items-center justify-between pl-5 pr-2.5 md:h-16 md:pl-16 md:pr-[54px]">
+      <div className="flex h-14 items-center justify-between pl-5 pr-[9px]">
         <button type="button" onClick={toTop} aria-label="Lacus, back to the top" className="flex cursor-pointer items-center gap-2.5 border-0 bg-transparent p-0 text-inherit">
           <img src={LOGO_SRC} alt="" className="h-7 w-7 rounded-md" />
           <span className="font-display text-lg font-medium leading-6">Lacus</span>
@@ -172,8 +178,8 @@ export function HomeBar() {
 export function AppHeader() {
   const { pathname } = useLocation();
   const { section, lakeName } = useSection(pathname);
-  // Home has no bar in the page: its 3D hero carries the logo and fills the first screen, and
-  // HomeBar appears once the visitor has scrolled past it.
+  // Home has no bar in the page: its 3D hero carries the logo and the menu button and fills the
+  // first screen; on phones HomeBar takes over once the visitor has scrolled past it.
   if (section === 'home') return null;
   return (
     <header>

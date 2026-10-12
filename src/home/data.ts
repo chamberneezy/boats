@@ -9,10 +9,10 @@ const BASE = import.meta.env.BASE_URL;
 
 export const HERO_SRC = `${BASE}hero/${encodeURIComponent('Lacus Hero 3D B - Relief.html')}`;
 export const STAGE_MAP_SRC = `${BASE}hero/stage.html`;
+export const MAP_SRC = `${BASE}hero/map.html`;
 export const LOGO_SRC = `${BASE}logo-mark.svg`;
 export const lakePhotoLarge = (lakeId: string) => `${BASE}lakes/full/${lakeId}-1920.jpg`;
 export const homePhoto = (key: string) => `${BASE}home/${key}.jpg`;
-export const homeAsset = (file: string) => `${BASE}home/${file}`;
 
 // The apps are not in the stores yet: with no URL the badges are shown but are not links.
 export const STORE_URLS: { ios: string | null; android: string | null } = { ios: null, android: null };
@@ -37,30 +37,29 @@ export function searchHref(lakeId: string, from?: PierOption | null, to?: PierOp
 }
 
 // The map demo: eight Lake Lucerne piers, in lake order from Luzern to Flüelen, with the minutes a
-// boat takes from Luzern (from the handoff; the search gives the real times) and the side of the dot
-// its name sits on. Their places on the map are in reliefMap.ts.
+// boat takes from Luzern (from the handoff; the search gives the real times). The map itself shows
+// every pier of the lake; these eight are the ones the demos have example times for.
 const LUCERNE = 'lake-lucerne';
-const MAP_SOURCE: [id: string, minutes: number, labelSide: 'b' | 't' | 'r' | 'l'][] = [
-  ['8508492', 0, 'l'], // Luzern
-  ['8508459', 10, 't'], // Verkehrshaus
-  ['8508462', 31, 't'], // Hertenstein
-  ['8508463', 41, 'b'], // Weggis
-  ['8508464', 57, 'r'], // Vitznau
-  ['8508468', 80, 'b'], // Gersau
-  ['8508470', 100, 't'], // Brunnen
-  ['8508476', 165, 'l'], // Flüelen
+const MAP_SOURCE: [id: string, minutes: number][] = [
+  ['8508492', 0], // Luzern
+  ['8508459', 10], // Verkehrshaus
+  ['8508462', 31], // Hertenstein
+  ['8508463', 41], // Weggis
+  ['8508464', 57], // Vitznau
+  ['8508468', 80], // Gersau
+  ['8508470', 100], // Brunnen
+  ['8508476', 165], // Flüelen
 ];
 
 export interface MapPier {
   pier: PierOption;
   minutes: number;
-  side: 'b' | 't' | 'r' | 'l';
 }
 
-export const MAP_PIERS: MapPier[] = MAP_SOURCE.map(([id, minutes, side]) => {
+export const MAP_PIERS: MapPier[] = MAP_SOURCE.map(([id, minutes]) => {
   const pier = findPierInLake(LUCERNE, id);
   if (!pier) throw new Error(`Unknown pier id: ${id}`);
-  return { pier, minutes, side };
+  return { pier, minutes };
 });
 export const MAP_LAKE_ID = LUCERNE;
 

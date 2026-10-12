@@ -1,6 +1,6 @@
 // Photos on the Home page besides the lake photos: the cruise cards and the feature stage's
 // Bregenz backdrop (public/home/). From Wikimedia Commons under Creative Commons licences, the
-// same set the apps bundle (native/cruise-photos/credits.json); resized copies, credited on Home.
+// same set the apps bundle (their design/cruise-photos/credits.json); resized copies, credited on Home.
 import type { LakePhotoCredit } from './lakePhotos';
 
 export const HOME_PHOTOS: Record<string, LakePhotoCredit> = {

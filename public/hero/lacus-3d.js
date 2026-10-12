@@ -157,11 +157,13 @@ function run(P, frame, render, warp = s => s) {
 const loadImg = src => new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = src; });
 function pixels(img) { const c = document.createElement('canvas'); c.width = img.width; c.height = img.height; const g = c.getContext('2d', { willReadFrequently: true }); g.drawImage(img, 0, 0); return g.getImageData(0, 0, c.width, c.height).data; }
 export async function mountRelief(container, labelsEl, opts = {}) {
-  const P = 26, base = opts.data || 'data/';
-  const [meta, demImg, maskImg] = await Promise.all([fetch(base + 'lucerne.json').then(r => r.json()), loadImg(base + (opts.dem || 'lucerne-dem.png')), loadImg(base + 'lucerne-mask.png')]);
+  // Lacus web: any lake built by pipeline/relief/make-lake.mjs (opts.lake, default Lucerne). The lake's own file may
+  // set its exaggeration, camera centre, viewing distance and label sides; without them Lucerne's values apply.
+  const P = 26, base = opts.data || 'data/', LAKE = opts.lake || 'lucerne';
+  const [meta, demImg, maskImg] = await Promise.all([fetch(base + LAKE + '.json').then(r => r.json()), loadImg(base + (opts.dem || LAKE + '-dem.png')), loadImg(base + LAKE + '-mask.png')]);
   const baseShift = opts.shift ?? 0.2;
   const { renderer, scene, camera, size, setShift } = setup(container, HEX.lake, baseShift);
-  const W = meta.W, H = meta.H, WORLD = 360, s = WORLD / W, unitM = meta.mpp / s, EX = opts.exaggeration ?? 1.25;
+  const W = meta.W, H = meta.H, WORLD = 360, s = WORLD / W, unitM = meta.mpp / s, EX = opts.exaggeration ?? meta.exaggeration ?? 1.25;
   const dem = pixels(demImg), msk = pixels(maskImg);
   // Lacus web: the terrain image may be a whole-number fraction of the map's size (opts.dem, e.g. the half-size file
   // phones load). DS is that factor; each of its pixels is the average of a DS x DS block, centred on that block.
@@ -176,7 +178,8 @@ export async function mountRelief(container, labelsEl, opts = {}) {
     const edge = smooth(0, EDGE, Math.min(px, py, W - 1 - px, H - 1 - py));
     return Math.max(((elev(px, py) - meta.lakeLevel) / unitM) * EX, 0) * edge;
   };
-  const tg = new THREE.PlaneGeometry(WORLD, H * s, 440, Math.round(440 * H / W)); tg.rotateX(-Math.PI / 2);
+  const SEG = opts.segments ?? 440; // Lacus web: a wider map can ask for a finer surface
+  const tg = new THREE.PlaneGeometry(WORLD, H * s, SEG, Math.round(SEG * H / W)); tg.rotateX(-Math.PI / 2);
   { const p = tg.attributes.position; for (let i = 0; i < p.count; i++) p.setY(i, hB(p.getX(i), p.getZ(i))); }
   tg.computeVertexNormals();
   const blurC = document.createElement('canvas'); blurC.width = W; blurC.height = H; { const g = blurC.getContext('2d'); g.filter = 'blur(2.5px)'; g.drawImage(maskImg, 0, 0); }
@@ -216,11 +219,12 @@ export async function mountRelief(container, labelsEl, opts = {}) {
   scene.add(new THREE.Mesh(tg, tmat));
   const skirtMat = tmat.clone(); skirtMat.uniforms = { ...uniforms, uUseMask: { value: 0 } };
   const skirt = new THREE.Mesh(new THREE.PlaneGeometry(4000, 4000).rotateX(-Math.PI / 2), skirtMat); skirt.position.y = -2; scene.add(skirt);
-  const LBL = { Luzern: 'c', Weggis: 'c', Vitznau: 'c', Gersau: 'l', Brunnen: 'r', 'Flüelen': 'l', 'Küssnacht': 'c', Hertenstein: 'r', Hergiswil: 'l', Stansstad: 'r', Alpnachstad: 'b', Beckenried: 'b', Treib: 'l', 'Rütli': 'r', Bauen: 'l' };
+  const LBL = { Luzern: 'c', Weggis: 'c', Vitznau: 'c', Gersau: 'l', Brunnen: 'r', 'Flüelen': 'l', 'Küssnacht': 'c', Hertenstein: 'r', Hergiswil: 'l', Stansstad: 'r', Alpnachstad: 'b', Beckenried: 'b', Treib: 'l', 'Rütli': 'r', Bauen: 'l', ...(meta.labels || {}) };
   const chalkB = new THREE.MeshBasicMaterial({ color: HEX.chalk, toneMapped: false });
   const netM = new THREE.MeshBasicMaterial({ color: HEX.stone, transparent: true, opacity: 0, toneMapped: false });
   const TS = 600, RS = 8;
-  const routes = meta.routes.map(r => {
+  // Lacus web: an interactive map (opts.interactive, see relief-map.js) draws its own piers and route, not the examples.
+  const routes = (opts.interactive ? [] : meta.routes).map(r => {
     const rc = new THREE.CatmullRomCurve3(r.pts.map(([px, py]) => { const [x, z] = toWorld(px, py); return new THREE.Vector3(x, 0.45, z); }), false, 'centripetal');
     scene.add(new THREE.Mesh(new THREE.TubeGeometry(rc, TS, 0.22, 6, false), netM));
     const tube = new THREE.TubeGeometry(rc, TS, 0.5, RS, false), tubeM = new THREE.MeshBasicMaterial({ color: HEX.chalk, transparent: true, toneMapped: false });
@@ -253,7 +257,7 @@ export async function mountRelief(container, labelsEl, opts = {}) {
   vessel.add(vb, ring); scene.add(vessel);
   const title = opts.titleEl || null;
   const calmEl = opts.calmEl || null, barEl = opts.barEl || null, lakeEl = opts.lakeEl || null; let calmEnd = 0.45, calmK = 1, calmY = 0.2, lastW = 0, lastH = 0;
-  const C0 = opts.center || [10, 0, 6], center = new THREE.Vector3(...C0), tmp = new THREE.Vector3(), look = new THREE.Vector3();
+  const C0 = opts.center || meta.center || [10, 0, 6], DIST = meta.distance ?? 1, center = new THREE.Vector3(...C0), tmp = new THREE.Vector3(), look = new THREE.Vector3();
   const INTRO = 6, SL = 10, CYCLE = SL * routes.length, MPOLAR = 0.5;
   // Lacus web (owner, 2026-10-11): the wide-screen camera can come closer (opts.zoom, a number or a function of the
   // viewport's aspect ratio) and follow each route more (opts.follow, 0..1), so the map fills a wide hero.
@@ -280,6 +284,8 @@ export async function mountRelief(container, labelsEl, opts = {}) {
     }
     return { x, z, R: Rr };
   }
+  // Lacus web: the terrain is built; an interactive map takes over from here with its own camera, piers and picking.
+  if (opts.interactive) { vessel.visible = false; return opts.interactive({ THREE, scene, camera, renderer, size, uniforms, toWorld, meta, mask: msk, W, H, unit: s, HEX, labelsEl, chalk: chalkB }); }
   // Lacus web: lets a host page ask where a map pixel, or a route, lands on screen with the camera as it stands
   // (fractions of the view's width and height). Used once, to place the pier dots over a still of this map.
   window.__heroProbe = {
@@ -315,7 +321,7 @@ export async function mountRelief(container, labelsEl, opts = {}) {
     const f0 = first.fit, pf = prev.fit, cf = cur.fit;
     const tx = M ? (live ? lerp(pf.x, cf.x, mv) : f0.x) : lerp(center.x, lerp(prev.cx, cur.cx, mv), fk), tz = M ? (live ? lerp(pf.z, cf.z, mv) : f0.z) : lerp(center.z, lerp(prev.cz, cur.cz, mv), fk);
     const RF = M ? (live ? lerp(pf.R, cf.R, mv) : f0.R) : 0;
-    const polar = lerp(0.02, M ? MPOLAR : 0.68, rise), az = M ? (slot === 0 || !live ? first.mob.az : mAz) + Math.sin((lt / CYCLE) * Math.PI * 2) * 0.012 * rise : lerp(0, 0.18, rise) + Math.sin((lt / CYCLE) * Math.PI * 2) * 0.06 * rise, R = lerp(M ? RF * 1.25 : 500, M ? RF : 430, rise) * (1 - (M ? 0 : 0.06) * stage) / (M ? 1 : zoomNow);
+    const polar = lerp(0.02, M ? MPOLAR : 0.68, rise), az = M ? (slot === 0 || !live ? first.mob.az : mAz) + Math.sin((lt / CYCLE) * Math.PI * 2) * 0.012 * rise : lerp(0, 0.18, rise) + Math.sin((lt / CYCLE) * Math.PI * 2) * 0.06 * rise, R = lerp(M ? RF * 1.25 : 500, M ? RF : 430, rise) * (1 - (M ? 0 : 0.06) * stage) * (M ? 1 : DIST) / (M ? 1 : zoomNow);
     uniforms.uFogN.value = Math.max(380, R * 0.95); uniforms.uFogF.value = Math.max(640, R * 1.6);
     camera.position.set(tx + R * Math.sin(polar) * Math.sin(az), R * Math.cos(polar), tz + R * Math.sin(polar) * Math.cos(az));
     look.set(tx + stage * 4 * (1 - M), 0, tz + (lerp(0, 18, rise) + stage * 12) * (1 - M)); camera.lookAt(look);

@@ -46,8 +46,10 @@ html,body{margin:0;height:100%;background:var(--deep-lake);overflow:hidden}
 // Held until the host page starts the clock, so nothing is drawn while the panel is not on show.
 if (window.__heroT == null) window.__heroT = 24;
 // The same choice of terrain image as the hero, so a visit downloads one of the two, never both.
+// ?lake= shows another lake built by pipeline/relief/make-lake.mjs (a preview: the page's wording stays Lucerne's).
+const lake = new URLSearchParams(location.search).get('lake') || 'lucerne';
 const lightTerrain = (new URLSearchParams(location.search).get('dem') || (Math.min(screen.width, screen.height) < 700 ? 'half' : 'full')) === 'half';
-import('./lacus-3d.js').then(({ mountRelief }) => mountRelief(document.getElementById('stage'), document.getElementById('labels'), { dem: lightTerrain ? 'lucerne-dem-half.png' : undefined,
+import('./lacus-3d.js').then(({ mountRelief }) => mountRelief(document.getElementById('stage'), document.getElementById('labels'), { lake, dem: lightTerrain ? lake + '-dem-half.png' : undefined,
   titleEl: document.getElementById('routeTitle'), barEl: document.getElementById('bar'), shift: 0, zoom: 1.2, follow: 0.6 }));
 </script>
 </body></html>
