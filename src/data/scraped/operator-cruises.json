@@ -2,7 +2,7 @@
  "operators": {
   "bsg": {
    "source": "https://www.bielersee.ch/events",
-   "fetchedAt": "2026-10-11T13:01:27.162Z",
+   "fetchedAt": "2026-10-12T13:29:11.585Z",
    "cruises": [
     {
      "id": "bsg:adventsbrunch",
@@ -436,19 +436,12 @@
      },
      "departures": [
       {
-       "date": "2026-10-11",
+       "date": "2026-10-18",
        "from": "Biel/Bienne",
        "depart": "11:00",
        "to": "Biel/Bienne",
        "arrive": "14:00",
        "soldOut": true
-      },
-      {
-       "date": "2026-10-18",
-       "from": "Biel/Bienne",
-       "depart": "11:00",
-       "to": "Biel/Bienne",
-       "arrive": "14:00"
       },
       {
        "date": "2026-10-25",
@@ -620,7 +613,7 @@
   },
   "lnm": {
    "source": "https://www.lnm.ch/Nos-croisieres",
-   "fetchedAt": "2026-10-11T13:01:33.487Z",
+   "fetchedAt": "2026-10-12T13:29:18.190Z",
    "cruises": [
     {
      "id": "lnm:Croisiere-Brunch-Neuchatel",
@@ -734,7 +727,7 @@
   },
   "sgz": {
    "source": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/",
-   "fetchedAt": "2026-10-11T13:01:50.750Z",
+   "fetchedAt": "2026-10-12T13:29:38.462Z",
    "cruises": [
     {
      "id": "sgz:abenteuerschiff",
@@ -750,14 +743,6 @@
       "currency": "CHF"
      },
      "departures": [
-      {
-       "date": "2026-10-11",
-       "from": "Zug Bahnhofsteg",
-       "depart": "15:15",
-       "to": "Zug Bahnhofsteg",
-       "arrive": "17:30",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/542/19593/74?lang=en"
-      },
       {
        "date": "2026-10-12",
        "from": "Zug Bahnhofsteg",
@@ -831,14 +816,6 @@
      },
      "departures": [
       {
-       "date": "2026-10-11",
-       "from": "Zug Bahnhofsteg",
-       "depart": "15:15",
-       "to": "Zug Bahnhofsteg",
-       "arrive": "17:30",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/542/19593/68?lang=en"
-      },
-      {
        "date": "2026-10-12",
        "from": "Zug Bahnhofsteg",
        "depart": "15:15",
@@ -910,14 +887,6 @@
       "currency": "CHF"
      },
      "departures": [
-      {
-       "date": "2026-10-11",
-       "from": "Zug Bahnhofsteg",
-       "depart": "09:45",
-       "to": "Zug Bahnhofsteg",
-       "arrive": "11:55",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/540/19185/63?lang=en"
-      },
       {
        "date": "2026-10-18",
        "from": "Zug Bahnhofsteg",
@@ -1043,54 +1012,6 @@
      ]
     },
     {
-     "id": "sgz:games-cruise-sgz",
-     "url": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/experience/games-cruise-sgz/",
-     "title": {
-      "en": "Games cruise"
-     },
-     "description": {
-      "en": "Held on the dates listed below. The standard cruise fares apply."
-     },
-     "price": {
-      "amount": 43.2,
-      "currency": "CHF"
-     },
-     "departures": [
-      {
-       "date": "2027-04-18",
-       "from": "Zug Bahnhofsteg",
-       "depart": "15:15",
-       "to": "Zug Bahnhofsteg",
-       "arrive": "17:30",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/608/21722/24?lang=en"
-      },
-      {
-       "date": "2027-06-06",
-       "from": "Zug Bahnhofsteg",
-       "depart": "15:15",
-       "to": "Zug Bahnhofsteg",
-       "arrive": "17:30",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/608/21771/24?lang=en"
-      },
-      {
-       "date": "2027-07-04",
-       "from": "Zug Bahnhofsteg",
-       "depart": "15:15",
-       "to": "Zug Bahnhofsteg",
-       "arrive": "17:30",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/608/21799/24?lang=en"
-      },
-      {
-       "date": "2027-10-17",
-       "from": "Zug Bahnhofsteg",
-       "depart": "15:15",
-       "to": "Zug Bahnhofsteg",
-       "arrive": "17:30",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/608/21904/24?lang=en"
-      }
-     ]
-    },
-    {
      "id": "sgz:horror-dinner",
      "url": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/experience/horror-dinner/",
      "title": {
@@ -1130,7 +1051,8 @@
        "depart": "09:45",
        "to": "Zug Bahnhofsteg",
        "arrive": "11:55",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/540/19186/87?lang=en"
+       "booking": "javascript:void(0);",
+       "soldOut": true
       },
       {
        "date": "2026-10-12",
@@ -1236,14 +1158,6 @@
       "currency": "CHF"
      },
      "departures": [
-      {
-       "date": "2026-10-11",
-       "from": "Zug Bahnhofsteg",
-       "depart": "15:15",
-       "to": "Zug Bahnhofsteg",
-       "arrive": "17:30",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/542/19593/67?lang=en"
-      },
       {
        "date": "2026-10-12",
        "from": "Zug Bahnhofsteg",
@@ -1383,14 +1297,6 @@
      },
      "departures": [
       {
-       "date": "2026-10-11",
-       "from": "Zug Bahnhofsteg",
-       "depart": "09:45",
-       "to": "Zug Bahnhofsteg",
-       "arrive": "11:55",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/540/19185/83?lang=en"
-      },
-      {
        "date": "2026-10-13",
        "from": "Zug Bahnhofsteg",
        "depart": "09:45",
@@ -1446,14 +1352,6 @@
       "currency": "CHF"
      },
      "departures": [
-      {
-       "date": "2026-10-11",
-       "from": "Zug Bahnhofsteg",
-       "depart": "15:15",
-       "to": "Zug Bahnhofsteg",
-       "arrive": "17:30",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/542/19593/9?lang=en"
-      },
       {
        "date": "2026-10-12",
        "from": "Zug Bahnhofsteg",
@@ -1556,7 +1454,8 @@
        "depart": "09:45",
        "to": "Zug Bahnhofsteg",
        "arrive": "11:55",
-       "booking": "https://shop.rigi.ch/de/products/von-zug-auf-die-koenigin-der-berge?lang=en"
+       "booking": "javascript:void(0);",
+       "soldOut": true
       },
       {
        "date": "2026-10-13",
@@ -1636,14 +1535,6 @@
      },
      "departures": [
       {
-       "date": "2026-10-11",
-       "from": "Zug Bahnhofsteg",
-       "depart": "15:15",
-       "to": "Zug Bahnhofsteg",
-       "arrive": "17:30",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/542/19593/103?lang=en"
-      },
-      {
        "date": "2026-10-18",
        "from": "Zug Bahnhofsteg",
        "depart": "15:15",
@@ -1673,7 +1564,8 @@
        "depart": "09:45",
        "to": "Zug Bahnhofsteg",
        "arrive": "11:55",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/540/19186/43?lang=en"
+       "booking": "javascript:void(0);",
+       "soldOut": true
       },
       {
        "date": "2026-10-13",
@@ -1721,7 +1613,7 @@
   },
   "vlines": {
    "source": "https://www.vorarlberg-lines.at/en/cruises",
-   "fetchedAt": "2026-10-11T13:02:45.133Z",
+   "fetchedAt": "2026-10-12T13:30:32.573Z",
    "cruises": [
     {
      "id": "vlines:captains-brunch-1",
@@ -1734,23 +1626,6 @@
       "currency": "EUR"
      },
      "departures": [
-      {
-       "date": "2026-10-11",
-       "from": "Bregenz",
-       "depart": "10:45",
-       "to": "Bregenz",
-       "arrive": "12:45",
-       "stops": [
-        {
-         "pier": "Bregenz",
-         "time": "10:45"
-        },
-        {
-         "pier": "Bregenz",
-         "time": "12:45"
-        }
-       ]
-      },
       {
        "date": "2026-10-18",
        "from": "Bregenz",
@@ -1863,6 +1738,183 @@
         {
          "pier": "Bregenz",
          "time": "12:45"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "vlines:christmas-konstanz-tour",
+     "url": "https://www.vorarlberg-lines.at/en/cruises/cruises/christmas-konstanz-tour",
+     "title": {
+      "en": "Christmas cruises"
+     },
+     "price": {
+      "amount": 54.4,
+      "currency": "EUR"
+     },
+     "departures": [
+      {
+       "date": "2026-11-28",
+       "from": "Bregenz",
+       "depart": "12:00",
+       "to": "Mainau",
+       "arrive": "19:10",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "12:00"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "12:00"
+        },
+        {
+         "pier": "Konstanz",
+         "time": "14:30"
+        },
+        {
+         "pier": "Konstanz",
+         "time": "14:30"
+        },
+        {
+         "pier": "Konstanz",
+         "time": "16:30"
+        },
+        {
+         "pier": "Mainau",
+         "time": "17:05"
+        },
+        {
+         "pier": "Konstanz",
+         "time": "18:30"
+        },
+        {
+         "pier": "Mainau",
+         "time": "19:10"
+        }
+       ]
+      },
+      {
+       "date": "2026-12-05",
+       "from": "Bregenz",
+       "depart": "12:00",
+       "to": "Mainau",
+       "arrive": "19:10",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "12:00"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "12:00"
+        },
+        {
+         "pier": "Konstanz",
+         "time": "14:30"
+        },
+        {
+         "pier": "Konstanz",
+         "time": "14:30"
+        },
+        {
+         "pier": "Konstanz",
+         "time": "16:30"
+        },
+        {
+         "pier": "Mainau",
+         "time": "17:05"
+        },
+        {
+         "pier": "Konstanz",
+         "time": "18:30"
+        },
+        {
+         "pier": "Mainau",
+         "time": "19:10"
+        }
+       ]
+      },
+      {
+       "date": "2026-12-12",
+       "from": "Bregenz",
+       "depart": "12:00",
+       "to": "Mainau",
+       "arrive": "19:10",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "12:00"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "12:00"
+        },
+        {
+         "pier": "Konstanz",
+         "time": "14:30"
+        },
+        {
+         "pier": "Konstanz",
+         "time": "14:30"
+        },
+        {
+         "pier": "Konstanz",
+         "time": "16:30"
+        },
+        {
+         "pier": "Mainau",
+         "time": "17:05"
+        },
+        {
+         "pier": "Konstanz",
+         "time": "18:30"
+        },
+        {
+         "pier": "Mainau",
+         "time": "19:10"
+        }
+       ]
+      },
+      {
+       "date": "2026-12-19",
+       "from": "Bregenz",
+       "depart": "12:00",
+       "to": "Mainau",
+       "arrive": "19:10",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "12:00"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "12:00"
+        },
+        {
+         "pier": "Konstanz",
+         "time": "14:30"
+        },
+        {
+         "pier": "Konstanz",
+         "time": "14:30"
+        },
+        {
+         "pier": "Konstanz",
+         "time": "16:30"
+        },
+        {
+         "pier": "Mainau",
+         "time": "17:05"
+        },
+        {
+         "pier": "Konstanz",
+         "time": "18:30"
+        },
+        {
+         "pier": "Mainau",
+         "time": "19:10"
         }
        ]
       }
@@ -2760,7 +2812,7 @@
   },
   "sgv": {
    "source": "https://webshop.lakelucerne.ch/en/",
-   "fetchedAt": "2026-10-11T13:03:37.182Z",
+   "fetchedAt": "2026-10-12T13:31:25.328Z",
    "cruises": [
     {
      "id": "sgv:1-august-motor-vessel",
@@ -2875,23 +2927,6 @@
       "currency": "CHF"
      },
      "departures": [
-      {
-       "date": "2026-10-11",
-       "from": "Luzern",
-       "depart": "09:00",
-       "to": "Luzern",
-       "arrive": "10:53",
-       "stops": [
-        {
-         "pier": "Luzern",
-         "time": "09:00"
-        },
-        {
-         "pier": "Luzern",
-         "time": "10:53"
-        }
-       ]
-      },
       {
        "date": "2026-10-18",
        "from": "Luzern",
