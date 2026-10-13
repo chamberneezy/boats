@@ -42,7 +42,7 @@ function WebNav({ section }: { section: Section }) {
             Home
           </Link>
           <Link to={SEARCH_TO} aria-current={section === 'search' ? 'page' : undefined} className={linkClass(section === 'search')}>
-            Search sailings
+            Search trips
           </Link>
           <Link to="/schedules" aria-current={section === 'schedules' ? 'page' : undefined} className={linkClass(section === 'schedules')}>
             Timetables
@@ -88,7 +88,7 @@ function MobileBar({ section, lakeName }: { section: Section; lakeName: string |
       <div className="absolute inset-x-0 top-0 z-20 flex items-center justify-between px-5 pb-3 pt-4 text-white md:hidden">
         <div className="flex items-center gap-3.5">
           <MenuButton />
-          <Link to={SEARCH_TO} aria-label="Search sailings" className="flex h-6 w-6 items-center justify-center text-white">
+          <Link to={SEARCH_TO} aria-label="Search trips" className="flex h-6 w-6 items-center justify-center text-white">
             <Search className="h-4 w-4" strokeWidth={2} />
           </Link>
         </div>
@@ -116,7 +116,8 @@ function MobileBar({ section, lakeName }: { section: Section; lakeName: string |
           <ArrowLeft className="h-5 w-5" strokeWidth={2} />
         </Link>
       )}
-      <span className="font-display text-base font-medium text-deep-lake">{lakeName}</span>
+      {/* The search page names its lake in its own heading (a picker), so the bar does not repeat it. */}
+      <span className="font-display text-base font-medium text-deep-lake">{section === 'search' && !isTrip ? '' : lakeName}</span>
       <img src={LOGO_SRC} alt="Lacus" className="h-[26px] w-[26px] rounded-md" />
     </div>
   );

@@ -66,15 +66,15 @@ export function zsgDisruptionReason(
     if (fromPierId === ERLENBACH || toPierId === ERLENBACH) {
       return `Erlenbach isn't served ${THROUGH_NOTICE}`;
     }
-    if (fromPierId === KUSNACHT && fromTime === '15:28') return 'This sailing is cancelled due to low water levels.';
-    if (fromPierId === THALWIL && fromTime === '16:13') return 'This sailing is cancelled due to low water levels.';
+    if (fromPierId === KUSNACHT && fromTime === '15:28') return 'This trip is cancelled due to low water levels.';
+    if (fromPierId === THALWIL && fromTime === '16:13') return 'This trip is cancelled due to low water levels.';
     return null;
   }
 
   if (line === '3730') {
-    if (kurs === '103' || kurs === '104') return `This sailing is cancelled ${THROUGH_NOTICE}`;
+    if (kurs === '103' || kurs === '104') return `This trip is cancelled ${THROUGH_NOTICE}`;
     if ((kurs === '113' || kurs === '114') && date === '2026-09-24') {
-      return 'This sailing is cancelled due to low water levels (24 September only).';
+      return 'This trip is cancelled due to low water levels (24 September only).';
     }
     return null;
   }

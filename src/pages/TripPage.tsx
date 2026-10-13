@@ -37,7 +37,7 @@ export function TripPage() {
 
   const from = trip && findPier(trip.from);
   const to = trip && findPier(trip.to);
-  useDocumentTitle(from && to ? `${from.name} to ${to.name} — Lacus` : 'Sailing — Lacus');
+  useDocumentTitle(from && to ? `${from.name} to ${to.name} — Lacus` : 'Trip — Lacus');
 
   const dep = trip?.dep;
   useEffect(() => {
@@ -75,7 +75,7 @@ export function TripPage() {
   };
 
   return (
-    <SearchLayout lakeName={lake.name} showMapOnPhone={false}>
+    <SearchLayout lakeId={lake.id} lakeName={lake.name} showMapOnPhone={false}>
       {state.status === 'ready' && <TripDetails entry={state.entry} lakeId={lake.id} onBack={backToSearch} />}
 
       {state.status === 'loading' && (
@@ -88,9 +88,9 @@ export function TripPage() {
 
       {state.status === 'missing' && (
         <div className="flex max-w-[320px] flex-col items-start gap-2 py-4">
-          <div className="font-display text-lg font-medium leading-6 text-deep-lake">Sailing not found</div>
+          <div className="font-display text-lg font-medium leading-6 text-deep-lake">Trip not found</div>
           <div className="font-body text-base text-stone-grey">
-            This sailing is no longer listed. Search for another departure.
+            This trip is no longer listed. Search for another departure.
           </div>
           <Button variant="secondary" size="sm" onClick={backToSearch}>
             Back to search

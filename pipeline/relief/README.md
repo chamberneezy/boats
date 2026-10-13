@@ -19,7 +19,9 @@ lake mask that matches on 99.8% of pixels.
 1. **Frame.** The lake's outline from OpenStreetMap (a relation or way id, `osm` in `lakes.json`),
    its bounding box plus a margin on every side (150 px by default, `margin`), on whole pixels of the
    Web Mercator grid at zoom 12 (lowered automatically if the picture would be wider than 1600 px;
-   `zoom` fixes it).
+   `zoom` fixes it). `bbox` (`[west, south, east, north]` in degrees) frames a part of the lake instead of
+   its whole outline: Lake Maggiore is its northern end only, where our piers are. Small lakes are
+   built at zoom 13 with a 300 px margin, so they are not coarse.
 2. **Elevation.** Mapzen Terrain Tiles (`s3.amazonaws.com/elevation-tiles-prod/terrarium`), stitched
    and cropped, pixels unchanged: height in metres = `R*256 + G + B/256 - 32768`. The half-size copy
    (for phones, and for wide cuts) is 2 x 2 blocks averaged as heights, never per colour channel.
@@ -31,7 +33,12 @@ lake mask that matches on 99.8% of pixels.
    real trips as example `routes` with their stops and times. A route is a path through the water
    (A* over the mask, kept off the shore, smoothed), so it never crosses land. `routes` in
    `lakes.json` picks them as `[from pier id, to pier id]`; otherwise the longest regular trip comes
-   first, then the trips that add the most piers not yet shown. Piers on rivers are left out.
+   first, then the trips that add the most piers not yet shown. Piers on rivers are left out. Piers
+   and routes stay on the lake's own water, never on a neighbour from `alsoWater`. The map plays
+   five routes in turn (its script expects exactly five, and on a tall, narrow screen it plays the
+   second to fifth only), so the list is filled to five: trips between two ends not shown yet, then
+   the way back, then trips that ran once, and if the lake has fewer they repeat. `LIST=1` before
+   the command prints the trips there are to choose from, with their pier ids.
 5. **Per-lake values** written into the json, all optional in `lakes.json`: `lakeLevel` (else the
    commonest height on the water), `exaggeration` (the map's default is 1.25; large, flat lakes will
    want 2 to 3), `center` (where the camera looks; else the middle of the lake's water), `distance`

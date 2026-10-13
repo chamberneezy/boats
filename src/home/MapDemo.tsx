@@ -4,10 +4,8 @@
 // water. It plays Luzern to Vitznau by itself until a pier is tapped. This component keeps the
 // choice; the map reports taps (postMessage) and is told what to show (its window.__map).
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router';
-import { Button } from '../components/Button';
 import { findPierInLake } from '../piers';
-import { EXAMPLE_FROM, EXAMPLE_TO, MAP_LAKE_ID, MAP_PIERS, MAP_SRC, dur, searchHref } from './data';
+import { EXAMPLE_FROM, EXAMPLE_TO, MAP_LAKE_ID, MAP_PIERS, MAP_SRC, dur } from './data';
 import { useInterval, useIsMobile, useOnScreen, useReducedMotion } from './hooks';
 import { AppCard, Field, StepRail, type Step } from './parts';
 
@@ -28,7 +26,6 @@ function minutesBetween(from: string, to: string): number | null {
 export function MapDemo() {
   const ref = useRef<HTMLDivElement>(null);
   const frame = useRef<HTMLIFrameElement>(null);
-  const navigate = useNavigate();
   const mobile = useIsMobile();
   const reduce = useReducedMotion();
   const onScreen = useOnScreen(ref);
@@ -86,26 +83,24 @@ export function MapDemo() {
   }, [ready, onScreen]);
 
   const minutes = both ? minutesBetween(from!, to!) : null;
-  const routeHref = both ? searchHref(MAP_LAKE_ID, fromPier, toPier) : searchHref(MAP_LAKE_ID);
   const summary = both ? (minutes !== null ? `Direct · about ${dur(minutes)}` : 'Route set') : 'Two piers needed';
 
   const stepIndex = !fromPier ? 0 : !toPier ? 1 : 2;
   const steps: Step[] = [
     { label: 'Tap a departure pier', value: fromPier?.name ?? '' },
     { label: 'Tap an arrival pier', value: toPier?.name ?? '' },
-    { label: 'Search the route', value: both && minutes !== null ? `about ${dur(minutes)}` : '' },
+    { label: 'See the trips between them', value: both && minutes !== null ? `about ${dur(minutes)}` : '' },
   ].map((s, i) => ({ ...s, state: i < stepIndex || (i === 2 && both) ? 'done' : i === stepIndex ? 'current' : 'todo' }));
 
-  const openMap = () => navigate(manual && both ? routeHref : searchHref(MAP_LAKE_ID));
 
   const heading = (
     <div className="hm-head">
-      <span className="hm-eyebrow">Select on map</span>
+      <span className="hm-eyebrow">Select on map · in the app</span>
       <h2 className="hm-h2">Tap two piers. That is the route.</h2>
       <p className="hm-p">
         {mobile
           ? 'The first pier is the departure, the second the arrival.'
-          : 'The first pier is the departure, the second the arrival. Available on the web, iOS and Android. Tap any pier to try it.'}
+          : 'The first pier is the departure, the second the arrival. In the Lacus app for iOS and Android; tap any pier here to try it.'}
       </p>
     </div>
   );
@@ -151,7 +146,7 @@ export function MapDemo() {
 
   const app = (
     <AppCard title="Pick piers on the map in the app">
-      {mobile ? 'The same map on iOS and Android.' : 'The same map on iOS and Android, with your saved trips and tickets.'}
+      {mobile ? 'On iOS and Android, on every lake.' : 'On iOS and Android, on every lake, with the trips between your two piers.'}
     </AppCard>
   );
 
@@ -167,9 +162,6 @@ export function MapDemo() {
             <span>{summary}</span>
           </div>
         </div>
-        <Button fullWidth onClick={openMap}>
-          Open the map
-        </Button>
         {app}
       </div>
     );
@@ -181,10 +173,6 @@ export function MapDemo() {
       <div className="hm-col">
         {heading}
         <StepRail steps={steps} />
-        <div className="hm-actions">
-          <Button onClick={openMap}>Open the map</Button>
-          <span className="hm-note">Opens the search with the map ready.</span>
-        </div>
         {app}
       </div>
     </div>

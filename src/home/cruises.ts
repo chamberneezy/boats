@@ -108,3 +108,31 @@ export function useCruiseSets(): CruiseSet[] {
   }, []);
   return sets;
 }
+
+const nextCache = new Map<string, Promise<CruiseCard | null>>();
+
+/**
+ * The next upcoming titled cruise on one lake, for the search page's "in the app" card; null until
+ * loaded, when the lake has none, or when the data cannot be read. (The card shows no photo.)
+ */
+export function useNextCruise(lakeId: string, lake: string): CruiseCard | null {
+  const [card, setCard] = useState<CruiseCard | null>(null);
+  useEffect(() => {
+    let alive = true;
+    setCard(null);
+    if (!nextCache.has(lakeId)) {
+      const now = zurichNow();
+      nextCache.set(
+        lakeId,
+        loadLake(lakeId, lake, now.date, now.secondsOfDay).then((set) => set?.items[0] ?? null, () => null),
+      );
+    }
+    void nextCache.get(lakeId)!.then((next) => {
+      if (alive) setCard(next);
+    });
+    return () => {
+      alive = false;
+    };
+  }, [lakeId, lake]);
+  return card;
+}

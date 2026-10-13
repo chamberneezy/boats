@@ -49,7 +49,7 @@ export function LakeCard({ lake, isFavorite, onToggleFavorite }: LakeCardProps) 
             to={searchPath(lake.id)}
             className="font-display text-xs font-medium text-sunline-gold no-underline md:text-[13px]"
           >
-            Search sailings →
+            Search trips →
           </Link>
         ) : (
           <span className={`font-body text-[11px] uppercase tracking-[0.03em] md:text-xs ${hasPhoto ? 'text-chalk/85' : 'text-alpine-sky'}`}>

@@ -65,7 +65,9 @@ async function outline({ type, id }) {
 
 const main = await outline(lake.osm);
 const lons = main.segments.flatMap(([a, b]) => [a[0], b[0]]), lats = main.segments.flatMap(([a, b]) => [a[1], b[1]]);
-const box = { west: Math.min(...lons), east: Math.max(...lons), south: Math.min(...lats), north: Math.max(...lats) };
+// `bbox` ([west, south, east, north] in degrees) frames a part of the lake instead: a lake we serve one end of.
+const box = lake.bbox ? { west: lake.bbox[0], south: lake.bbox[1], east: lake.bbox[2], north: lake.bbox[3] }
+  : { west: Math.min(...lons), east: Math.max(...lons), south: Math.min(...lats), north: Math.max(...lats) };
 
 // The frame: the outline's box plus the margin, on whole pixels.
 let z = lake.zoom ?? 12;
@@ -102,6 +104,7 @@ const height = (x, y) => { const k = (y * W + x) * 3; return dem[k] * 256 + dem[
 // 2. Water mask: the lake and the other lakes in the frame, drawn at double size and averaged down
 //    (five grey levels). Rivers are left out, so they do not cut channels through the towns.
 const S = 2, big = new Uint8Array(W * S * H * S);
+let ownBig = null; // the lake's own water, without the neighbours: piers and routes stay on it
 const bodies = [main, ...(await Promise.all((lake.alsoWater ?? []).map(outline)))];
 for (const body of bodies) {
   const fill = new Uint8Array(W * S * H * S);
@@ -113,6 +116,7 @@ for (const body of bodies) {
     for (let i = 0; i + 1 < xs.length; i += 2) for (let x = Math.max(0, Math.ceil(xs[i] - 0.5)); x <= Math.min(W * S - 1, Math.floor(xs[i + 1] - 0.5)); x++) fill[row * W * S + x] = 1;
   }
   for (let i = 0; i < fill.length; i++) if (fill[i]) big[i] = 1;
+  ownBig ??= fill;
 }
 const mask = Buffer.alloc(W * H);
 for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
@@ -127,7 +131,7 @@ const mainFill = new Map();
 for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
   const e = height(x, y);
   elevMin = Math.min(elevMin, e); elevMax = Math.max(elevMax, e);
-  if (mask[y * W + x] === 255) { const k = Math.round(e); mainFill.set(k, (mainFill.get(k) ?? 0) + 1); }
+  if (mask[y * W + x] === 255 && ownBig[2 * y * W * S + 2 * x]) { const k = Math.round(e); mainFill.set(k, (mainFill.get(k) ?? 0) + 1); }
 }
 if (lakeLevel == null) lakeLevel = [...mainFill.entries()].sort((a, b) => b[1] - a[1])[0][0];
 
@@ -136,7 +140,8 @@ if (lakeLevel == null) lakeLevel = [...mainFill.entries()].sort((a, b) => b[1] -
 //    the shore and smoothed. Piers on rivers, outside the water mask, are left out.
 const DATA = 'https://storage.googleapis.com/lacus-data';
 const WATER = 128, REACH = 10, MAX_ROUTES = 5, MAX_NAMED = 6;
-const isWater = (x, y) => x >= 0 && y >= 0 && x < W && y < H && mask[y * W + x] >= WATER;
+const own = (x, y) => ownBig[2 * y * W * S + 2 * x] + ownBig[2 * y * W * S + 2 * x + 1] + ownBig[(2 * y + 1) * W * S + 2 * x] + ownBig[(2 * y + 1) * W * S + 2 * x + 1] >= 2;
+const isWater = (x, y) => x >= 0 && y >= 0 && x < W && y < H && mask[y * W + x] >= WATER && own(x, y);
 // How far each water pixel is from land (capped), so paths can keep to open water.
 const SHORE = 8, off = new Uint8Array(W * H).fill(255);
 { let ring = []; for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) if (!isWater(x, y)) { off[y * W + x] = 0; ring.push(y * W + x); }
@@ -216,6 +221,8 @@ if (lake.lakeId) {
   pkg.stops.forEach((stop, i) => { if (at[i]) piers.push({ id: stop.id, name: stop.shortName, x: at[i][0], y: at[i][1], calls: calls[i] }); });
   const span = (seq) => seq.slice(1).reduce((sum, c, i) => sum + Math.hypot(at[c[0]][0] - at[seq[i][0]][0], at[c[0]][1] - at[seq[i][0]][1]), 0);
   let pool = [...patterns.values()].map((trips) => ({ trips, seq: trips[0], span: span(trips[0]) }));
+  // LIST=1 prints the trips there are to choose from (ends with their pier ids, piers, runs, length in pixels).
+  if (process.env.LIST) for (const q of pool.slice().sort((m, n) => n.trips.length - m.trips.length).slice(0, 40)) console.log(`    ${pkg.stops[q.seq[0][0]].shortName} [${pkg.stops[q.seq[0][0]].id}] → ${pkg.stops[q.seq.at(-1)[0]].shortName} [${pkg.stops[q.seq.at(-1)[0]].id}]: ${q.seq.length} piers, ${q.trips.length} runs, ${Math.round(q.span)} px`);
   const chosen = [], seen = new Set();
   const wanted = (lake.routes ?? []).map(([a, b]) => pool.filter((p) => pkg.stops[p.seq[0][0]].id === a && pkg.stops[p.seq.at(-1)[0]].id === b).sort((p, q) => q.trips.length - p.trips.length)[0]).filter(Boolean);
   for (const p of wanted) { chosen.push(p); p.seq.forEach((c) => seen.add(c[0])); }
@@ -226,6 +233,18 @@ if (lake.lakeId) {
     const next = chosen.length === 0 ? regular.sort((p, q) => q.span - p.span)[0] : regular.filter((p) => gain(p) >= 1).sort((p, q) => gain(q) - gain(p) || q.trips.length - p.trips.length)[0];
     if (!next) break;
     chosen.push(next); next.seq.forEach((c) => seen.add(c[0]));
+  }
+  // The map plays five routes in turn, so fill up to five where the lake has them: first trips between two ends
+  // not shown yet, then the way back of one already shown, then trips that ran only once.
+  if (!lake.routes) for (const least of [2, 1]) {
+    while (chosen.length < MAX_ROUTES) {
+      const ends = (p) => [pkg.stops[p.seq[0][0]].id, pkg.stops[p.seq.at(-1)[0]].id];
+      const pairs = new Set(chosen.map((p) => ends(p).sort().join('|'))), ways = new Set(chosen.map((p) => ends(p).join('>')));
+      const rank = (p) => (pairs.has(ends(p).sort().join('|')) ? (ways.has(ends(p).join('>')) ? 2 : 1) : 0);
+      const next = pool.filter((p) => !chosen.includes(p) && p.trips.length >= least && p.span > 40).sort((p, q) => rank(p) - rank(q) || q.span - p.span || q.trips.length - p.trips.length)[0];
+      if (!next || rank(next) === 2) break;
+      chosen.push(next);
+    }
   }
   const clock = (sec) => `${String(Math.floor(sec / 3600) % 24).padStart(2, '0')}:${String(Math.floor(sec / 60) % 60).padStart(2, '0')}`;
   for (const { trips, seq } of chosen) {
@@ -240,6 +259,8 @@ if (lake.lakeId) {
     routes.push({ name: `${pkg.stops[trip[0][0]].shortName} → ${pkg.stops[trip.at(-1)[0]].shortName}`, pts: smooth(legs.flat()),
       stops: named.map((c, i) => ({ id: pkg.stops[c[0]].id, name: pkg.stops[c[0]].shortName, time: clock(i === named.length - 1 ? c[1] : c[2]), x: at[c[0]][0], y: at[c[0]][1] })) });
   }
+  // Fewer than five: they are played again in turn (the map's script expects five).
+  for (let i = 0, n = routes.length; n > 0 && routes.length < MAX_ROUTES; i++) routes.push(routes[i % n]);
   console.log(`  routes: ${routes.map((r) => `${r.name} (${r.stops.length} piers named)`).join('; ') || 'none'}`);
 }
 

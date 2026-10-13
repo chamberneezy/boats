@@ -367,7 +367,7 @@ export function SearchForm({
 
       <div className="mt-6">
         <Button onClick={onSearch} disabled={!canSearch}>
-          {isLoading ? 'Searching…' : 'Search sailings'}
+          {isLoading ? 'Searching…' : 'Search trips'}
         </Button>
       </div>
     </div>

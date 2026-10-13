@@ -255,6 +255,11 @@ export async function mountRelief(container, labelsEl, opts = {}) {
   const vessel = new THREE.Group(); const vb = new THREE.Mesh(new THREE.SphereGeometry(1.5, 24, 12), chalkB);
   const ring = new THREE.Mesh(new THREE.RingGeometry(2.0, 2.4, 48).rotateX(-Math.PI / 2), new THREE.MeshBasicMaterial({ color: HEX.chalk, transparent: true, toneMapped: false, side: THREE.DoubleSide }));
   vessel.add(vb, ring); scene.add(vessel);
+  // Lacus web: the play order comes from the routes the lake has. Lucerne's five keep the designed order (all five on a
+  // wide view, four on a tall one); a lake's file may repeat routes to fill five, and a repeat is played once.
+  const RK = meta.routes.map(r => r.stops.map(st => st.name).join('>')), allR = routes.map((_, i) => i);
+  const uniqR = o => o.filter((i, k) => o.findIndex(j => RK[j] === RK[i]) === k);
+  const ORD_W = uniqR(allR), ORD_M = uniqR(routes.length === 5 ? [1, 3, 2, 4] : allR);
   const title = opts.titleEl || null;
   const calmEl = opts.calmEl || null, barEl = opts.barEl || null, lakeEl = opts.lakeEl || null; let calmEnd = 0.45, calmK = 1, calmY = 0.2, lastW = 0, lastH = 0;
   const C0 = opts.center || meta.center || [10, 0, 6], DIST = meta.distance ?? 1, center = new THREE.Vector3(...C0), tmp = new THREE.Vector3(), look = new THREE.Vector3();
@@ -309,7 +314,7 @@ export async function mountRelief(container, labelsEl, opts = {}) {
     }
     const rise = ease(win(t, 1.5, INTRO));
     uniforms.uRelief.value = lerp(0.015, 1, rise);
-    const ORD = M ? [1, 3, 2, 4] : [0, 1, 2, 3, 4], nO = ORD.length;
+    const ORD = M ? ORD_M : ORD_W, nO = ORD.length;
     const lt = Math.max(0, t - INTRO), slot = Math.floor(lt / SL), ri = ORD[slot % nO], local = lt - slot * SL, live = t >= INTRO;
     const cur = routes[ri], prev = routes[ORD[(slot + nO - 1) % nO]], first = routes[ORD[0]];
     const mv = slot === 0 ? 1 : ease(win(local, 0, 2 * TK));
@@ -333,6 +338,7 @@ export async function mountRelief(container, labelsEl, opts = {}) {
       const on = live && k === ri;
       r.ghostM.opacity = on ? 0.7 * fade : 0; r.tubeM.opacity = on ? fade : 0;
       r.ghost.setDrawRange(0, on ? Math.floor(TS * draw) * 6 * 6 : 0); r.tube.setDrawRange(0, on ? Math.floor(TS * sail) * RS * 6 : 0);
+      const placed = []; // Lacus web (opts.declutter): the names already set this frame, so a later one can step clear
       r.stops.forEach(st => {
         const at = 0.2 + 1.6 * st.u, kk = on ? ease(win(local, at, at + 0.5)) * fade : 0;
         st.pin.visible = kk > 0.01; st.pin.scale.set(1, Math.max(0.001, kk), 1); st.el.style.opacity = kk;
@@ -341,7 +347,13 @@ export async function mountRelief(container, labelsEl, opts = {}) {
           st.el.lastChild.style.color = sail >= st.u - 0.005 && local > 1.2 ? HEX.chalk : HEX.stone;
           const mode = LBL[st.name] || 'c', lw = st.el.offsetWidth || 120, px = (tmp.x + 1) / 2 * size.w, py = (1 - tmp.y) / 2 * size.h + (mode === 'c' ? 0 : mode === 'b' ? 64 : 20);
           const lx = clamp(mode === 'l' ? px - lw - 20 : mode === 'r' ? px + 20 : mode === 'b' ? px - lw * 0.3 : px - lw / 2, 8, size.w - lw - 8);
-          st.el.style.transform = `translate(${lx}px,${py}px) translateY(-100%) translateY(${(1 - kk) * 10}px)`;
+          let ty = py;
+          if (opts.declutter) { // Lacus web: lakes whose piers sit close together; a name that would lie on an earlier one moves below it
+            const lh = st.el.offsetHeight || 24;
+            for (let n = 0; n < 4; n++) { const hit = placed.find(b => lx < b.x + b.w + 6 && lx + lw + 6 > b.x && ty - lh < b.y && ty > b.y - b.h); if (!hit) break; ty = hit.y + lh + 2; }
+            placed.push({ x: lx, y: ty, w: lw, h: lh });
+          }
+          st.el.style.transform = `translate(${lx}px,${ty}px) translateY(-100%) translateY(${(1 - kk) * 10}px)`;
         }
       });
     });

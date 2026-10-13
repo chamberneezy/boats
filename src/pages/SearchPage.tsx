@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Navigate, useNavigate, useParams, useSearchParams } from 'react-router';
 import { Button } from '../components/Button';
+import { CruiseTeaser } from '../components/CruiseTeaser';
 import { DepartureCard } from '../components/DepartureCard';
 import { SearchForm } from '../components/SearchForm';
 import { SearchLayout } from '../components/SearchLayout';
@@ -21,7 +22,7 @@ const resultsMemory = new Map<string, BoatConnection[]>();
 const queryKey = (q: SearchQuery) => `${q.from}|${q.to}|${q.date}|${q.time}`;
 
 // The label under the route names the day of the first boat, which is not the searched day
-// when the search runs late in the evening and the next sailing is tomorrow morning.
+// when the search runs late in the evening and the next boat is tomorrow morning.
 function firstDepartureDate(entry: BoatConnection, fallbackDate: string): string {
   const timestamp = entry.connection.from.departureTimestamp;
   return timestamp === null ? fallbackDate : timestampToDateTimeParts(timestamp).date;
@@ -65,7 +66,7 @@ export function SearchPage() {
   useDocumentTitle(
     query
       ? `${findPier(query.from)?.name} to ${findPier(query.to)?.name} — Lacus`
-      : `Search sailings, ${lake?.name ?? 'Lake'} — Lacus`,
+      : `Search trips, ${lake?.name ?? 'Lake'} — Lacus`,
   );
 
   const runSearch = useCallback(async (q: SearchQuery) => {
@@ -179,7 +180,7 @@ export function SearchPage() {
   const searchedQuery = query && searchedKey === queryKey(query) ? query : null;
 
   return (
-    <SearchLayout lakeName={lake.name} showMapOnPhone={!hasSearched}>
+    <SearchLayout lakeId={lake.id} lakeName={lake.name} showMapOnPhone={!hasSearched} onLakeChange={(id) => navigate(searchPath(id))}>
       <SearchForm
         lakeId={lake.id}
         origin={origin}
@@ -213,9 +214,9 @@ export function SearchPage() {
 
         {showEmpty && (
           <div className="flex max-w-[320px] flex-col items-start gap-2 py-4">
-            <div className="font-display text-lg font-medium leading-6 text-deep-lake">No boat connections found</div>
+            <div className="font-display text-lg font-medium leading-6 text-deep-lake">No trips found</div>
             <div className="font-body text-base text-stone-grey">
-              No sailings run between these piers at the selected time. Try an earlier departure.
+              No trips run between these piers at the selected time. Try an earlier departure.
             </div>
             <Button variant="secondary" size="sm" onClick={handleReset}>
               Reset search
@@ -239,7 +240,7 @@ export function SearchPage() {
 
             {laterDepartures.length > 0 && (
               <>
-                <div className={`${EYEBROW} mt-2`}>Next connections</div>
+                <div className={`${EYEBROW} mt-2`}>Later trips</div>
                 <div className="flex flex-col gap-3 md:gap-4">
                   {laterDepartures.map((entry, idx) => {
                     const timestamp = entry.connection.from.departureTimestamp;
@@ -258,12 +259,14 @@ export function SearchPage() {
 
             <div>
               <Button variant="secondary" onClick={handleLoadLater} disabled={isLoadingMore || isLoading}>
-                {isLoadingMore ? 'Loading…' : 'Show more connections'}
+                {isLoadingMore ? 'Loading…' : 'Show more trips'}
               </Button>
             </div>
           </>
         )}
       </section>
+
+      <CruiseTeaser lakeId={lake.id} lakeName={lake.name} badgesOnPhone={hasSearched} />
     </SearchLayout>
   );
 }

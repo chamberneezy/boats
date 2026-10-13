@@ -68,7 +68,7 @@ export function CruisesDemo({ sets }: { sets: CruiseSet[] }) {
 
   const app = (
     <AppCard title="Explore cruises in the Lacus app">
-      {mobile ? 'Every special cruise, by lake and date.' : 'Every special cruise, by lake and date. Free for iOS and Android.'}
+      {mobile ? 'Every special cruise, by lake and date.' : 'Every special cruise, by lake and date. For iOS and Android.'}
     </AppCard>
   );
 

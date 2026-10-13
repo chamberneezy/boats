@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lake routes</title>
+<!-- Lacus web: one lake's relief map playing its example routes slowly, for the search page's map panel and
+     its larger view (?lake=<key>, a lake built by pipeline/relief/make-lake.mjs; ?big=1 sets the larger view's
+     type sizes). Nothing in it can be tapped: picking piers on the map is the apps' feature. The host page
+     pauses it with window.__heroPaused. -->
+<link rel="stylesheet" href="_ds/lacus-design-system-59506f82-cfad-4533-809b-6563da9f9035/styles.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.184.0/build/three.module.js"
+  },
+  "integrity": {
+    "https://unpkg.com/three@0.184.0/build/three.module.js": "sha384-8FCZ1eVO6it4+pbec2aDtnTrwjWXZLJRC+MAGCIPDgsYnUrl/E0A2YlF8ioMKI/J",
+    "https://unpkg.com/three@0.184.0/build/three.core.js": "sha384-dw2ooPewaEIrAgl6oFDBmmBWCE9oW9LxRGcfwZ0hLvEprzo202wXl7vCYHRlSnOT"
+  }
+}
+</script>
+<style>
+html,body{margin:0;height:100%;background:var(--deep-lake);overflow:hidden}
+.stage,.labels{position:absolute;inset:0}.labels{pointer-events:none}
+/* The panel is smaller than the hero, so the pier labels are set smaller too. */
+.labels .end span:first-child{font-size:17px !important}
+.labels .end span:last-child{font-size:14px !important}
+.labels .mid span:first-child{font-size:14px !important}
+.labels .mid span:last-child{font-size:13px !important}
+#routeTitle{position:absolute;right:20px;top:18px;font-family:var(--font-display);font-weight:500;font-size:15px;letter-spacing:.04em;color:var(--chalk);opacity:0;z-index:2}
+#bar{position:absolute;left:0;right:0;bottom:10px;height:0}
+#attr{position:absolute;left:14px;bottom:8px;font-family:var(--font-body);font-size:11px;color:var(--stone-grey);z-index:2}
+#attr a{color:var(--stone-grey)}
+html.big .labels .end span:first-child{font-size:22px !important}
+html.big .labels .end span:last-child,html.big .labels .mid span:first-child{font-size:17px !important}
+html.big .labels .mid span:last-child{font-size:15px !important}
+html.big #routeTitle{font-size:18px;right:72px;top:22px}
+@media (max-width: 699px){
+  #routeTitle{right:14px;top:12px;font-size:13px}
+  #attr{font-size:9px;left:10px;bottom:6px}
+  .labels .end span:first-child{font-size:15px !important}
+  .labels .end span:last-child,.labels .mid span:first-child{font-size:12px !important}
+  .labels .mid span:last-child{font-size:11px !important}
+}
+</style></head><body>
+<div class="stage" id="stage"></div>
+<div class="labels" id="labels"></div>
+<div id="routeTitle"></div>
+<!-- An empty marker: the map's phone framing keeps each route above it. -->
+<div id="bar"></div>
+<div id="attr">Elevation: Mapzen Terrain Tiles · Lakes © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors</div>
+<script type="module">
+const q = new URLSearchParams(location.search), lake = q.get('lake') || 'lucerne';
+if (q.get('big')) document.documentElement.classList.add('big');
+// Always the half-size terrain image: the panel is small, and it is the only one kept for most lakes.
+import('./lacus-3d.js').then(({ mountRelief }) => mountRelief(document.getElementById('stage'), document.getElementById('labels'), { lake, dem: lake + '-dem-half.png',
+  titleEl: document.getElementById('routeTitle'), barEl: document.getElementById('bar'), shift: 0, declutter: true, zoom: Number(q.get('zoom')) || 1.15, follow: q.get('follow') != null ? Number(q.get('follow')) : 0.5,
+  introSeconds: Number(q.get('intro')) || 3, routeSeconds: Number(q.get('route')) || 8 }));
+</script>
+</body></html>

@@ -59,7 +59,62 @@
     "osm": {
       "type": "relation",
       "id": 32362
-    }
+    },
+    "alsoWater": [
+      {
+        "type": "relation",
+        "id": 1678346,
+        "name": "Greifensee"
+      },
+      {
+        "type": "way",
+        "id": 4605042,
+        "name": "Pfäffikersee"
+      },
+      {
+        "type": "relation",
+        "id": 5011166,
+        "name": "Sihlsee"
+      },
+      {
+        "type": "relation",
+        "id": 540344,
+        "name": "Zugersee"
+      },
+      {
+        "type": "relation",
+        "id": 1676873,
+        "name": "Ägerisee"
+      },
+      {
+        "type": "relation",
+        "id": 2616502,
+        "name": "Walensee"
+      }
+    ],
+    "exaggeration": 2.5,
+    "routes": [
+      [
+        "8503651",
+        "8503674"
+      ],
+      [
+        "8503651",
+        "8503667"
+      ],
+      [
+        "8530644",
+        "8530643"
+      ],
+      [
+        "8503670",
+        "8503665"
+      ],
+      [
+        "8503667",
+        "8503647"
+      ]
+    ]
   },
   "lucerne-wide": {
     "osm": {
@@ -110,5 +165,311 @@
       ]
     ],
     "margin": 420
+  },
+  "geneva": {
+    "lakeId": "lake-geneva",
+    "name": "Lake Geneva",
+    "osm": {
+      "type": "relation",
+      "id": 332617
+    },
+    "alsoWater": [
+      {
+        "type": "relation",
+        "id": 390321,
+        "name": "Lac de Joux"
+      }
+    ],
+    "exaggeration": 2.4,
+    "routes": [
+      [
+        "8501075",
+        "1401730"
+      ],
+      [
+        "8501237",
+        "8501075"
+      ],
+      [
+        "8501227",
+        "1401847"
+      ],
+      [
+        "8501078",
+        "8501075"
+      ],
+      [
+        "8501075",
+        "1401810"
+      ]
+    ]
+  },
+  "zug": {
+    "lakeId": "lake-zug",
+    "name": "Lake Zug",
+    "osm": {
+      "type": "relation",
+      "id": 540344
+    },
+    "alsoWater": [
+      {
+        "type": "relation",
+        "id": 1442399,
+        "name": "Vierwaldstättersee"
+      },
+      {
+        "type": "relation",
+        "id": 1676873,
+        "name": "Ägerisee"
+      },
+      {
+        "type": "relation",
+        "id": 20055,
+        "name": "Lauerzersee"
+      }
+    ],
+    "zoom": 13,
+    "margin": 300,
+    "exaggeration": 1.0
+  },
+  "thun": {
+    "lakeId": "lake-thun",
+    "name": "Lake Thun",
+    "osm": {
+      "type": "relation",
+      "id": 1117321
+    },
+    "alsoWater": [
+      {
+        "type": "relation",
+        "id": 1671617,
+        "name": "Brienzersee"
+      }
+    ],
+    "zoom": 13,
+    "margin": 300,
+    "exaggeration": 1.1,
+    "routes": [
+      [
+        "8507150",
+        "8507154"
+      ],
+      [
+        "8507150",
+        "8507158"
+      ],
+      [
+        "8507150",
+        "8507156"
+      ],
+      [
+        "8507158",
+        "8507150"
+      ],
+      [
+        "8507154",
+        "8507150"
+      ]
+    ]
+  },
+  "brienz": {
+    "lakeId": "lake-brienz",
+    "name": "Lake Brienz",
+    "osm": {
+      "type": "relation",
+      "id": 1671617
+    },
+    "alsoWater": [
+      {
+        "type": "relation",
+        "id": 1117321,
+        "name": "Thunersee"
+      }
+    ],
+    "zoom": 13,
+    "margin": 300,
+    "exaggeration": 1.0
+  },
+  "neuchatel": {
+    "lakeId": "lake-neuchatel",
+    "name": "Lake Neuchâtel",
+    "osm": {
+      "type": "relation",
+      "id": 390323
+    },
+    "alsoWater": [
+      {
+        "type": "relation",
+        "id": 1860960,
+        "name": "Bielersee"
+      },
+      {
+        "type": "relation",
+        "id": 398830,
+        "name": "Murtensee"
+      }
+    ],
+    "exaggeration": 2
+  },
+  "biel": {
+    "lakeId": "lake-biel",
+    "name": "Lake Biel",
+    "osm": {
+      "type": "relation",
+      "id": 1860960
+    },
+    "alsoWater": [
+      {
+        "type": "relation",
+        "id": 390323,
+        "name": "Lac de Neuchâtel"
+      },
+      {
+        "type": "relation",
+        "id": 398830,
+        "name": "Murtensee"
+      }
+    ],
+    "zoom": 13,
+    "margin": 300
+  },
+  "murten": {
+    "lakeId": "lake-murten",
+    "name": "Lake Murten",
+    "osm": {
+      "type": "relation",
+      "id": 398830
+    },
+    "alsoWater": [
+      {
+        "type": "relation",
+        "id": 390323,
+        "name": "Lac de Neuchâtel"
+      },
+      {
+        "type": "relation",
+        "id": 1860960,
+        "name": "Bielersee"
+      }
+    ],
+    "zoom": 13,
+    "margin": 300,
+    "exaggeration": 2,
+    "distance": 0.8
+  },
+  "constance": {
+    "lakeId": "lake-constance",
+    "name": "Lake Constance",
+    "osm": {
+      "type": "relation",
+      "id": 1156846
+    },
+    "zoom": 11,
+    "margin": 220,
+    "exaggeration": 3.5,
+    "routes": [
+      [
+        "8014587",
+        "8099998"
+      ],
+      [
+        "8011121",
+        "8506346"
+      ],
+      [
+        "8014649",
+        "8102338"
+      ],
+      [
+        "8506113",
+        "8014655"
+      ],
+      [
+        "1101805",
+        "1101894"
+      ]
+    ],
+    "distance": 0.72
+  },
+  "lugano": {
+    "lakeId": "lake-lugano",
+    "name": "Lake Lugano",
+    "osm": {
+      "type": "relation",
+      "id": 1342576
+    },
+    "alsoWater": [
+      {
+        "type": "relation",
+        "id": 11758,
+        "name": "Lago Maggiore"
+      }
+    ],
+    "routes": [
+      [
+        "8505550",
+        "8505551"
+      ],
+      [
+        "8505550",
+        "1300111"
+      ],
+      [
+        "8505550",
+        "1300112"
+      ],
+      [
+        "8505550",
+        "8505677"
+      ],
+      [
+        "8505551",
+        "8505550"
+      ]
+    ]
+  },
+  "maggiore": {
+    "lakeId": "lake-maggiore",
+    "name": "Lake Maggiore",
+    "osm": {
+      "type": "relation",
+      "id": 11758
+    },
+    "alsoWater": [
+      {
+        "type": "relation",
+        "id": 1342576,
+        "name": "Lago di Lugano"
+      }
+    ],
+    "bbox": [
+      8.655,
+      45.975,
+      8.87,
+      46.18
+    ],
+    "exaggeration": 1.1,
+    "routes": [
+      [
+        "8505469",
+        "8505570"
+      ],
+      [
+        "8505469",
+        "8505524"
+      ],
+      [
+        "8505573",
+        "8505577"
+      ],
+      [
+        "8505469",
+        "1300091"
+      ],
+      [
+        "8505469",
+        "1300095"
+      ]
+    ]
   }
 }
