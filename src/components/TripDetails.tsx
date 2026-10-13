@@ -1,5 +1,5 @@
 import { useSyncExternalStore } from 'react';
-import { ArrowRight, ExternalLink, TriangleAlert } from 'lucide-react';
+import { Back, Notice, OpenExternal } from '../icons/lacus';
 import { hasMultiplePiers, pierLabel } from '../piers';
 import { shopTicketUrl } from '../shopLink';
 import type { BoatConnection, Section, StopTime, Vessel } from '../types';
@@ -120,7 +120,7 @@ export function TripDetails({ entry, lakeId, onBack }: TripDetailsProps) {
         <div className={`flex items-start justify-between gap-3 ${entry.disruptionReason ? 'mb-1.5 md:mb-2' : 'mb-3 md:mb-4'}`}>
           <div className="flex min-w-0 flex-wrap items-center gap-x-2 font-display text-base font-medium text-alpine-sky md:text-xl">
             <span>{pierLabel(first.departure.station)}</span>
-            <ArrowRight className="h-4 w-4 flex-shrink-0 text-stone-grey" strokeWidth={1.5} aria-hidden="true" />
+            <Back className="h-4 w-4 flex-shrink-0 -scale-x-100 text-stone-grey" aria-hidden="true" />
             <span>{pierLabel(last.arrival.station)}</span>
           </div>
           {/* Same height as the title's first line, so the dot is centred on the title text. */}
@@ -131,7 +131,7 @@ export function TripDetails({ entry, lakeId, onBack }: TripDetailsProps) {
 
         {entry.disruptionReason && (
           <div className="mb-3 flex items-start gap-2 rounded-[10px] border border-status-cancelled/25 bg-status-cancelled/10 px-3.5 py-2.5 md:mb-4">
-            <TriangleAlert aria-hidden="true" className="mt-px h-4 w-4 flex-shrink-0 text-status-cancelled" strokeWidth={2} />
+            <Notice aria-hidden="true" className="h-5 w-5 flex-shrink-0 text-status-cancelled" />
             <p className="font-body text-xs leading-5 text-status-cancelled md:text-sm">{entry.disruptionReason}</p>
           </div>
         )}
@@ -184,7 +184,7 @@ export function TripDetails({ entry, lakeId, onBack }: TripDetailsProps) {
 
         <Button fullWidth href={ticketUrl ?? undefined} disabled={!ticketUrl}>
           Buy ticket
-          {ticketUrl && <ExternalLink size={16} aria-hidden="true" />}
+          {ticketUrl && <OpenExternal className="h-5 w-5" aria-hidden="true" />}
         </Button>
       </div>
 

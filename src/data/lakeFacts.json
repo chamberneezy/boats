@@ -1,0 +1,264 @@
+{
+  "schemaVersion": 1,
+  "retrieved": "2026-10-13",
+  "note": "Figures from each lake's English Wikipedia article (source). The sentences are our own wording of well-known facts; the owner reviews them before release. English only for now; add other languages as further keys beside \"en\". Never add a fact without a source.",
+  "lakes": {
+    "lake-lucerne": {
+      "areaKm2": 113.6,
+      "maxDepthM": 214,
+      "elevationM": 434,
+      "lengthKm": 30,
+      "countries": [
+        "CH"
+      ],
+      "facts": [
+        {
+          "en": "Its German name, Vierwaldstättersee, means the lake of the four forest cantons: Uri, Schwyz, Unterwalden and Lucerne."
+        },
+        {
+          "en": "The Rütli meadow on its shore is the traditional founding place of the Swiss Confederation."
+        },
+        {
+          "en": "The lake has several arms, so a boat from Luzern to Flüelen changes direction again and again."
+        }
+      ],
+      "source": "https://en.wikipedia.org/wiki/Lake_Lucerne"
+    },
+    "lake-geneva": {
+      "areaKm2": 580.0,
+      "maxDepthM": 310,
+      "elevationM": 372,
+      "lengthKm": 73,
+      "countries": [
+        "CH",
+        "FR"
+      ],
+      "facts": [
+        {
+          "en": "It is shared by Switzerland and France, and is one of the largest lakes in Western Europe."
+        },
+        {
+          "en": "The Rhône flows in at the eastern end and leaves the lake in Geneva."
+        },
+        {
+          "en": "Chillon Castle stands on a rock at the water's edge near Montreux."
+        }
+      ],
+      "source": "https://en.wikipedia.org/wiki/Lake_Geneva"
+    },
+    "lake-zurich": {
+      "areaKm2": 88.7,
+      "maxDepthM": 136,
+      "elevationM": 406,
+      "lengthKm": 40,
+      "countries": [
+        "CH"
+      ],
+      "facts": [
+        {
+          "en": "The lake is long and narrow: about 40 km from end to end and only about 3 km wide."
+        },
+        {
+          "en": "Its water leaves through the Limmat, in the middle of the city of Zurich."
+        },
+        {
+          "en": "Ufenau and Lützelau are its two islands, near Rapperswil."
+        }
+      ],
+      "source": "https://en.wikipedia.org/wiki/Lake_Zurich"
+    },
+    "lake-zug": {
+      "areaKm2": 38.3,
+      "maxDepthM": 197,
+      "elevationM": 413,
+      "lengthKm": 13.8,
+      "countries": [
+        "CH"
+      ],
+      "facts": [
+        {
+          "en": "The lake lies in three cantons: Zug, Schwyz and Lucerne."
+        },
+        {
+          "en": "The Rigi rises directly from its southern shore."
+        },
+        {
+          "en": "The river Lorze flows both into and out of the lake."
+        }
+      ],
+      "source": "https://en.wikipedia.org/wiki/Lake_Zug"
+    },
+    "lake-thun": {
+      "areaKm2": 48.3,
+      "maxDepthM": 217,
+      "elevationM": 558,
+      "lengthKm": 17.5,
+      "countries": [
+        "CH"
+      ],
+      "facts": [
+        {
+          "en": "The Aare flows in from Lake Brienz and leaves the lake at Thun."
+        },
+        {
+          "en": "The lake lies entirely in the canton of Bern, at the foot of the Bernese Alps."
+        },
+        {
+          "en": "Thun and Spiez are its main towns."
+        }
+      ],
+      "source": "https://en.wikipedia.org/wiki/Lake_Thun"
+    },
+    "lake-brienz": {
+      "areaKm2": 29.8,
+      "maxDepthM": 260,
+      "elevationM": 564,
+      "lengthKm": 14,
+      "countries": [
+        "CH"
+      ],
+      "facts": [
+        {
+          "en": "For its size it is very deep: 260 m at the deepest point."
+        },
+        {
+          "en": "Rivers from the glaciers carry fine rock flour into it, which gives the water its turquoise colour."
+        },
+        {
+          "en": "The Giessbach falls drop towards the lake on its southern shore."
+        }
+      ],
+      "source": "https://en.wikipedia.org/wiki/Lake_Brienz"
+    },
+    "lake-neuchatel": {
+      "areaKm2": 218.3,
+      "maxDepthM": 152,
+      "elevationM": 429,
+      "lengthKm": 38.3,
+      "countries": [
+        "CH"
+      ],
+      "facts": [
+        {
+          "en": "It is the largest lake that lies entirely in Switzerland."
+        },
+        {
+          "en": "Canals link it to Lake Biel and Lake Murten, so boats pass between the three lakes."
+        },
+        {
+          "en": "Neuchâtel, Yverdon-les-Bains and Estavayer-le-Lac lie on its shores."
+        }
+      ],
+      "source": "https://en.wikipedia.org/wiki/Lake_Neuch%C3%A2tel"
+    },
+    "lake-biel": {
+      "areaKm2": 39.3,
+      "maxDepthM": 74,
+      "elevationM": 429,
+      "lengthKm": 15,
+      "countries": [
+        "CH"
+      ],
+      "facts": [
+        {
+          "en": "St. Peter's Island, where Jean-Jacques Rousseau stayed in 1765, is its best-known place."
+        },
+        {
+          "en": "The lake lies on the language border: German is spoken on one side, French on the other."
+        },
+        {
+          "en": "Vineyards cover the northern shore between Biel/Bienne and La Neuveville."
+        }
+      ],
+      "source": "https://en.wikipedia.org/wiki/Lake_Biel"
+    },
+    "lake-murten": {
+      "areaKm2": 22.8,
+      "maxDepthM": 45,
+      "elevationM": 429,
+      "lengthKm": 8.2,
+      "countries": [
+        "CH"
+      ],
+      "facts": [
+        {
+          "en": "It is the smallest of the three lakes at the foot of the Jura."
+        },
+        {
+          "en": "The Broye canal links it to Lake Neuchâtel."
+        },
+        {
+          "en": "The walled medieval town of Murten gives the lake its name."
+        }
+      ],
+      "source": "https://en.wikipedia.org/wiki/Lake_Morat"
+    },
+    "lake-constance": {
+      "areaKm2": 536,
+      "maxDepthM": 251,
+      "elevationM": 395,
+      "lengthKm": 63,
+      "countries": [
+        "CH",
+        "DE",
+        "AT"
+      ],
+      "facts": [
+        {
+          "en": "Three countries share the lake: Switzerland, Germany and Austria."
+        },
+        {
+          "en": "The Rhine flows in near Bregenz and leaves the lake again on its way to the Rhine Falls."
+        },
+        {
+          "en": "Mainau, Reichenau and Lindau are its best-known islands."
+        }
+      ],
+      "source": "https://en.wikipedia.org/wiki/Lake_Constance"
+    },
+    "lake-lugano": {
+      "areaKm2": 48.7,
+      "maxDepthM": 288,
+      "elevationM": 271,
+      "lengthKm": null,
+      "countries": [
+        "CH",
+        "IT"
+      ],
+      "facts": [
+        {
+          "en": "The lake winds between Switzerland and Italy."
+        },
+        {
+          "en": "Campione d'Italia, on its shore, is Italian territory surrounded by Switzerland."
+        },
+        {
+          "en": "A causeway at Melide carries the road and the railway across the lake."
+        }
+      ],
+      "source": "https://en.wikipedia.org/wiki/Lake_Lugano"
+    },
+    "lake-maggiore": {
+      "areaKm2": 212.5,
+      "maxDepthM": 372,
+      "elevationM": 193,
+      "lengthKm": 64.4,
+      "countries": [
+        "CH",
+        "IT"
+      ],
+      "facts": [
+        {
+          "en": "Its shore, at 193 m above sea level, is the lowest point in Switzerland."
+        },
+        {
+          "en": "Only the northern end is Swiss; most of the lake lies in Italy."
+        },
+        {
+          "en": "The Brissago Islands, near the Swiss shore, hold a botanical garden."
+        }
+      ],
+      "source": "https://en.wikipedia.org/wiki/Lake_Maggiore"
+    }
+  }
+}

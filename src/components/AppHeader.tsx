@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ArrowLeft, Search } from 'lucide-react';
+import { Back, Search } from '../icons/lacus';
 import { Link, matchPath, useLocation, useNavigate } from 'react-router';
 import { DEFAULT_LAKE_ID, LAKES } from '../lakes';
 import { ACCOUNT_PATH, searchPath } from '../routes';
@@ -90,7 +90,7 @@ function MobileBar({ section, lakeName, lakeId }: { section: Section; lakeName: 
         <div className="flex items-center gap-3.5">
           <MenuButton />
           <Link to={SEARCH_TO} aria-label="Search trips" className="flex h-6 w-6 items-center justify-center text-white">
-            <Search className="h-4 w-4" strokeWidth={2} />
+            <Search className="h-5 w-5" />
           </Link>
         </div>
         <div className="flex items-center gap-2">
@@ -110,11 +110,11 @@ function MobileBar({ section, lakeName, lakeId }: { section: Section; lakeName: 
           aria-label="Back"
           className="flex h-6 w-6 cursor-pointer items-center justify-center border-0 bg-transparent p-0 text-deep-lake"
         >
-          <ArrowLeft className="h-5 w-5" strokeWidth={2} />
+          <Back className="h-6 w-6" />
         </button>
       ) : (
         <Link to="/" aria-label="Home" className="flex h-6 w-6 items-center justify-center text-deep-lake">
-          <ArrowLeft className="h-5 w-5" strokeWidth={2} />
+          <Back className="h-6 w-6" />
         </Link>
       )}
       {/* On the search page the lake's name is the picker of the twelve lakes; elsewhere it is plain. */}

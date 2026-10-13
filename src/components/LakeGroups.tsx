@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown } from '../icons/lacus';
 import { LAKE_REGIONS, POPULAR_LAKES, type Lake } from '../lakes';
 import { LakeCard } from './LakeCard';
 

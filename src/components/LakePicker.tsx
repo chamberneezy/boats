@@ -1,4 +1,4 @@
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown } from '../icons/lacus';
 import { LAKES } from '../lakes';
 
 // The lake's name as a picker of the twelve lakes: a transparent native select lies over the name,
@@ -9,7 +9,7 @@ export function LakePicker({ lakeId, lakeName, onChange, size }: { lakeId: strin
   return (
     <div className="relative inline-flex min-w-0 max-w-full items-center gap-1.5 rounded-[10px] text-deep-lake focus-within:outline focus-within:outline-2 focus-within:outline-offset-4 focus-within:outline-alpine-sky">
       {heading ? <h1 className={nameClass}>{lakeName}</h1> : <span className={nameClass}>{lakeName}</span>}
-      <ChevronDown className={`shrink-0 ${heading ? 'h-6 w-6' : 'h-4 w-4'}`} strokeWidth={2} aria-hidden="true" />
+      <ChevronDown className={`shrink-0 ${heading ? 'h-6 w-6' : 'h-4 w-4'}`} aria-hidden="true" />
       <select
         aria-label="Lake"
         value={lakeId}

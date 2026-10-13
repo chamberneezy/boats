@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { Menu, Search, X } from 'lucide-react';
+import { Close, Menu, Search } from '../icons/lacus';
 import { Link, useLocation } from 'react-router';
 import { ACCOUNTS_ENABLED } from '../account/auth';
 import { MenuContext, useMenu } from '../menu';
@@ -62,7 +62,7 @@ export function MenuPanel() {
           aria-label="Close menu"
           className="flex h-6 w-6 cursor-pointer items-center justify-center border-0 bg-transparent p-0 text-deep-lake"
         >
-          <X className="h-5 w-5" strokeWidth={2} />
+          <Close className="h-6 w-6" />
         </button>
         <span className="font-display text-base font-medium text-deep-lake">Menu</span>
         <img src={LOGO_SRC} alt="Lacus" className="h-[26px] w-[26px] rounded-md" />
@@ -71,7 +71,7 @@ export function MenuPanel() {
       <div className="flex flex-col gap-6 px-5 pb-10 pt-4 md:px-8">
         {/* Placeholder: no search behind it yet. */}
         <div className="flex items-center gap-3 rounded-[12px] bg-surface-card px-4 py-3 shadow-card">
-          <Search className="h-4 w-4 flex-shrink-0 text-stone-grey" strokeWidth={2} aria-hidden="true" />
+          <Search className="h-5 w-5 flex-shrink-0 text-stone-grey" aria-hidden="true" />
           <input
             disabled
             placeholder="Search lakes and piers"
@@ -116,7 +116,7 @@ export function MenuButton({ large = false }: { large?: boolean }) {
       onClick={() => setOpen(!open)}
       className={`flex cursor-pointer items-center justify-center border-0 bg-transparent p-0 text-inherit ${large ? 'h-11 w-11' : 'h-6 w-6'}`}
     >
-      <Menu className={large ? 'h-[22px] w-[22px]' : 'h-[18px] w-[18px]'} strokeWidth={2} />
+      <Menu className={large ? 'h-6 w-6' : 'h-5 w-5'} />
     </button>
   );
 }

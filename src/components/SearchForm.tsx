@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type Ref } from 'react';
-import { ArrowLeftRight, CalendarClock } from 'lucide-react';
+import { DateTime, Swap } from '../icons/lacus';
 import { loadReachablePiers } from '../connections';
 import { isExactPierName, searchPiers } from '../piers';
 import type { PierOption } from '../types';
@@ -246,7 +246,7 @@ export function SearchForm({
           title="Swap origin and destination"
           className="flex h-10 w-10 flex-shrink-0 cursor-pointer items-center justify-center rounded-[12px] border border-hairline bg-surface-page text-deep-lake transition-colors hover:bg-surface-sunken"
         >
-          <ArrowLeftRight className="h-[18px] w-[18px]" strokeWidth={2} aria-hidden="true" />
+          <Swap className="h-5 w-5" aria-hidden="true" />
         </button>
         <button
           type="button"
@@ -306,7 +306,7 @@ export function SearchForm({
                   title="Swap origin and destination"
                   className="flex h-10 w-10 flex-shrink-0 cursor-pointer items-center justify-center rounded-[12px] border border-hairline bg-surface-page text-deep-lake transition-colors hover:bg-surface-sunken"
                 >
-                  <ArrowLeftRight className="h-[18px] w-[18px]" strokeWidth={2} aria-hidden="true" />
+                  <Swap className="h-5 w-5" aria-hidden="true" />
                 </button>
                 <div className="h-11 w-px bg-hairline" aria-hidden="true" />
                 <PierField
@@ -344,7 +344,7 @@ export function SearchForm({
                   tap opens the phone's own picker (and a click opens the browser's on desktop). */}
               <div className="relative flex items-center justify-between gap-3 py-2.5">
                 <span className="font-display text-[22px] font-semibold text-deep-lake md:text-[28px]">{dateTimeLabel}</span>
-                <CalendarClock className="h-6 w-6 flex-shrink-0 text-alpine-sky" strokeWidth={1.75} aria-hidden="true" />
+                <DateTime className="h-6 w-6 flex-shrink-0 text-alpine-sky" aria-hidden="true" />
                 <input
                   type="datetime-local"
                   value={`${date}T${time}`}

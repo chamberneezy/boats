@@ -1,10 +1,12 @@
-// Icons Lucide does not have, drawn on its grid (24px, 2px round strokes) and built with its own
-// factory so they take the same props and defaults as the rest.
+// The two boat kinds keep the icons they always had (owner, 2026-10-13: the Lacus icon set adds only
+// the car ferry): Lucide's ship for a motor vessel, and our paddle wheel, drawn on Lucide's grid
+// (24px, 2px round strokes). Both are wrapped so they take the same props as the set's icons.
 
-import { createLucideIcon } from 'lucide-react';
+import { Ship, createLucideIcon } from 'lucide-react';
+import type { Icon, IconProps } from '../icons/lacus';
 
 // A paddle steamer, shown as its side paddle wheel: a hub and ring with eight paddle blades.
-export const PaddleSteamer = createLucideIcon('PaddleSteamer', [
+const PaddleWheel = createLucideIcon('PaddleSteamer', [
   ['circle', { cx: '12', cy: '12', r: '6', key: 'ring' }],
   ['circle', { cx: '12', cy: '12', r: '1.5', key: 'hub' }],
   [
@@ -15,3 +17,6 @@ export const PaddleSteamer = createLucideIcon('PaddleSteamer', [
     },
   ],
 ]);
+
+export const PaddleSteamer: Icon = (props: IconProps) => <PaddleWheel strokeWidth={2} {...(props as object)} />;
+export const MotorVessel: Icon = (props: IconProps) => <Ship strokeWidth={2} {...(props as object)} />;

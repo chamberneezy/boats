@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { Maximize2, X } from 'lucide-react';
+import { Close, Expand } from '../icons/lacus';
 import { LAKE_PHOTOS } from '../data/lakePhotos';
 import { RELIEF_LAKES } from '../data/reliefLakes';
 import { StoreBadges } from './StoreBadges';
@@ -95,7 +95,7 @@ export function LakeMapPanel({ lakeId, lakeName, className = '' }: { lakeId: str
                 onClick={() => setLarge(true)}
                 className="flex shrink-0 cursor-pointer items-center gap-1.5 border-0 bg-transparent p-0 font-display text-[13px] font-medium text-alpine-sky"
               >
-                <Maximize2 className="h-3.5 w-3.5" strokeWidth={2} aria-hidden="true" />
+                <Expand className="h-4 w-4" aria-hidden="true" />
                 Larger view
               </button>
             )}
@@ -125,7 +125,7 @@ export function LakeMapPanel({ lakeId, lakeName, className = '' }: { lakeId: str
                 autoFocus
                 className="absolute right-3 top-3 flex h-10 w-10 cursor-pointer items-center justify-center rounded-[10px] border-0 bg-chalk p-0 text-deep-lake"
               >
-                <X className="h-5 w-5" strokeWidth={2} />
+                <Close className="h-6 w-6" />
               </button>
             </div>
             <div className="flex flex-col gap-3 p-4 md:flex-row md:items-center md:justify-between md:gap-6 md:p-5">
