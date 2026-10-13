@@ -14,7 +14,8 @@ import { formatDayLabel, formatShortDate, isSameDay, nowTimeString, timestampToD
 
 const EMPTY_PIER: PierOption = { id: '', name: '' };
 const GENERIC_ERROR_MESSAGE = 'Could not load boat schedules. Please try again.';
-const EYEBROW = 'font-body text-xs uppercase leading-4 tracking-[0.06em] text-alpine-sky';
+// Section labels on the results: Kanit, sentence case, in Deep Lake so they read at a glance.
+const EYEBROW = 'font-display text-[15px] font-medium leading-5 text-deep-lake';
 
 // Results already loaded this visit, so going back from a trip page shows the list at once
 // instead of waiting on the network again.
@@ -230,7 +231,7 @@ export function SearchPage() {
               <div className="font-display text-xl font-medium leading-tight text-deep-lake">
                 {findPier(searchedQuery.from)?.name} → {findPier(searchedQuery.to)?.name}
               </div>
-              <div className="mt-1 font-body text-xs uppercase tracking-[0.04em] text-stone-grey">
+              <div className="mt-1 font-display text-sm font-medium leading-5 text-alpine-sky">
                 {formatShortDate(firstDepartureDate(nextDeparture, searchedQuery.date))}
               </div>
             </div>

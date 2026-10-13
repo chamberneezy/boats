@@ -1,15 +1,14 @@
 import { Ship } from 'lucide-react';
-import { pierLabel } from '../piers';
 import type { BoatConnection, StopTime } from '../types';
 import { formatDuration, formatTime } from '../utils';
 
 export type SummarySize = 'hero' | 'card' | 'detail';
 
-// Time / station / track sizes per context, mobile first then md+ (from the design).
-const SIZES: Record<SummarySize, { time: string; station: string; track: string }> = {
-  hero: { time: 'text-[28px] md:text-[40px]', station: 'text-xs md:text-[15px]', track: 'h-[26px] md:h-8' },
-  card: { time: 'text-xl md:text-[26px]', station: 'text-[11px] md:text-[13px]', track: 'h-5 md:h-6' },
-  detail: { time: 'text-[28px] md:text-5xl', station: 'text-[13px] md:text-base', track: 'h-[26px] md:h-8' },
+// Time / track sizes per context, mobile first then md+ (from the design).
+const SIZES: Record<SummarySize, { time: string; track: string }> = {
+  hero: { time: 'text-[28px] md:text-[40px]', track: 'h-[26px] md:h-8' },
+  card: { time: 'text-xl md:text-[26px]', track: 'h-5 md:h-6' },
+  detail: { time: 'text-[28px] md:text-5xl', track: 'h-[26px] md:h-8' },
 };
 
 // Fraction of the journey elapsed right now: 0 before departure (boat waits at the
@@ -101,13 +100,11 @@ export function ConnectionSummary({ entry, size }: ConnectionSummaryProps) {
           <div className={`font-display font-semibold tabular-nums leading-none text-deep-lake ${s.time}`}>
             {formatTime(first.departure.departureTimestamp)}
           </div>
-          <div className={`mt-1.5 font-body text-stone-grey ${s.station}`}>{pierLabel(first.departure.station)}</div>
         </div>
         <div className="min-w-0 text-right">
           <div className={`font-display font-semibold tabular-nums leading-none text-deep-lake ${s.time}`}>
             {formatTime(last.arrival.arrivalTimestamp)}
           </div>
-          <div className={`mt-1.5 font-body text-stone-grey ${s.station}`}>{pierLabel(last.arrival.station)}</div>
         </div>
       </div>
       <RouteTrack
@@ -117,7 +114,7 @@ export function ConnectionSummary({ entry, size }: ConnectionSummaryProps) {
         transferTimestamps={transferTimestamps}
         className={s.track}
       />
-      <div className="font-body text-xs text-stone-grey md:text-[13px]">
+      <div className="font-display text-[13px] font-medium text-deep-lake/75 md:text-sm">
         {transferLabel} · {formatDuration(connection.duration)}
       </div>
     </div>
