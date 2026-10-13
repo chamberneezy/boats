@@ -34,14 +34,33 @@ export interface CruiseSet {
   lakeId: string;
   lake: string;
   items: CruiseCard[];
+  total: number; // every upcoming titled cruise date on the lake, not only the ones in `items`
 }
 
 const DAY = new Intl.DateTimeFormat('en-GB', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' });
 const dayLabel = (date: string) => DAY.format(new Date(`${date}T12:00:00Z`)).replace(',', '');
 
+// Each cruise gets the photo of what it is, by the operator's own title: the first theme that
+// matches (a full-moon fondue boat is a full-moon picture). Otherwise the lake itself: its day or
+// evening photo where we have one, else the lake's own photo.
+const THEMES: [RegExp, string][] = [
+  [/full ?moon|vollmond/i, 'theme-moon'],
+  [/new year|silvester|1(st)? august|firework|seenachtsfest/i, 'theme-fireworks'],
+  [/halloween|horror/i, 'theme-halloween'],
+  [/christmas|advent|santa|nic(h)?olas|klausjagen|lightboat/i, 'theme-christmas'],
+  [/raclette/i, 'theme-raclette'],
+  [/mussel|moules/i, 'theme-mussels'],
+  [/fondue|chinoise/i, 'theme-fondue'],
+  [/beer|bier|oktoberfest/i, 'theme-beer'],
+  [/brunch|breakfast/i, 'theme-brunch'],
+  [/dinner|gala|chateaubriand|valentine/i, 'theme-dinner'],
+];
+const LAKES_WITH_PHOTOS = new Set(CRUISE_LAKES.map((lake) => lake.id));
+
 function photoFor(lakeId: string, title: string, departSec: number): string {
-  if (/fondue/i.test(title)) return homePhoto('theme-fondue');
-  if (/beer|bier|oktoberfest/i.test(title)) return homePhoto('theme-beer');
+  const theme = THEMES.find(([pattern]) => pattern.test(title));
+  if (theme) return homePhoto(theme[1]);
+  if (!LAKES_WITH_PHOTOS.has(lakeId)) return `${import.meta.env.BASE_URL}lakes/${lakeId}.jpg`;
   return homePhoto(`${lakeId}-${departSec >= 17 * 3600 ? 'evening' : 'day'}`);
 }
 
@@ -65,22 +84,24 @@ function toCard(lakeId: string, lake: string, cruise: Cruise): CruiseCard | null
   };
 }
 
-async function loadLake(lakeId: string, lake: string, today: string, nowSec: number): Promise<CruiseSet | null> {
+async function loadLake(lakeId: string, lake: string, today: string, nowSec: number, limit = PER_LAKE): Promise<CruiseSet | null> {
   const base = `${CRUISES_BASE_URL.replace(/\/?$/, '/')}${lakeId}/`;
   const manifest = (await (await fetch(`${base}cruises-manifest.json`)).json()) as CruisesManifest;
   const pkg = (await (await fetch(`${base}${manifest.cruises.path}`)).json()) as CruisesPackage;
   const items: CruiseCard[] = [];
   const seen = new Set<string>();
+  let total = 0;
   for (const cruise of pkg.cruises) {
     // Not yet left: later days, or later today.
     if (cruise.date < today || (cruise.date === today && (cruise.stops[0]?.time ?? 0) <= nowSec)) continue;
     const card = toCard(lakeId, lake, cruise);
-    if (!card || seen.has(card.title)) continue; // one card per cruise, at its next date
+    if (!card) continue;
+    total += 1;
+    if (seen.has(card.title) || items.length === limit) continue; // one card per cruise, at its next date
     seen.add(card.title);
     items.push(card);
-    if (items.length === PER_LAKE) break;
   }
-  return items.length ? { lakeId, lake, items } : null;
+  return items.length ? { lakeId, lake, items, total } : null;
 }
 
 let cache: Promise<CruiseSet[]> | null = null;
@@ -109,30 +130,28 @@ export function useCruiseSets(): CruiseSet[] {
   return sets;
 }
 
-const nextCache = new Map<string, Promise<CruiseCard | null>>();
+const SHOWCASE = 4;
+const lakeCache = new Map<string, Promise<CruiseSet | null>>();
 
 /**
- * The next upcoming titled cruise on one lake, for the search page's "in the app" card; null until
- * loaded, when the lake has none, or when the data cannot be read. (The card shows no photo.)
+ * One lake's next few titled cruises and how many are coming in all, for the search page's cruise
+ * showcase; null until loaded, when the lake has none, or when the data cannot be read.
  */
-export function useNextCruise(lakeId: string, lake: string): CruiseCard | null {
-  const [card, setCard] = useState<CruiseCard | null>(null);
+export function useLakeCruises(lakeId: string, lake: string): CruiseSet | null {
+  const [set, setSet] = useState<CruiseSet | null>(null);
   useEffect(() => {
     let alive = true;
-    setCard(null);
-    if (!nextCache.has(lakeId)) {
+    setSet(null);
+    if (!lakeCache.has(lakeId)) {
       const now = zurichNow();
-      nextCache.set(
-        lakeId,
-        loadLake(lakeId, lake, now.date, now.secondsOfDay).then((set) => set?.items[0] ?? null, () => null),
-      );
+      lakeCache.set(lakeId, loadLake(lakeId, lake, now.date, now.secondsOfDay, SHOWCASE).catch(() => null));
     }
-    void nextCache.get(lakeId)!.then((next) => {
-      if (alive) setCard(next);
+    void lakeCache.get(lakeId)!.then((loaded) => {
+      if (alive) setSet(loaded);
     });
     return () => {
       alive = false;
     };
   }, [lakeId, lake]);
-  return card;
+  return set;
 }

@@ -134,3 +134,27 @@ body {
     animation: none;
   }
 }
+
+/* The search page's cruise showcase: the photo drifts slowly, the title rises in. */
+@keyframes cruise-drift {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08);
+  }
+}
+@keyframes cruise-rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .cruise-drift {
+    animation: cruise-drift 12s ease-out both;
+  }
+  .cruise-rise {
+    animation: cruise-rise 0.6s ease both;
+  }
+}

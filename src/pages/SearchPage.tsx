@@ -266,7 +266,7 @@ export function SearchPage() {
         )}
       </section>
 
-      <CruiseTeaser lakeId={lake.id} lakeName={lake.name} badgesOnPhone={hasSearched} />
+      <CruiseTeaser lakeId={lake.id} lakeName={lake.name} />
     </SearchLayout>
   );
 }

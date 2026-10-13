@@ -3,6 +3,7 @@ import { ArrowLeft, Search } from 'lucide-react';
 import { Link, matchPath, useLocation, useNavigate } from 'react-router';
 import { DEFAULT_LAKE_ID, LAKES } from '../lakes';
 import { ACCOUNT_PATH, searchPath } from '../routes';
+import { LakePicker } from './LakePicker';
 import { MenuButton } from './Menu';
 
 const LOGO_SRC = `${import.meta.env.BASE_URL}logo-mark.svg`;
@@ -13,12 +14,12 @@ const WEB_INERT_ITEMS = ['Help'];
 
 type Section = 'home' | 'search' | 'schedules' | 'account';
 
-function useSection(pathname: string): { section: Section; lakeName: string | null } {
+function useSection(pathname: string): { section: Section; lakeName: string | null; lakeId?: string } {
   if (pathname.startsWith('/schedules')) return { section: 'schedules', lakeName: 'Scheduled' };
   if (pathname.startsWith(ACCOUNT_PATH)) return { section: 'account', lakeName: 'Account' };
   const lakeId = (matchPath('/search/:lake', pathname) ?? matchPath('/trip/:lake', pathname))?.params.lake;
   if (!lakeId) return { section: 'home', lakeName: null };
-  return { section: 'search', lakeName: LAKES.find((lake) => lake.id === lakeId)?.name ?? null };
+  return { section: 'search', lakeName: LAKES.find((lake) => lake.id === lakeId)?.name ?? null, lakeId };
 }
 
 function WebNav({ section }: { section: Section }) {
@@ -71,7 +72,7 @@ function WebNav({ section }: { section: Section }) {
   );
 }
 
-function MobileBar({ section, lakeName }: { section: Section; lakeName: string | null }) {
+function MobileBar({ section, lakeName, lakeId }: { section: Section; lakeName: string | null; lakeId?: string }) {
   const navigate = useNavigate();
   const location = useLocation();
   const isTrip = location.pathname.startsWith('/trip/');
@@ -116,8 +117,12 @@ function MobileBar({ section, lakeName }: { section: Section; lakeName: string |
           <ArrowLeft className="h-5 w-5" strokeWidth={2} />
         </Link>
       )}
-      {/* The search page names its lake in its own heading (a picker), so the bar does not repeat it. */}
-      <span className="font-display text-base font-medium text-deep-lake">{section === 'search' && !isTrip ? '' : lakeName}</span>
+      {/* On the search page the lake's name is the picker of the twelve lakes; elsewhere it is plain. */}
+      {section === 'search' && !isTrip && lakeId && lakeName ? (
+        <LakePicker lakeId={lakeId} lakeName={lakeName} onChange={(id) => navigate(searchPath(id))} size="bar" />
+      ) : (
+        <span className="font-display text-base font-medium text-deep-lake">{lakeName}</span>
+      )}
       <img src={LOGO_SRC} alt="Lacus" className="h-[26px] w-[26px] rounded-md" />
     </div>
   );
@@ -178,14 +183,14 @@ export function HomeBar() {
 
 export function AppHeader() {
   const { pathname } = useLocation();
-  const { section, lakeName } = useSection(pathname);
+  const { section, lakeName, lakeId } = useSection(pathname);
   // Home has no bar in the page: its 3D hero carries the logo and the menu button and fills the
   // first screen; on phones HomeBar takes over once the visitor has scrolled past it.
   if (section === 'home') return null;
   return (
     <header>
       <WebNav section={section} />
-      <MobileBar section={section} lakeName={lakeName} />
+      <MobileBar section={section} lakeName={lakeName} lakeId={lakeId} />
     </header>
   );
 }

@@ -1,6 +1,6 @@
 // Small pieces shared by the Home page's sections.
 import type { CSSProperties, ReactNode } from 'react';
-import { STORE_URLS } from './data';
+import { StoreBadges } from '../components/StoreBadges';
 
 const CHALK = 'var(--color-chalk)';
 const SKY = 'var(--color-alpine-sky)';
@@ -65,23 +65,7 @@ export function StepRail({ steps }: { steps: Step[] }) {
   );
 }
 
-function Badge({ small, big, url }: { small: string; big: string; url: string | null }) {
-  const content = (
-    <>
-      <span>{small}</span>
-      <span>{big}</span>
-    </>
-  );
-  return url ? (
-    <a className="hm-badge" href={url} target="_blank" rel="noopener noreferrer">
-      {content}
-    </a>
-  ) : (
-    <span className="hm-badge">{content}</span>
-  );
-}
-
-/** The dark "in the app" card with the two store badges. */
+/** The dark "in the app" card: what the app does, then "Download" and the two stores' marks. */
 export function AppCard({ title, children }: { title: string; children: ReactNode }) {
   return (
     <div className="hm-app">
@@ -89,10 +73,7 @@ export function AppCard({ title, children }: { title: string; children: ReactNod
         <span className="hm-app-t">{title}</span>
         <span className="hm-app-p">{children}</span>
       </div>
-      <div className="hm-badges">
-        <Badge small="Download on the" big="App Store" url={STORE_URLS.ios} />
-        <Badge small="Get it on" big="Google Play" url={STORE_URLS.android} />
-      </div>
+      <StoreBadges tone="dark" />
     </div>
   );
 }
