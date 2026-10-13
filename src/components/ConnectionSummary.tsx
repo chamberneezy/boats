@@ -97,12 +97,12 @@ export function ConnectionSummary({ entry, size }: ConnectionSummaryProps) {
     <div className="flex flex-col gap-3.5 md:gap-[18px]">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <div className={`font-display font-semibold tabular-nums leading-none text-deep-lake ${s.time}`}>
+          <div className={`font-display font-medium tabular-nums leading-none text-deep-lake ${s.time}`}>
             {formatTime(first.departure.departureTimestamp)}
           </div>
         </div>
         <div className="min-w-0 text-right">
-          <div className={`font-display font-semibold tabular-nums leading-none text-deep-lake ${s.time}`}>
+          <div className={`font-display font-medium tabular-nums leading-none text-deep-lake ${s.time}`}>
             {formatTime(last.arrival.arrivalTimestamp)}
           </div>
         </div>

@@ -118,7 +118,7 @@ export function TripDetails({ entry, lakeId, onBack }: TripDetailsProps) {
 
       <div className="max-w-[460px] rounded-[14px] bg-surface-card p-6 shadow-card md:max-w-[780px] md:rounded-[16px] md:p-10">
         <div className={`flex items-start justify-between gap-3 ${entry.disruptionReason ? 'mb-1.5 md:mb-2' : 'mb-3 md:mb-4'}`}>
-          <div className="flex min-w-0 flex-wrap items-center gap-x-2 font-display text-base font-medium text-alpine-sky md:text-xl">
+          <div className="flex min-w-0 flex-wrap items-center gap-x-2 font-display text-base font-medium text-deep-lake md:text-2xl">
             <span>{pierLabel(first.departure.station)}</span>
             <Back className="h-4 w-4 flex-shrink-0 -scale-x-100 text-stone-grey" aria-hidden="true" />
             <span>{pierLabel(last.arrival.station)}</span>

@@ -36,7 +36,7 @@ export function DepartureCard({ entry, variant, onOpen }: DepartureCardProps) {
     >
       <div className="flex items-center justify-between gap-3">
         <div
-          className={`flex min-w-0 items-center gap-2 font-display font-semibold text-deep-lake ${
+          className={`flex min-w-0 items-center gap-2 font-display font-medium text-deep-lake ${
             isHero ? 'text-base md:text-2xl' : 'text-sm md:text-[17px]'
           }`}
         >
