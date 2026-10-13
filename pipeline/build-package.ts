@@ -5,6 +5,7 @@ import { TIMETABLE_SCHEMA_VERSION } from '../src/timetable/types.ts';
 import type {
   TimetableLine,
   TimetablePackage,
+  TimetablePier,
   TimetableService,
   TimetableStop,
   TimetableStopTime,
@@ -113,7 +114,7 @@ export async function buildPackage(
   const serviceIndex = new Map(serviceList.map((service, i) => [service.id, i]));
 
   // 4. Stops: one entry per pier (the app's id is the stop's didok number), not per landing.
-  const stopInfo = new Map<string, { name: string; lat: number; lon: number; platforms: Set<string>; lines: Set<string> }>();
+  const stopInfo = new Map<string, { name: string; lat: number; lon: number; platforms: Map<string, { lat: number; lon: number }>; lines: Set<string> }>();
   const pierId = (stopId: string): string => {
     const didok = stopRows.get(stopId)?.didok ?? '';
     if (!/^\d{7}$/.test(didok)) throw new Error(`Stop ${stopId} has no usable didok number ("${didok}")`);
@@ -131,10 +132,10 @@ export async function buildPackage(
         name: row.stop_name,
         lat: Number(row.stop_lat),
         lon: Number(row.stop_lon),
-        platforms: new Set<string>(),
+        platforms: new Map<string, { lat: number; lon: number }>(),
         lines: new Set<string>(),
       };
-      if (row.platform_code) info.platforms.add(row.platform_code);
+      if (row.platform_code) info.platforms.set(row.platform_code, { lat: Number(row.stop_lat), lon: Number(row.stop_lon) });
       info.lines.add(route.line);
       stopInfo.set(id, info);
       pierIds.push(id);
@@ -157,6 +158,11 @@ export async function buildPackage(
   const stopIndex = new Map(sortedIds.map((id, i) => [id, i]));
   const stops: TimetableStop[] = sortedIds.map((id) => {
     const info = stopInfo.get(id)!;
+    // Each pier's own position, when the feed places at least two of them apart.
+    const piers: TimetablePier[] = [...info.platforms]
+      .map(([code, at]) => ({ code, ...at }))
+      .sort((a, b) => a.code.localeCompare(b.code, 'en', { numeric: true }));
+    const apart = new Set(piers.map((pier) => `${pier.lat},${pier.lon}`)).size > 1;
     return {
       id,
       name: info.name,
@@ -164,6 +170,7 @@ export async function buildPackage(
       lat: info.lat,
       lon: info.lon,
       hasMultiplePiers: info.platforms.size > 1,
+      ...(piers.length > 1 && apart ? { piers } : {}),
     };
   });
   const finishedTrips: TimetableTrip[] = tripList

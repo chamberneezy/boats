@@ -137,7 +137,7 @@ export function TripDetails({ entry, lakeId, onBack }: TripDetailsProps) {
         )}
 
         <div className={`flex flex-wrap items-center gap-2.5 ${hasAmenities ? 'mb-3 md:mb-3.5' : 'mb-4 md:mb-5'}`}>
-          {firstPier && <PierBadge platform={firstPier} />}
+          {firstPier && <PierBadge platform={firstPier} stop={{ id: first.departure.station.id, name: pierLabel(first.departure.station) }} lakeId={lakeId} />}
           {/* The boat's name with its kind (ship / paddle steamer) as an icon right after it. When
               the boat itself isn't known, fall back to its kind as text so this isn't a bare icon. */}
           <span className="inline-flex items-center gap-1.5 font-display text-sm font-medium text-deep-lake md:gap-2 md:text-base">
@@ -165,7 +165,9 @@ export function TripDetails({ entry, lakeId, onBack }: TripDetailsProps) {
             <div key={idx}>
               {entry.boatSections.length > 1 && (
                 <div className="mb-3 flex flex-wrap items-center gap-2 font-body text-xs uppercase tracking-[0.04em] text-stone-grey md:text-[13px]">
-                  {pierPlatform(section) && <PierBadge platform={pierPlatform(section)!} />}
+                  {pierPlatform(section) && (
+                    <PierBadge platform={pierPlatform(section)!} stop={{ id: section.departure.station.id, name: pierLabel(section.departure.station) }} lakeId={lakeId} />
+                  )}
                   {vessels[idx] ? (
                     <span className="inline-flex items-center gap-1.5">
                       {vessels[idx]!.name}

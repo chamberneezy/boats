@@ -158,3 +158,42 @@ body {
     animation: cruise-rise 0.6s ease both;
   }
 }
+
+/* The pier tag where it opens the pier map: a soft ring that comes and goes, to show it can be
+   tapped. On the map, the rider's pier sends out the same ring and the picture closes in on it. */
+@keyframes pier-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(74, 144, 164, 0.6);
+  }
+  70%,
+  100% {
+    box-shadow: 0 0 0 8px rgba(74, 144, 164, 0);
+  }
+}
+@keyframes pier-ring {
+  0% {
+    opacity: 0.45;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(3);
+  }
+}
+@keyframes pier-map-in {
+  from {
+    opacity: 0;
+    transform: scale(0.45);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .pier-pulse {
+    animation: pier-pulse 2s ease-out infinite;
+  }
+  .pier-ring {
+    animation: pier-ring 1.8s ease-out infinite;
+  }
+  .pier-map-in {
+    animation: pier-map-in 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+}

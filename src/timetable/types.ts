@@ -50,6 +50,16 @@ export interface TimetableStop {
   lon: number;
   // True when boats leave from several numbered piers at this stop (derived from the data).
   hasMultiplePiers: boolean;
+  // Where each numbered pier is, for stops whose piers the official data places apart (Luzern,
+  // Zürich Bürkliplatz, Wädenswil); absent everywhere else, also where several piers share one
+  // point (Weggis). Optional and additive (2026-10-13): `lat`/`lon` above stay the stop's own point.
+  piers?: TimetablePier[];
+}
+
+export interface TimetablePier {
+  code: string; // the pier number as riders see it, e.g. "2"
+  lat: number;
+  lon: number;
 }
 
 export interface TimetableLine {

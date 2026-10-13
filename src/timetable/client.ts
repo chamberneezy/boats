@@ -11,7 +11,7 @@ import type { SearchIndex } from './search.ts';
 import { toConnections, toUpcoming } from './toConnections.ts';
 import type { UpcomingItem } from './toConnections.ts';
 import { TIMETABLE_SCHEMA_VERSION } from './types.ts';
-import type { TimetableManifest, TimetablePackage } from './types.ts';
+import type { TimetableManifest, TimetablePackage, TimetablePier } from './types.ts';
 import { zurichNow } from './zurich.ts';
 
 const DEFAULT_LAKE = 'lake-lucerne';
@@ -143,4 +143,13 @@ export async function packageUpcoming(pierId: string, count: number, lakeId = DE
   if (!loaded || !covers(loaded.pkg, now.date) || !loaded.index.stopIds.includes(pierId)) return null;
   const departures = findDepartures(loaded.index, { from: pierId, date: now.date, afterSec: now.secondsOfDay, limit: count });
   return toUpcoming(loaded.pkg, now.date, departures);
+}
+
+/**
+ * The numbered piers of one stop with their positions (Luzern, Zürich Bürkliplatz, Wädenswil), or
+ * null when the package gives none for it or is not loaded.
+ */
+export async function packagePiers(pierId: string, lakeId = DEFAULT_LAKE): Promise<TimetablePier[] | null> {
+  const loaded = await getTimetable(lakeId);
+  return loaded?.pkg.stops.find((stop) => stop.id === pierId)?.piers ?? null;
 }
