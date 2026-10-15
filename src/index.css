@@ -150,7 +150,15 @@ body {
     transform: translateY(8px);
   }
 }
+@keyframes cruise-progress {
+  from {
+    transform: scaleX(0);
+  }
+}
 @media (prefers-reduced-motion: no-preference) {
+  .cruise-progress {
+    animation: cruise-progress linear both;
+  }
   .cruise-drift {
     animation: cruise-drift 12s ease-out both;
   }
