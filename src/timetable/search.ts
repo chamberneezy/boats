@@ -238,46 +238,58 @@ export function findItineraries(index: SearchIndex, query: SearchQuery): Itinera
   return results.slice(0, limit);
 }
 
-// Every stop reachable from (or, with `forward: false`, able to reach) `id`, direct or with one
-// change - ignoring the clock and calendar entirely (i.e. "does some itinerary connect these two
-// ids, on some day"). Used to keep pier suggestions honest: never offer a pier nothing can ever
-// reach, in either field. Deliberately a superset of what any single date/time could offer (real
-// transfer-time and max-wait rules aren't applied here), so it only ever hides destinations that
-// are truly never connected, never one that merely isn't reachable today.
-function reachableIds(index: SearchIndex, id: string, forward: boolean): Set<string> {
-  const addOnwardStops = (visit: Visit, into: Set<string>) => {
-    const { trip, position } = visit;
-    if (forward) {
-      for (let p = position + 1; p < trip.stops.length; p++) into.add(index.stopIds[trip.stops[p][0]]);
-    } else {
-      for (let p = 0; p < position; p++) into.add(index.stopIds[trip.stops[p][0]]);
+/**
+ * For every stop, the stops `findItineraries` finds at least one itinerary to when searching from
+ * `date` at `afterSec`: the same calendar, the same seven days, the same changes, minimum change
+ * times and longest waits, so a pair is in here exactly when its search shows a trip. The pier
+ * pickers offer only these pairs, so a rider can never pick two piers that give "No trips found".
+ * A stop with an empty set has no boat in that window and is not offered at all.
+ *
+ * Instead of searching every pair, it boards boats the way `findForDay` does and notes every stop
+ * after the boarding point. Boarding a run again at the same or a later stop with no more changes
+ * left can reach nothing new, so it is skipped; that keeps it to a few milliseconds a lake.
+ */
+export function connectedStops(index: SearchIndex, date: string, afterSec: number): Map<string, Set<string>> {
+  const { settings } = index.pkg;
+  const result = new Map<string, Set<string>>(index.stopIds.map((id) => [id, new Set<string>()]));
+  for (let day = 0; day <= MAX_EXTRA_DAYS; day++) {
+    const dayDate = day === 0 ? date : new Date(parseDateMs(date) + day * DAY_MS).toISOString().slice(0, 10);
+    const candidates = new Map<string, Candidate[]>();
+    for (const candidate of candidatesFor(index, dayDate)) {
+      candidates.set(candidate.trip.id, [...(candidates.get(candidate.trip.id) ?? []), candidate]);
     }
-  };
-
-  // One round per boat: round 0 is direct, each further round is one more change - matches
-  // MAX_CHANGES so a suggestion is never hidden for a pair the real search actually can connect.
-  let frontier = new Set<string>([id]);
-  const result = new Set<string>();
-  for (let round = 0; round <= MAX_CHANGES; round++) {
-    const next = new Set<string>();
-    for (const stop of frontier) {
-      for (const visit of index.visitsByStop.get(stop) ?? []) addOnwardStops(visit, next);
+    for (const from of index.stopIds) {
+      const into = result.get(from)!;
+      // Per run (trip and day offset): the boardings already explored, as [position, changes left].
+      const boarded = new Map<Candidate, [number, number][]>();
+      const board = (atStop: string, earliest: number, latest: number, changesLeft: number, isFirstLeg: boolean): void => {
+        for (const visit of index.visitsByStop.get(atStop) ?? []) {
+          for (const candidate of candidates.get(visit.trip.id) ?? []) {
+            if (isFirstLeg && candidate.secondLegOnly) continue;
+            const stops = candidate.trip.stops;
+            const departure = stops[visit.position][2] + candidate.offset;
+            if (departure < earliest || departure > latest || visit.position === stops.length - 1) continue;
+            const seen = boarded.get(candidate) ?? [];
+            if (seen.some(([position, left]) => position <= visit.position && left >= changesLeft)) continue;
+            seen.push([visit.position, changesLeft]);
+            boarded.set(candidate, seen);
+            for (let k = visit.position + 1; k < stops.length; k++) into.add(index.stopIds[stops[k][0]]);
+            if (changesLeft === 0) continue;
+            for (let k = visit.position + 1; k < stops.length; k++) {
+              const changeStop = index.stopIds[stops[k][0]];
+              if (changeStop === from || changeStop === atStop) continue;
+              const arrival = stops[k][1] + candidate.offset;
+              const minWait = (settings.transferMinutesByStop[changeStop] ?? settings.minTransferMinutes) * 60;
+              board(changeStop, arrival + minWait, arrival + settings.maxWaitMinutes * 60, changesLeft - 1, false);
+            }
+          }
+        }
+      };
+      board(from, day === 0 ? afterSec : 0, Infinity, MAX_CHANGES, true);
+      into.delete(from);
     }
-    for (const stop of next) result.add(stop);
-    frontier = next;
   }
-  result.delete(id);
   return result;
-}
-
-/** Every stop reachable from `from`, direct or up to two changes (see `reachableIds`). */
-export function reachableFromStop(index: SearchIndex, from: string): Set<string> {
-  return reachableIds(index, from, true);
-}
-
-/** Every stop that can reach `to`, direct or up to two changes (see `reachableIds`). */
-export function stopsReaching(index: SearchIndex, to: string): Set<string> {
-  return reachableIds(index, to, false);
 }
 
 export interface DepartureQuery {

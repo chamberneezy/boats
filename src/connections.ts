@@ -7,7 +7,7 @@
 // -> stale cache -> bundled timetable.
 
 import { reportDataSource, type DataSource } from './dataSourceMonitor';
-import { packageConnections, packageReachablePiers, packageUpcoming } from './timetable/client.ts';
+import { packageConnectedPiers, packageConnections, packageUpcoming } from './timetable/client.ts';
 import { getFallbackConnections } from './fallbackTimetable';
 import { readCachedConnections, writeCachedConnections } from './scheduleCache';
 import type { BoatConnection, Connection, ConnectionStatus, ConnectionsResponse, PierOption, Section } from './types';
@@ -199,14 +199,13 @@ export async function searchConnections(
 }
 
 /**
- * Every pier the timetable package could connect `pierId` to (as origin if `direction` is
- * 'from', as destination if 'to'), for filtering pier-picker suggestions. Null when the package
- * isn't loaded yet or doesn't know the pier - callers should leave suggestions unfiltered then,
- * never treat it as "nothing is reachable". No fallback chain: suggestions are a nice-to-have,
- * not worth a public-API call, so this only ever answers from the on-device package.
+ * For every pier of the lake, the piers a search from `date` at `time` finds a trip to, from the
+ * on-device package, for the pier pickers: they offer only pairs that give trips. Null when the
+ * package cannot answer for that date; callers then leave the pickers unfiltered. Never a
+ * public-API call.
  */
-export async function loadReachablePiers(pierId: string, direction: 'from' | 'to', lakeId?: string): Promise<Set<string> | null> {
-  return packageReachablePiers(pierId, direction, lakeId);
+export async function loadConnectedPiers(date: string, time: string, lakeId?: string): Promise<Map<string, Set<string>> | null> {
+  return packageConnectedPiers(date, time, lakeId);
 }
 
 /** The next page of departures from the given moment onward. */

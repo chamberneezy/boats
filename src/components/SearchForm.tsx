@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type Ref } from 'react';
 import { DateTime, Swap } from '../icons/lacus';
-import { loadReachablePiers } from '../connections';
+import { loadConnectedPiers } from '../connections';
 import { isExactPierName, searchPiers } from '../piers';
 import type { PierOption } from '../types';
 import { formatDateTimeLabel } from '../utils';
@@ -36,14 +36,14 @@ interface PierPickerProps {
   align: 'left' | 'right';
   query: string;
   excludeId?: string;
-  reachableIds?: Set<string>;
+  allowedIds?: Set<string>;
   onPick: (pier: PierOption) => void;
 }
 
 // Suggestions for the field being typed in. With no text the popular piers are shown as
-// presets (or every remaining reachable pier once the other field is chosen).
-function PierPicker({ lakeId, align, query, excludeId, reachableIds, onPick }: PierPickerProps) {
-  const options = useMemo(() => searchPiers(lakeId, query, excludeId, reachableIds), [lakeId, query, excludeId, reachableIds]);
+// presets (or every remaining pier with trips once the other field is chosen).
+function PierPicker({ lakeId, align, query, excludeId, allowedIds, onPick }: PierPickerProps) {
+  const options = useMemo(() => searchPiers(lakeId, query, excludeId, allowedIds), [lakeId, query, excludeId, allowedIds]);
 
   return (
     <ul
@@ -65,7 +65,11 @@ function PierPicker({ lakeId, align, query, excludeId, reachableIds, onPick }: P
           </button>
         </li>
       ))}
-      {options.length === 0 && <li className="font-body text-sm text-stone-grey">No matching pier.</li>}
+      {options.length === 0 && (
+        <li className="font-body text-sm text-stone-grey">
+          {query.trim() ? 'No matching pier.' : 'No boats in the week from this date. Try another date.'}
+        </li>
+      )}
     </ul>
   );
 }
@@ -140,24 +144,47 @@ export function SearchForm({
   const [typed, setTyped] = useState<string | null>(null);
   const originInputRef = useRef<HTMLInputElement>(null);
 
-  // Piers the timetable can actually connect the *other* field's pier to/from, once it's chosen -
-  // so suggestions never include a route with no boat between two real piers. Undefined (no other
-  // field chosen yet, or the package hasn't loaded) means don't filter.
-  const [reachableIds, setReachableIds] = useState<Set<string> | undefined>(undefined);
+  // For every pier, the piers a search from this date and time finds a trip to. The pickers offer
+  // only those pairs, so a rider can never pick two piers that give "No trips found". Null while it
+  // loads, or when the timetable package can't answer for the date (then nothing is filtered).
+  const [connected, setConnected] = useState<Map<string, Set<string>> | null>(null);
   useEffect(() => {
-    const anchorId = activeField === 'destination' ? origin.id : activeField === 'origin' ? destination.id : '';
-    if (!anchorId) {
-      setReachableIds(undefined);
-      return;
-    }
     let cancelled = false;
-    loadReachablePiers(anchorId, activeField === 'destination' ? 'from' : 'to', lakeId).then((ids) => {
-      if (!cancelled) setReachableIds(ids ?? undefined);
+    setConnected(null);
+    loadConnectedPiers(date, time, lakeId).then((pairs) => {
+      if (!cancelled) setConnected(pairs);
     });
     return () => {
       cancelled = true;
     };
-  }, [activeField, origin.id, destination.id, lakeId]);
+  }, [date, time, lakeId]);
+
+  // The piers each field may offer, given the pier in the other one.
+  const allowed = useMemo(() => {
+    if (!connected) return { origin: undefined, destination: undefined };
+    const all = [...connected.keys()];
+    const known = (id: string) => Boolean(id) && connected.has(id);
+    return {
+      origin: new Set(
+        known(destination.id) ? all.filter((id) => connected.get(id)!.has(destination.id)) : all.filter((id) => connected.get(id)!.size > 0),
+      ),
+      destination: known(origin.id) ? connected.get(origin.id)! : new Set(all.filter((id) => all.some((from) => connected.get(from)!.has(id)))),
+    } satisfies Record<Field, Set<string> | undefined>;
+  }, [connected, origin.id, destination.id]);
+  const allowedFor = (field: Field) => allowed[field];
+
+  // Swapping is offered only when boats run the other way too.
+  const canSwap = !connected || !connected.has(destination.id) || !origin.id || connected.get(destination.id)!.has(origin.id);
+
+  // A new date or time can leave the chosen pair with no boat: the destination (and an origin with
+  // no boat at all) is then cleared, so the rider picks again from what sails.
+  useEffect(() => {
+    if (collapsed || !connected || !origin.id || !connected.has(origin.id)) return;
+    const onward = connected.get(origin.id)!;
+    if (onward.size === 0) onOriginChange(EMPTY_PIER);
+    if (destination.id && !onward.has(destination.id)) onDestinationChange(EMPTY_PIER);
+    // Only a new answer for a new date, time or lake is checked here; picks are filtered already.
+  }, [connected]);
 
   // Once a search has been made the form folds up. Whatever tab it was on, it must reopen on
   // the origin/destination tab when the rider taps the summary, not on date and time.
@@ -195,6 +222,7 @@ export function SearchForm({
   }
 
   function swap() {
+    if (!canSwap) return;
     onOriginChange(destination);
     onDestinationChange(origin);
     closePicker();
@@ -217,13 +245,13 @@ export function SearchForm({
     setTyped(text);
     if (!text.trim()) return;
     const excludeId = (field === 'origin' ? destination.id : origin.id) || undefined;
-    const matches = searchPiers(lakeId, text, excludeId, reachableIds);
+    const matches = searchPiers(lakeId, text, excludeId, allowedFor(field));
     if (matches.length === 1 && isExactPierName(matches[0], text)) pick(field, matches[0]);
   }
 
   function pickFirstMatch(field: Field) {
     const excludeId = (field === 'origin' ? destination.id : origin.id) || undefined;
-    const [first] = searchPiers(lakeId, typed ?? '', excludeId, reachableIds);
+    const [first] = searchPiers(lakeId, typed ?? '', excludeId, allowedFor(field));
     if (first) pick(field, first);
   }
 
@@ -242,9 +270,10 @@ export function SearchForm({
         <button
           type="button"
           onClick={onSwapSearch}
+          disabled={!canSwap}
           aria-label="Swap origin and destination"
-          title="Swap origin and destination"
-          className="flex h-10 w-10 flex-shrink-0 cursor-pointer items-center justify-center rounded-[12px] border border-hairline bg-surface-page text-deep-lake transition-colors hover:bg-surface-sunken"
+          title={canSwap ? 'Swap origin and destination' : 'No trips the other way'}
+          className="flex h-10 w-10 flex-shrink-0 cursor-pointer items-center justify-center rounded-[12px] border border-hairline bg-surface-page text-deep-lake transition-colors hover:bg-surface-sunken disabled:cursor-default disabled:opacity-35 disabled:hover:bg-surface-page"
         >
           <Swap className="h-5 w-5" aria-hidden="true" />
         </button>
@@ -302,9 +331,10 @@ export function SearchForm({
                 <button
                   type="button"
                   onClick={swap}
+                  disabled={!canSwap}
                   aria-label="Swap origin and destination"
-                  title="Swap origin and destination"
-                  className="flex h-10 w-10 flex-shrink-0 cursor-pointer items-center justify-center rounded-[12px] border border-hairline bg-surface-page text-deep-lake transition-colors hover:bg-surface-sunken"
+                  title={canSwap ? 'Swap origin and destination' : 'No trips the other way'}
+                  className="flex h-10 w-10 flex-shrink-0 cursor-pointer items-center justify-center rounded-[12px] border border-hairline bg-surface-page text-deep-lake transition-colors hover:bg-surface-sunken disabled:cursor-default disabled:opacity-35 disabled:hover:bg-surface-page"
                 >
                   <Swap className="h-5 w-5" aria-hidden="true" />
                 </button>
@@ -330,7 +360,7 @@ export function SearchForm({
                   align={activeField === 'origin' ? 'left' : 'right'}
                   query={typed ?? ''}
                   excludeId={(activeField === 'origin' ? destination.id : origin.id) || undefined}
-                  reachableIds={reachableIds}
+                  allowedIds={allowedFor(activeField)}
                   onPick={(pier) => pick(activeField, pier)}
                 />
               )}

@@ -467,21 +467,22 @@ export function isExactPierName(pier: PierOption, text: string): boolean {
 }
 
 // excludeId is the pier already chosen in the *other* field (origin when searching
-// destinations, or vice versa) - it can't also be selected here. reachableIds, when given,
-// further narrows the pool to piers the timetable can actually connect to/from that other
-// field's pier (direct or up to two changes, matching the real search) - so a route with no boat between two real piers never
-// shows up as a suggestion in the first place. Undefined (not just loaded yet, or no other
-// field chosen) means don't filter, same as before this existed.
-export function searchPiers(lakeId: string, query: string, excludeId?: string, reachableIds?: Set<string>): PierOption[] {
+// destinations, or vice versa) - it can't also be selected here. allowedIds, when given, narrows
+// the pool to the piers that give trips with the other field's pier on the chosen date and time
+// (`loadConnectedPiers`), so two piers with no boat between them can never be picked. Undefined
+// (the timetable package can't answer for that date) means don't filter.
+export function searchPiers(lakeId: string, query: string, excludeId?: string, allowedIds?: Set<string>): PierOption[] {
   const lakePiers = PIERS_BY_LAKE[lakeId] ?? [];
   let pool = excludeId ? lakePiers.filter((pier) => pier.id !== excludeId) : lakePiers;
-  if (reachableIds) pool = pool.filter((pier) => reachableIds.has(pier.id));
+  if (allowedIds) pool = pool.filter((pier) => allowedIds.has(pier.id));
 
   const trimmed = query.trim().toLowerCase();
   if (trimmed.length === 0) {
-    // Once the other field is filled in, show every remaining (reachable) pier so the
-    // user can scroll the full list instead of just the top 5 popular ones.
-    return excludeId ? pool : getPopularPiers(lakeId);
+    // Once the other field is filled in, show every remaining pier so the user can scroll the
+    // full list instead of just the top 5 popular ones. The presets keep only piers that sail.
+    if (excludeId) return pool;
+    const popular = getPopularPiers(lakeId).filter((pier) => !allowedIds || allowedIds.has(pier.id));
+    return popular.length > 0 ? popular : pool;
   }
 
   return pool.filter((pier) => matchesQuery(pier, trimmed));

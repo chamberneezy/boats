@@ -6,7 +6,7 @@
 // the public API, which is the last resort.
 
 import type { Connection } from '../types.ts';
-import { createSearchIndex, findDepartures, findItineraries, reachableFromStop, stopsReaching } from './search.ts';
+import { connectedStops, createSearchIndex, findDepartures, findItineraries } from './search.ts';
 import type { SearchIndex } from './search.ts';
 import { toConnections, toUpcoming } from './toConnections.ts';
 import type { UpcomingItem } from './toConnections.ts';
@@ -124,16 +124,24 @@ export async function packageConnections(
   return toConnections(loaded.pkg, date, itineraries);
 }
 
+// The last answer of packageConnectedPiers: the pickers ask again on every keystroke and focus.
+let connectedCache: { loaded: object; key: string; pairs: Map<string, Set<string>> } | null = null;
+
 /**
- * Every pier the package's search could ever connect `pierId` to (as origin if `direction` is
- * 'from', as destination if 'to'), direct or up to two changes - for filtering pier suggestions,
- * not a real search. Null only when the package itself isn't loaded/known yet; callers should
- * then leave suggestions unfiltered rather than treat it as "nothing is reachable".
+ * For every pier of the lake, the piers a search from `date` at `time` finds a trip to (see
+ * `connectedStops`), so the pier pickers offer only pairs that give trips. Null when the package
+ * cannot answer for that date (not loaded, or the date is outside it): the search then goes to the
+ * public API, so the pickers stay unfiltered.
  */
-export async function packageReachablePiers(pierId: string, direction: 'from' | 'to', lakeId = DEFAULT_LAKE): Promise<Set<string> | null> {
+export async function packageConnectedPiers(date: string, time: string, lakeId = DEFAULT_LAKE): Promise<Map<string, Set<string>> | null> {
   const loaded = await getTimetable(lakeId);
-  if (!loaded || !loaded.index.stopIds.includes(pierId)) return null;
-  return direction === 'from' ? reachableFromStop(loaded.index, pierId) : stopsReaching(loaded.index, pierId);
+  if (!loaded || !covers(loaded.pkg, date)) return null;
+  const key = `${date}T${time}`;
+  if (connectedCache?.loaded === loaded && connectedCache.key === key) return connectedCache.pairs;
+  const [hours, minutes] = time.split(':').map(Number);
+  const pairs = connectedStops(loaded.index, date, hours * 3600 + minutes * 60);
+  connectedCache = { loaded, key, pairs };
+  return pairs;
 }
 
 /** The next departures from one pier, or null when the package cannot answer. */
