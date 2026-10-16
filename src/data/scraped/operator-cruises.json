@@ -2,7 +2,7 @@
  "operators": {
   "bsg": {
    "source": "https://www.bielersee.ch/events",
-   "fetchedAt": "2026-10-15T10:16:27.776Z",
+   "fetchedAt": "2026-10-16T10:05:26.091Z",
    "cruises": [
     {
      "id": "bsg:adventsbrunch",
@@ -167,26 +167,6 @@
        "from": "Biel/Bienne",
        "depart": "19:00",
        "to": "Biel/Bienne",
-       "arrive": "22:00"
-      }
-     ]
-    },
-    {
-     "id": "bsg:moules-schiff-aare",
-     "url": "https://www.bielersee.ch/events/event/moules-schiff-aare",
-     "title": {
-      "de": "Moules-Schiff Aare"
-     },
-     "price": {
-      "amount": 82,
-      "currency": "CHF"
-     },
-     "departures": [
-      {
-       "date": "2026-10-15",
-       "from": "Solothurn",
-       "depart": "19:00",
-       "to": "Solothurn",
        "arrive": "22:00"
       }
      ]
@@ -593,7 +573,7 @@
   },
   "lnm": {
    "source": "https://www.lnm.ch/Nos-croisieres",
-   "fetchedAt": "2026-10-15T10:16:34.051Z",
+   "fetchedAt": "2026-10-16T10:05:32.711Z",
    "cruises": [
     {
      "id": "lnm:Croisiere-Brunch-Neuchatel",
@@ -707,7 +687,7 @@
   },
   "sgz": {
    "source": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/",
-   "fetchedAt": "2026-10-15T10:16:53.084Z",
+   "fetchedAt": "2026-10-16T10:05:51.298Z",
    "cruises": [
     {
      "id": "sgz:abenteuerschiff",
@@ -724,14 +704,6 @@
      },
      "departures": [
       {
-       "date": "2026-10-15",
-       "from": "Zug Bahnhofsteg",
-       "depart": "15:15",
-       "to": "Zug Bahnhofsteg",
-       "arrive": "17:30",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/542/19597/74?lang=en"
-      },
-      {
        "date": "2026-10-16",
        "from": "Zug Bahnhofsteg",
        "depart": "15:15",
@@ -745,7 +717,8 @@
        "depart": "15:15",
        "to": "Zug Bahnhofsteg",
        "arrive": "17:30",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/542/19599/74?lang=en"
+       "booking": "javascript:void(0);",
+       "soldOut": true
       },
       {
        "date": "2026-10-18",
@@ -772,14 +745,6 @@
      },
      "departures": [
       {
-       "date": "2026-10-15",
-       "from": "Zug Bahnhofsteg",
-       "depart": "15:15",
-       "to": "Zug Bahnhofsteg",
-       "arrive": "17:30",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/542/19597/68?lang=en"
-      },
-      {
        "date": "2026-10-16",
        "from": "Zug Bahnhofsteg",
        "depart": "15:15",
@@ -793,7 +758,8 @@
        "depart": "15:15",
        "to": "Zug Bahnhofsteg",
        "arrive": "17:30",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/542/19599/68?lang=en"
+       "booking": "javascript:void(0);",
+       "soldOut": true
       },
       {
        "date": "2026-10-18",
@@ -978,29 +944,13 @@
      },
      "departures": [
       {
-       "date": "2026-10-15",
+       "date": "2026-10-16",
        "from": "Zug Bahnhofsteg",
        "depart": "09:45",
        "to": "Zug Bahnhofsteg",
        "arrive": "11:55",
        "booking": "javascript:void(0);",
        "soldOut": true
-      },
-      {
-       "date": "2026-10-15",
-       "from": "Zug Bahnhofsteg",
-       "depart": "15:15",
-       "to": "Zug Bahnhofsteg",
-       "arrive": "17:30",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/542/19597/87?lang=en"
-      },
-      {
-       "date": "2026-10-16",
-       "from": "Zug Bahnhofsteg",
-       "depart": "09:45",
-       "to": "Zug Bahnhofsteg",
-       "arrive": "11:55",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/540/19190/87?lang=en"
       },
       {
        "date": "2026-10-16",
@@ -1024,7 +974,8 @@
        "depart": "15:15",
        "to": "Zug Bahnhofsteg",
        "arrive": "17:30",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/542/19599/87?lang=en"
+       "booking": "javascript:void(0);",
+       "soldOut": true
       }
      ]
     },
@@ -1043,14 +994,6 @@
      },
      "departures": [
       {
-       "date": "2026-10-15",
-       "from": "Zug Bahnhofsteg",
-       "depart": "15:15",
-       "to": "Zug Bahnhofsteg",
-       "arrive": "17:30",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/542/19597/67?lang=en"
-      },
-      {
        "date": "2026-10-16",
        "from": "Zug Bahnhofsteg",
        "depart": "15:15",
@@ -1064,7 +1007,8 @@
        "depart": "15:15",
        "to": "Zug Bahnhofsteg",
        "arrive": "17:30",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/542/19599/67?lang=en"
+       "booking": "javascript:void(0);",
+       "soldOut": true
       },
       {
        "date": "2026-10-18",
@@ -1157,21 +1101,13 @@
      },
      "departures": [
       {
-       "date": "2026-10-15",
+       "date": "2026-10-16",
        "from": "Zug Bahnhofsteg",
        "depart": "09:45",
        "to": "Zug Bahnhofsteg",
        "arrive": "11:55",
        "booking": "javascript:void(0);",
        "soldOut": true
-      },
-      {
-       "date": "2026-10-16",
-       "from": "Zug Bahnhofsteg",
-       "depart": "09:45",
-       "to": "Zug Bahnhofsteg",
-       "arrive": "11:55",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/540/19190/83?lang=en"
       },
       {
        "date": "2026-10-17",
@@ -1198,14 +1134,6 @@
      },
      "departures": [
       {
-       "date": "2026-10-15",
-       "from": "Zug Bahnhofsteg",
-       "depart": "15:15",
-       "to": "Zug Bahnhofsteg",
-       "arrive": "17:30",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/542/19597/9?lang=en"
-      },
-      {
        "date": "2026-10-16",
        "from": "Zug Bahnhofsteg",
        "depart": "15:15",
@@ -1219,7 +1147,8 @@
        "depart": "15:15",
        "to": "Zug Bahnhofsteg",
        "arrive": "17:30",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/542/19599/9?lang=en"
+       "booking": "javascript:void(0);",
+       "soldOut": true
       },
       {
        "date": "2026-10-18",
@@ -1270,21 +1199,13 @@
      },
      "departures": [
       {
-       "date": "2026-10-15",
+       "date": "2026-10-16",
        "from": "Zug Bahnhofsteg",
        "depart": "09:45",
        "to": "Zug Bahnhofsteg",
        "arrive": "11:55",
        "booking": "javascript:void(0);",
        "soldOut": true
-      },
-      {
-       "date": "2026-10-16",
-       "from": "Zug Bahnhofsteg",
-       "depart": "09:45",
-       "to": "Zug Bahnhofsteg",
-       "arrive": "11:55",
-       "booking": "https://shop.rigi.ch/de/products/von-zug-auf-die-koenigin-der-berge?lang=en"
       },
       {
        "date": "2026-10-17",
@@ -1356,21 +1277,13 @@
      },
      "departures": [
       {
-       "date": "2026-10-15",
+       "date": "2026-10-16",
        "from": "Zug Bahnhofsteg",
        "depart": "09:45",
        "to": "Zug Bahnhofsteg",
        "arrive": "11:55",
        "booking": "javascript:void(0);",
        "soldOut": true
-      },
-      {
-       "date": "2026-10-16",
-       "from": "Zug Bahnhofsteg",
-       "depart": "09:45",
-       "to": "Zug Bahnhofsteg",
-       "arrive": "11:55",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/540/19190/43?lang=en"
       },
       {
        "date": "2026-10-17",
@@ -1386,7 +1299,7 @@
   },
   "vlines": {
    "source": "https://www.vorarlberg-lines.at/en/cruises",
-   "fetchedAt": "2026-10-15T10:18:36.714Z",
+   "fetchedAt": "2026-10-16T10:07:31.334Z",
    "cruises": [
     {
      "id": "vlines:captains-brunch-1",
@@ -2611,7 +2524,7 @@
   },
   "sgv": {
    "source": "https://webshop.lakelucerne.ch/en/",
-   "fetchedAt": "2026-10-15T10:19:33.632Z",
+   "fetchedAt": "2026-10-16T10:08:17.595Z",
    "cruises": [
     {
      "id": "sgv:1-august-motor-vessel",
