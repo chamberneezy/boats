@@ -2,7 +2,6 @@
 // each of the three features, and the directory of the twelve lakes. Every link leads into the
 // search.
 import { useEffect, useMemo, useRef } from 'react';
-import { useNavigate } from 'react-router';
 import { HOME_PHOTOS } from '../data/homePhotos';
 import { LAKE_PHOTOS } from '../data/lakePhotos';
 import { CruisesDemo } from '../home/CruisesDemo';
@@ -13,8 +12,7 @@ import { MapDemo } from '../home/MapDemo';
 import { SearchDemo } from '../home/SearchDemo';
 import '../home/home.css';
 import { MenuButton } from '../components/Menu';
-import { DEFAULT_LAKE_ID, LAKES } from '../lakes';
-import { searchPath } from '../routes';
+import { LAKES } from '../lakes';
 import { useDocumentTitle } from '../useDocumentTitle';
 
 const CREDITS = [
@@ -24,7 +22,6 @@ const CREDITS = [
 
 export function HomePage() {
   useDocumentTitle('Lacus — Every pier, every boat');
-  const navigate = useNavigate();
   const cruiseSets = useCruiseSets();
 
   // Until the cruises have loaded, the lakes the teaser covers carry the tag; then the lakes that
@@ -47,13 +44,18 @@ export function HomePage() {
     return () => observer.disconnect();
   }, []);
 
-  // The hero is a page of its own in a frame (same origin). Its "Explore Lacus" buttons open the
-  // search; its logo links to Home, which is this page.
+  // The hero is a page of its own in a frame (same origin). Its "Explore Lacus" buttons scroll on
+  // to what Lacus does, the first section under it; its logo links to Home, which is this page.
+  const features = useRef<HTMLDivElement>(null);
+  const explore = () => {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    features.current?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+  };
   const wireHero = (frame: HTMLIFrameElement) => {
     try {
       const doc = frame.contentDocument;
       if (!doc) return;
-      doc.querySelectorAll('button.cta').forEach((button) => button.addEventListener('click', () => navigate(searchPath(DEFAULT_LAKE_ID))));
+      doc.querySelectorAll('button.cta').forEach((button) => button.addEventListener('click', explore));
       doc.getElementById('brand')?.addEventListener('click', (event) => event.preventDefault());
     } catch {
       // A frame that cannot be reached keeps its own behaviour.
@@ -71,7 +73,7 @@ export function HomePage() {
       </div>
 
       <main>
-        <div className="hm-dark">
+        <div ref={features} className="hm-dark">
           <div className="hm-wrap">
             <div className="hm-intro">
               <span className="hm-eyebrow">What Lacus does</span>
