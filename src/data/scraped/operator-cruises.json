@@ -2,7 +2,7 @@
  "operators": {
   "bsg": {
    "source": "https://www.bielersee.ch/events",
-   "fetchedAt": "2026-10-17T09:38:45.780Z",
+   "fetchedAt": "2026-10-18T09:52:00.900Z",
    "cruises": [
     {
      "id": "bsg:adventsbrunch",
@@ -573,7 +573,7 @@
   },
   "lnm": {
    "source": "https://www.lnm.ch/Nos-croisieres",
-   "fetchedAt": "2026-10-17T09:38:51.624Z",
+   "fetchedAt": "2026-10-18T09:52:05.959Z",
    "cruises": [
     {
      "id": "lnm:Croisiere-Brunch-Neuchatel",
@@ -687,7 +687,7 @@
   },
   "sgz": {
    "source": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/",
-   "fetchedAt": "2026-10-17T09:39:09.280Z",
+   "fetchedAt": "2026-10-18T09:52:23.485Z",
    "cruises": [
     {
      "id": "sgz:abenteuerschiff",
@@ -703,14 +703,6 @@
       "currency": "CHF"
      },
      "departures": [
-      {
-       "date": "2026-10-17",
-       "from": "Zug Bahnhofsteg",
-       "depart": "15:15",
-       "to": "Zug Bahnhofsteg",
-       "arrive": "17:30",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/542/19599/74?lang=en"
-      },
       {
        "date": "2026-10-18",
        "from": "Zug Bahnhofsteg",
@@ -735,14 +727,6 @@
       "currency": "CHF"
      },
      "departures": [
-      {
-       "date": "2026-10-17",
-       "from": "Zug Bahnhofsteg",
-       "depart": "15:15",
-       "to": "Zug Bahnhofsteg",
-       "arrive": "17:30",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/542/19599/68?lang=en"
-      },
       {
        "date": "2026-10-18",
        "from": "Zug Bahnhofsteg",
@@ -837,15 +821,6 @@
      },
      "departures": [
       {
-       "date": "2026-10-17",
-       "from": "Zug Bahnhofsteg",
-       "depart": "14:00",
-       "to": "Zug Schützenmatt",
-       "arrive": "16:30",
-       "booking": "javascript:void(0);",
-       "soldOut": true
-      },
-      {
        "date": "2026-11-05",
        "from": "Zug Bahnhofsteg",
        "depart": "19:00",
@@ -913,38 +888,6 @@
      ]
     },
     {
-     "id": "sgz:jassen-on-board",
-     "url": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/experience/jassen-on-board/",
-     "title": {
-      "en": "Jassen on board"
-     },
-     "description": {
-      "en": "Held on the scheduled cruise, from Monday to Friday at 9.45 a.m. and daily at 3.15 p.m. from Zug Bahnhofsteg jetty."
-     },
-     "price": {
-      "amount": 43.2,
-      "currency": "CHF"
-     },
-     "departures": [
-      {
-       "date": "2026-10-17",
-       "from": "Zug Bahnhofsteg",
-       "depart": "09:45",
-       "to": "Zug Bahnhofsteg",
-       "arrive": "11:55",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/540/19191/87?lang=en"
-      },
-      {
-       "date": "2026-10-17",
-       "from": "Zug Bahnhofsteg",
-       "depart": "15:15",
-       "to": "Zug Bahnhofsteg",
-       "arrive": "17:30",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/542/19599/87?lang=en"
-      }
-     ]
-    },
-    {
      "id": "sgz:kaffee-und-kuchen",
      "url": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/experience/kaffee-und-kuchen/",
      "title": {
@@ -958,14 +901,6 @@
       "currency": "CHF"
      },
      "departures": [
-      {
-       "date": "2026-10-17",
-       "from": "Zug Bahnhofsteg",
-       "depart": "15:15",
-       "to": "Zug Bahnhofsteg",
-       "arrive": "17:30",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/542/19599/67?lang=en"
-      },
       {
        "date": "2026-10-18",
        "from": "Zug Bahnhofsteg",
@@ -1043,30 +978,6 @@
      ]
     },
     {
-     "id": "sgz:morning-cruise-to-enjoy",
-     "url": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/experience/morning-cruise-to-enjoy/",
-     "title": {
-      "en": "Morning cruise to enjoy"
-     },
-     "description": {
-      "en": "Held on the scheduled cruise from Monday to Saturday at 9.45 a.m."
-     },
-     "price": {
-      "amount": 43.2,
-      "currency": "CHF"
-     },
-     "departures": [
-      {
-       "date": "2026-10-17",
-       "from": "Zug Bahnhofsteg",
-       "depart": "09:45",
-       "to": "Zug Bahnhofsteg",
-       "arrive": "11:55",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/540/19191/83?lang=en"
-      }
-     ]
-    },
-    {
      "id": "sgz:nachmittags-fahrt",
      "url": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/experience/nachmittags-fahrt/",
      "title": {
@@ -1080,14 +991,6 @@
       "currency": "CHF"
      },
      "departures": [
-      {
-       "date": "2026-10-17",
-       "from": "Zug Bahnhofsteg",
-       "depart": "15:15",
-       "to": "Zug Bahnhofsteg",
-       "arrive": "17:30",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/542/19599/9?lang=en"
-      },
       {
        "date": "2026-10-18",
        "from": "Zug Bahnhofsteg",
@@ -1119,30 +1022,6 @@
        "to": "Zug Bahnhofsteg",
        "arrive": "00:30",
        "booking": "https://reservation.zvb.ch/buchung/594/21313?lang=en"
-      }
-     ]
-    },
-    {
-     "id": "sgz:rigi-queen-of-the-mountains",
-     "url": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/experience/rigi-queen-of-the-mountains/",
-     "title": {
-      "en": "Rigi – Queen of the Mountains"
-     },
-     "description": {
-      "en": "Valid from Monday to Saturday, excluding public holidays (14 May Ascension Day, 25 May Whit Monday, 1 August). Services included in the ticket Cruise from Zug Bahnhofsteg to Arth am See 1 coffee and 1 croissant during the cruise Bus ride from Arth am See to Arth-Goldau train station Day ticket for the Rigi Classic cheese on toast and a drink (PET, non-alcoholic) at the Bahnhöfli restaurant on Rigi Staffel"
-     },
-     "price": {
-      "amount": 99.5,
-      "currency": "CHF"
-     },
-     "departures": [
-      {
-       "date": "2026-10-17",
-       "from": "Zug Bahnhofsteg",
-       "depart": "09:45",
-       "to": "Zug Bahnhofsteg",
-       "arrive": "11:55",
-       "booking": "https://shop.rigi.ch/de/products/von-zug-auf-die-koenigin-der-berge?lang=en"
       }
      ]
     },
@@ -1190,36 +1069,12 @@
        "booking": "https://reservation.zvb.ch/buchung-tischplatz/542/19600/103?lang=en"
       }
      ]
-    },
-    {
-     "id": "sgz:zugersee-zmorge",
-     "url": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/experience/zugersee-zmorge/",
-     "title": {
-      "en": "Lake Zug breakfast"
-     },
-     "description": {
-      "en": "Monday to Saturday, 13 April to 17 October as well as on Sundays from 10 May to 20 September 2026 on the scheduled cruise at 9.45 a.m. from Zug."
-     },
-     "price": {
-      "amount": 19.5,
-      "currency": "CHF"
-     },
-     "departures": [
-      {
-       "date": "2026-10-17",
-       "from": "Zug Bahnhofsteg",
-       "depart": "09:45",
-       "to": "Zug Bahnhofsteg",
-       "arrive": "11:55",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/540/19191/43?lang=en"
-      }
-     ]
     }
    ]
   },
   "vlines": {
    "source": "https://www.vorarlberg-lines.at/en/cruises",
-   "fetchedAt": "2026-10-17T09:40:03.896Z",
+   "fetchedAt": "2026-10-18T09:53:20.701Z",
    "cruises": [
     {
      "id": "vlines:captains-brunch-1",
@@ -2293,36 +2148,6 @@
         {
          "pier": "Bregenz",
          "time": "01:00"
-        }
-       ]
-      }
-     ]
-    },
-    {
-     "id": "vlines:toerggele-eve-1",
-     "url": "https://www.vorarlberg-lines.at/en/cruises/pleasure-cruises/toerggele-eve-1",
-     "title": {
-      "en": "Törggele Eve"
-     },
-     "price": {
-      "amount": 83,
-      "currency": "EUR"
-     },
-     "departures": [
-      {
-       "date": "2026-10-17",
-       "from": "Bregenz",
-       "depart": "19:30",
-       "to": "Bregenz",
-       "arrive": "22:00",
-       "stops": [
-        {
-         "pier": "Bregenz",
-         "time": "19:30"
-        },
-        {
-         "pier": "Bregenz",
-         "time": "22:00"
         }
        ]
       }
