@@ -252,3 +252,45 @@ export interface ShopLinksManifest {
   generatedAt: string;
   shopLinks: { path: string; sha256: string; bytes: number };
 }
+
+// Lakes and piers as riders see them, one file for every platform: src/data/directory.json,
+// published to the bucket root as directory-manifest.json + directory.<hash>.json. Apps and the web
+// read names, lists, order and popular piers from here, never from their own code, so a correction
+// or a new pier needs no app release. Additive changes only; bump the version to change a meaning.
+export const DIRECTORY_SCHEMA_VERSION = 1;
+
+export interface DirectoryPier {
+  id: string; // national didok number (exceptions noted in CLAUDE.md)
+  name: string; // short place name riders see, unique within a lake
+  fullName?: string; // official station name, only where it differs; still searchable
+  hasMultiplePiers?: boolean; // several numbered landings, so "Pier 2" is worth showing
+}
+
+export interface DirectoryLake {
+  id: string; // e.g. "lake-lucerne", the id every package uses
+  name: string; // "Lake Lucerne"
+  localName: string; // "Vierwaldstättersee"
+  active: boolean;
+  region: string | null; // a DirectoryRegion id; null for the popular lakes listed first
+  piers: string; // key into pierLists (Neuchâtel and Murten share one)
+  popularPiers: string[]; // most popular first; the first is the lake's hub pier (Schedules)
+}
+
+export interface DirectoryRegion {
+  id: string;
+  label: string; // Switzerland Tourism's region name
+}
+
+export interface DirectoryPackage {
+  schemaVersion: typeof DIRECTORY_SCHEMA_VERSION;
+  note: string;
+  regions: DirectoryRegion[];
+  lakes: DirectoryLake[]; // in Home order
+  pierLists: Record<string, DirectoryPier[]>;
+}
+
+export interface DirectoryManifest {
+  schemaVersion: typeof DIRECTORY_SCHEMA_VERSION;
+  generatedAt: string;
+  directory: { path: string; sha256: string; bytes: number };
+}

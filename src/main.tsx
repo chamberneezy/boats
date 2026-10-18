@@ -3,7 +3,11 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router'
 import './index.css'
 import App from './App.tsx'
-import { getTimetable } from './timetable/client.ts'
+import { DATA_BASE_URL, getTimetable } from './timetable/client.ts'
+import { refreshDirectory } from './directory.ts'
+
+// Lakes and piers: the copy kept on the device, then the newest published one, in the background.
+void refreshDirectory(DATA_BASE_URL)
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

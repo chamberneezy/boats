@@ -95,6 +95,25 @@ else
   FAILED="${FAILED} shop-links"
 fi
 
+# Lakes and piers as riders see them, one file at the bucket root (see src/directory.ts). Every
+# platform reads it from here, so a pier or lake name change needs no app release. Same copy rules
+# and failure handling as the shop links above.
+echo "== Building directory =="
+DIRECTORY_FILE=""
+if npm run build:directory -- --out "${OUT}"; then
+  DIRECTORY_FILE="$(cd "${OUT}/directory" && ls directory.*.json | grep -E '^directory\.[0-9a-f]+\.json$')"
+fi
+if [ -n "${DIRECTORY_FILE}" ] &&
+  gcloud storage cp --no-clobber --cache-control="public, max-age=31536000, immutable" \
+    "${OUT}/directory/${DIRECTORY_FILE}" "${DATA_BUCKET}/${DIRECTORY_FILE}" &&
+  gcloud storage cp --cache-control="public, max-age=300, must-revalidate" \
+    "${OUT}/directory/directory-manifest.json" "${DATA_BUCKET}/directory-manifest.json"; then
+  echo "Published ${DIRECTORY_FILE} to ${DATA_BUCKET}"
+else
+  echo "!! directory failed to build or publish." >&2
+  FAILED="${FAILED} directory"
+fi
+
 if [ -n "${FAILED}" ]; then
   echo "Done, but these did NOT publish:${FAILED}" >&2
   exit 1
