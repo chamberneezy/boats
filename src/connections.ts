@@ -13,7 +13,8 @@ import { readCachedConnections, writeCachedConnections } from './scheduleCache';
 import type { BoatConnection, Connection, ConnectionStatus, ConnectionsResponse, PierOption, Section } from './types';
 import { BOAT_CATEGORIES, timestampToDateTimeParts } from './utils';
 import { extractKurs } from './utils/vesselResolver';
-import { zsgDisruptionReason } from './data/zsgTrafficConditions';
+import { lakeOfPier } from './piers';
+import { isWithdrawnLeg } from './timetable/serviceChanges.ts';
 
 const RESULTS_PAGE_SIZE = 5;
 const REQUEST_TIMEOUT_MS = 20000;
@@ -40,23 +41,17 @@ function deriveStatus(connection: Connection): ConnectionStatus | null {
   return Math.max(...delays) > 0 ? 'delayed' : 'on-time';
 }
 
-// The rider-facing reason a leg is known-cancelled by ZSG's current low-water notice
-// (src/data/zsgTrafficConditions.ts), a manual override until that page publishes something
-// computable, or null if it isn't affected. Harmless no-op for Lucerne: SGV's line numbers
-// never match a Zurich one.
-function knownDisruptionReason(section: Section): string | null {
-  if (!section.journey) return null;
+// Whether the operator has withdrawn this leg on its day (src/data/serviceChanges.json). The
+// timetable package is published without those trips already; this also keeps them out of
+// answers from the public API, its caches and the bundled timetable, and out of a package a
+// device downloaded before the change.
+function isWithdrawn(section: Section): boolean {
+  if (!section.journey) return false;
   const departure = section.departure.departureTimestamp;
-  if (departure === null || departure === undefined) return null;
-  const { date, time } = timestampToDateTimeParts(departure);
-  return zsgDisruptionReason(
-    section.journey.number,
-    extractKurs(section.journey.name),
-    section.departure.station.id,
-    section.arrival.station.id,
-    time,
-    date,
-  );
+  if (departure === null || departure === undefined) return false;
+  const { date } = timestampToDateTimeParts(departure);
+  const fromId = section.departure.station.id;
+  return isWithdrawnLeg(lakeOfPier(fromId) ?? null, section.journey.number, extractKurs(section.journey.name), fromId, section.arrival.station.id, date);
 }
 
 // `useRealtime` is false for stale-cache and bundled-timetable results: delays captured
@@ -68,11 +63,11 @@ function deriveBoatConnections(data: ConnectionsResponse, useRealtime: boolean):
         (section) => section.journey && BOAT_CATEGORIES.has(section.journey.category),
       );
       const baseStatus = useRealtime ? deriveStatus(connection) : ASSUME_ON_TIME_WITHOUT_REALTIME ? ('on-time' as const) : null;
-      const disruptionReason = boatSections.map(knownDisruptionReason).find((reason) => reason !== null) ?? null;
-      const status: ConnectionStatus | null = disruptionReason ? 'cancelled' : baseStatus;
-      return { connection, boatSections, status, disruptionReason };
+      const withdrawn = boatSections.some(isWithdrawn);
+      return { connection, boatSections, status: baseStatus as ConnectionStatus | null, disruptionReason: null, withdrawn };
     })
-    .filter((entry) => entry.boatSections.length > 0);
+    .filter((entry) => entry.boatSections.length > 0 && !entry.withdrawn)
+    .map(({ withdrawn: _withdrawn, ...entry }) => entry);
 }
 
 // A cached response was captured for one specific (date, time) query — the live API only

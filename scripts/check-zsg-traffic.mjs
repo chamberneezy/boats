@@ -2,7 +2,7 @@
 // Checks ZSG's traffic-conditions page (zsg.ch/en/traffic-conditions/) for changes against the
 // last time this script ran, and writes what it found to scripts/zsg-traffic-report.md.
 //
-// This script never touches src/data/zsgTrafficConditions.ts (the actual override the app reads)
+// This script never touches src/data/serviceChanges.json (the withdrawn trips every platform reads)
 // - that file only gets updated by hand, after the owner reviews the report. This script's only
 // job is to notice when the live page no longer matches what was last seen, so nothing goes stale
 // silently.
@@ -79,7 +79,7 @@ async function main() {
   const report = firstRun
     ? `# ZSG traffic-conditions check\n\nFirst run — last checked ${checkedAt}. This snapshot is now the baseline for tomorrow's comparison.\n\n## Current page text\n\n\`\`\`\n${notice}\n\`\`\`\n`
     : changed
-      ? `# ZSG traffic-conditions check\n\n**Changed** — last checked ${checkedAt}. Review before updating \`src/data/zsgTrafficConditions.ts\`.\n\n## Current page text\n\n\`\`\`\n${notice}\n\`\`\`\n\n## Previous snapshot (yesterday's check)\n\n\`\`\`\n${baseline}\n\`\`\`\n`
+      ? `# ZSG traffic-conditions check\n\n**Changed** — last checked ${checkedAt}. Review before updating \`src/data/serviceChanges.json\`.\n\n## Current page text\n\n\`\`\`\n${notice}\n\`\`\`\n\n## Previous snapshot (yesterday's check)\n\n\`\`\`\n${baseline}\n\`\`\`\n`
       : `# ZSG traffic-conditions check\n\nNo change — last checked ${checkedAt}. Matches the previous snapshot.\n`;
 
   await writeFile(reportFile, report);

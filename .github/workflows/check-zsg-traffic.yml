@@ -32,7 +32,7 @@ jobs:
       - run: npm ci
       - run: npm run check:zsg-traffic
       # Only ever stages the checker's own two output files - never
-      # src/data/zsgTrafficConditions.ts, which stays a manual update after review.
+      # src/data/serviceChanges.json (the trips withdrawn on every platform), which stays a manual update after review.
       - run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"

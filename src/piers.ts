@@ -380,6 +380,11 @@ export function findPier(id: string | null | undefined): PierOption | undefined 
   return id ? PIERS_BY_ID.get(id) : undefined;
 }
 
+// The lake a pier belongs to (the first, for the piers Neuchâtel and Murten share).
+export function lakeOfPier(id: string): string | undefined {
+  return Object.keys(PIERS_BY_LAKE).find((lakeId) => PIERS_BY_LAKE[lakeId].some((pier) => pier.id === id));
+}
+
 // Ordered by tourist popularity (not alphabetically), for the empty-state
 // dropdown and the quick-select chips.
 // First pass, not tourism-verified like the three lakes above (hub pier first, then a rough

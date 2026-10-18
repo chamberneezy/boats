@@ -1,0 +1,37 @@
+{
+  "changes": [
+    {
+      "lake": "lake-zurich",
+      "line": "3730",
+      "from": "2026-10-19",
+      "until": null,
+      "note": "ZSG low-water timetable (zsg.ch/en/traffic-conditions/, PDF Niedrigwasser-Fahrplan_V7, valid from 19.10.26, no end date; read 2026-10-18). The Large Lake Cruise is a round trip from Bürkliplatz: 11:20 via Horgen, 13:20 via Meilen. Only the outward legs are in the public timetable; their returns (arriving Bürkliplatz 13:05 and 15:05) are not, so they can't be shown.",
+      "keep": {
+        "105": ["8503651", "8503672"],
+        "109": ["8503651", "8503661"]
+      }
+    },
+    {
+      "lake": "lake-zurich",
+      "line": "3731",
+      "from": "2026-10-19",
+      "until": null,
+      "note": "ZSG low-water timetable (as above): the Small lake cruise runs only Bürkliplatz - Kilchberg, daily 10:30, 11:30, 12:30, 14:30, 15:30, 16:30. The public timetable has 13:30 (Kurs 35) instead of 14:30 (Kurs 41), so 13:30 is withdrawn and 14:30 can't be shown.",
+      "keep": {
+        "17": ["8503651", "8503677"],
+        "23": ["8503651", "8503677"],
+        "29": ["8503651", "8503677"],
+        "41": ["8503651", "8503677"],
+        "47": ["8503651", "8503677"],
+        "53": ["8503651", "8503677"]
+      }
+    },
+    {
+      "lake": "lake-zurich",
+      "line": "3732",
+      "from": "2026-10-19",
+      "until": null,
+      "note": "ZSG low-water timetable (as above): Küsnacht and Erlenbach are not served; the Thalwil boat calls at Küsnacht Goldbach instead, which is not a pier in our data. The whole line is withdrawn until Goldbach is added or the notice ends."
+    }
+  ]
+}

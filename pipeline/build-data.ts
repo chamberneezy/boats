@@ -10,6 +10,7 @@ import { existsSync, mkdirSync, readFileSync, readdirSync, renameSync, rmSync, w
 import { join, resolve } from 'node:path';
 import { parseArgs } from 'node:util';
 import type { TimetableManifest } from '../src/timetable/types.ts';
+import { applyServiceChanges } from '../src/timetable/serviceChanges.ts';
 import { TIMETABLE_SCHEMA_VERSION } from '../src/timetable/types.ts';
 import { buildPackage } from './build-package.ts';
 import { LAKES } from './lakes.ts';
@@ -41,7 +42,9 @@ if (previous && previous.source.feed === feed.name && !values.force) {
   process.exit(0);
 }
 
-const timetable = await buildPackage(feed.zipPath, feed.name, lake, (message) => console.log(`  ${message}`));
+// Trips the operator has withdrawn (src/data/serviceChanges.json) are taken out here, so every
+// platform only offers trips that run on the day.
+const timetable = applyServiceChanges(await buildPackage(feed.zipPath, feed.name, lake, (message) => console.log(`  ${message}`)));
 const json = JSON.stringify(timetable);
 const sha256 = createHash('sha256').update(json).digest('hex');
 

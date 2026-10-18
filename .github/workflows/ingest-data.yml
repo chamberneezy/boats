@@ -6,10 +6,11 @@ on:
   schedule:
     - cron: '0 4,10,16 * * *'
   workflow_dispatch:
-  # A fixed or new "Buy ticket" link should reach iOS/Android right away, not at the next run.
+  # A fixed or new "Buy ticket" link, or a withdrawn trip, should reach iOS/Android right away,
+  # not at the next run.
   push:
     branches: [main]
-    paths: [src/data/shopLinks.json]
+    paths: [src/data/shopLinks.json, src/data/serviceChanges.json]
 
 permissions:
   contents: read
