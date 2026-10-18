@@ -56,31 +56,34 @@ export function LakeDirectory({ cruiseLakeIds }: { cruiseLakeIds: Set<string> })
       </div>
 
       {!mobile && (
+        // Dressed like the search page's cruise showcase: the photo on top with the lake's name on it,
+        // a Deep Lake band under it with the one way on, the search for that lake.
         <Link to={searchHref(current.id)} className="hm-prev" tabIndex={-1} aria-hidden="true">
-          {HOME_LAKES.filter((lake) => seen.has(lake.id) && lake.id in LAKE_PHOTOS).map((lake) => {
-            const on = lake.id === current.id;
-            return (
-              <div key={lake.id} className="hm-abs hm-prev-frame" style={{ opacity: on ? 1 : 0 }}>
-                <img src={lakePhotoLarge(lake.id)} alt="" style={{ transform: `scale(${on && !reduce ? 1.06 : 1})` }} />
-                <div className="hm-abs" />
-              </div>
-            );
-          })}
-          <div className="hm-card hm-prev-card">
-            <div>
-              <span className="hm-prev-label">{current.localName}</span>
+          <div className="hm-prev-photo">
+            {HOME_LAKES.filter((lake) => seen.has(lake.id) && lake.id in LAKE_PHOTOS).map((lake) => {
+              const on = lake.id === current.id;
+              return (
+                <img
+                  key={lake.id}
+                  src={lakePhotoLarge(lake.id)}
+                  alt=""
+                  className="hm-prev-img"
+                  style={{ opacity: on ? 1 : 0, transform: `scale(${on && !reduce ? 1.06 : 1})` }}
+                />
+              );
+            })}
+            <div className="hm-abs hm-prev-scrim" />
+            <div key={current.id} className="hm-prev-title cruise-rise">
+              {cruiseLakeIds.has(current.id) && <span className="hm-prev-tag">Special cruises</span>}
               <span className="hm-prev-name">{current.name}</span>
+              <span className="hm-prev-local">{current.localName}</span>
             </div>
-            <div className="hm-hair" />
-            <div>
-              <span className="hm-prev-label">Piers</span>
-              <span className="hm-prev-piers">{current.piers.map((p) => p.name).join(' · ')}</span>
-            </div>
-            <div className="hm-hair" />
-            <div className="hm-prev-go">
-              <span>Search trips on {current.name}</span>
-              <span className="hm-arrow">→</span>
-            </div>
+          </div>
+          <div className="hm-prev-band">
+            <span>Every pier, every boat on {current.name}.</span>
+            <span className="hm-prev-go">
+              Search trips <span aria-hidden="true">→</span>
+            </span>
           </div>
         </Link>
       )}
