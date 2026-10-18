@@ -62,6 +62,9 @@ export const ALL_LAKE_ZURICH_PIERS: PierOption[] = [
   { id: '8503672', name: 'Horgen', fullName: 'Horgen (See)' },
   { id: '8503677', name: 'Kilchberg', fullName: 'Kilchberg ZH (See)' },
   { id: '8503657', name: 'Küsnacht', fullName: 'Küsnacht ZH (See)' },
+  // ZSG's landing at Goldbach, served instead of Küsnacht during low water (src/data/serviceChanges.json).
+  // Not a boat stop in the national list: the id is Küsnacht Goldbach railway station's.
+  { id: '8503141', name: 'Küsnacht Goldbach', fullName: 'Küsnacht Goldbach' },
   { id: '8503648', name: 'Lachen', fullName: 'Lachen SZ (See)' },
   { id: '8503446', name: 'Landesmuseum', fullName: 'Zürich Landesmuseum (See)' },
   { id: '8530822', name: 'Limmatquai', fullName: 'Zürich Limmatquai' },
