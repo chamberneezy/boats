@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lacus — Swiss lake boat timetables, coming soon</title>
+    <meta name="description" content="Lacus puts the boats of every Swiss lake in one place: every pier, every boat, on all twelve lakes. Coming soon for iPhone, Android and the web." />
+    <link rel="canonical" href="https://lacusapp.ch/" />
+    <meta name="theme-color" content="#16384A" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Lacus" />
+    <meta property="og:url" content="https://lacusapp.ch/" />
+    <meta property="og:title" content="Lacus — every pier, every boat, on all twelve Swiss lakes" />
+    <meta property="og:description" content="Boat timetables for every Swiss lake in one app. Coming soon for iPhone, Android and the web." />
+    <meta property="og:image" content="https://lacusapp.ch/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Lake Lucerne with a paddle steamer at Luzern" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://lacusapp.ch/#organization",
+            "name": "Lacus",
+            "url": "https://lacusapp.ch/",
+            "logo": "https://lacusapp.ch/logo-mark.svg"
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://lacusapp.ch/#website",
+            "name": "Lacus",
+            "url": "https://lacusapp.ch/",
+            "description": "Boat timetables for every Swiss lake: every pier, every boat, on all twelve lakes.",
+            "publisher": { "@id": "https://lacusapp.ch/#organization" },
+            "inLanguage": "en"
+          }
+        ]
+      }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@500;600&family=Karma:wght@400;500&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <!-- What the page says, for crawlers and readers without JavaScript. -->
+    <noscript>
+      <h1>Lacus</h1>
+      <p>Every boat, every lake. Boat timetables for all twelve Swiss lakes: Lake Lucerne, Lake Geneva, Lake Zurich, Lake Constance, Lake Neuchâtel, Lake Lugano, Lake Maggiore, Lake Thun, Lake Brienz, Lake Zug, Lake Murten and Lake Biel.</p>
+      <p>Coming soon for iPhone, Android and the web.</p>
+    </noscript>
+    <script type="module" src="./main.tsx"></script>
+  </body>
+</html>

@@ -8,6 +8,7 @@ import { CruisesDemo } from '../home/CruisesDemo';
 import { CRUISE_LAKES, useCruiseSets } from '../home/cruises';
 import { HERO_SRC, LOGO_SRC } from '../home/data';
 import { LakeDirectory } from '../home/LakeDirectory';
+import { HomeGuide } from '../home/HomeGuide';
 import { MapDemo } from '../home/MapDemo';
 import { SearchDemo } from '../home/SearchDemo';
 import '../home/home.css';
@@ -21,7 +22,7 @@ const CREDITS = [
 ];
 
 export function HomePage() {
-  useDocumentTitle('Lacus — Every pier, every boat');
+  useDocumentTitle('Lacus — Boat timetables for every Swiss lake');
   const cruiseSets = useCruiseSets();
 
   // Until the cruises have loaded, the lakes the teaser covers carry the tag; then the lakes that
@@ -89,6 +90,7 @@ export function HomePage() {
 
         <div className="hm-wrap">
           <LakeDirectory cruiseLakeIds={cruiseLakeIds} />
+          <HomeGuide />
 
           <details className="hm-credits">
             <summary>Photo credits</summary>

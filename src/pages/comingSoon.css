@@ -172,15 +172,30 @@
   right: 0;
   bottom: clamp(20px, 4vmin, 40px);
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
   padding: 0 24px;
   opacity: 0;
   pointer-events: none;
 }
-.cs-caption span {
+.cs-caption-name {
   padding: 8px 16px;
   border-radius: 10px;
   background: var(--color-deep-lake);
   font: 500 clamp(15px, 2vmin, 20px) / 1.4 var(--font-display);
   color: var(--color-chalk);
+}
+
+/* The photo's credit under the lake's name (CC BY-SA asks for it): small, quiet, a link. */
+.cs-caption-credit {
+  pointer-events: auto;
+  font: 400 12px / 1.4 var(--font-body);
+  color: var(--color-chalk);
+  opacity: 0.85;
+  text-decoration: none;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+.cs-caption-credit:hover {
+  text-decoration: underline;
 }

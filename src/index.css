@@ -2,7 +2,7 @@
 
 /* Lacus design system tokens (from the Lacus Design System project:
    tokens/colors.css, tokens/typography.css, tokens/spacing.css). */
-@theme {
+@theme static {
   --color-deep-lake: #16384a;
   --color-alpine-sky: #4a90a4;
   --color-glacier-mist: #edf3f4;

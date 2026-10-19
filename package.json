@@ -18,7 +18,8 @@
     "build:cruises": "node --disable-warning=ExperimentalWarning pipeline/build-cruises.ts",
     "build:shop-links": "node --disable-warning=ExperimentalWarning pipeline/build-shop-links.ts",
     "build:directory": "node --disable-warning=ExperimentalWarning pipeline/build-directory.ts",
-    "test:data": "node --disable-warning=ExperimentalWarning --test \"pipeline/tests/*.test.ts\""
+    "test:data": "node --disable-warning=ExperimentalWarning --test \"pipeline/tests/*.test.ts\"",
+    "build:landing": "tsc -b && vite build --config vite.landing.config.ts"
   },
   "dependencies": {
     "firebase": "^12.19.0",

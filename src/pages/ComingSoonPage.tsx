@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { LAKE_PHOTOS } from '../data/lakePhotos';
 import './comingSoon.css';
 
 // The coming-soon page ("Corner Chip"), ported from design_handoff_coming_soon/reference.
@@ -76,7 +77,8 @@ export function ComingSoonPage() {
     const dim = q<HTMLDivElement>('.cs-dim');
     const panelBg = q<HTMLDivElement>('.cs-panel-bg');
     const caption = q<HTMLDivElement>('.cs-caption');
-    const capName = q<HTMLSpanElement>('.cs-caption span');
+    const capName = q<HTMLSpanElement>('.cs-caption-name');
+    const capCredit = q<HTMLAnchorElement>('.cs-caption-credit');
     const g = {
       pA: q<HTMLDivElement>('.cs-panel'),
       mA: q<HTMLDivElement>('.cs-ghost-mark-a'),
@@ -254,12 +256,17 @@ export function ComingSoonPage() {
 
       // 5. Lake name caption: the text swaps at the middle of each cross-fade.
       caption.style.opacity = String(a(F0 + 0.8, F0 + 1.3, outCubic));
-      const name = LAKES[xe > 0.5 ? nxt : idx][1];
+      const [lakeId, name] = LAKES[xe > 0.5 ? nxt : idx];
       if (name !== lastName) {
         capName.textContent = name;
+        // The photo's credit, which its Creative Commons licence requires, linked to its source.
+        const credit = LAKE_PHOTOS[`lake-${lakeId}`];
+        capCredit.textContent = credit ? `Photo: ${credit.author}, ${credit.license}` : '';
+        capCredit.href = credit?.sourceUrl ?? '';
         lastName = name;
       }
       capName.style.opacity = String(x > 0 ? Math.abs(xe - 0.5) * 2 : 1);
+      capCredit.style.opacity = capName.style.opacity;
     }
 
     // Reduced motion: the settled final state, no animation and no cycling.
@@ -383,8 +390,11 @@ export function ComingSoonPage() {
       </svg>
       <h1 className="cs-fly-word">Lacus</h1>
 
-      <div className="cs-caption" aria-hidden="true">
-        <span>Lake Lucerne</span>
+      <div className="cs-caption">
+        <span className="cs-caption-name" aria-hidden="true">Lake Lucerne</span>
+        <a className="cs-caption-credit" href={LAKE_PHOTOS['lake-lucerne'].sourceUrl} target="_blank" rel="noreferrer">
+          Photo: {LAKE_PHOTOS['lake-lucerne'].author}, {LAKE_PHOTOS['lake-lucerne'].license}
+        </a>
       </div>
     </main>
   );

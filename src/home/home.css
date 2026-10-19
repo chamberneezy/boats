@@ -962,6 +962,90 @@
   font-size: 12px;
 }
 
+/* "Boats on Swiss lakes" (HomeGuide): the page in words, below the lakes; the lakes list's type,
+   hairlines and muted body, nothing louder. */
+.hm-guide {
+  padding: 8px 64px 96px;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+.hm-guide-head {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 760px;
+}
+.hm-guide-title {
+  margin: 0;
+  font: 600 40px/48px var(--font-display);
+}
+.hm-guide-lead {
+  margin: 0;
+  font: 400 17px/26px var(--font-body);
+}
+.hm-guide-points {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 40px;
+  border-top: 1px solid var(--color-hairline);
+  padding-top: 32px;
+}
+.hm-guide-point h3 {
+  margin: 0 0 8px;
+  font: 600 18px/1.4 var(--font-display);
+}
+.hm-guide-point p {
+  margin: 0;
+  font: 400 15px/23px var(--font-body);
+  /* Paragraphs, so softened Deep Lake rather than Stone Grey, which is too faint to read at length. */
+  color: color-mix(in srgb, var(--color-deep-lake) 78%, transparent);
+}
+.hm-guide-faq {
+  display: flex;
+  flex-direction: column;
+  max-width: 860px;
+}
+.hm-guide-faq-title {
+  margin: 0 0 8px;
+  font: 600 20px/1.4 var(--font-display);
+}
+.hm-guide-q {
+  border-bottom: 1px solid var(--color-hairline);
+}
+.hm-guide-q:first-of-type {
+  border-top: 1px solid var(--color-hairline);
+}
+.hm-guide-q summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 0;
+  font: 500 17px/1.4 var(--font-display);
+}
+.hm-guide-q summary::-webkit-details-marker {
+  display: none;
+}
+.hm-guide-q summary::after {
+  content: '+';
+  font: 500 22px/1 var(--font-display);
+  color: var(--color-alpine-sky);
+  transition: transform 0.2s ease;
+}
+.hm-guide-q[open] summary::after {
+  transform: rotate(45deg);
+}
+.hm-guide-q p {
+  margin: 0;
+  padding: 0 0 18px;
+  max-width: 720px;
+  font: 400 15px/23px var(--font-body);
+  color: color-mix(in srgb, var(--color-deep-lake) 78%, transparent);
+}
+
 @media (max-width: 1199px) {
   .hm-wrap {
     max-width: 640px;
@@ -1330,6 +1414,30 @@
   from {
     opacity: 0;
     transform: translateY(8px);
+  }
+}
+
+@media (max-width: 1199px) {
+  .hm-guide {
+    padding: 8px 20px 56px;
+    gap: 32px;
+  }
+  .hm-guide-head {
+    gap: 10px;
+  }
+  .hm-guide-title {
+    font: 600 28px/34px var(--font-display);
+  }
+  .hm-guide-lead {
+    font: 400 15px/22px var(--font-body);
+  }
+  .hm-guide-points {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    padding-top: 24px;
+  }
+  .hm-guide-q summary {
+    font-size: 16px;
   }
 }
 
