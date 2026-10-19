@@ -11,6 +11,9 @@ import { inline, tableRows, type GuideBlock } from './markdown';
 
 /** A pier of the lake by the name the guide uses ("Küssnacht am Rigi", "Gersau (car ferry)"). */
 function pierNamed(lakeId: string, text: string): PierOption | undefined {
+  // The name as written first ("Môtier (Vully)"), then without a note in brackets ("(car ferry)").
+  const exact = searchPiers(lakeId, text.trim()).find((pier) => isExactPierName(pier, text));
+  if (exact) return exact;
   const name = text.replace(/\s*\(.*\)\s*$/, '').trim();
   const candidates = searchPiers(lakeId, name.split(/[\s-]/)[0]);
   return (
