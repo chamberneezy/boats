@@ -12,10 +12,11 @@ const SEARCH_TO = searchPath(DEFAULT_LAKE_ID);
 // Inert until that screen exists.
 const WEB_INERT_ITEMS = ['Help'];
 
-type Section = 'home' | 'search' | 'schedules' | 'account';
+type Section = 'home' | 'search' | 'lakes' | 'schedules' | 'account';
 
 function useSection(pathname: string): { section: Section; lakeName: string | null; lakeId?: string } {
   if (pathname.startsWith('/schedules')) return { section: 'schedules', lakeName: 'Scheduled' };
+  if (pathname.startsWith('/lakes')) return { section: 'lakes', lakeName: 'Lakes' };
   if (pathname.startsWith(ACCOUNT_PATH)) return { section: 'account', lakeName: 'Account' };
   const lakeId = (matchPath('/search/:lake', pathname) ?? matchPath('/trip/:lake', pathname))?.params.lake;
   if (!lakeId) return { section: 'home', lakeName: null };
@@ -44,6 +45,9 @@ function WebNav({ section }: { section: Section }) {
           </Link>
           <Link to={SEARCH_TO} aria-current={section === 'search' ? 'page' : undefined} className={linkClass(section === 'search')}>
             Search trips
+          </Link>
+          <Link to="/lakes" aria-current={section === 'lakes' ? 'page' : undefined} className={linkClass(section === 'lakes')}>
+            Lakes
           </Link>
           <Link to="/schedules" aria-current={section === 'schedules' ? 'page' : undefined} className={linkClass(section === 'schedules')}>
             Timetables

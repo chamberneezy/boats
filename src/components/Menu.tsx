@@ -3,12 +3,14 @@ import { Close, Menu, Search } from '../icons/lacus';
 import { Link, useLocation } from 'react-router';
 import { ACCOUNTS_ENABLED } from '../account/auth';
 import { MenuContext, useMenu } from '../menu';
-import { ACCOUNT_PATH } from '../routes';
+import { DEFAULT_LAKE_ID } from '../lakes';
+import { ACCOUNT_PATH, searchPath } from '../routes';
 
 const LOGO_SRC = `${import.meta.env.BASE_URL}logo-mark.svg`;
 
 // Inert until those screens exist. Account is live wherever accounts are configured (dev today).
-const MENU_INERT_ITEMS = ACCOUNTS_ENABLED ? ['Tickets'] : ['Tickets', 'Account'];
+// No Tickets: Lacus sells nothing; tickets are bought from each lake's operator (owner, 2026-10-19).
+const MENU_INERT_ITEMS = ACCOUNTS_ENABLED ? ['Help'] : ['Help', 'Account'];
 
 // The menu pushes the page aside, never covering it. Phones: it slides in from the left, fills the
 // whole screen, and the page slides fully out of view. Desktop: a 400px drawer on the right, where
@@ -84,8 +86,14 @@ export function MenuPanel() {
           <Link to="/" onClick={close} className={`${row} text-deep-lake`}>
             Home
           </Link>
+          <Link to={searchPath(DEFAULT_LAKE_ID)} onClick={close} className={`${row} text-deep-lake`}>
+            Search trips
+          </Link>
+          <Link to="/lakes" onClick={close} className={`${row} text-deep-lake`}>
+            Lakes
+          </Link>
           <Link to="/schedules" onClick={close} className={`${row} text-deep-lake`}>
-            Schedules
+            Timetables
           </Link>
           {MENU_INERT_ITEMS.map((item) => (
             <div key={item} className={`${row} flex items-baseline justify-between text-stone-grey`}>

@@ -11,6 +11,7 @@ export const HERO_SRC = `${BASE}hero/${encodeURIComponent('Lacus Hero 3D B - Rel
 export const STAGE_MAP_SRC = `${BASE}hero/stage.html`;
 export const MAP_SRC = `${BASE}hero/map.html`;
 export const LOGO_SRC = `${BASE}logo-mark.svg`;
+export const lakePhoto = (lakeId: string) => `${BASE}lakes/${lakeId}.jpg`;
 export const lakePhotoLarge = (lakeId: string) => `${BASE}lakes/full/${lakeId}-1920.jpg`;
 export const homePhoto = (key: string) => `${BASE}home/${key}.jpg`;
 

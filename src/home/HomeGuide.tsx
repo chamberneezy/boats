@@ -40,8 +40,8 @@ const QUESTIONS: { q: string; a: string }[] = [
     a: 'On most regular lake boats the GA travelcard and the Swiss Travel Pass are valid, and the Half Fare travelcard gives 50% off. Special cruises are usually sold separately; each operator’s shop has the details.',
   },
   {
-    q: 'Where do I buy a ticket?',
-    a: 'From the boat operator. Lacus links each trip to the operator’s own web shop, and on many lines you can also buy a ticket at the pier.',
+    q: 'Can I buy tickets in Lacus?',
+    a: 'No. Lacus doesn’t sell tickets or anything else. You buy your ticket online from the operator that runs the boats on that lake; Lacus links each trip to the operator’s own web shop.',
   },
   {
     q: 'Is Lacus free?',

@@ -7,6 +7,8 @@ import { AccountPage } from './pages/AccountPage';
 import { ComingSoonPage } from './pages/ComingSoonPage';
 import { HomePage } from './pages/HomePage';
 import { SchedulesPage } from './pages/SchedulesPage';
+import { LakesPage } from './pages/LakesPage';
+import { LakeGuidePage } from './pages/LakeGuidePage';
 import { SearchPage } from './pages/SearchPage';
 import { TripPage } from './pages/TripPage';
 import { ACCOUNT_PATH, COMING_SOON_PATH } from './routes';
@@ -52,6 +54,8 @@ function App() {
       <Route element={<Layout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/schedules" element={<SchedulesPage />} />
+        <Route path="/lakes" element={<LakesPage />} />
+        <Route path="/lakes/:slug" element={<LakeGuidePage />} />
         <Route path="/search/:lake" element={<SearchPage />} />
         <Route path="/trip/:lake" element={<TripPage />} />
         <Route path={ACCOUNT_PATH} element={<AccountPage />} />
