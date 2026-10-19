@@ -3,6 +3,7 @@ import { Navigate, useNavigate, useParams, useSearchParams } from 'react-router'
 import { Button } from '../components/Button';
 import { CruiseTeaser } from '../components/CruiseTeaser';
 import { DepartureCard } from '../components/DepartureCard';
+import { LakeNotices } from '../components/LakeNotices';
 import { SearchForm } from '../components/SearchForm';
 import { SearchLayout } from '../components/SearchLayout';
 import { loadLaterConnections, searchConnections } from '../connections';
@@ -198,6 +199,9 @@ export function SearchPage() {
         onExpand={() => setIsCollapsed(false)}
         onSwapSearch={handleSwapSearch}
       />
+
+      {/* What is off from normal on this lake on the day searched (low water, a pier not served). */}
+      <LakeNotices lakeId={lake.id} date={query?.date ?? date} className="mt-4" />
 
       <section className="mt-8 flex flex-col gap-4" aria-live="polite">
         {error && (

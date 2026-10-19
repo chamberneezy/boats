@@ -18,6 +18,7 @@
     "build:cruises": "node --disable-warning=ExperimentalWarning pipeline/build-cruises.ts",
     "build:shop-links": "node --disable-warning=ExperimentalWarning pipeline/build-shop-links.ts",
     "build:directory": "node --disable-warning=ExperimentalWarning pipeline/build-directory.ts",
+    "build:notices": "node --disable-warning=ExperimentalWarning pipeline/build-notices.ts",
     "test:data": "node --disable-warning=ExperimentalWarning --test \"pipeline/tests/*.test.ts\"",
     "build:landing": "tsc -b && vite build --config vite.landing.config.ts"
   },

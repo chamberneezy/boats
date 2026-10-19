@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "note": "Notices on lakes whose timetable is off from normal, shown on that lake's search on every platform (web, iOS, Android) from `from` to `until` (null = until further notice). Edit here, never in app code; a push to main publishes it to the data bucket. Only what the operator itself announces, with its page as the source; update `updated` whenever the text is checked again. A lake with a change in serviceChanges.json needs a notice that explains it (npm run test:data checks). Remove a notice when the operator returns to normal.",
+  "notices": [
+    {
+      "id": "zsg-low-water-2026",
+      "lakeId": "lake-zurich",
+      "from": "2026-10-19",
+      "until": null,
+      "title": "Low water: reduced timetable",
+      "details": [
+        "Since 19 October 2026, ZSG has run a low-water timetable on Lake Zurich. No end date has been announced.",
+        "Küsnacht and Erlenbach are not served. The Thalwil boat calls at Küsnacht Goldbach instead.",
+        "The short lake cruise runs only between Bürkliplatz and Kilchberg. The long lake cruise is a round trip from Bürkliplatz via Horgen or Meilen; Lacus shows only the way out, because the official timetable doesn't have the way back.",
+        "For 1 to 12 December, the official timetable doesn't have the low-water times yet, so trips shown for those days may change.",
+        "Because of steep ramps, ZSG advises against bringing wheelchairs or pushchairs on its boats."
+      ],
+      "source": {
+        "name": "ZSG traffic conditions",
+        "url": "https://www.zsg.ch/en/traffic-conditions/"
+      },
+      "updated": "2026-10-19"
+    },
+    {
+      "id": "bls-brienz-low-water-2026",
+      "lakeId": "lake-brienz",
+      "from": "2026-10-19",
+      "until": null,
+      "title": "Low water: Niederried not served",
+      "details": [
+        "Because of low water, BLS can't serve the landing stage at Niederried. No end date has been announced, and Lacus shows the boats without the Niederried stop.",
+        "The boats run with a smaller vessel, so space is limited and BLS can't guarantee boarding.",
+        "At Ringgenberg and Oberried you can only board by stairs, so not with a wheelchair. Boarding at Iseltwald and Bönigen is very steep."
+      ],
+      "source": {
+        "name": "BLS current operating situation",
+        "url": "https://www.bls-schiff.ch/en/lake-cruise/timetable/current-operating-situation-lake-thun-and-lake-brienz"
+      },
+      "updated": "2026-10-19"
+    }
+  ]
+}

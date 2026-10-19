@@ -294,3 +294,36 @@ export interface DirectoryManifest {
   generatedAt: string;
   directory: { path: string; sha256: string; bytes: number };
 }
+
+// Notices: a short message on a lake whose timetable is off from normal (low water, a pier not
+// served), one file for every platform: src/data/notices.json, published to the bucket root as
+// notices-manifest.json + notices.<hash>.json, like the directory above. Apps and the web show a
+// notice on that lake's search (a slim bar with the title; a tap shows the details) on the days
+// from `from` to `until`, so wording changes, new notices and removals need no app release. The
+// text is the operator's own announcement in our words, never a guess; trips the operator has
+// withdrawn are still handled by serviceChanges.json, the notice only explains them.
+// Additive changes only; bump the version to change a meaning.
+export const NOTICES_SCHEMA_VERSION = 1;
+
+export interface LakeNotice {
+  id: string; // stable, e.g. "zsg-low-water-2026"; lets an app remember a notice it showed
+  lakeId: string; // the lake whose search shows it, e.g. "lake-zurich"
+  from: string; // first day it applies, YYYY-MM-DD (Swiss date)
+  until: string | null; // last day it applies, inclusive; null = until further notice
+  title: string; // the bar's text, short: "Low water: reduced timetable"
+  details: string[]; // what a tap shows, one short paragraph each, in order
+  source: { name: string; url: string }; // the operator's own page, linked under the details
+  updated: string; // YYYY-MM-DD the text was last checked against the source
+}
+
+export interface NoticesPackage {
+  schemaVersion: typeof NOTICES_SCHEMA_VERSION;
+  note: string;
+  notices: LakeNotice[];
+}
+
+export interface NoticesManifest {
+  schemaVersion: typeof NOTICES_SCHEMA_VERSION;
+  generatedAt: string;
+  notices: { path: string; sha256: string; bytes: number };
+}

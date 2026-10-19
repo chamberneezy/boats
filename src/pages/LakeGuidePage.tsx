@@ -7,6 +7,7 @@ import { useEffect, useMemo } from 'react';
 import { Link, Navigate, useParams } from 'react-router';
 import { CruiseTeaser } from '../components/CruiseTeaser';
 import { LakeMapPanel } from '../components/LakeMapPanel';
+import { LakeNotices } from '../components/LakeNotices';
 import { LAKE_PHOTOS } from '../data/lakePhotos';
 import { guideBySlug, LAKES_PATH } from '../guides/guides';
 import { GuideBody, GuideSearchCard } from '../guides/GuideBody';
@@ -77,6 +78,9 @@ export function LakeGuidePage() {
               Search trips
             </Link>
           </div>
+
+          {/* Today's notices on this lake: the guide describes the normal timetable. */}
+          <LakeNotices lakeId={guide.lakeId} className="mt-4" />
 
           <GuideBody blocks={rest} lakeId={guide.lakeId} lakeName={lakeName} />
 

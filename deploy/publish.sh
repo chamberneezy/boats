@@ -114,6 +114,25 @@ else
   FAILED="${FAILED} directory"
 fi
 
+# Notices on lakes whose timetable is off from normal, one file at the bucket root (see
+# src/notices.ts). Every platform reads it from here, so a notice is added, reworded or removed
+# without an app release. Same copy rules and failure handling as the shop links above.
+echo "== Building notices =="
+NOTICES_FILE=""
+if npm run build:notices -- --out "${OUT}"; then
+  NOTICES_FILE="$(cd "${OUT}/notices" && ls notices.*.json | grep -E '^notices\.[0-9a-f]+\.json$')"
+fi
+if [ -n "${NOTICES_FILE}" ] &&
+  gcloud storage cp --no-clobber --cache-control="public, max-age=31536000, immutable" \
+    "${OUT}/notices/${NOTICES_FILE}" "${DATA_BUCKET}/${NOTICES_FILE}" &&
+  gcloud storage cp --cache-control="public, max-age=300, must-revalidate" \
+    "${OUT}/notices/notices-manifest.json" "${DATA_BUCKET}/notices-manifest.json"; then
+  echo "Published ${NOTICES_FILE} to ${DATA_BUCKET}"
+else
+  echo "!! notices failed to build or publish." >&2
+  FAILED="${FAILED} notices"
+fi
+
 if [ -n "${FAILED}" ]; then
   echo "Done, but these did NOT publish:${FAILED}" >&2
   exit 1
