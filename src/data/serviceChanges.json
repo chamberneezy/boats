@@ -31,6 +31,24 @@
     {
       "lake": "lake-zurich",
       "line": "3731",
+      "from": "2026-11-01",
+      "until": "2026-11-30",
+      "note": "ZSG low-water timetable (as above). From 1 November the public timetable already has it, but under line 3731: the Small lake cruise as Kurs 617-653 (10:30, 11:30, 12:30, 14:30, 15:30, 16:30, Bürkliplatz - Kilchberg) and the Thalwil boat's daytime trips (Monday to Friday 09:08-19:28, Saturday and Sunday 10:28-14:40), still calling at Küsnacht. Checked against feed gtfs_fp2026_20261017 and the PDF on 2026-10-19: the same trips and times. So every trip runs; the Thalwil boat calls at Küsnacht Goldbach instead of Küsnacht. Listed before the October entry, which still covers December: the feed's 1-12 December is the regular winter timetable, not yet the low-water one.",
+      "moveStops": {
+        "8503657": "8503141"
+      },
+      "keep": {
+        "*": [
+          "8503651",
+          "8503677",
+          "8503674",
+          "8503141"
+        ]
+      }
+    },
+    {
+      "lake": "lake-zurich",
+      "line": "3731",
       "from": "2026-10-19",
       "until": null,
       "note": "ZSG low-water timetable (as above): the Small lake cruise runs only Bürkliplatz - Kilchberg, daily 10:30, 11:30, 12:30, 14:30, 15:30, 16:30. The public timetable has 13:30 (Kurs 35) instead of 14:30 (Kurs 41), so 13:30 is withdrawn and 14:30 can't be shown.",
@@ -133,6 +151,114 @@
         "38": [
           "8503674",
           "8503141"
+        ]
+      }
+    },
+    {
+      "lake": "lake-brienz",
+      "line": "59",
+      "from": "2026-10-19",
+      "until": null,
+      "note": "BLS, current operating situation (bls-schiff.ch/en/lake-cruise/timetable/current-operating-situation-lake-thun-and-lake-brienz, last update 19 October 2026, read 2026-10-19): \"Niederried stop not served: Due to low water levels, the landing stage at Niederried cannot be served.\" No end date. The boat runs; it no longer calls at Niederried. Remove when BLS serves Niederried again.",
+      "keep": {
+        "*": [
+          "8508370",
+          "8508371",
+          "8508372",
+          "8508374",
+          "8508376",
+          "8508378",
+          "8508379"
+        ]
+      }
+    },
+    {
+      "lake": "lake-brienz",
+      "line": "62",
+      "from": "2026-10-19",
+      "until": null,
+      "note": "BLS, current operating situation (bls-schiff.ch/en/lake-cruise/timetable/current-operating-situation-lake-thun-and-lake-brienz, last update 19 October 2026, read 2026-10-19): \"Niederried stop not served: Due to low water levels, the landing stage at Niederried cannot be served.\" No end date. The boat runs; it no longer calls at Niederried. Remove when BLS serves Niederried again.",
+      "keep": {
+        "*": [
+          "8508370",
+          "8508371",
+          "8508372",
+          "8508374",
+          "8508376",
+          "8508378",
+          "8508379"
+        ]
+      }
+    },
+    {
+      "lake": "lake-brienz",
+      "line": "66",
+      "from": "2026-10-19",
+      "until": null,
+      "note": "BLS, current operating situation (bls-schiff.ch/en/lake-cruise/timetable/current-operating-situation-lake-thun-and-lake-brienz, last update 19 October 2026, read 2026-10-19): \"Niederried stop not served: Due to low water levels, the landing stage at Niederried cannot be served.\" No end date. The boat runs; it no longer calls at Niederried. Remove when BLS serves Niederried again.",
+      "keep": {
+        "*": [
+          "8508370",
+          "8508371",
+          "8508372",
+          "8508374",
+          "8508376",
+          "8508378",
+          "8508379"
+        ]
+      }
+    },
+    {
+      "lake": "lake-brienz",
+      "line": "67",
+      "from": "2026-10-19",
+      "until": null,
+      "note": "BLS, current operating situation (bls-schiff.ch/en/lake-cruise/timetable/current-operating-situation-lake-thun-and-lake-brienz, last update 19 October 2026, read 2026-10-19): \"Niederried stop not served: Due to low water levels, the landing stage at Niederried cannot be served.\" No end date. The boat runs; it no longer calls at Niederried. Remove when BLS serves Niederried again.",
+      "keep": {
+        "*": [
+          "8508370",
+          "8508371",
+          "8508372",
+          "8508374",
+          "8508376",
+          "8508378",
+          "8508379"
+        ]
+      }
+    },
+    {
+      "lake": "lake-brienz",
+      "line": "73",
+      "from": "2026-10-19",
+      "until": null,
+      "note": "BLS, current operating situation (bls-schiff.ch/en/lake-cruise/timetable/current-operating-situation-lake-thun-and-lake-brienz, last update 19 October 2026, read 2026-10-19): \"Niederried stop not served: Due to low water levels, the landing stage at Niederried cannot be served.\" No end date. The boat runs; it no longer calls at Niederried. Remove when BLS serves Niederried again.",
+      "keep": {
+        "*": [
+          "8508370",
+          "8508371",
+          "8508372",
+          "8508374",
+          "8508376",
+          "8508378",
+          "8508379"
+        ]
+      }
+    },
+    {
+      "lake": "lake-brienz",
+      "line": "165",
+      "from": "2026-10-19",
+      "until": null,
+      "note": "BLS, current operating situation (bls-schiff.ch/en/lake-cruise/timetable/current-operating-situation-lake-thun-and-lake-brienz, last update 19 October 2026, read 2026-10-19): \"Niederried stop not served: Due to low water levels, the landing stage at Niederried cannot be served.\" No end date. The boat runs; it no longer calls at Niederried. Remove when BLS serves Niederried again.",
+      "keep": {
+        "*": [
+          "8508370",
+          "8508371",
+          "8508372",
+          "8508374",
+          "8508376",
+          "8508378",
+          "8508379"
         ]
       }
     }
