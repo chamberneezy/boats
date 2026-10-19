@@ -1,10 +1,28 @@
 // The guide's text in the site's type: Kanit headings, Karma body, tables as white cards with
-// hairlines, questions that open and close as on Home.
+// hairlines, questions that open and close as on Home, credited photos. A table whose first two
+// columns are From and To gets a "Search" on each row: that trip in the search, for now.
+import { Link } from 'react-router';
+import { HOME_PHOTOS } from '../data/homePhotos';
+import { homePhoto, searchHref } from '../home/data';
+import { searchPiers, isExactPierName } from '../piers';
+import type { PierOption } from '../types';
 import { inline, tableRows, type GuideBlock } from './markdown';
 
+/** A pier of the lake by the name the guide uses ("Küssnacht am Rigi", "Gersau (car ferry)"). */
+function pierNamed(lakeId: string, text: string): PierOption | undefined {
+  const name = text.replace(/\s*\(.*\)\s*$/, '').trim();
+  const candidates = searchPiers(lakeId, name.split(/[\s-]/)[0]);
+  return (
+    candidates.find((pier) => isExactPierName(pier, name)) ??
+    candidates.find((pier) => name.startsWith(`${pier.name} `)) ??
+    searchPiers(lakeId, name).find((pier) => isExactPierName(pier, name))
+  );
+}
+
+const TH = 'border-b border-hairline px-4 py-3 text-left align-bottom font-display text-[13px] font-medium text-stone-grey';
 const BODY = 'm-0 font-body text-[16px] leading-[26px] text-deep-lake md:text-[17px] md:leading-[27px]';
 
-export function GuideBody({ blocks }: { blocks: GuideBlock[] }) {
+export function GuideBody({ blocks, lakeId }: { blocks: GuideBlock[]; lakeId: string }) {
   return (
     <div className="mt-8 flex flex-col gap-5 md:mt-10">
       {blocks.map((block, i) => {
@@ -29,8 +47,27 @@ export function GuideBody({ blocks }: { blocks: GuideBlock[] }) {
                 ))}
               </ul>
             );
+          case 'img': {
+            const [key, alt] = block.lines;
+            const credit = HOME_PHOTOS[key];
+            return (
+              <figure key={i} className="m-0 overflow-hidden rounded-[16px] bg-deep-lake shadow-card">
+                <img src={homePhoto(key)} alt={alt} loading="lazy" className="block aspect-[16/9] w-full object-cover" />
+                {credit && (
+                  <figcaption className="bg-surface-card px-4 py-2 font-body text-[12px] text-stone-grey">
+                    {alt}. Photo:{' '}
+                    <a href={credit.sourceUrl} target="_blank" rel="noreferrer" className="text-inherit">
+                      {credit.author}
+                    </a>
+                    , {credit.license}
+                  </figcaption>
+                )}
+              </figure>
+            );
+          }
           case 'table': {
             const { head, rows } = tableRows(block.lines);
+            if (head?.[0] === 'From' && head?.[1] === 'To') return <TripTable key={i} lakeId={lakeId} head={head} rows={rows} />;
             return (
               <div key={i} className="overflow-x-auto rounded-[14px] bg-surface-card shadow-card">
                 <table className="w-full border-collapse font-body text-[14px] leading-5 text-deep-lake md:text-[15px]">
@@ -38,7 +75,7 @@ export function GuideBody({ blocks }: { blocks: GuideBlock[] }) {
                     <thead>
                       <tr>
                         {head.map((cell, j) => (
-                          <th key={j} className="whitespace-nowrap border-b border-hairline px-4 py-3 text-left font-display text-[13px] font-medium text-stone-grey">
+                          <th key={j} className={TH}>
                             {cell}
                           </th>
                         ))}
@@ -78,6 +115,64 @@ export function GuideBody({ blocks }: { blocks: GuideBlock[] }) {
             return null;
         }
       })}
+    </div>
+  );
+}
+
+// Popular trips (columns From, To, fastest, most boats, then boats per day): one row a trip, the trip
+// itself a link into its search for now, the usual time with the fastest under it when it differs.
+function TripTable({ lakeId, head, rows }: { lakeId: string; head: string[]; rows: string[][] }) {
+  const counts = head.slice(4);
+  const short = (label: string) => label.replace(/^Boats per day,\s*/i, '').replace(/^./, (c) => c.toUpperCase());
+  return (
+    <div className="overflow-hidden rounded-[14px] bg-surface-card shadow-card">
+      <table className="w-full border-collapse font-body text-[14px] leading-5 text-deep-lake md:text-[15px]">
+        <thead>
+          <tr>
+            <th className={TH}>Trip</th>
+            <th className={TH}>Time</th>
+            {counts.map((label) => (
+              <th key={label} className={`${TH} text-right`}>
+                <span className="hidden md:inline">Boats a day, </span>
+                {short(label).toLowerCase()}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map(([fromName, toName, fastest, usual, ...perDay], j) => {
+            const from = pierNamed(lakeId, fromName);
+            const to = pierNamed(lakeId, toName);
+            const trip = (
+              <>
+                {fromName} → {toName}
+              </>
+            );
+            return (
+              <tr key={j} className="border-b border-hairline last:border-0">
+                <td className="px-3 py-3 align-top font-display font-medium md:px-4">
+                  {from && to ? (
+                    <Link to={searchHref(lakeId, from, to)} className="text-deep-lake no-underline hover:text-alpine-sky">
+                      {trip} <span className="text-alpine-sky">›</span>
+                    </Link>
+                  ) : (
+                    trip
+                  )}
+                </td>
+                <td className="whitespace-nowrap px-3 py-3 align-top tabular-nums md:px-4">
+                  {usual.replace(/^about /, '')}
+                  {fastest !== usual && <div className="text-[12px] text-stone-grey">fastest {fastest.replace(/^about /, '')}</div>}
+                </td>
+                {perDay.map((count, k) => (
+                  <td key={k} className="px-3 py-3 text-right align-top tabular-nums md:px-4">
+                    {count}
+                  </td>
+                ))}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     </div>
   );
 }

@@ -10,7 +10,8 @@ const SECONDS_EACH = 6;
 // on to the next cruise every few seconds until one is picked. Cruises are an app feature: date,
 // title and price only here (no times, no booking), and the way to the apps.
 // A lake with no upcoming cruise in our data shows nothing.
-export function CruiseTeaser({ lakeId, lakeName }: { lakeId: string; lakeName: string }) {
+// `compact` (a lake guide's narrow side column): no row of small cruise tiles; the dashes pick.
+export function CruiseTeaser({ lakeId, lakeName, compact = false }: { lakeId: string; lakeName: string; compact?: boolean }) {
   const ref = useRef<HTMLElement>(null);
   const set = useLakeCruises(lakeId, lakeName);
   const reduce = useReducedMotion();
@@ -63,7 +64,7 @@ export function CruiseTeaser({ lakeId, lakeName }: { lakeId: string; lakeName: s
         </div>
       </div>
 
-      {items.length > 1 && (
+      {!compact && items.length > 1 && (
         <div ref={row} className="flex gap-2 overflow-x-auto p-3 [scrollbar-width:none] md:grid md:grid-cols-4 md:p-4">
           {items.map((item, i) => (
             <button

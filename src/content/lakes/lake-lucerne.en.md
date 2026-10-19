@@ -21,6 +21,8 @@ In Luzern, the boats leave from the lakefront opposite the railway station. They
 - Pier 2: Alpnachstad (for Pilatus)
 - Pier 3: Küssnacht am Rigi and Bürgenstock
 
+![Luzern, the Chapel Bridge on the river Reuss](photo:lake-lucerne-day)
+
 The longest regular route runs from Luzern along the whole lake to Flüelen, at the southern end. On the way it calls at Weggis, Vitznau, Beckenried, Gersau, Treib, Brunnen and the Rütli. Shorter routes go south-west to Hergiswil, Stansstad and Alpnachstad, north-east to Küssnacht am Rigi, and across to Kehrsiten-Bürgenstock.
 
 A car ferry links Beckenried and Gersau across the lake in about 20 minutes. It also takes foot passengers and bicycles. A separate company, Autofähre Vierwaldstättersee, runs it, not SGV. It runs roughly every hour from spring to autumn and stops for the winter. The 2027 season runs from 26 March to 10 October 2027. Tickets for the ferry are sold only on board.
@@ -94,6 +96,8 @@ A route ticket lets you get off and back on along the way. For example, a Luzern
 
 Besides the timetable, SGV runs special cruises such as brunch, fondue and New Year's Eve evenings. Recent examples include the Fondue and Raclette Steamboat, the Brunch Steamer and the New Year's Eve Gala Cruise. Lacus lists these special cruises, with their dates, boats and times, in the app.
 
+![A cheese fondue, as served on the fondue boats](photo:theme-fondue)
+
 ## Lake facts
 
 | | |
@@ -106,6 +110,12 @@ Besides the timetable, SGV runs special cruises such as brunch, fondue and New Y
 - Its German name, Vierwaldstättersee, means the lake of the four forest cantons: Uri, Schwyz, Unterwalden and Lucerne.
 - The Rütli meadow on its shore is the traditional founding place of the Swiss Confederation.
 - The lake has several arms, so a boat from Luzern to Flüelen changes direction again and again.
+
+## Lake Lucerne in Lacus
+
+Search trips between any two of the lake's piers, on this website or in the Lacus app, for any date in the timetable. Each result shows the boat that runs it, when SGV publishes it, and opens SGV's shop with your trip filled in when you want to buy a ticket.
+
+With Lacus Premium in the app, you can also pick your piers on a 3D map of the lake and see SGV's special cruises with their dates, boats and prices.
 
 ## Frequently asked questions
 

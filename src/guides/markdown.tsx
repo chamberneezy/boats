@@ -1,12 +1,13 @@
 // The lake guides' Markdown (src/content/lakes/*.md), drawn with the site's own type: the small part
 // of Markdown the guides use and nothing more. Headings (#, ##), paragraphs, lists (-), tables, a
-// rule (---), **bold** and [links](url). Under the "Frequently asked questions" heading, a
+// rule (---), **bold**, [links](url) and photos on a line of their own, ![alt](photo:<key>), where
+// <key> is a credited photo of public/home/ (src/data/homePhotos.ts). Under the "Frequently asked questions" heading, a
 // paragraph that starts with a **bold question** line becomes an open/close question, as on Home.
 // No HTML in the text is ever rendered as HTML.
 import type { ReactNode } from 'react';
 
 export interface GuideBlock {
-  kind: 'h1' | 'h2' | 'p' | 'ul' | 'table' | 'hr' | 'faq';
+  kind: 'h1' | 'h2' | 'p' | 'ul' | 'table' | 'hr' | 'faq' | 'img';
   lines: string[];
 }
 
@@ -16,6 +17,7 @@ export interface FaqItem {
 }
 
 const FAQ_HEADING = /^frequently asked questions$/i;
+const PHOTO = /^!\[(.*)\]\(photo:([\w-]+)\)$/;
 
 export function parseGuide(source: string): GuideBlock[] {
   const blocks: GuideBlock[] = [];
@@ -29,6 +31,10 @@ export function parseGuide(source: string): GuideBlock[] {
       inFaq = FAQ_HEADING.test(first.slice(3).trim());
       blocks.push({ kind: 'h2', lines: [first.slice(3)] });
     } else if (/^-{3,}$/.test(first.trim())) blocks.push({ kind: 'hr', lines: [] });
+    else if (PHOTO.test(first.trim())) {
+      const [, alt, key] = first.trim().match(PHOTO)!;
+      blocks.push({ kind: 'img', lines: [key, alt] });
+    }
     else if (first.startsWith('|')) blocks.push({ kind: 'table', lines });
     else if (first.startsWith('- ')) blocks.push({ kind: 'ul', lines: lines.map((line) => line.replace(/^- /, '')) });
     else if (inFaq && /^\*\*.+\*\*$/.test(first.trim()) && lines.length > 1)

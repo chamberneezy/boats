@@ -98,10 +98,12 @@ html {
 }
 
 /* Lock horizontal movement of the page itself — no sideways scroll or
-   rubber-band bounce, even if a child briefly overflows. */
+   rubber-band bounce, even if a child briefly overflows. `clip`, not `hidden`: hidden on both html
+   and body makes body a scroll container of its own, and nothing inside can then stick while the
+   page scrolls (the search page's map and the lake guides' side column). */
 html,
 body {
-  overflow-x: hidden;
+  overflow-x: clip;
   overscroll-behavior-x: none;
   max-width: 100%;
 }
