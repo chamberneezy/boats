@@ -4,6 +4,7 @@
 import { Link } from 'react-router';
 import { HOME_PHOTOS } from '../data/homePhotos';
 import { homePhoto, searchHref } from '../home/data';
+import { searchPath } from '../routes';
 import { searchPiers, isExactPierName } from '../piers';
 import type { PierOption } from '../types';
 import { inline, tableRows, type GuideBlock } from './markdown';
@@ -22,7 +23,25 @@ function pierNamed(lakeId: string, text: string): PierOption | undefined {
 const TH = 'border-b border-hairline px-4 py-3 text-left align-bottom font-display text-[13px] font-medium text-stone-grey';
 const BODY = 'm-0 font-body text-[16px] leading-[26px] text-deep-lake md:text-[17px] md:leading-[27px]';
 
-export function GuideBody({ blocks, lakeId }: { blocks: GuideBlock[]; lakeId: string }) {
+/** "Find your trip": into the lake's search, in the text (`[[search]]`) and at the guide's end. */
+export function GuideSearchCard({ lakeId, lakeName }: { lakeId: string; lakeName: string }) {
+  return (
+    <div className="flex flex-col gap-3 rounded-[16px] bg-deep-lake p-5 text-chalk shadow-card md:flex-row md:items-center md:justify-between md:p-6">
+      <div>
+        <div className="font-display text-lg font-medium">Find your trip on {lakeName}</div>
+        <div className="font-body text-sm text-chalk/80">Any two piers, any date in the timetable, with the boat that runs it.</div>
+      </div>
+      <Link
+        to={searchPath(lakeId)}
+        className="inline-flex h-11 shrink-0 items-center justify-center rounded-[10px] border border-chalk/40 px-6 font-display text-[15px] font-medium text-chalk no-underline"
+      >
+        Search trips
+      </Link>
+    </div>
+  );
+}
+
+export function GuideBody({ blocks, lakeId, lakeName }: { blocks: GuideBlock[]; lakeId: string; lakeName: string }) {
   return (
     <div className="mt-8 flex flex-col gap-5 md:mt-10">
       {blocks.map((block, i) => {
@@ -47,6 +66,8 @@ export function GuideBody({ blocks, lakeId }: { blocks: GuideBlock[]; lakeId: st
                 ))}
               </ul>
             );
+          case 'search':
+            return <GuideSearchCard key={i} lakeId={lakeId} lakeName={lakeName} />;
           case 'img': {
             const [key, alt] = block.lines;
             const credit = HOME_PHOTOS[key];

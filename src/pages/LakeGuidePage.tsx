@@ -9,7 +9,7 @@ import { CruiseTeaser } from '../components/CruiseTeaser';
 import { LakeMapPanel } from '../components/LakeMapPanel';
 import { LAKE_PHOTOS } from '../data/lakePhotos';
 import { guideBySlug, LAKES_PATH } from '../guides/guides';
-import { GuideBody } from '../guides/GuideBody';
+import { GuideBody, GuideSearchCard } from '../guides/GuideBody';
 import { guideFaq, parseGuide } from '../guides/markdown';
 import { lakePhotoLarge } from '../home/data';
 import { LAKES } from '../lakes';
@@ -78,19 +78,10 @@ export function LakeGuidePage() {
             </Link>
           </div>
 
-          <GuideBody blocks={rest} lakeId={guide.lakeId} />
+          <GuideBody blocks={rest} lakeId={guide.lakeId} lakeName={lakeName} />
 
-          <div className="mt-12 flex flex-col gap-3 rounded-[16px] bg-deep-lake p-5 text-chalk shadow-card md:flex-row md:items-center md:justify-between md:p-6">
-            <div>
-              <div className="font-display text-lg font-medium">Find your trip on {lakeName}</div>
-              <div className="font-body text-sm text-chalk/80">Any two piers, any date in the timetable, with the boat that runs it.</div>
-            </div>
-            <Link
-              to={searchPath(guide.lakeId)}
-              className="inline-flex h-11 shrink-0 items-center justify-center rounded-[10px] border border-chalk/40 px-6 font-display text-[15px] font-medium text-chalk no-underline"
-            >
-              Search trips
-            </Link>
+          <div className="mt-12">
+            <GuideSearchCard lakeId={guide.lakeId} lakeName={lakeName} />
           </div>
         </div>
 

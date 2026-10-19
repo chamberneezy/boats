@@ -48,6 +48,8 @@ The table shows direct boats on two ordinary weekdays: Wednesday 15 July 2026 (s
 
 In summer, the first boat from Luzern to Vitznau on a weekday leaves at 08:12 and the last at 19:12. In winter, the one direct boat a day from Luzern to Flüelen leaves at 10:12 and arrives at 12:55. Boats to Alpnachstad and Küssnacht am Rigi do not run in the winter timetable.
 
+[[search]]
+
 ## Classic combinations
 
 - **Rigi:** the Rigi cogwheel railway starts about 50 m from the Vitznau pier. From the Weggis pier it is about 900 m to the aerial cableway to Rigi Kaltbad.
@@ -91,6 +93,8 @@ The panorama cruise on the yacht Saphir is an exception: it needs a special tick
 You can buy tickets on board without a surcharge, but buy one right after you board. SGV has ticket offices all year at its piers in Luzern and Weggis, and from spring to autumn in Vitznau and Brunnen. Tickets are also sold online, and a ticket bought online can be shown as a QR code on a phone. On board you can pay in Swiss francs or euros, with TWINT or by card.
 
 A route ticket lets you get off and back on along the way. For example, a Luzern–Rütli–Luzern ticket lets you break the trip at any pier, as long as you stay on the same route.
+
+[[search]]
 
 ## Special cruises
 

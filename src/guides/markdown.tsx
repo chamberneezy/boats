@@ -1,13 +1,14 @@
 // The lake guides' Markdown (src/content/lakes/*.md), drawn with the site's own type: the small part
 // of Markdown the guides use and nothing more. Headings (#, ##), paragraphs, lists (-), tables, a
 // rule (---), **bold**, [links](url) and photos on a line of their own, ![alt](photo:<key>), where
-// <key> is a credited photo of public/home/ (src/data/homePhotos.ts). Under the "Frequently asked questions" heading, a
+// <key> is a credited photo of public/home/ (src/data/homePhotos.ts). A line [[search]] is the
+// "Find your trip" card into the lake's search. Under the "Frequently asked questions" heading, a
 // paragraph that starts with a **bold question** line becomes an open/close question, as on Home.
 // No HTML in the text is ever rendered as HTML.
 import type { ReactNode } from 'react';
 
 export interface GuideBlock {
-  kind: 'h1' | 'h2' | 'p' | 'ul' | 'table' | 'hr' | 'faq' | 'img';
+  kind: 'h1' | 'h2' | 'p' | 'ul' | 'table' | 'hr' | 'faq' | 'img' | 'search';
   lines: string[];
 }
 
@@ -31,6 +32,7 @@ export function parseGuide(source: string): GuideBlock[] {
       inFaq = FAQ_HEADING.test(first.slice(3).trim());
       blocks.push({ kind: 'h2', lines: [first.slice(3)] });
     } else if (/^-{3,}$/.test(first.trim())) blocks.push({ kind: 'hr', lines: [] });
+    else if (first.trim() === '[[search]]') blocks.push({ kind: 'search', lines: [] });
     else if (PHOTO.test(first.trim())) {
       const [, alt, key] = first.trim().match(PHOTO)!;
       blocks.push({ kind: 'img', lines: [key, alt] });
