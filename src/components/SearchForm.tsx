@@ -26,6 +26,8 @@ interface SearchFormProps {
   onExpand: () => void;
   // From the collapsed summary: reverse the direction and search again at once.
   onSwapSearch: () => void;
+  // A pier id: the form was opened with this origin preset, so it opens the destination list.
+  openDestinationFor?: string | null;
 }
 
 const FIELD_PLACEHOLDER = 'Select a pier';
@@ -136,6 +138,7 @@ export function SearchForm({
   collapsed,
   onExpand,
   onSwapSearch,
+  openDestinationFor,
 }: SearchFormProps) {
   const [tab, setTab] = useState<Tab>('route');
   const [activeField, setActiveField] = useState<Field | null>(null);
@@ -196,6 +199,15 @@ export function SearchForm({
   }, [collapsed]);
 
   const destinationInputRef = useRef<HTMLInputElement>(null);
+
+  // Opened from a pier alone: show where boats go from it, as if the rider had just picked it. The
+  // list is opened directly, since iPhone Safari ignores a focus that no tap asked for.
+  useEffect(() => {
+    if (!openDestinationFor || collapsed) return;
+    openField('destination');
+    destinationInputRef.current?.focus({ preventScroll: true });
+    // Only a newly preset pier opens the list, not the form folding or unfolding later.
+  }, [openDestinationFor]);
 
   const dateTimeLabel = formatDateTimeLabel(date, time);
   const routeLabel = `${origin.name || 'Origin'} → ${destination.name || 'Destination'}`;

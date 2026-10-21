@@ -9,8 +9,8 @@ const BASE = import.meta.env.BASE_URL;
 type MapWindow = Window & { __heroPaused?: boolean };
 
 // The map beside the search: the lake's 3D relief playing a few of its real routes, slowly. It is a
-// showcase, not a control (owner, 2026-10-13): picking piers on the map is a Premium feature of the
-// apps, so nothing on it can be tapped; it opens a larger view of the same animation, with the
+// showcase, not a control (owner, 2026-10-13): picking piers on the map is what the apps are for
+// (free, no account; owner, 2026-10-20), so nothing on it can be tapped; it opens a larger view of the same animation, with the
 // store badges. A lake whose relief is not built yet shows its photo instead.
 export function LakeMapPanel({ lakeId, lakeName, className = '' }: { lakeId: string; lakeName: string; className?: string }) {
   const key = RELIEF_LAKES[lakeId];

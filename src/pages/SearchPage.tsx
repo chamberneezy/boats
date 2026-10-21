@@ -8,7 +8,7 @@ import { SearchForm } from '../components/SearchForm';
 import { SearchLayout } from '../components/SearchLayout';
 import { loadLaterConnections, searchConnections } from '../connections';
 import { findActiveLake } from '../lakes';
-import { findPier, parseSearchQuery, searchPath, tripPath, type SearchQuery } from '../routes';
+import { findPier, parseOriginPreset, parseSearchQuery, searchPath, tripPath, type SearchQuery } from '../routes';
 import type { BoatConnection, PierOption } from '../types';
 import { useDocumentTitle } from '../useDocumentTitle';
 import { formatDayLabel, formatShortDate, isSameDay, nowTimeString, timestampToDateTimeParts, todayDateString } from '../utils';
@@ -50,8 +50,11 @@ export function SearchPage() {
 
   const query = parseSearchQuery(params, lakeId ?? '');
   const currentKey = query ? queryKey(query) : null;
+  // Opened from a pier alone (the menu's search): that pier is the origin and the destination list
+  // opens on what sails from it.
+  const presetFrom = query ? null : parseOriginPreset(params, lakeId ?? '');
 
-  const [origin, setOrigin] = useState<PierOption>(() => (query && findPier(query.from)) || EMPTY_PIER);
+  const [origin, setOrigin] = useState<PierOption>(() => findPier(query?.from ?? presetFrom) || EMPTY_PIER);
   const [destination, setDestination] = useState<PierOption>(() => (query && findPier(query.to)) || EMPTY_PIER);
   const [date, setDate] = useState<string>(query?.date ?? todayDateString());
   const [time, setTime] = useState<string>(query?.time ?? nowTimeString());
@@ -100,7 +103,7 @@ export function SearchPage() {
   useEffect(() => {
     if (!query) {
       latestRequest.current++;
-      setOrigin(EMPTY_PIER);
+      setOrigin(findPier(presetFrom) ?? EMPTY_PIER);
       setDestination(EMPTY_PIER);
       setDate(todayDateString());
       setTime(nowTimeString());
@@ -128,7 +131,7 @@ export function SearchPage() {
     void runSearch(query);
     // Re-run only when the URL's search changes, not on every render of `query`.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentKey, runSearch]);
+  }, [currentKey, presetFrom, runSearch]);
 
   if (!lake) return <Navigate to="/" replace />;
 
@@ -198,6 +201,7 @@ export function SearchPage() {
         collapsed={isCollapsed}
         onExpand={() => setIsCollapsed(false)}
         onSwapSearch={handleSwapSearch}
+        openDestinationFor={presetFrom}
       />
 
       {/* What is off from normal on this lake on the day searched (low water, a pier not served). */}

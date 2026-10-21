@@ -78,7 +78,7 @@ The tourist line and the boats to Cannobio cross into Italy, and SNL's pages do 
 
 Lacus covers SNL's boats on the Swiss end of the lake, from Magadino and Locarno to Brissago and the Brissago Islands, and on to Cannobio in Italy. Search trips between any two of these piers, on this website or in the Lacus app, for any date in the timetable. Each result opens SNL's timetable and ticket page when you want to buy a ticket.
 
-With Lacus Premium in the app, you can also pick your piers on a 3D map of the lake.
+In the Lacus app, which is free and needs no account, you can also pick your piers on a 3D map of the lake.
 
 ## Frequently asked questions
 

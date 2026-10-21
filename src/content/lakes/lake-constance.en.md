@@ -104,7 +104,7 @@ Besides the timetable, Vorarlberg Lines runs special cruises such as brunches, d
 
 Search trips between any two of the lake's piers, on this website or in the Lacus app, for any date in the timetable. Each result opens the timetable page of BSB, one of the lake's operators, when you want to buy a ticket. Lacus does not show boat names on Lake Constance, because the operators do not publish which boat runs which trip.
 
-With Lacus Premium in the app, you can also pick your piers on a 3D map of the lake and see the Vorarlberg Lines special cruises with their dates and prices.
+In the Lacus app, which is free and needs no account, you can also pick your piers on a 3D map of the lake and see the Vorarlberg Lines special cruises with their dates and prices.
 
 ## Frequently asked questions
 

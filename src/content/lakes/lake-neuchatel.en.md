@@ -109,7 +109,7 @@ Besides the timetable, LNM runs special cruises, many of them from Neuchâtel an
 
 Search trips between any two piers of the LNM network, on this website or in the Lacus app, for any date in the timetable. That includes the piers on Lake Murten and those on Lake Biel that LNM serves. Each result opens LNM's website when you want to buy a ticket. Lacus shows the name of the boat for a trip when the operator publishes it; for Lake Neuchâtel it does not yet.
 
-With Lacus Premium in the app, you can also pick your piers on a 3D map of the lake and see LNM's special cruises with their dates and prices.
+In the Lacus app, which is free and needs no account, you can also pick your piers on a 3D map of the lake and see LNM's special cruises with their dates and prices.
 
 ## Frequently asked questions
 

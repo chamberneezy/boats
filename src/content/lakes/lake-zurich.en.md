@@ -114,7 +114,7 @@ Besides the timetable, ZSG runs themed cruises it calls Unique Cruises, such as 
 
 Search trips between any two of the lake's piers, on this website or in the Lacus app, for any date in the timetable. Each result shows the boat that runs it, when ZSG publishes it, and opens ZVV's timetable with your trip filled in when you want to buy a ticket. Trips to or from Küsnacht Goldbach have no ticket link.
 
-With Lacus Premium in the app, you can also pick your piers on a 3D map of the lake and see the special trips in ZSG's published boat plan, with their dates, times and boats.
+In the Lacus app, which is free and needs no account, you can also pick your piers on a 3D map of the lake and see the special trips in ZSG's published boat plan, with their dates, times and boats.
 
 ## Frequently asked questions
 

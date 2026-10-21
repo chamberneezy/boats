@@ -5,6 +5,8 @@
 //   /search/lake-lucerne                Search form
 //   /search/lake-lucerne?from=&to=&date=&time=
 //                                       Search with results (pier ids, YYYY-MM-DD, HH:MM)
+//   /search/lake-lucerne?from=          Search form with the origin set and the destination
+//                                       list open (the menu's search, for a pier)
 //   /trip/lake-lucerne?from=&to=&dep=   One sailing (dep = departure unix seconds)
 //   /account                            Account (sign in, sign out, delete); also where emailed
 //                                       sign-in links land
@@ -37,6 +39,15 @@ export function searchPath(lakeId: string, query?: SearchQuery): string {
   const base = `/search/${lakeId}`;
   if (!query) return base;
   return `${base}?from=${query.from}&to=${query.to}&date=${query.date}&time=${query.time}`;
+}
+
+export function searchFromPath(lakeId: string, pierId: string): string {
+  return `/search/${lakeId}?from=${pierId}`;
+}
+
+// The origin of a search form opened from a pier alone (searchFromPath), when it belongs to the lake.
+export function parseOriginPreset(params: URLSearchParams, lakeId: string): string | null {
+  return params.has('to') ? null : (findPierInLake(lakeId, params.get('from'))?.id ?? null);
 }
 
 export function tripPath(lakeId: string, query: TripQuery): string {

@@ -45,7 +45,7 @@ const QUESTIONS: { q: string; a: string }[] = [
   },
   {
     q: 'Is Lacus free?',
-    a: 'The website and the free app show every timetable. Lacus Premium adds picking piers on the map and the special cruises of every lake.',
+    a: 'Yes. Lacus is free, on this website and in the apps for iPhone and Android. There is nothing to buy and no account is needed. The apps also let you pick your piers on a 3D map of the lake and show the special cruises of every lake.',
   },
 ];
 

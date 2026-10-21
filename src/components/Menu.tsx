@@ -1,20 +1,20 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { Close, Menu, Search } from '../icons/lacus';
+import { Close, Menu } from '../icons/lacus';
 import { Link, useLocation } from 'react-router';
-import { ACCOUNTS_ENABLED } from '../account/auth';
 import { MenuContext, useMenu } from '../menu';
 import { DEFAULT_LAKE_ID } from '../lakes';
-import { ACCOUNT_PATH, searchPath } from '../routes';
+import { searchPath } from '../routes';
+import { SiteSearch } from './SiteSearch';
+import { StoreBadges } from './StoreBadges';
 
 const LOGO_SRC = `${import.meta.env.BASE_URL}logo-mark.svg`;
 
-// Inert until those screens exist. Account is live wherever accounts are configured (dev today).
-// No Tickets: Lacus sells nothing; tickets are bought from each lake's operator (owner, 2026-10-19).
-const MENU_INERT_ITEMS = ACCOUNTS_ENABLED ? ['Help'] : ['Help', 'Account'];
+// Only what the site has (owner, 2026-10-21): no inert "coming soon" rows, no Account (the apps need
+// none) and no Tickets (Lacus sells nothing; tickets come from each lake's operator).
 
-// The menu pushes the page aside, never covering it. Phones: it slides in from the left, fills the
-// whole screen, and the page slides fully out of view. Desktop: a 400px drawer on the right, where
-// its button is, and Layout narrows the page by the same 400px.
+// The menu pushes the page aside, never covering it, from the right, where its button is. Phones: it
+// fills the whole screen and the page slides fully out of view to the left. Desktop: a 400px drawer,
+// and Layout narrows the page by the same 400px.
 export function MenuProvider({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
@@ -52,8 +52,8 @@ export function MenuPanel() {
       aria-modal={open}
       aria-label="Menu"
       aria-hidden={!open}
-      className={`fixed inset-y-0 left-0 z-50 flex w-full flex-col overflow-y-auto bg-surface-page text-deep-lake transition-[translate,visibility] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none md:left-auto md:right-0 md:w-[400px] md:shadow-card ${
-        open ? 'visible translate-x-0' : 'invisible -translate-x-full md:translate-x-full'
+      className={`fixed inset-y-0 right-0 z-50 flex w-full flex-col overflow-y-auto bg-surface-page text-deep-lake transition-[translate,visibility] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none md:w-[400px] md:shadow-card ${
+        open ? 'visible translate-x-0' : 'invisible translate-x-full'
       }`}
     >
       <div className="flex items-center justify-between gap-3 px-5 pb-2 pt-4 md:px-8 md:pt-6">
@@ -71,16 +71,7 @@ export function MenuPanel() {
       </div>
 
       <div className="flex flex-col gap-6 px-5 pb-10 pt-4 md:px-8">
-        {/* Placeholder: no search behind it yet. */}
-        <div className="flex items-center gap-3 rounded-[12px] bg-surface-card px-4 py-3 shadow-card">
-          <Search className="h-5 w-5 flex-shrink-0 text-stone-grey" aria-hidden="true" />
-          <input
-            disabled
-            placeholder="Search lakes and piers"
-            aria-label="Search (coming soon)"
-            className="w-full min-w-0 border-0 bg-transparent p-0 font-body text-base text-deep-lake outline-none placeholder:text-stone-grey"
-          />
-        </div>
+        <SiteSearch open={open} onNavigate={close} />
 
         <nav aria-label="Menu" className="flex flex-col border-t border-hairline">
           <Link to="/" onClick={close} className={`${row} text-deep-lake`}>
@@ -95,18 +86,16 @@ export function MenuPanel() {
           <Link to="/schedules" onClick={close} className={`${row} text-deep-lake`}>
             Timetables
           </Link>
-          {MENU_INERT_ITEMS.map((item) => (
-            <div key={item} className={`${row} flex items-baseline justify-between text-stone-grey`}>
-              {item}
-              <span className="font-body text-xs uppercase tracking-[0.06em]">Coming soon</span>
-            </div>
-          ))}
-          {ACCOUNTS_ENABLED && (
-            <Link to={ACCOUNT_PATH} onClick={close} className={`${row} text-deep-lake`}>
-              Account
-            </Link>
-          )}
         </nav>
+
+        <section aria-label="The Lacus app" className="rounded-2xl bg-surface-card p-5 shadow-card">
+          <h2 className="m-0 font-display text-lg font-medium text-deep-lake">Lacus for iPhone and Android</h2>
+          <p className="mb-4 mt-1 font-body text-[15px] leading-6 text-alpine-sky">
+            Free, with no account. Pick your piers on a 3D map of the lake, see every lake's special cruises
+            and get a reminder before your boat leaves.
+          </p>
+          <StoreBadges />
+        </section>
       </div>
     </div>
   );

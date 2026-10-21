@@ -85,16 +85,24 @@ export function pierFullName(id: string): string | undefined {
 
 // Folds ü/ä/ö and other accented letters to their plain-letter equivalent so
 // riders can type "Kussnacht" or "Fluelen" and still find Küssnacht/Flüelen.
-function foldDiacritics(text: string): string {
+export function foldDiacritics(text: string): string {
   return text.normalize('NFD').replace(/[̀-ͯ]/g, '');
 }
 
-function matchesQuery(pier: PierOption, query: string): boolean {
-  const folded = foldDiacritics(query);
-  return (
-    foldDiacritics(pier.name.toLowerCase()).includes(folded) ||
-    (pier.fullName ? foldDiacritics(pier.fullName.toLowerCase()).includes(folded) : false)
-  );
+// How well a name matches what was typed: 0 the name starts with it, 1 one of its words does
+// ("Bad" in "Weggis Bad"), 2 it appears anywhere, null not at all. Lists are ordered by this, so
+// typing "lu" puts Luzern before Flüelen. Both arguments are lower case and folded.
+export function matchRank(name: string, folded: string): number | null {
+  if (name.startsWith(folded)) return 0;
+  if (name.split(/[\s\-./(]+/).some((word) => word.startsWith(folded))) return 1;
+  return name.includes(folded) ? 2 : null;
+}
+
+function pierRank(pier: PierOption, folded: string): number | null {
+  const ranks = [pier.name, pier.fullName]
+    .flatMap((name) => (name ? [matchRank(foldDiacritics(name.toLowerCase()), folded)] : []))
+    .filter((rank): rank is number => rank !== null);
+  return ranks.length > 0 ? Math.min(...ranks) : null;
 }
 
 // True when `text` is exactly this pier's short or official name.
@@ -125,5 +133,34 @@ export function searchPiers(lakeId: string, query: string, excludeId?: string, a
     return popular.length > 0 ? popular : pool;
   }
 
-  return pool.filter((pier) => matchesQuery(pier, trimmed));
+  return rankPiers(pool, trimmed);
+}
+
+// The piers matching `query`, best match first (see matchRank), otherwise in list order.
+function rankPiers(pool: PierOption[], query: string): PierOption[] {
+  const folded = foldDiacritics(query);
+  return pool
+    .map((pier) => ({ pier, rank: pierRank(pier, folded) }))
+    .filter((match): match is { pier: PierOption; rank: number } => match.rank !== null)
+    .sort((a, b) => a.rank - b.rank)
+    .map((match) => match.pier);
+}
+
+// Piers of every lake matching `query`, best match first, each with its lake. A pier two lakes
+// share (Neuchâtel and Murten's, Biel's Neuchâtel) is listed once, with the first lake that has it.
+// For the menu's search.
+export function searchAllPiers(query: string): { pier: PierOption; lakeId: string }[] {
+  const trimmed = query.trim().toLowerCase();
+  if (!trimmed) return [];
+  const folded = foldDiacritics(trimmed);
+  const seen = new Set<string>();
+  return Object.entries(PIERS_BY_LAKE)
+    .flatMap(([lakeId, piers]) => piers.flatMap((pier) => {
+      const rank = pierRank(pier, folded);
+      if (rank === null || seen.has(pier.id)) return [];
+      seen.add(pier.id);
+      return [{ pier, lakeId, rank }];
+    }))
+    .sort((a, b) => a.rank - b.rank)
+    .map(({ pier, lakeId }) => ({ pier, lakeId }));
 }

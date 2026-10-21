@@ -94,7 +94,7 @@ Besides the timetable, SNL runs events on board, such as theme dinners on New Ye
 
 Search trips between any two of the lake's piers, on the Swiss and the Italian shores, on this website or in the Lacus app, for any date in the timetable. Each result opens SNL's shop with your trip filled in when you want to buy a ticket. Trips from or to Cima, Gandria Confine, Oria, Osteno, Porlezza and S. Mamete have no shop link, because SNL's shop does not list those piers.
 
-With Lacus Premium in the app, you can also pick your piers on a 3D map of the lake.
+In the Lacus app, which is free and needs no account, you can also pick your piers on a 3D map of the lake.
 
 ## Frequently asked questions
 

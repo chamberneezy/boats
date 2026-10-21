@@ -98,7 +98,7 @@ Besides the timetable, SGZ runs special cruises all year, also in winter when th
 
 Search trips between any two of the lake's piers, on this website or in the Lacus app, for any date in the timetable. Each result opens SGZ's online ticket shop when you want to buy a ticket.
 
-With Lacus Premium in the app, you can also pick your piers on a 3D map of the lake and see SGZ's special cruises with their dates, times and prices.
+In the Lacus app, which is free and needs no account, you can also pick your piers on a 3D map of the lake and see SGZ's special cruises with their dates, times and prices.
 
 ## Frequently asked questions
 

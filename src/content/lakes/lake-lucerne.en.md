@@ -119,7 +119,7 @@ Besides the timetable, SGV runs special cruises such as brunch, fondue and New Y
 
 Search trips between any two of the lake's piers, on this website or in the Lacus app, for any date in the timetable. Each result shows the boat that runs it, when SGV publishes it, and opens SGV's shop with your trip filled in when you want to buy a ticket.
 
-With Lacus Premium in the app, you can also pick your piers on a 3D map of the lake and see SGV's special cruises with their dates, boats and prices.
+In the Lacus app, which is free and needs no account, you can also pick your piers on a 3D map of the lake and see SGV's special cruises with their dates, boats and prices.
 
 ## Frequently asked questions
 

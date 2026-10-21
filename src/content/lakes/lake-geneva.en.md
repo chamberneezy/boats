@@ -114,7 +114,7 @@ Besides the timetable, CGN runs themed cruises, such as festive evening menus fr
 
 Search trips between any two of the lake's piers, on this website or in the Lacus app, for any date in the timetable. Each result shows the boat that runs it, when CGN publishes it, and opens CGN's shop with your trip filled in when you want to buy a ticket.
 
-With Lacus Premium in the app, you can also pick your piers on a 3D map of the lake.
+In the Lacus app, which is free and needs no account, you can also pick your piers on a 3D map of the lake.
 
 ## Frequently asked questions
 
