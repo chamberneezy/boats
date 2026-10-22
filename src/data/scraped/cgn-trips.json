@@ -1,6 +1,6 @@
 {
   "source": "https://qr.cgn.ch/",
-  "fetchedAt": "2026-10-21T10:15:18.913Z",
+  "fetchedAt": "2026-10-22T10:16:18.599Z",
   "routes": {
     "101": [["12:00","Yvoire"],["12:30","Hermance"],["12:35","Anières"],["13:25","Genève Mt-Blanc"],["13:35","Genève Eaux-Vives"],["14:05","Anières"],["14:10","Hermance"],["14:50","Yvoire"]],
     "102": [["14:10","St-Sulpice"],["14:55","Lausanne-Ouchy"],["15:13","St-Sulpice"]],
@@ -16,8 +16,8 @@
     "321": [["12:35","Yvoire"],["13:05","Hermance"],["13:10","Anières"],["14:05","Genève Mt-Blanc"],["14:15","Genève Eaux-Vives"],["14:50","Anières"],["15:00","Hermance"],["16:55","Yvoire"]],
     "326": [["15:00","Hermance"],["16:55","Yvoire"],["17:20","Nyon"],["17:35","Céligny"],["17:50","Coppet"],["18:05","Versoix"],["18:30","Genève Eaux-Vives"],["18:40","Genève Mt-Blanc"]],
     "327": [["16:55","Yvoire"],["17:20","Nyon"],["17:35","Céligny"],["17:50","Coppet"],["18:05","Versoix"],["18:30","Genève Eaux-Vives"],["18:40","Genève Mt-Blanc"]],
-    "330": [["13:20","Coppet"],["13:50","Nyon"],["14:15","Coppet"]],
-    "331": [["14:15","Coppet"],["14:30","Versoix"],["15:05","Genève Mt-Blanc"]],
+    "330": [["13:05","Versoix"],["13:20","Coppet"],["13:50","Nyon"],["14:15","Coppet"],["14:30","Versoix"]],
+    "331": [["14:30","Versoix"],["15:05","Genève Mt-Blanc"]],
     "390": [["19:45","Genève Mt-Blanc"],["21:00","Coppet"]],
     "391": [["21:00","Coppet"],["22:15","Genève Mt-Blanc"]],
     "505": [["13:28","St-Gingolph"],["14:00","Vevey-Marché"],["14:18","Clarens"],["14:30","Montreux"],["14:40","Chillon"],["14:48","Villeneuve"],["15:14","Le Bouveret"],["15:28","St-Gingolph"]],
@@ -33,7 +33,7 @@
     "710": [["16:15","Bellevue"],["16:55","Genève Mt-Blanc"],["17:20","Bellevue"]],
     "712": [["17:20","Bellevue"],["17:50","Genève Jardin-Anglais"]],
     "734": [["13:20","Genève Mt-Blanc"],["13:45","Bellevue"],["14:25","Genève Mt-Blanc"]],
-    "736": [["13:20","Genève Mt-Blanc"],["13:45","Bellevue"],["14:25","Genève Mt-Blanc"]],
+    "736": [["14:25","Genève Mt-Blanc"],["14:50","Bellevue"],["15:30","Genève Mt-Blanc"]],
     "738": [["15:30","Genève Mt-Blanc"],["15:55","Bellevue"],["16:25","Genève Mt-Blanc"]],
     "740": [["16:35","Genève Mt-Blanc"],["17:00","Bellevue"],["17:30","Genève Mt-Blanc"]],
     "901": [["09:57","Vevey-Marché"],["10:50","Lausanne-Ouchy"],["11:00","Pully"],["11:08","Lutry"],["11:23","Cully"],["11:40","Rivaz-St Saphorin"],["12:00","Vevey-Marché"]],
