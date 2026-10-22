@@ -2,7 +2,7 @@
  "operators": {
   "bsg": {
    "source": "https://www.bielersee.ch/events",
-   "fetchedAt": "2026-10-20T10:23:26.294Z",
+   "fetchedAt": "2026-10-22T10:34:46.282Z",
    "cruises": [
     {
      "id": "bsg:adventsbrunch",
@@ -565,7 +565,7 @@
   },
   "lnm": {
    "source": "https://www.lnm.ch/Nos-croisieres",
-   "fetchedAt": "2026-10-20T10:23:30.019Z",
+   "fetchedAt": "2026-10-22T10:34:50.264Z",
    "cruises": [
     {
      "id": "lnm:Croisiere-Brunch-Neuchatel",
@@ -679,7 +679,7 @@
   },
   "sgz": {
    "source": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/",
-   "fetchedAt": "2026-10-20T10:23:40.977Z",
+   "fetchedAt": "2026-10-22T10:35:06.825Z",
    "cruises": [
     {
      "id": "sgz:brunch-buffet-en",
@@ -695,14 +695,6 @@
       "currency": "CHF"
      },
      "departures": [
-      {
-       "date": "2026-10-25",
-       "from": "Zug Bahnhofsteg",
-       "depart": "09:45",
-       "to": "Zug Bahnhofsteg",
-       "arrive": "11:55",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/540/19199/63?lang=en"
-      },
       {
        "date": "2026-11-01",
        "from": "Zug Bahnhofsteg",
@@ -890,6 +882,30 @@
      ]
     },
     {
+     "id": "sgz:nachmittags-fahrt",
+     "url": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/experience/nachmittags-fahrt/",
+     "title": {
+      "en": "Afternoon cruise"
+     },
+     "description": {
+      "en": "From Monday to Sunday on our afternoon cruise from 15.15 to 17.30 from 13 April to 18 October and on the afternoon cruise on Sundays and public holidays from 14.00 p.m. to 16.45 p.m. from 11 May to 20 September."
+     },
+     "price": {
+      "amount": 43.2,
+      "currency": "CHF"
+     },
+     "departures": [
+      {
+       "date": "2026-10-29",
+       "from": "Zug Bahnhofsteg",
+       "depart": "15:15",
+       "to": "Zug Bahnhofsteg",
+       "arrive": "17:30",
+       "booking": "https://reservation.zvb.ch/buchung-tischplatz/542/19611/9?lang=en"
+      }
+     ]
+    },
+    {
      "id": "sgz:new-years-eve-cruise",
      "url": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/experience/new-years-eve-cruise/",
      "title": {
@@ -933,13 +949,135 @@
        "booking": "https://reservation.zvb.ch/buchung/561/20165?lang=en"
       }
      ]
+    },
+    {
+     "id": "sgz:zugersee-zmorge",
+     "url": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/experience/zugersee-zmorge/",
+     "title": {
+      "en": "Lake Zug breakfast"
+     },
+     "description": {
+      "en": "Monday to Saturday, 13 April to 17 October as well as on Sundays from 10 May to 20 September 2026 on the scheduled cruise at 9.45 a.m. from Zug."
+     },
+     "price": {
+      "amount": 19.5,
+      "currency": "CHF"
+     },
+     "departures": [
+      {
+       "date": "2026-10-25",
+       "from": "Zug Bahnhofsteg",
+       "depart": "09:45",
+       "to": "Zug Bahnhofsteg",
+       "arrive": "11:55",
+       "booking": "https://reservation.zvb.ch/buchung-tischplatz/540/19199/43?lang=en"
+      }
+     ]
     }
    ]
   },
   "vlines": {
    "source": "https://www.vorarlberg-lines.at/en/cruises",
-   "fetchedAt": "2026-10-20T10:24:35.788Z",
+   "fetchedAt": "2026-10-22T10:36:50.177Z",
    "cruises": [
+    {
+     "id": "vlines:barbecue-ship-1",
+     "url": "https://www.vorarlberg-lines.at/en/cruises/pleasure-cruises/barbecue-ship-1",
+     "title": {
+      "en": "Barbecue Ship"
+     },
+     "price": {
+      "amount": 85,
+      "currency": "EUR"
+     },
+     "departures": [
+      {
+       "date": "2027-06-25",
+       "from": "Bregenz",
+       "depart": "19:30",
+       "to": "Bregenz",
+       "arrive": "22:00",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "19:30"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "22:00"
+        }
+       ]
+      },
+      {
+       "date": "2027-07-09",
+       "from": "Bregenz",
+       "depart": "19:30",
+       "to": "Bregenz",
+       "arrive": "22:00",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "19:30"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "22:00"
+        }
+       ]
+      },
+      {
+       "date": "2027-08-06",
+       "from": "Bregenz",
+       "depart": "19:30",
+       "to": "Bregenz",
+       "arrive": "22:00",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "19:30"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "22:00"
+        }
+       ]
+      },
+      {
+       "date": "2027-08-27",
+       "from": "Bregenz",
+       "depart": "19:30",
+       "to": "Bregenz",
+       "arrive": "22:00",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "19:30"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "22:00"
+        }
+       ]
+      },
+      {
+       "date": "2027-09-03",
+       "from": "Bregenz",
+       "depart": "19:30",
+       "to": "Bregenz",
+       "arrive": "22:00",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "19:30"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "22:00"
+        }
+       ]
+      }
+     ]
+    },
     {
      "id": "vlines:captains-brunch-1",
      "url": "https://www.vorarlberg-lines.at/en/cruises/pleasure-cruises/captains-brunch-1",
@@ -1652,6 +1790,151 @@
      ]
     },
     {
+     "id": "vlines:grillshipdeluxe",
+     "url": "https://www.vorarlberg-lines.at/en/cruises/pleasure-cruises/grillshipdeluxe",
+     "title": {
+      "en": "Barbecue Ship Deluxe"
+     },
+     "price": {
+      "amount": 102,
+      "currency": "EUR"
+     },
+     "departures": [
+      {
+       "date": "2027-07-02",
+       "from": "Bregenz",
+       "depart": "19:30",
+       "to": "Bregenz",
+       "arrive": "22:00",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "19:30"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "22:00"
+        }
+       ]
+      },
+      {
+       "date": "2027-07-16",
+       "from": "Bregenz",
+       "depart": "19:30",
+       "to": "Bregenz",
+       "arrive": "22:00",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "19:30"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "22:00"
+        }
+       ]
+      },
+      {
+       "date": "2027-08-13",
+       "from": "Bregenz",
+       "depart": "19:30",
+       "to": "Bregenz",
+       "arrive": "22:00",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "19:30"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "22:00"
+        }
+       ]
+      },
+      {
+       "date": "2027-08-20",
+       "from": "Bregenz",
+       "depart": "19:30",
+       "to": "Bregenz",
+       "arrive": "22:00",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "19:30"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "22:00"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "vlines:italian-evening-deluxe",
+     "url": "https://www.vorarlberg-lines.at/en/cruises/pleasure-cruises/italian-evening-deluxe",
+     "title": {
+      "en": "Italian Evening Deluxe"
+     },
+     "price": {
+      "amount": 97,
+      "currency": "EUR"
+     },
+     "departures": [
+      {
+       "date": "2027-06-19",
+       "from": "Bregenz",
+       "depart": "19:30",
+       "to": "Bregenz",
+       "arrive": "22:00",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "19:30"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "22:00"
+        }
+       ]
+      },
+      {
+       "date": "2027-07-06",
+       "from": "Bregenz",
+       "depart": "19:30",
+       "to": "Bregenz",
+       "arrive": "22:00",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "19:30"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "22:00"
+        }
+       ]
+      },
+      {
+       "date": "2027-08-28",
+       "from": "Bregenz",
+       "depart": "19:30",
+       "to": "Bregenz",
+       "arrive": "22:00",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "19:30"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "22:00"
+        }
+       ]
+      }
+     ]
+    },
+    {
      "id": "vlines:martini-traditional-goose-dinner-on-the-lake-1",
      "url": "https://www.vorarlberg-lines.at/en/cruises/pleasure-cruises/martini-traditional-goose-dinner-on-the-lake-1",
      "title": {
@@ -2355,7 +2638,7 @@
   },
   "sgv": {
    "source": "https://webshop.lakelucerne.ch/en/",
-   "fetchedAt": "2026-10-20T10:25:25.478Z",
+   "fetchedAt": "2026-10-22T10:37:51.334Z",
    "cruises": [
     {
      "id": "sgv:1-august-motor-vessel",
@@ -4564,39 +4847,6 @@
         {
          "pier": "Luzern",
          "time": "14:30"
-        }
-       ]
-      }
-     ]
-    },
-    {
-     "id": "sgv:new-years-eve-fajita",
-     "url": "https://webshop.lakelucerne.ch/en/stories/new-years-eve-fajita",
-     "title": {
-      "en": "New Year’s Eve Fajita Cruise"
-     },
-     "description": {
-      "en": "New Year’s Eve dinner cruise on Lake Lucerne with fajitas. Enjoy a relaxed evening on the water and celebrate the turn of the year in Lucerne."
-     },
-     "price": {
-      "amount": 136,
-      "currency": "CHF"
-     },
-     "departures": [
-      {
-       "date": "2026-12-31",
-       "from": "Luzern",
-       "depart": "20:30",
-       "to": "Luzern",
-       "arrive": "00:25",
-       "stops": [
-        {
-         "pier": "Luzern",
-         "time": "20:30"
-        },
-        {
-         "pier": "Luzern",
-         "time": "00:25"
         }
        ]
       }
