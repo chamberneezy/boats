@@ -1,6 +1,6 @@
 {
   "source": "https://qr.cgn.ch/",
-  "fetchedAt": "2026-10-22T10:16:18.599Z",
+  "fetchedAt": "2026-10-23T10:09:24.383Z",
   "routes": {
     "101": [["12:00","Yvoire"],["12:30","Hermance"],["12:35","Anières"],["13:25","Genève Mt-Blanc"],["13:35","Genève Eaux-Vives"],["14:05","Anières"],["14:10","Hermance"],["14:50","Yvoire"]],
     "102": [["14:10","St-Sulpice"],["14:55","Lausanne-Ouchy"],["15:13","St-Sulpice"]],
@@ -34,7 +34,7 @@
     "712": [["17:20","Bellevue"],["17:50","Genève Jardin-Anglais"]],
     "734": [["13:20","Genève Mt-Blanc"],["13:45","Bellevue"],["14:25","Genève Mt-Blanc"]],
     "736": [["14:25","Genève Mt-Blanc"],["14:50","Bellevue"],["15:30","Genève Mt-Blanc"]],
-    "738": [["15:30","Genève Mt-Blanc"],["15:55","Bellevue"],["16:25","Genève Mt-Blanc"]],
+    "738": [["15:30","Genève Mt-Blanc"],["15:55","Bellevue"],["16:35","Genève Mt-Blanc"]],
     "740": [["16:35","Genève Mt-Blanc"],["17:00","Bellevue"],["17:30","Genève Mt-Blanc"]],
     "901": [["09:57","Vevey-Marché"],["10:50","Lausanne-Ouchy"],["11:00","Pully"],["11:08","Lutry"],["11:23","Cully"],["11:40","Rivaz-St Saphorin"],["12:00","Vevey-Marché"]],
     "902": [["12:48","Villeneuve"],["13:14","Le Bouveret"],["13:28","St-Gingolph"],["14:00","Vevey-Marché"],["14:18","Clarens"],["14:30","Montreux"],["14:40","Chillon"],["14:48","Villeneuve"]],
