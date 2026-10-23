@@ -1,0 +1,44 @@
+name: Scrape Konstanz-Meersburg ferry timetable
+
+on:
+  schedule:
+    - cron: '50 5 * * *' # 07:50 Europe/Zurich (CEST); 06:50 once DST ends
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# Its own group, like every scraper (see scrape-cgn.yml): a shared group holds only one waiting run.
+concurrency:
+  group: scraper-konstanz-ferry
+  cancel-in-progress: false
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      # The season's dates and crossing time are only in the operator's PDF (pdftotext).
+      - run: sudo apt-get update && sudo apt-get install -y poppler-utils
+      - run: npm run scrape:konstanz-ferry
+      # Only ever stages the scraper's own output file. The next scheduled ingest (10:00 UTC)
+      # republishes Lake Constance with it: a push by this workflow's token starts no other workflow.
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/scraped/konstanz-ferry.json
+          if git diff --cached --quiet; then
+            echo "No change to commit."
+          else
+            git commit -m "Daily Konstanz-Meersburg ferry timetable scrape"
+            for attempt in 1 2 3 4 5 6; do
+              git pull --rebase origin main && git push && break
+              [ "$attempt" = 6 ] && exit 1
+              sleep $((attempt * 5))
+            done
+          fi

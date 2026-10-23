@@ -39,7 +39,9 @@ export function validateDirectory(pkg: DirectoryPackage): string[] {
     const names = new Set<string>();
     for (const pier of piers) {
       const where = `pier list ${key}, ${pier.id}`;
-      if (!/^\d{7}$/.test(pier.id)) problems.push(`${where}: id must be a 7-digit didok number`);
+      // A pier with no national number (Meersburg's ferry landing, pipeline/konstanz-ferry.ts) has
+      // our own id, always "lacus-" and a name, so it can never collide with a real one.
+      if (!/^\d{7}$/.test(pier.id) && !/^lacus-[a-z0-9-]+$/.test(pier.id)) problems.push(`${where}: id must be a 7-digit didok number or our own "lacus-..." id`);
       if (ids.has(pier.id)) problems.push(`${where}: listed twice`);
       ids.add(pier.id);
       const name = pier.name.trim().toLowerCase();

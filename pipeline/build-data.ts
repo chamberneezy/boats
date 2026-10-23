@@ -1,6 +1,6 @@
 // Builds a lake's timetable package and its manifest.
 //
-//   npm run build:data -- [--lake lake-lucerne] [--gtfs path/to/feed.zip] [--out dir] [--force]
+//   npm run build:data -- [--lake lake-lucerne] [--gtfs path/to/feed.zip] [--german-gtfs path/to/feed.zip] [--out dir] [--force]
 //
 // Without --gtfs the newest official feed is looked up (and downloaded only if it is new). Nothing
 // is rewritten when the resulting data is identical to what is already in the output folder.
@@ -13,13 +13,17 @@ import type { TimetableManifest } from '../src/timetable/types.ts';
 import { applyServiceChanges } from '../src/timetable/serviceChanges.ts';
 import { TIMETABLE_SCHEMA_VERSION } from '../src/timetable/types.ts';
 import { buildPackage } from './build-package.ts';
+import { addGermanTrips, readGermanTrips } from './german.ts';
+import { addKonstanzFerry } from './konstanz-ferry.ts';
+import type { KonstanzFerryData } from './konstanz-ferry.ts';
 import { LAKES } from './lakes.ts';
-import { feedFromFile, fetchLatestFeed } from './source.ts';
+import { feedFromFile, fetchGermanFeed, fetchLatestFeed } from './source.ts';
 
 const { values } = parseArgs({
   options: {
     lake: { type: 'string', default: 'lake-lucerne' },
     gtfs: { type: 'string' },
+    'german-gtfs': { type: 'string' },
     out: { type: 'string', default: join(import.meta.dirname, 'out') },
     force: { type: 'boolean', default: false },
   },
@@ -36,15 +40,31 @@ const previous: TimetableManifest | null = existsSync(manifestPath) ? JSON.parse
 const started = Date.now();
 const feed = values.gtfs ? feedFromFile(resolve(values.gtfs)) : await fetchLatestFeed();
 console.log(`feed ${feed.name}${feed.downloaded ? ' (downloaded)' : ''}`);
+// Lakes with boats only Germany's timetable has (pipeline/german.ts) are built from both feeds.
+const germanFeed = lake.germanFeed
+  ? values['german-gtfs'] ? feedFromFile(resolve(values['german-gtfs'])) : await fetchGermanFeed()
+  : null;
+if (germanFeed) console.log(`German feed ${germanFeed.name}${germanFeed.downloaded ? ' (downloaded)' : ''}`);
+// The ferry's scraped timetable is a source too: a change to it is a new build.
+const ferryJson = lake.konstanzFerry ? readFileSync(join(import.meta.dirname, '../src/data/scraped/konstanz-ferry.json'), 'utf8') : null;
+const ferryName = ferryJson ? `konstanz-ferry.${createHash('sha256').update(ferryJson).digest('hex').slice(0, 12)}` : null;
+const feedNames = [feed.name, germanFeed?.name, ferryName].filter(Boolean).join('+');
 
-if (previous && previous.source.feed === feed.name && !values.force) {
+if (previous && previous.source.feed === feedNames && !values.force) {
   console.log('Already built from this feed; nothing to do (use --force to rebuild).');
   process.exit(0);
 }
 
 // Trips the operator has withdrawn (src/data/serviceChanges.json) are taken out here, so every
 // platform only offers trips that run on the day.
-const timetable = applyServiceChanges(await buildPackage(feed.zipPath, feed.name, lake, (message) => console.log(`  ${message}`)));
+const log = (message: string) => console.log(`  ${message}`);
+let built = await buildPackage(feed.zipPath, feed.name, lake, log);
+if (germanFeed) built = addGermanTrips(built, await readGermanTrips(germanFeed.zipPath, lake.germanFeed!.area), germanFeed.name, log);
+if (ferryJson) {
+  built = addKonstanzFerry(built, JSON.parse(ferryJson) as KonstanzFerryData, log);
+  built = { ...built, source: { name: `${built.source.name} + Stadtwerke Konstanz`, feed: `${built.source.feed}+${ferryName}` } };
+}
+const timetable = applyServiceChanges(built);
 const json = JSON.stringify(timetable);
 const sha256 = createHash('sha256').update(json).digest('hex');
 

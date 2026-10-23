@@ -40,7 +40,34 @@ export async function fetchLatestFeed(year = new Date().getFullYear()): Promise<
 
   // Feeds are large and replaced twice a week: keep only the newest.
   for (const file of readdirSync(CACHE_DIR)) {
-    if (file.endsWith('.zip') && file !== `${name}.zip`) rmSync(join(CACHE_DIR, file));
+    if (file.startsWith('gtfs_') && file.endsWith('.zip') && file !== `${name}.zip`) rmSync(join(CACHE_DIR, file));
+  }
+  return { zipPath, name, downloaded: true };
+}
+
+// Germany's open timetable (DELFI's national data as GTFS, published by gtfs.de, CC BY 4.0): local
+// transport, boats included, for about the next 30 days, replaced every few days. Used only for
+// German boats the Swiss feed lacks (see pipeline/german.ts). The file name never changes, so its
+// Last-Modified date is the version.
+const GERMAN_FEED_URL = 'https://download.gtfs.de/germany/nv_free/latest.zip';
+
+export async function fetchGermanFeed(): Promise<Feed> {
+  const head = await fetch(GERMAN_FEED_URL, { method: 'HEAD', signal: AbortSignal.timeout(30_000) });
+  const modified = head.headers.get('last-modified');
+  if (!head.ok || !modified) throw new Error(`No Last-Modified from ${GERMAN_FEED_URL} (HTTP ${head.status})`);
+  const name = `de_nv_free_${new Date(modified).toISOString().slice(0, 16).replace(/\D/g, '')}`;
+
+  mkdirSync(CACHE_DIR, { recursive: true });
+  const zipPath = join(CACHE_DIR, `${name}.zip`);
+  if (existsSync(zipPath)) return { zipPath, name, downloaded: false };
+
+  const response = await fetch(GERMAN_FEED_URL, { signal: AbortSignal.timeout(20 * 60_000) });
+  if (!response.ok || !response.body) throw new Error(`Download failed: HTTP ${response.status}`);
+  const partial = `${zipPath}.part`;
+  await pipeline(Readable.fromWeb(response.body as import('node:stream/web').ReadableStream), createWriteStream(partial));
+  renameSync(partial, zipPath);
+  for (const file of readdirSync(CACHE_DIR)) {
+    if (file.startsWith('de_nv_free_') && file !== `${name}.zip`) rmSync(join(CACHE_DIR, file));
   }
   return { zipPath, name, downloaded: true };
 }

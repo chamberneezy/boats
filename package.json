@@ -11,6 +11,7 @@
     "scrape:zsg": "node scripts/scrape-zsg.mjs",
     "scrape:cgn": "node scripts/scrape-cgn.mjs",
     "scrape:cruises": "node scripts/scrape-cruises.mjs",
+    "scrape:konstanz-ferry": "node scripts/scrape-konstanz-ferry.mjs",
     "check:zsg-traffic": "node scripts/check-zsg-traffic.mjs",
     "preview": "vite preview",
     "build:data": "node --disable-warning=ExperimentalWarning pipeline/build-data.ts",

@@ -15,6 +15,12 @@ export interface LakeConfig {
   minTransferMinutes: number;
   maxWaitMinutes: number;
   transferMinutesByStop: Record<string, number>;
+  // Boats on this lake that only Germany's open timetable has (see pipeline/german.ts): every boat
+  // trip of that feed whose calls all lie inside `area` is added, unless the Swiss feed already
+  // has it that day.
+  germanFeed?: { area: { minLat: number; maxLat: number; minLon: number; maxLon: number } };
+  // The Konstanz (Staad) <-> Meersburg car ferry, read from its operator's page (pipeline/konstanz-ferry.ts).
+  konstanzFerry?: boolean;
 }
 
 export const LAKES: Record<string, LakeConfig> = {
@@ -174,5 +180,11 @@ export const LAKES: Record<string, LakeConfig> = {
     minTransferMinutes: 5,
     maxWaitMinutes: 120,
     transferMinutesByStop: {},
+    // The Swiss feed has no German-only operator: the Konstanz <-> Friedrichshafen Katamaran runs
+    // all year and is the only boat at Konstanz in winter (owner, 2026-10-23: cover the whole lake,
+    // whoever runs the boat). The box holds Upper Lake, Überlinger See and Untersee.
+    germanFeed: { area: { minLat: 47.45, maxLat: 47.85, minLon: 8.8, maxLon: 9.8 } },
+    // In no open timetable at all; runs around the clock all year.
+    konstanzFerry: true,
   },
 };

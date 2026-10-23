@@ -10,7 +10,7 @@ on:
   # not at the next run.
   push:
     branches: [main]
-    paths: [src/data/shopLinks.json, src/data/serviceChanges.json, src/data/directory.json, src/data/notices.json]
+    paths: [src/data/shopLinks.json, src/data/serviceChanges.json, src/data/directory.json, src/data/notices.json, src/data/scraped/konstanz-ferry.json]
 
 permissions:
   contents: read
