@@ -37,6 +37,10 @@ import path from 'node:path';
 
 export const SOURCE_URL = 'https://einsatzderschiffe.zsg.ch/';
 const ENDPOINT = 'https://einsatzderschiffe.zsg.ch/schiffeinsatz';
+// Since its certificate was renewed (2026-10-21) the server sends no intermediate certificate;
+// browsers fetch it themselves, Node doesn't. `npm run scrape:zsg` therefore passes DigiCert's
+// public intermediate (scripts/certs/) via NODE_EXTRA_CA_CERTS; verification stays on. Drop it
+// once `openssl s_client -connect einsatzderschiffe.zsg.ch:443` verifies without it.
 const USER_AGENT = 'lacus-boat-schedule/0.1 (daily fetch)';
 const WINDOW_DAYS = 15; // today + the tool's own hard limit of 14 days ahead (theme/js/script.js)
 const RETAIN_PAST_DAYS = 30; // how long a day that has passed stays in the file
