@@ -2,7 +2,7 @@
  "operators": {
   "bsg": {
    "source": "https://www.bielersee.ch/events",
-   "fetchedAt": "2026-10-25T10:05:43.407Z",
+   "fetchedAt": "2026-10-26T11:30:01.196Z",
    "cruises": [
     {
      "id": "bsg:adventsbrunch",
@@ -385,26 +385,6 @@
      ]
     },
     {
-     "id": "bsg:sonntags-brunch",
-     "url": "https://www.bielersee.ch/events/event/sonntags-brunch",
-     "title": {
-      "de": "Sonntags-Brunch"
-     },
-     "price": {
-      "amount": 80,
-      "currency": "CHF"
-     },
-     "departures": [
-      {
-       "date": "2026-10-25",
-       "from": "Biel/Bienne",
-       "depart": "11:00",
-       "to": "Biel/Bienne",
-       "arrive": "14:00"
-      }
-     ]
-    },
-    {
      "id": "bsg:spielschiff-bielersee",
      "url": "https://www.bielersee.ch/events/event/spielschiff-bielersee",
      "title": {
@@ -565,7 +545,7 @@
   },
   "lnm": {
    "source": "https://www.lnm.ch/Nos-croisieres",
-   "fetchedAt": "2026-10-25T10:05:47.569Z",
+   "fetchedAt": "2026-10-26T11:30:06.107Z",
    "cruises": [
     {
      "id": "lnm:Croisiere-Brunch-Neuchatel",
@@ -679,7 +659,7 @@
   },
   "sgz": {
    "source": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/",
-   "fetchedAt": "2026-10-25T10:06:00.958Z",
+   "fetchedAt": "2026-10-26T11:30:15.624Z",
    "cruises": [
     {
      "id": "sgz:brunch-buffet-en",
@@ -949,36 +929,12 @@
        "booking": "https://reservation.zvb.ch/buchung/561/20165?lang=en"
       }
      ]
-    },
-    {
-     "id": "sgz:zugersee-zmorge",
-     "url": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/experience/zugersee-zmorge/",
-     "title": {
-      "en": "Lake Zug breakfast"
-     },
-     "description": {
-      "en": "Monday to Saturday, 13 April to 17 October as well as on Sundays from 10 May to 20 September 2026 on the scheduled cruise at 9.45 a.m. from Zug."
-     },
-     "price": {
-      "amount": 19.5,
-      "currency": "CHF"
-     },
-     "departures": [
-      {
-       "date": "2026-10-25",
-       "from": "Zug Bahnhofsteg",
-       "depart": "09:45",
-       "to": "Zug Bahnhofsteg",
-       "arrive": "11:55",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/540/19199/43?lang=en"
-      }
-     ]
     }
    ]
   },
   "vlines": {
    "source": "https://www.vorarlberg-lines.at/en/cruises",
-   "fetchedAt": "2026-10-25T10:06:53.673Z",
+   "fetchedAt": "2026-10-26T11:31:10.033Z",
    "cruises": [
     {
      "id": "vlines:barbecue-ship-1",
@@ -1073,36 +1029,6 @@
         {
          "pier": "Bregenz",
          "time": "22:00"
-        }
-       ]
-      }
-     ]
-    },
-    {
-     "id": "vlines:captains-brunch-1",
-     "url": "https://www.vorarlberg-lines.at/en/cruises/pleasure-cruises/captains-brunch-1",
-     "title": {
-      "en": "Captain´s Brunch"
-     },
-     "price": {
-      "amount": 65,
-      "currency": "EUR"
-     },
-     "departures": [
-      {
-       "date": "2026-10-25",
-       "from": "Bregenz",
-       "depart": "10:45",
-       "to": "Bregenz",
-       "arrive": "12:45",
-       "stops": [
-        {
-         "pier": "Bregenz",
-         "time": "10:45"
-        },
-        {
-         "pier": "Bregenz",
-         "time": "12:45"
         }
        ]
       }
@@ -2638,7 +2564,7 @@
   },
   "sgv": {
    "source": "https://webshop.lakelucerne.ch/en/",
-   "fetchedAt": "2026-10-25T10:12:00.489Z",
+   "fetchedAt": "2026-10-26T11:32:02.010Z",
    "cruises": [
     {
      "id": "sgv:1-august-motor-vessel",
