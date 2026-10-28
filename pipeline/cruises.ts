@@ -191,11 +191,15 @@ export const englishTitle = (cruise: OperatorCruise, titles: Record<string, stri
  * A lake's cruises from its operators' event pages. Same exclusions as detectCruises: a departure
  * that leaves its first pier at the same minute as a public sailing is a package sold on a regular
  * boat (breakfast or lunch on the scheduled ship), not a separate cruise, and anything under an hour
- * is a shuttle. A date past the timetable's last day can't be checked against it; it's dropped only
- * if the same cruise from the same pier at the same minute was already found on a regular sailing on
- * a day the timetable covers (a package that recurs), and otherwise kept - comparing it with "any day"
- * would match February's 19:00 fondue boat against summer's 19:00 round trip.
+ * is a shuttle. A date past the timetable's last day is checked against the same weekday 52 weeks
+ * earlier, which the timetable (a whole year) covers: same season, so February's 19:00 fondue boat is
+ * never matched against summer's 19:00 round trip, and next season's daily packages on regular boats
+ * are dropped (SGZ put 1,200 of them online for 2027 on 2026-10-25). A date past even that is dropped
+ * only if the same cruise from the same pier at the same minute was already found on a regular sailing.
  */
+/** The same weekday 52 weeks earlier. */
+const yearBefore = (iso: string): string => new Date(Date.parse(`${iso}T12:00:00Z`) - 364 * 86_400_000).toISOString().slice(0, 10);
+
 export function operatorCruises(
   lakeId: string,
   pkg: TimetablePackage,
@@ -254,7 +258,8 @@ export function operatorCruises(
         });
         if (stops[stops.length - 1].time - stops[0].time < MIN_CRUISE_SECONDS) continue;
         const slot = `${stops[0].pierId}|${minutesOf(route[0].time)}`;
-        if (stops[0].pierId && (inRange(dep.date) ? departuresOn(dep.date).has(slot) : onRegular.has(slot))) {
+        const checkDay = inRange(dep.date) ? dep.date : yearBefore(dep.date);
+        if (stops[0].pierId && (inRange(checkDay) ? departuresOn(checkDay).has(slot) : onRegular.has(slot))) {
           onRegular.add(slot);
           continue;
         }

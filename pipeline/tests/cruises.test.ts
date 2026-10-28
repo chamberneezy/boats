@@ -91,20 +91,22 @@ test('operator-listed cruises: regular-sailing packages, shuttles and English ti
         cruises: [
           // Lunch on the public 10:00 boat (Kurs 29): a package, also after the timetable's last day.
           { id: 'bsg:lunch', url: 'https://example.ch/lunch', title: { de: 'Mittagsfahrt' }, departures: [departure('2026-10-01', '10:00', '12:00'), departure('2026-10-05', '10:00', '12:00')] },
+          // Next season's package, listed only past the timetable: checked against the same weekday 52 weeks earlier.
+          { id: 'bsg:next-lunch', url: 'https://example.ch/lunch', title: { de: 'Mittagsfahrt' }, departures: [departure('2027-09-30', '10:00', '12:00')] },
           // An evening fondue boat: kept, also after the timetable's last day; a 30-minute run is a shuttle.
           {
             id: 'bsg:fondue',
             url: 'https://example.ch/fondue',
             title: { de: 'Fondue-Schiff' },
             price: { amount: 68, currency: 'CHF' },
-            departures: [departure('2026-10-02', '19:00', '22:00'), { ...departure('2026-10-09', '19:00', '00:30'), soldOut: true }, departure('2026-10-03', '19:00', '19:30')],
+            departures: [departure('2026-10-02', '19:00', '22:00'), { ...departure('2026-10-09', '19:00', '00:30'), soldOut: true }, departure('2026-10-03', '19:00', '19:30'), departure('2027-09-30', '19:00', '22:00')],
           },
         ],
       },
     },
   };
   const { cruises, untranslated } = operatorCruises('lake-biel', lake, file, { 'Fondue-Schiff': 'Fondue boat' }, '2026-10-01');
-  assert.deepEqual(cruises.map((c) => `${c.date} ${c.title?.en}`), ['2026-10-02 Fondue boat', '2026-10-09 Fondue boat']);
+  assert.deepEqual(cruises.map((c) => `${c.date} ${c.title?.en}`), ['2026-10-02 Fondue boat', '2026-10-09 Fondue boat', '2027-09-30 Fondue boat']);
   assert.deepEqual(untranslated, ['Mittagsfahrt']);
   const late = cruises[1];
   assert.equal(late.kurs, '');
