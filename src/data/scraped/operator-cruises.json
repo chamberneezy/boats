@@ -2,7 +2,7 @@
  "operators": {
   "bsg": {
    "source": "https://www.bielersee.ch/events",
-   "fetchedAt": "2026-10-27T10:53:27.538Z",
+   "fetchedAt": "2026-10-28T11:34:38.109Z",
    "cruises": [
     {
      "id": "bsg:adventsbrunch",
@@ -538,7 +538,7 @@
   },
   "lnm": {
    "source": "https://www.lnm.ch/Nos-croisieres",
-   "fetchedAt": "2026-10-27T10:53:32.106Z",
+   "fetchedAt": "2026-10-28T11:34:42.430Z",
    "cruises": [
     {
      "id": "lnm:Croisiere-Brunch-Neuchatel",
@@ -652,7 +652,7 @@
   },
   "sgz": {
    "source": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/",
-   "fetchedAt": "2026-10-27T10:54:00.591Z",
+   "fetchedAt": "2026-10-28T11:35:12.724Z",
    "cruises": [
     {
      "id": "sgz:1st-august-brunch",
@@ -5218,6 +5218,35 @@
        "to": "Zug Bahnhofsteg",
        "arrive": "17:30",
        "booking": "https://reservation.zvb.ch/buchung-tischplatz/608/21904/67?lang=en"
+      }
+     ]
+    },
+    {
+     "id": "sgz:easter-brunch",
+     "url": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/experience/easter-brunch/",
+     "title": {
+      "en": "Easter brunch"
+     },
+     "price": {
+      "amount": 53.5,
+      "currency": "CHF"
+     },
+     "departures": [
+      {
+       "date": "2027-03-28",
+       "from": "Zug Bahnhofsteg",
+       "depart": "10:30",
+       "to": "Zug Schützenmatt",
+       "arrive": "12:30",
+       "booking": "https://reservation.zvb.ch/buchung/619/22413?lang=en"
+      },
+      {
+       "date": "2027-03-29",
+       "from": "Zug Bahnhofsteg",
+       "depart": "10:30",
+       "to": "Zug Schützenmatt",
+       "arrive": "12:30",
+       "booking": "https://reservation.zvb.ch/buchung/619/22414?lang=en"
       }
      ]
     },
@@ -10800,7 +10829,7 @@
   },
   "vlines": {
    "source": "https://www.vorarlberg-lines.at/en/cruises",
-   "fetchedAt": "2026-10-27T10:55:24.001Z",
+   "fetchedAt": "2026-10-28T11:36:31.116Z",
    "cruises": [
     {
      "id": "vlines:barbecue-ship-1",
@@ -12430,7 +12459,7 @@
   },
   "sgv": {
    "source": "https://webshop.lakelucerne.ch/en/",
-   "fetchedAt": "2026-10-27T10:56:20.004Z",
+   "fetchedAt": "2026-10-28T11:37:21.585Z",
    "cruises": [
     {
      "id": "sgv:1-august-motor-vessel",
