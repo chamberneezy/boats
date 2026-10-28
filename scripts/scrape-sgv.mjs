@@ -68,15 +68,16 @@ export function htmlToLines(html) {
 }
 
 export function parseFleet(lines) {
+  // The list runs from "Alle Schiffe" to the first line that isn't a boat. Don't key on the next
+  // heading: SGV drops its "Dampfschiff-Einsätze" section out of season (gone 2026-10-19).
   const start = lines.findIndex((l) => /^Alle Schiffe$/i.test(l));
-  const end = lines.findIndex((l, i) => i > start && /Dampfschiff-Einsätze/i.test(l));
-  if (start === -1 || end === -1) throw new Error('Fleet section markers not found — page layout changed?');
+  if (start === -1) throw new Error('Fleet section marker not found — page layout changed?');
 
   const seen = new Set();
   const fleet = [];
-  for (const line of lines.slice(start + 1, end)) {
+  for (const line of lines.slice(start + 1)) {
     const m = line.match(/^(DS|MS|eMS)\s+([^"<>]+)/);
-    if (!m) continue;
+    if (!m) break;
     const name = m[2].trim();
     if (seen.has(name)) continue; // page lists each boat twice (label + title attribute)
     seen.add(name);
