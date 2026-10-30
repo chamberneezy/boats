@@ -2,7 +2,7 @@
  "operators": {
   "bsg": {
    "source": "https://www.bielersee.ch/events",
-   "fetchedAt": "2026-10-29T11:42:47.883Z",
+   "fetchedAt": "2026-10-30T11:34:46.244Z",
    "cruises": [
     {
      "id": "bsg:adventsbrunch",
@@ -538,7 +538,7 @@
   },
   "lnm": {
    "source": "https://www.lnm.ch/Nos-croisieres",
-   "fetchedAt": "2026-10-29T11:42:52.064Z",
+   "fetchedAt": "2026-10-30T11:34:50.466Z",
    "cruises": [
     {
      "id": "lnm:Croisiere-Brunch-Neuchatel",
@@ -652,7 +652,7 @@
   },
   "sgz": {
    "source": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/",
-   "fetchedAt": "2026-10-29T11:43:20.729Z",
+   "fetchedAt": "2026-10-30T11:35:21.339Z",
    "cruises": [
     {
      "id": "sgz:1st-august-brunch",
@@ -1000,7 +1000,8 @@
        "depart": "15:15",
        "to": "Zug Bahnhofsteg",
        "arrive": "17:30",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/608/21785/74?lang=en"
+       "booking": "javascript:void(0);",
+       "soldOut": true
       },
       {
        "date": "2027-06-23",
@@ -2297,7 +2298,8 @@
        "depart": "15:15",
        "to": "Zug Bahnhofsteg",
        "arrive": "17:30",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/608/21785/68?lang=en"
+       "booking": "javascript:void(0);",
+       "soldOut": true
       },
       {
        "date": "2027-06-21",
@@ -4096,7 +4098,8 @@
        "depart": "15:15",
        "to": "Zug Bahnhofsteg",
        "arrive": "17:30",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/608/21785/67?lang=en"
+       "booking": "javascript:void(0);",
+       "soldOut": true
       },
       {
        "date": "2027-06-21",
@@ -5387,7 +5390,8 @@
        "depart": "19:00",
        "to": "Zug Schützenmatt",
        "arrive": "21:30",
-       "booking": "https://reservation.zvb.ch/buchung/569/20178?lang=en"
+       "booking": "javascript:void(0);",
+       "soldOut": true
       },
       {
        "date": "2026-12-17",
@@ -9270,30 +9274,6 @@
      ]
     },
     {
-     "id": "sgz:nachmittags-fahrt",
-     "url": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/experience/nachmittags-fahrt/",
-     "title": {
-      "en": "Afternoon cruise"
-     },
-     "description": {
-      "en": "From Monday to Sunday on our afternoon cruise from 15.15 to 17.30 from 13 April to 18 October and on the afternoon cruise on Sundays and public holidays from 14.00 p.m. to 16.45 p.m. from 11 May to 20 September."
-     },
-     "price": {
-      "amount": 43.2,
-      "currency": "CHF"
-     },
-     "departures": [
-      {
-       "date": "2026-10-29",
-       "from": "Zug Bahnhofsteg",
-       "depart": "15:15",
-       "to": "Zug Bahnhofsteg",
-       "arrive": "17:30",
-       "booking": "https://reservation.zvb.ch/buchung-tischplatz/542/19611/9?lang=en"
-      }
-     ]
-    },
-    {
      "id": "sgz:new-years-eve-cruise",
      "url": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/experience/new-years-eve-cruise/",
      "title": {
@@ -10830,7 +10810,7 @@
   },
   "vlines": {
    "source": "https://www.vorarlberg-lines.at/en/cruises",
-   "fetchedAt": "2026-10-29T11:44:17.635Z",
+   "fetchedAt": "2026-10-30T11:36:38.495Z",
    "cruises": [
     {
      "id": "vlines:barbecue-ship-1",
@@ -12460,7 +12440,7 @@
   },
   "sgv": {
    "source": "https://webshop.lakelucerne.ch/en/",
-   "fetchedAt": "2026-10-29T11:45:09.324Z",
+   "fetchedAt": "2026-10-30T11:37:31.613Z",
    "cruises": [
     {
      "id": "sgv:1-august-motor-vessel",
@@ -13943,23 +13923,6 @@
       "currency": "CHF"
      },
      "departures": [
-      {
-       "date": "2026-10-29",
-       "from": "Luzern",
-       "depart": "19:12",
-       "to": "Luzern",
-       "arrive": "21:47",
-       "stops": [
-        {
-         "pier": "Luzern",
-         "time": "19:12"
-        },
-        {
-         "pier": "Luzern",
-         "time": "21:47"
-        }
-       ]
-      },
       {
        "date": "2026-11-05",
        "from": "Luzern",
