@@ -1,11 +1,16 @@
-import { useEffect, useRef } from 'react';
-import { LAKE_PHOTOS } from '../data/lakePhotos';
+import { useEffect, useRef, useState } from 'react';
+import { LAKE_PHOTOS, LAKE_PHOTOS_EVENING } from '../data/lakePhotos';
 import './comingSoon.css';
 
 // The coming-soon page ("Corner Chip"), ported from design_handoff_coming_soon/reference.
 // A 12-tile photo grid draws in, the logo and name build at centre, then Lake Lucerne opens
 // full-screen while the lockup glides into a chip in the top-left corner; after that the
 // twelve lakes cross-fade forever. No links, forms or buttons.
+//
+// Day and night (owner, 2026-10-27): from sunset to sunrise in Zurich the page shows each lake's
+// evening photo instead of its day photo, and it changes over on its own if left open across
+// either (a lake on screen keeps its photo until its turn ends). `?time=day` or `?time=night`
+// forces one, for checking.
 //
 // One requestAnimationFrame loop drives everything from a clock. The lockup moves with
 // transform and clip-path only: the centre and chip boxes are invisible "ghosts" measured
@@ -26,13 +31,51 @@ const LAKES: [id: string, name: string][] = [
   ['murten', 'Lake Murten'],
   ['biel', 'Lake Biel'],
 ];
+// Where a photo is held when the screen crops its sides (phones): the part that must stay in view.
+const FOCUS: Record<string, string> = {
+  lucerne: '100% 50%', // the Chapel Bridge and the Water Tower
+  'lucerne-dark': '20% 50%',
+  'geneva-dark': '78% 50%', // Chillon
+  'zug-dark': '22% 50%', // the people on the pier
+};
+const key = (id: string, night: boolean) => (night ? `${id}-dark` : id);
+const focus = (id: string, night: boolean) => FOCUS[key(id, night)] ?? '50% 50%';
+const credit = (id: string, night: boolean) => (night ? LAKE_PHOTOS_EVENING : LAKE_PHOTOS)[`lake-${id}`];
+
 // Tiles use the lake cards' small photos; the full-screen layer uses the high-resolution set
 // in public/lakes/full (same photos and credits), picked by the browser to fit the screen.
-const photo = (id: string) => `${import.meta.env.BASE_URL}lakes/lake-${id}.jpg`;
+const photo = (id: string, night: boolean) => `${import.meta.env.BASE_URL}lakes/lake-${key(id, night)}.jpg`;
 const FULL_WIDTHS = [1920, 2560, 3840];
-const fullPhoto = (id: string, width: number) =>
-  `${import.meta.env.BASE_URL}lakes/full/lake-${id}-${width}.jpg`;
-const fullSrcSet = (id: string) => FULL_WIDTHS.map((w) => `${fullPhoto(id, w)} ${w}w`).join(', ');
+const fullPhoto = (id: string, night: boolean, width: number) =>
+  `${import.meta.env.BASE_URL}lakes/full/lake-${key(id, night)}-${width}.jpg`;
+const fullSrcSet = (id: string, night: boolean) =>
+  FULL_WIDTHS.map((w) => `${fullPhoto(id, night, w)} ${w}w`).join(', ');
+// The photos cover the screen, so on a tall screen they are drawn as wide as 16/9 of its height:
+// a phone gets the largest file instead of a small one stretched.
+const FULL_SIZES = '(max-aspect-ratio: 16/9) 178vh, 100vw';
+
+// Whether the sun is down in Zurich (below the horizon, refraction included), from the NOAA
+// approximation of its position: good to a minute or two, which is all a photo change needs.
+function isNightInZurich(date: Date): boolean {
+  const forced = new URLSearchParams(window.location.search).get('time');
+  if (forced === 'day' || forced === 'night') return forced === 'night';
+  const rad = Math.PI / 180;
+  const lat = 47.3769;
+  const lon = 8.5417;
+  const days = date.getTime() / 86400000 + 2440587.5 - 2451545.0; // since J2000
+  const meanLon = (280.46 + 0.9856474 * days) % 360;
+  const anomaly = ((357.528 + 0.9856003 * days) % 360) * rad;
+  const eclLon = (meanLon + 1.915 * Math.sin(anomaly) + 0.02 * Math.sin(2 * anomaly)) * rad;
+  const obliquity = (23.439 - 0.0000004 * days) * rad;
+  const ra = Math.atan2(Math.cos(obliquity) * Math.sin(eclLon), Math.cos(eclLon));
+  const dec = Math.asin(Math.sin(obliquity) * Math.sin(eclLon));
+  const sidereal = ((280.46061837 + 360.98564736629 * days + lon) % 360) * rad;
+  const hourAngle = sidereal - ra;
+  const altitude = Math.asin(
+    Math.sin(lat * rad) * Math.sin(dec) + Math.cos(lat * rad) * Math.cos(dec) * Math.cos(hourAngle),
+  );
+  return altitude < -0.833 * rad;
+}
 
 const TITLE = 'Lacus — Coming soon';
 
@@ -67,6 +110,8 @@ interface Measured {
 
 export function ComingSoonPage() {
   const mainRef = useRef<HTMLElement>(null);
+  // Day or night when the page opens: the first photos are already the right set.
+  const [initialNight] = useState(() => isNightInZurich(new Date()));
 
   useEffect(() => {
     const main = mainRef.current;
@@ -110,22 +155,38 @@ export function ComingSoonPage() {
 
     // Each full-screen slide starts on the small photo the tiles already fetched, so there is
     // always a picture, and swaps to the large one once the browser has it.
-    const requested = new Set<number>();
+    // Day or night, checked again every half minute; each slide remembers which photo it has.
+    let night = initialNight;
+    let checked = performance.now();
+    const slideNight = slides.map(() => initialNight);
+    const requested = new Set<string>();
     function load(j: number) {
-      if (requested.has(j)) return;
-      requested.add(j);
+      const n = slideNight[j];
       const id = LAKES[j][0];
+      if (requested.has(key(id, n))) return;
+      requested.add(key(id, n));
       const large = new Image();
-      large.sizes = '100vw';
-      large.srcset = fullSrcSet(id);
-      large.src = fullPhoto(id, 1920);
+      large.sizes = FULL_SIZES;
+      large.srcset = fullSrcSet(id, n);
+      large.src = fullPhoto(id, n, 1920);
       void large
         .decode()
         .then(() => {
-          slides[j].sizes = '100vw';
-          slides[j].srcset = fullSrcSet(id);
+          if (slideNight[j] !== n) return;
+          slides[j].sizes = FULL_SIZES;
+          slides[j].srcset = fullSrcSet(id, n);
         })
         .catch(() => {});
+    }
+    // A slide off screen takes the other photo set: the small photo at once, the large one as its turn comes.
+    function retake(j: number) {
+      const id = LAKES[j][0];
+      slideNight[j] = night;
+      slides[j].removeAttribute('srcset');
+      slides[j].src = photo(id, night);
+      slides[j].style.objectPosition = focus(id, night);
+      slides[j].style.transformOrigin = focus(id, night);
+      requested.delete(key(id, night));
     }
 
     let narrow = false;
@@ -200,6 +261,22 @@ export function ComingSoonPage() {
       const nxt = (idx + 1) % LAKES.length;
       const x = clamp((ph - (P - X)) / X);
       const xe = inOutCubic(x);
+      if (performance.now() - checked > 30000) {
+        checked = performance.now();
+        const now = isNightInZurich(new Date());
+        if (now !== night) {
+          night = now;
+          // The grid is hidden by now; it shows the new set should it ever be seen again.
+          tiles.forEach((tile, i) => {
+            tile.img.src = photo(LAKES[i][0], night);
+            tile.img.style.objectPosition = focus(LAKES[i][0], night);
+          });
+        }
+      }
+      slides.forEach((_, j) => {
+        const showing = j === idx || (j === nxt && x > 0);
+        if (!showing && slideNight[j] !== night) retake(j);
+      });
       // Fetch a lake's large photo only as its turn approaches: the one showing and the next two.
       for (const j of [idx, nxt, (idx + 2) % LAKES.length]) load(j);
       slides.forEach((img, j) => {
@@ -256,14 +333,16 @@ export function ComingSoonPage() {
 
       // 5. Lake name caption: the text swaps at the middle of each cross-fade.
       caption.style.opacity = String(a(F0 + 0.8, F0 + 1.3, outCubic));
-      const [lakeId, name] = LAKES[xe > 0.5 ? nxt : idx];
-      if (name !== lastName) {
+      const shown = xe > 0.5 ? nxt : idx;
+      const [lakeId, name] = LAKES[shown];
+      const label = `${name}${slideNight[shown] ? ' (evening)' : ''}`;
+      if (label !== lastName) {
         capName.textContent = name;
         // The photo's credit, which its Creative Commons licence requires, linked to its source.
-        const credit = LAKE_PHOTOS[`lake-${lakeId}`];
-        capCredit.textContent = credit ? `Photo: ${credit.author}, ${credit.license}` : '';
-        capCredit.href = credit?.sourceUrl ?? '';
-        lastName = name;
+        const c = credit(lakeId, slideNight[shown]);
+        capCredit.textContent = c ? `Photo: ${c.author}, ${c.license}` : '';
+        capCredit.href = c?.sourceUrl ?? '';
+        lastName = label;
       }
       capName.style.opacity = String(x > 0 ? Math.abs(xe - 0.5) * 2 : 1);
       capCredit.style.opacity = capName.style.opacity;
@@ -312,29 +391,40 @@ export function ComingSoonPage() {
       document.title = previousTitle;
       document.documentElement.style.overflow = previousOverflow;
     };
-  }, []);
+  }, [initialNight]);
 
   return (
     <main ref={mainRef} className="cs-main">
       <link
         rel="preload"
         as="image"
-        href={fullPhoto('lucerne', 1920)}
-        imageSrcSet={fullSrcSet('lucerne')}
-        imageSizes="100vw"
+        href={fullPhoto('lucerne', initialNight, 1920)}
+        imageSrcSet={fullSrcSet('lucerne', initialNight)}
+        imageSizes={FULL_SIZES}
       />
       <div className="cs-grid" aria-hidden="true">
         {LAKES.map(([id]) => (
           <div key={id} className="cs-tile">
             <div className="cs-clip">
-              <img src={photo(id)} alt="" decoding="async" />
+              <img
+                src={photo(id, initialNight)}
+                alt=""
+                decoding="async"
+                style={{ objectPosition: focus(id, initialNight) }}
+              />
             </div>
           </div>
         ))}
       </div>
       <div className="cs-full" aria-hidden="true">
         {LAKES.map(([id]) => (
-          <img key={id} src={photo(id)} alt="" decoding="async" />
+          <img
+            key={id}
+            src={photo(id, initialNight)}
+            alt=""
+            decoding="async"
+            style={{ objectPosition: focus(id, initialNight), transformOrigin: focus(id, initialNight) }}
+          />
         ))}
       </div>
       <div className="cs-dim" />
@@ -392,8 +482,8 @@ export function ComingSoonPage() {
 
       <div className="cs-caption">
         <span className="cs-caption-name" aria-hidden="true">Lake Lucerne</span>
-        <a className="cs-caption-credit" href={LAKE_PHOTOS['lake-lucerne'].sourceUrl} target="_blank" rel="noreferrer">
-          Photo: {LAKE_PHOTOS['lake-lucerne'].author}, {LAKE_PHOTOS['lake-lucerne'].license}
+        <a className="cs-caption-credit" href={credit('lucerne', initialNight).sourceUrl} target="_blank" rel="noreferrer">
+          Photo: {credit('lucerne', initialNight).author}, {credit('lucerne', initialNight).license}
         </a>
       </div>
     </main>
