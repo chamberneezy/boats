@@ -1,6 +1,6 @@
 {
   "source": "https://qr.cgn.ch/",
-  "fetchedAt": "2026-10-29T11:34:10.567Z",
+  "fetchedAt": "2026-10-30T11:26:43.175Z",
   "routes": {
     "101": [["12:00","Yvoire"],["12:30","Hermance"],["12:35","Anières"],["13:25","Genève Mt-Blanc"],["13:35","Genève Eaux-Vives"],["14:05","Anières"],["14:10","Hermance"],["14:50","Yvoire"]],
     "102": [["14:10","St-Sulpice"],["14:55","Lausanne-Ouchy"],["15:13","St-Sulpice"]],
@@ -32,8 +32,8 @@
     "708": [["15:10","Bellevue"],["15:50","Genève Mt-Blanc"],["16:15","Bellevue"]],
     "710": [["16:15","Bellevue"],["16:55","Genève Mt-Blanc"],["17:20","Bellevue"]],
     "712": [["17:20","Bellevue"],["17:50","Genève Jardin-Anglais"]],
-    "734": [["13:20","Genève Mt-Blanc"],["13:45","Bellevue"],["14:25","Genève Mt-Blanc"]],
-    "736": [["14:25","Genève Mt-Blanc"],["14:50","Bellevue"],["15:30","Genève Mt-Blanc"]],
+    "734": [["13:45","Bellevue"],["14:25","Genève Mt-Blanc"],["14:50","Bellevue"]],
+    "736": [["14:50","Bellevue"],["15:30","Genève Mt-Blanc"],["15:55","Bellevue"]],
     "738": [["15:30","Genève Mt-Blanc"],["15:55","Bellevue"],["16:35","Genève Mt-Blanc"]],
     "740": [["16:35","Genève Mt-Blanc"],["17:00","Bellevue"],["17:30","Genève Mt-Blanc"]],
     "901": [["09:57","Vevey-Marché"],["10:50","Lausanne-Ouchy"],["11:00","Pully"],["11:08","Lutry"],["11:23","Cully"],["11:40","Rivaz-St Saphorin"],["12:00","Vevey-Marché"]],
