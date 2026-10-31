@@ -2,7 +2,7 @@
  "operators": {
   "bsg": {
    "source": "https://www.bielersee.ch/events",
-   "fetchedAt": "2026-10-30T11:34:46.244Z",
+   "fetchedAt": "2026-10-31T11:10:10.772Z",
    "cruises": [
     {
      "id": "bsg:adventsbrunch",
@@ -538,7 +538,7 @@
   },
   "lnm": {
    "source": "https://www.lnm.ch/Nos-croisieres",
-   "fetchedAt": "2026-10-30T11:34:50.466Z",
+   "fetchedAt": "2026-10-31T11:10:14.629Z",
    "cruises": [
     {
      "id": "lnm:Croisiere-Brunch-Neuchatel",
@@ -627,32 +627,12 @@
        "arrive": "14:15"
       }
      ]
-    },
-    {
-     "id": "lnm:Croisiere-Halloween-Neuchatel",
-     "url": "https://www.lnm.ch/Evenement/Croisiere-Halloween-Neuchatel",
-     "title": {
-      "fr": "Croisière Halloween · Neuchâtel"
-     },
-     "price": {
-      "amount": 89,
-      "currency": "CHF"
-     },
-     "departures": [
-      {
-       "date": "2026-10-31",
-       "from": "Neuchâtel",
-       "depart": "12:15",
-       "to": "Neuchâtel",
-       "arrive": "14:15"
-      }
-     ]
     }
    ]
   },
   "sgz": {
    "source": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/",
-   "fetchedAt": "2026-10-30T11:35:21.339Z",
+   "fetchedAt": "2026-10-31T11:10:42.256Z",
    "cruises": [
     {
      "id": "sgz:1st-august-brunch",
@@ -5467,7 +5447,8 @@
        "depart": "19:00",
        "to": "Zug Schützenmatt",
        "arrive": "22:10",
-       "booking": "https://reservation.zvb.ch/buchung/567/20172?lang=en"
+       "booking": "javascript:void(0);",
+       "soldOut": true
       }
      ]
     },
@@ -10810,7 +10791,7 @@
   },
   "vlines": {
    "source": "https://www.vorarlberg-lines.at/en/cruises",
-   "fetchedAt": "2026-10-30T11:36:38.495Z",
+   "fetchedAt": "2026-10-31T11:11:33.809Z",
    "cruises": [
     {
      "id": "vlines:barbecue-ship-1",
@@ -11860,24 +11841,6 @@
      },
      "departures": [
       {
-       "date": "2026-10-30",
-       "from": "Bregenz",
-       "depart": "19:30",
-       "to": "Bregenz",
-       "arrive": "22:30",
-       "stops": [
-        {
-         "pier": "Bregenz",
-         "time": "19:30"
-        },
-        {
-         "pier": "Bregenz",
-         "time": "22:30"
-        }
-       ],
-       "soldOut": true
-      },
-      {
        "date": "2026-11-12",
        "from": "Bregenz",
        "depart": "19:30",
@@ -12440,7 +12403,7 @@
   },
   "sgv": {
    "source": "https://webshop.lakelucerne.ch/en/",
-   "fetchedAt": "2026-10-30T11:37:31.613Z",
+   "fetchedAt": "2026-10-31T11:12:22.249Z",
    "cruises": [
     {
      "id": "sgv:1-august-motor-vessel",
