@@ -2,7 +2,7 @@
  "operators": {
   "bsg": {
    "source": "https://www.bielersee.ch/events",
-   "fetchedAt": "2026-11-02T13:48:02.871Z",
+   "fetchedAt": "2026-11-03T12:58:42.279Z",
    "cruises": [
     {
      "id": "bsg:adventsbrunch",
@@ -538,7 +538,7 @@
   },
   "lnm": {
    "source": "https://www.lnm.ch/Nos-croisieres",
-   "fetchedAt": "2026-11-02T13:48:07.066Z",
+   "fetchedAt": "2026-11-03T12:58:46.107Z",
    "cruises": [
     {
      "id": "lnm:Croisiere-Brunch-Neuchatel",
@@ -632,7 +632,7 @@
   },
   "sgz": {
    "source": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/",
-   "fetchedAt": "2026-11-02T13:48:28.277Z",
+   "fetchedAt": "2026-11-03T12:59:11.071Z",
    "cruises": [
     {
      "id": "sgz:1st-august-brunch",
@@ -660,6 +660,31 @@
        "to": "Zug Bahnhofsteg",
        "arrive": "13:45",
        "booking": "https://reservation.zvb.ch/buchung-tischplatz/610/21937/94?lang=en"
+      }
+     ]
+    },
+    {
+     "id": "sgz:80s-party",
+     "url": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/experience/80s-party/",
+     "title": {
+      "en": "80s party"
+     },
+     "departures": [
+      {
+       "date": "2027-07-02",
+       "from": "Zug Bahnhofsteg",
+       "depart": "20:00",
+       "to": "Zug Bahnhofsteg",
+       "arrive": "23:30",
+       "booking": "https://reservation.zvb.ch/buchung/624/22429?lang=en"
+      },
+      {
+       "date": "2027-09-11",
+       "from": "Zug Bahnhofsteg",
+       "depart": "20:00",
+       "to": "Zug Bahnhofsteg",
+       "arrive": "23:30",
+       "booking": "https://reservation.zvb.ch/buchung/624/22430?lang=en"
       }
      ]
     },
@@ -1678,6 +1703,23 @@
        "to": "Zug Bahnhofsteg",
        "arrive": "17:30",
        "booking": "https://reservation.zvb.ch/buchung-tischplatz/608/21903/74?lang=en"
+      }
+     ]
+    },
+    {
+     "id": "sgz:afterwork-en",
+     "url": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/experience/afterwork-en/",
+     "title": {
+      "en": "Afterwork presented by Zuger Kantonalbank"
+     },
+     "departures": [
+      {
+       "date": "2027-07-20",
+       "from": "Zug Bahnhofsteg",
+       "depart": "18:15",
+       "to": "Zug Bahnhofsteg",
+       "arrive": "19:25",
+       "booking": "https://reservation.zvb.ch/buchung/615/22410?lang=en"
       }
      ]
     },
@@ -3454,6 +3496,23 @@
        "to": "Zug Schützenmatt",
        "arrive": "12:30",
        "booking": "https://reservation.zvb.ch/buchung/560/20164?lang=en"
+      }
+     ]
+    },
+    {
+     "id": "sgz:dancing-queens-en",
+     "url": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/experience/dancing-queens-en/",
+     "title": {
+      "en": "Dancing Queens"
+     },
+     "departures": [
+      {
+       "date": "2027-09-04",
+       "from": "Zug Bahnhofsteg",
+       "depart": "14:00",
+       "to": "Zug Bahnhofsteg",
+       "arrive": "17:00",
+       "booking": "https://reservation.zvb.ch/buchung/622/22426?lang=en"
       }
      ]
     },
@@ -9243,6 +9302,50 @@
      ]
     },
     {
+     "id": "sgz:salsa-schiff",
+     "url": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/experience/salsa-schiff/",
+     "title": {
+      "en": "Salsa cruise with crash-course in dancing"
+     },
+     "description": {
+      "en": "Salsa crash course with a professional salsa dancer from Latin Promotion www.latinpromotion.ch with live percussion on board. DJ Giovanni will provide the atmosphere."
+     },
+     "departures": [
+      {
+       "date": "2027-06-26",
+       "from": "Zug Bahnhofsteg",
+       "depart": "20:00",
+       "to": "Zug Bahnhofsteg",
+       "arrive": "23:30",
+       "booking": "https://reservation.zvb.ch/buchung/625/22431?lang=en"
+      },
+      {
+       "date": "2027-07-17",
+       "from": "Zug Bahnhofsteg",
+       "depart": "20:00",
+       "to": "Zug Bahnhofsteg",
+       "arrive": "23:30",
+       "booking": "https://reservation.zvb.ch/buchung/625/22432?lang=en"
+      },
+      {
+       "date": "2027-08-07",
+       "from": "Zug Bahnhofsteg",
+       "depart": "20:00",
+       "to": "Zug Bahnhofsteg",
+       "arrive": "23:30",
+       "booking": "https://reservation.zvb.ch/buchung/625/22433?lang=en"
+      },
+      {
+       "date": "2027-09-04",
+       "from": "Zug Bahnhofsteg",
+       "depart": "20:00",
+       "to": "Zug Bahnhofsteg",
+       "arrive": "23:30",
+       "booking": "https://reservation.zvb.ch/buchung/625/22434?lang=en"
+      }
+     ]
+    },
+    {
      "id": "sgz:santa-brunch",
      "url": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/experience/santa-brunch/",
      "title": {
@@ -10755,7 +10858,7 @@
   },
   "vlines": {
    "source": "https://www.vorarlberg-lines.at/en/cruises",
-   "fetchedAt": "2026-11-02T13:49:51.258Z",
+   "fetchedAt": "2026-11-03T13:00:28.351Z",
    "cruises": [
     {
      "id": "vlines:barbecue-ship-1",
@@ -10850,6 +10953,580 @@
         {
          "pier": "Bregenz",
          "time": "22:00"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "vlines:captains-brunch-1",
+     "url": "https://www.vorarlberg-lines.at/en/cruises/pleasure-cruises/captains-brunch-1",
+     "title": {
+      "en": "Captain´s Brunch"
+     },
+     "price": {
+      "amount": 69,
+      "currency": "EUR"
+     },
+     "departures": [
+      {
+       "date": "2027-03-28",
+       "from": "Bregenz",
+       "depart": "10:45",
+       "to": "Bregenz",
+       "arrive": "12:45",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "10:45"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "12:45"
+        }
+       ]
+      },
+      {
+       "date": "2027-03-29",
+       "from": "Bregenz",
+       "depart": "10:45",
+       "to": "Bregenz",
+       "arrive": "12:45",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "10:45"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "12:45"
+        }
+       ]
+      },
+      {
+       "date": "2027-04-04",
+       "from": "Bregenz",
+       "depart": "10:45",
+       "to": "Bregenz",
+       "arrive": "12:45",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "10:45"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "12:45"
+        }
+       ]
+      },
+      {
+       "date": "2027-04-11",
+       "from": "Bregenz",
+       "depart": "10:45",
+       "to": "Bregenz",
+       "arrive": "12:45",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "10:45"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "12:45"
+        }
+       ]
+      },
+      {
+       "date": "2027-04-18",
+       "from": "Bregenz",
+       "depart": "10:45",
+       "to": "Bregenz",
+       "arrive": "12:45",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "10:45"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "12:45"
+        }
+       ]
+      },
+      {
+       "date": "2027-04-25",
+       "from": "Bregenz",
+       "depart": "10:45",
+       "to": "Bregenz",
+       "arrive": "12:45",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "10:45"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "12:45"
+        }
+       ]
+      },
+      {
+       "date": "2027-05-02",
+       "from": "Bregenz",
+       "depart": "10:45",
+       "to": "Bregenz",
+       "arrive": "12:45",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "10:45"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "12:45"
+        }
+       ]
+      },
+      {
+       "date": "2027-05-09",
+       "from": "Bregenz",
+       "depart": "10:45",
+       "to": "Bregenz",
+       "arrive": "12:45",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "10:45"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "12:45"
+        }
+       ]
+      },
+      {
+       "date": "2027-05-16",
+       "from": "Bregenz",
+       "depart": "10:45",
+       "to": "Bregenz",
+       "arrive": "12:45",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "10:45"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "12:45"
+        }
+       ]
+      },
+      {
+       "date": "2027-05-17",
+       "from": "Bregenz",
+       "depart": "10:45",
+       "to": "Bregenz",
+       "arrive": "12:45",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "10:45"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "12:45"
+        }
+       ]
+      },
+      {
+       "date": "2027-05-23",
+       "from": "Bregenz",
+       "depart": "10:45",
+       "to": "Bregenz",
+       "arrive": "12:45",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "10:45"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "12:45"
+        }
+       ]
+      },
+      {
+       "date": "2027-05-30",
+       "from": "Bregenz",
+       "depart": "10:45",
+       "to": "Bregenz",
+       "arrive": "12:45",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "10:45"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "12:45"
+        }
+       ]
+      },
+      {
+       "date": "2027-06-06",
+       "from": "Bregenz",
+       "depart": "10:45",
+       "to": "Bregenz",
+       "arrive": "12:45",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "10:45"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "12:45"
+        }
+       ]
+      },
+      {
+       "date": "2027-06-13",
+       "from": "Bregenz",
+       "depart": "10:45",
+       "to": "Bregenz",
+       "arrive": "12:45",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "10:45"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "12:45"
+        }
+       ]
+      },
+      {
+       "date": "2027-06-20",
+       "from": "Bregenz",
+       "depart": "10:45",
+       "to": "Bregenz",
+       "arrive": "12:45",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "10:45"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "12:45"
+        }
+       ]
+      },
+      {
+       "date": "2027-06-27",
+       "from": "Bregenz",
+       "depart": "10:45",
+       "to": "Bregenz",
+       "arrive": "12:45",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "10:45"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "12:45"
+        }
+       ]
+      },
+      {
+       "date": "2027-07-04",
+       "from": "Bregenz",
+       "depart": "10:45",
+       "to": "Bregenz",
+       "arrive": "12:45",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "10:45"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "12:45"
+        }
+       ]
+      },
+      {
+       "date": "2027-07-11",
+       "from": "Bregenz",
+       "depart": "10:45",
+       "to": "Bregenz",
+       "arrive": "12:45",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "10:45"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "12:45"
+        }
+       ]
+      },
+      {
+       "date": "2027-07-18",
+       "from": "Bregenz",
+       "depart": "10:45",
+       "to": "Bregenz",
+       "arrive": "12:45",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "10:45"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "12:45"
+        }
+       ]
+      },
+      {
+       "date": "2027-07-25",
+       "from": "Bregenz",
+       "depart": "10:45",
+       "to": "Bregenz",
+       "arrive": "12:45",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "10:45"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "12:45"
+        }
+       ]
+      },
+      {
+       "date": "2027-08-01",
+       "from": "Bregenz",
+       "depart": "10:45",
+       "to": "Bregenz",
+       "arrive": "12:45",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "10:45"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "12:45"
+        }
+       ]
+      },
+      {
+       "date": "2027-08-08",
+       "from": "Bregenz",
+       "depart": "10:45",
+       "to": "Bregenz",
+       "arrive": "12:45",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "10:45"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "12:45"
+        }
+       ]
+      },
+      {
+       "date": "2027-08-15",
+       "from": "Bregenz",
+       "depart": "10:45",
+       "to": "Bregenz",
+       "arrive": "12:45",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "10:45"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "12:45"
+        }
+       ]
+      },
+      {
+       "date": "2027-08-22",
+       "from": "Bregenz",
+       "depart": "10:45",
+       "to": "Bregenz",
+       "arrive": "12:45",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "10:45"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "12:45"
+        }
+       ]
+      },
+      {
+       "date": "2027-08-29",
+       "from": "Bregenz",
+       "depart": "10:45",
+       "to": "Bregenz",
+       "arrive": "12:45",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "10:45"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "12:45"
+        }
+       ]
+      },
+      {
+       "date": "2027-09-05",
+       "from": "Bregenz",
+       "depart": "10:45",
+       "to": "Bregenz",
+       "arrive": "12:45",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "10:45"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "12:45"
+        }
+       ]
+      },
+      {
+       "date": "2027-09-12",
+       "from": "Bregenz",
+       "depart": "10:45",
+       "to": "Bregenz",
+       "arrive": "12:45",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "10:45"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "12:45"
+        }
+       ]
+      },
+      {
+       "date": "2027-09-19",
+       "from": "Bregenz",
+       "depart": "10:45",
+       "to": "Bregenz",
+       "arrive": "12:45",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "10:45"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "12:45"
+        }
+       ]
+      },
+      {
+       "date": "2027-09-26",
+       "from": "Bregenz",
+       "depart": "10:45",
+       "to": "Bregenz",
+       "arrive": "12:45",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "10:45"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "12:45"
+        }
+       ]
+      },
+      {
+       "date": "2027-10-03",
+       "from": "Bregenz",
+       "depart": "10:45",
+       "to": "Bregenz",
+       "arrive": "12:45",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "10:45"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "12:45"
+        }
+       ]
+      },
+      {
+       "date": "2027-10-10",
+       "from": "Bregenz",
+       "depart": "10:45",
+       "to": "Bregenz",
+       "arrive": "12:45",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "10:45"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "12:45"
+        }
+       ]
+      },
+      {
+       "date": "2027-10-17",
+       "from": "Bregenz",
+       "depart": "10:45",
+       "to": "Bregenz",
+       "arrive": "12:45",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "10:45"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "12:45"
+        }
+       ]
+      },
+      {
+       "date": "2027-10-24",
+       "from": "Bregenz",
+       "depart": "10:45",
+       "to": "Bregenz",
+       "arrive": "12:45",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "10:45"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "12:45"
         }
        ]
       }
@@ -11157,6 +11834,66 @@
      ]
     },
     {
+     "id": "vlines:constance-fireworks-2",
+     "url": "https://www.vorarlberg-lines.at/en/cruises/firework-cruises/constance-fireworks-2",
+     "title": {
+      "en": "Constance Fireworks MS Austria"
+     },
+     "price": {
+      "amount": 129,
+      "currency": "EUR"
+     },
+     "departures": [
+      {
+       "date": "2027-08-14",
+       "from": "Bregenz",
+       "depart": "19:30",
+       "to": "Bregenz",
+       "arrive": "01:00",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "19:30"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "01:00"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "vlines:constance-fireworks-2-1",
+     "url": "https://www.vorarlberg-lines.at/en/cruises/firework-cruises/constance-fireworks-2-1",
+     "title": {
+      "en": "Constance Fireworks MS Vorarlberg"
+     },
+     "price": {
+      "amount": 129,
+      "currency": "EUR"
+     },
+     "departures": [
+      {
+       "date": "2027-08-14",
+       "from": "Bregenz",
+       "depart": "19:30",
+       "to": "Bregenz",
+       "arrive": "01:00",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "19:30"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "01:00"
+        }
+       ]
+      }
+     ]
+    },
+    {
      "id": "vlines:dinner-musical-lakeconstance",
      "url": "https://www.vorarlberg-lines.at/en/cruises/pleasure-cruises/dinner-musical-lakeconstance",
      "title": {
@@ -11272,6 +12009,36 @@
      ]
     },
     {
+     "id": "vlines:fireworks-friedrichshafen-2",
+     "url": "https://www.vorarlberg-lines.at/en/cruises/firework-cruises/fireworks-friedrichshafen-2",
+     "title": {
+      "en": "Fireworks Friedrichshafen"
+     },
+     "price": {
+      "amount": 91,
+      "currency": "EUR"
+     },
+     "departures": [
+      {
+       "date": "2027-07-17",
+       "from": "Bregenz",
+       "depart": "20:30",
+       "to": "Bregenz",
+       "arrive": "00:30",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "20:30"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "00:30"
+        }
+       ]
+      }
+     ]
+    },
+    {
      "id": "vlines:fondue-cruise-1-1",
      "url": "https://www.vorarlberg-lines.at/en/cruises/pleasure-cruises/fondue-cruise-1-1",
      "title": {
@@ -11330,7 +12097,8 @@
          "pier": "Bregenz",
          "time": "22:30"
         }
-       ]
+       ],
+       "soldOut": true
       },
       {
        "date": "2026-12-04",
@@ -11600,6 +12368,36 @@
       },
       {
        "date": "2027-08-20",
+       "from": "Bregenz",
+       "depart": "19:30",
+       "to": "Bregenz",
+       "arrive": "22:00",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "19:30"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "22:00"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "vlines:heurigen-mood",
+     "url": "https://www.vorarlberg-lines.at/en/cruises/pleasure-cruises/heurigen-mood",
+     "title": {
+      "en": "Heurigen Mood"
+     },
+     "price": {
+      "amount": 85,
+      "currency": "EUR"
+     },
+     "departures": [
+      {
+       "date": "2027-10-16",
        "from": "Bregenz",
        "depart": "19:30",
        "to": "Bregenz",
@@ -11896,8 +12694,7 @@
          "pier": "Bregenz",
          "time": "01:30"
         }
-       ],
-       "soldOut": true
+       ]
       }
      ]
     },
@@ -12080,6 +12877,66 @@
         {
          "pier": "Bregenz",
          "time": "17:30"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "vlines:oktoberfest-ship-1",
+     "url": "https://www.vorarlberg-lines.at/en/cruises/pleasure-cruises/oktoberfest-ship-1",
+     "title": {
+      "en": "October ship"
+     },
+     "price": {
+      "amount": 87,
+      "currency": "EUR"
+     },
+     "departures": [
+      {
+       "date": "2027-09-25",
+       "from": "Bregenz",
+       "depart": "19:30",
+       "to": "Bregenz",
+       "arrive": "22:00",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "19:30"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "22:00"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "vlines:oldie-night-1",
+     "url": "https://www.vorarlberg-lines.at/en/cruises/dance-cruises/oldie-night-1",
+     "title": {
+      "en": "Oldie Night"
+     },
+     "price": {
+      "amount": 41,
+      "currency": "EUR"
+     },
+     "departures": [
+      {
+       "date": "2027-08-07",
+       "from": "Bregenz",
+       "depart": "20:30",
+       "to": "Bregenz",
+       "arrive": "23:30",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "20:30"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "23:30"
         }
        ]
       }
@@ -12282,6 +13139,53 @@
      ]
     },
     {
+     "id": "vlines:toerggele-eve-1",
+     "url": "https://www.vorarlberg-lines.at/en/cruises/pleasure-cruises/toerggele-eve-1",
+     "title": {
+      "en": "Törggele Eve"
+     },
+     "price": {
+      "amount": 88,
+      "currency": "EUR"
+     },
+     "departures": [
+      {
+       "date": "2027-10-09",
+       "from": "Bregenz",
+       "depart": "19:30",
+       "to": "Bregenz",
+       "arrive": "22:00",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "19:30"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "22:00"
+        }
+       ]
+      },
+      {
+       "date": "2027-10-23",
+       "from": "Bregenz",
+       "depart": "19:30",
+       "to": "Bregenz",
+       "arrive": "22:00",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "19:30"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "22:00"
+        }
+       ]
+      }
+     ]
+    },
+    {
      "id": "vlines:vintagenight",
      "url": "https://www.vorarlberg-lines.at/en/cruises/premium-tours/vintagenight",
      "title": {
@@ -12362,12 +13266,54 @@
        ]
       }
      ]
+    },
+    {
+     "id": "vlines:wine-festival-of-meersburg-2",
+     "url": "https://www.vorarlberg-lines.at/en/cruises/cruises/wine-festival-of-meersburg-2",
+     "title": {
+      "en": "Wine Festival Of Meersburg"
+     },
+     "price": {
+      "amount": 58,
+      "currency": "EUR"
+     },
+     "departures": [
+      {
+       "date": "2027-09-11",
+       "from": "Bregenz",
+       "depart": "11:15",
+       "to": "Bregenz",
+       "arrive": "20:45",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "11:15"
+        },
+        {
+         "pier": "Hagnau",
+         "time": "13:30"
+        },
+        {
+         "pier": "Meersburg",
+         "time": "13:45"
+        },
+        {
+         "pier": "Meersburg",
+         "time": "18:30"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "20:45"
+        }
+       ]
+      }
+     ]
     }
    ]
   },
   "sgv": {
    "source": "https://webshop.lakelucerne.ch/en/",
-   "fetchedAt": "2026-11-02T13:50:44.279Z",
+   "fetchedAt": "2026-11-03T13:01:20.905Z",
    "cruises": [
     {
      "id": "sgv:1-august-motor-vessel",
