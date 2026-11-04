@@ -2,7 +2,7 @@
  "operators": {
   "bsg": {
    "source": "https://www.bielersee.ch/events",
-   "fetchedAt": "2026-11-03T12:58:42.279Z",
+   "fetchedAt": "2026-11-04T13:14:44.163Z",
    "cruises": [
     {
      "id": "bsg:adventsbrunch",
@@ -538,7 +538,7 @@
   },
   "lnm": {
    "source": "https://www.lnm.ch/Nos-croisieres",
-   "fetchedAt": "2026-11-03T12:58:46.107Z",
+   "fetchedAt": "2026-11-04T13:14:47.511Z",
    "cruises": [
     {
      "id": "lnm:Croisiere-Brunch-Neuchatel",
@@ -551,13 +551,6 @@
       "currency": "CHF"
      },
      "departures": [
-      {
-       "date": "2026-11-15",
-       "from": "Neuchâtel",
-       "depart": "11:15",
-       "to": "Neuchâtel",
-       "arrive": "13:15"
-      },
       {
        "date": "2026-11-22",
        "from": "Neuchâtel",
@@ -632,7 +625,7 @@
   },
   "sgz": {
    "source": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/",
-   "fetchedAt": "2026-11-03T12:59:11.071Z",
+   "fetchedAt": "2026-11-04T13:15:13.756Z",
    "cruises": [
     {
      "id": "sgz:1st-august-brunch",
@@ -5288,7 +5281,8 @@
        "depart": "19:00",
        "to": "Zug Schützenmatt",
        "arrive": "21:30",
-       "booking": "https://reservation.zvb.ch/buchung/590/21303?lang=en"
+       "booking": "javascript:void(0);",
+       "soldOut": true
       },
       {
        "date": "2026-12-02",
@@ -10858,7 +10852,7 @@
   },
   "vlines": {
    "source": "https://www.vorarlberg-lines.at/en/cruises",
-   "fetchedAt": "2026-11-03T13:00:28.351Z",
+   "fetchedAt": "2026-11-04T13:16:32.456Z",
    "cruises": [
     {
      "id": "vlines:barbecue-ship-1",
@@ -13313,7 +13307,7 @@
   },
   "sgv": {
    "source": "https://webshop.lakelucerne.ch/en/",
-   "fetchedAt": "2026-11-03T13:01:20.905Z",
+   "fetchedAt": "2026-11-04T13:17:18.493Z",
    "cruises": [
     {
      "id": "sgv:1-august-motor-vessel",
@@ -13933,7 +13927,7 @@
       "en": "Sunday brunch on Lake Lucerne departing from Lucerne. 2.5-hour cruise with a rich buffet. Book online now and enjoy a relaxed start to your Sunday."
      },
      "price": {
-      "amount": 96,
+      "amount": 99,
       "currency": "CHF"
      },
      "weekday": 0,
