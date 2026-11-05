@@ -2,7 +2,7 @@
  "operators": {
   "bsg": {
    "source": "https://www.bielersee.ch/events",
-   "fetchedAt": "2026-11-04T13:14:44.163Z",
+   "fetchedAt": "2026-11-05T13:28:26.305Z",
    "cruises": [
     {
      "id": "bsg:adventsbrunch",
@@ -538,7 +538,7 @@
   },
   "lnm": {
    "source": "https://www.lnm.ch/Nos-croisieres",
-   "fetchedAt": "2026-11-04T13:14:47.511Z",
+   "fetchedAt": "2026-11-05T13:28:30.200Z",
    "cruises": [
     {
      "id": "lnm:Croisiere-Brunch-Neuchatel",
@@ -597,27 +597,6 @@
        "depart": "12:15",
        "to": "Neuchâtel",
        "arrive": "14:15"
-      },
-      {
-       "date": "2026-12-06",
-       "from": "Neuchâtel",
-       "depart": "12:15",
-       "to": "Neuchâtel",
-       "arrive": "14:15"
-      },
-      {
-       "date": "2026-12-12",
-       "from": "Neuchâtel",
-       "depart": "12:15",
-       "to": "Neuchâtel",
-       "arrive": "14:15"
-      },
-      {
-       "date": "2026-12-13",
-       "from": "Neuchâtel",
-       "depart": "12:15",
-       "to": "Neuchâtel",
-       "arrive": "14:15"
       }
      ]
     }
@@ -625,8 +604,32 @@
   },
   "sgz": {
    "source": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/",
-   "fetchedAt": "2026-11-04T13:15:13.756Z",
+   "fetchedAt": "2026-11-05T13:29:07.370Z",
    "cruises": [
+    {
+     "id": "sgz:1-august-fahrt",
+     "url": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/experience/1-august-fahrt/",
+     "title": {
+      "en": "1 August cruise"
+     },
+     "description": {
+      "en": "The \"Zugerländer\" group sets the mood on Lake Zug."
+     },
+     "price": {
+      "amount": 65,
+      "currency": "CHF"
+     },
+     "departures": [
+      {
+       "date": "2027-08-01",
+       "from": "Zug Bahnhofsteg",
+       "depart": "19:00",
+       "to": "Zug Schützenmatt",
+       "arrive": "21:30",
+       "booking": "https://reservation.zvb.ch/buchung/627/22435?lang=en"
+      }
+     ]
+    },
     {
      "id": "sgz:1st-august-brunch",
      "url": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/experience/1st-august-brunch/",
@@ -7968,8 +7971,7 @@
        "depart": "19:00",
        "to": "Zug Schützenmatt",
        "arrive": "21:30",
-       "booking": "javascript:void(0);",
-       "soldOut": true
+       "booking": "https://reservation.zvb.ch/buchung/570/20177?lang=en"
       }
      ]
     },
@@ -9357,6 +9359,51 @@
        "to": "Zug Schützenmatt",
        "arrive": "12:30",
        "booking": "https://reservation.zvb.ch/buchung/561/20165?lang=en"
+      }
+     ]
+    },
+    {
+     "id": "sgz:sunset-barbecue",
+     "url": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/experience/sunset-barbecue/",
+     "title": {
+      "en": "Sunset barbecue"
+     },
+     "price": {
+      "amount": 69,
+      "currency": "CHF"
+     },
+     "departures": [
+      {
+       "date": "2027-06-10",
+       "from": "Zug Bahnhofsteg",
+       "depart": "19:00",
+       "to": "Zug Schützenmatt",
+       "arrive": "21:30",
+       "booking": "https://reservation.zvb.ch/buchung/628/22436?lang=en"
+      },
+      {
+       "date": "2027-07-08",
+       "from": "Zug Bahnhofsteg",
+       "depart": "19:00",
+       "to": "Zug Schützenmatt",
+       "arrive": "21:30",
+       "booking": "https://reservation.zvb.ch/buchung/628/22437?lang=en"
+      },
+      {
+       "date": "2027-08-12",
+       "from": "Zug Bahnhofsteg",
+       "depart": "19:00",
+       "to": "Zug Schützenmatt",
+       "arrive": "21:30",
+       "booking": "https://reservation.zvb.ch/buchung/628/22438?lang=en"
+      },
+      {
+       "date": "2027-09-02",
+       "from": "Zug Bahnhofsteg",
+       "depart": "19:00",
+       "to": "Zug Schützenmatt",
+       "arrive": "21:30",
+       "booking": "https://reservation.zvb.ch/buchung/628/22439?lang=en"
       }
      ]
     },
@@ -10852,7 +10899,7 @@
   },
   "vlines": {
    "source": "https://www.vorarlberg-lines.at/en/cruises",
-   "fetchedAt": "2026-11-04T13:16:32.456Z",
+   "fetchedAt": "2026-11-05T13:30:05.235Z",
    "cruises": [
     {
      "id": "vlines:barbecue-ship-1",
@@ -13307,7 +13354,7 @@
   },
   "sgv": {
    "source": "https://webshop.lakelucerne.ch/en/",
-   "fetchedAt": "2026-11-04T13:17:18.493Z",
+   "fetchedAt": "2026-11-05T13:30:54.057Z",
    "cruises": [
     {
      "id": "sgv:1-august-motor-vessel",
@@ -15450,6 +15497,90 @@
         {
          "pier": "Luzern",
          "time": "22:50"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "sgv:lilu-fondue-cruise",
+     "url": "https://webshop.lakelucerne.ch/en/stories/lilu-fondue-cruise",
+     "title": {
+      "en": "Lilu Fondue Cruise"
+     },
+     "description": {
+      "en": "Experience LiLu Light Festival Lucerne with a cosy fondue cruise on Lake Lucerne. Enjoy Swiss cheese fondue and beautiful city lights. Book now!"
+     },
+     "price": {
+      "amount": 69,
+      "currency": "CHF"
+     },
+     "departures": [
+      {
+       "date": "2027-01-15",
+       "from": "Luzern",
+       "depart": "18:15",
+       "to": "Luzern",
+       "arrive": "20:00",
+       "stops": [
+        {
+         "pier": "Luzern",
+         "time": "18:15"
+        },
+        {
+         "pier": "Luzern",
+         "time": "20:00"
+        }
+       ]
+      },
+      {
+       "date": "2027-01-16",
+       "from": "Luzern",
+       "depart": "18:15",
+       "to": "Luzern",
+       "arrive": "20:00",
+       "stops": [
+        {
+         "pier": "Luzern",
+         "time": "18:15"
+        },
+        {
+         "pier": "Luzern",
+         "time": "20:00"
+        }
+       ]
+      },
+      {
+       "date": "2027-01-22",
+       "from": "Luzern",
+       "depart": "18:15",
+       "to": "Luzern",
+       "arrive": "20:00",
+       "stops": [
+        {
+         "pier": "Luzern",
+         "time": "18:15"
+        },
+        {
+         "pier": "Luzern",
+         "time": "20:00"
+        }
+       ]
+      },
+      {
+       "date": "2027-01-23",
+       "from": "Luzern",
+       "depart": "18:15",
+       "to": "Luzern",
+       "arrive": "20:00",
+       "stops": [
+        {
+         "pier": "Luzern",
+         "time": "18:15"
+        },
+        {
+         "pier": "Luzern",
+         "time": "20:00"
         }
        ]
       }
