@@ -2,7 +2,7 @@
  "operators": {
   "bsg": {
    "source": "https://www.bielersee.ch/events",
-   "fetchedAt": "2026-11-05T13:28:26.305Z",
+   "fetchedAt": "2026-11-06T13:11:43.991Z",
    "cruises": [
     {
      "id": "bsg:adventsbrunch",
@@ -249,13 +249,6 @@
       "currency": "CHF"
      },
      "departures": [
-      {
-       "date": "2026-11-05",
-       "from": "Biel/Bienne",
-       "depart": "19:00",
-       "to": "Biel/Bienne",
-       "arrive": "22:00"
-      },
       {
        "date": "2026-12-11",
        "from": "Biel/Bienne",
@@ -538,7 +531,7 @@
   },
   "lnm": {
    "source": "https://www.lnm.ch/Nos-croisieres",
-   "fetchedAt": "2026-11-05T13:28:30.200Z",
+   "fetchedAt": "2026-11-06T13:11:48.691Z",
    "cruises": [
     {
      "id": "lnm:Croisiere-Brunch-Neuchatel",
@@ -599,12 +592,122 @@
        "arrive": "14:15"
       }
      ]
+    },
+    {
+     "id": "lnm:Festival-des-Lumieres-Neuchatel-Morat-Avec-repas",
+     "url": "https://www.lnm.ch/Evenement/Festival-des-Lumieres-Neuchatel-Morat-Avec-repas",
+     "title": {
+      "fr": "Festival des Lumières · Neuchâtel ↔ Morat · Avec repas"
+     },
+     "price": {
+      "amount": 79,
+      "currency": "CHF"
+     },
+     "departures": [
+      {
+       "date": "2027-01-21",
+       "from": "Neuchâtel",
+       "depart": "18:00",
+       "to": "Morat",
+       "arrive": "19:30"
+      },
+      {
+       "date": "2027-01-22",
+       "from": "Neuchâtel",
+       "depart": "18:00",
+       "to": "Morat",
+       "arrive": "19:30"
+      },
+      {
+       "date": "2027-01-23",
+       "from": "Neuchâtel",
+       "depart": "18:00",
+       "to": "Morat",
+       "arrive": "19:30"
+      },
+      {
+       "date": "2027-01-28",
+       "from": "Neuchâtel",
+       "depart": "18:00",
+       "to": "Morat",
+       "arrive": "19:30"
+      },
+      {
+       "date": "2027-01-29",
+       "from": "Neuchâtel",
+       "depart": "18:00",
+       "to": "Morat",
+       "arrive": "19:30"
+      },
+      {
+       "date": "2027-01-30",
+       "from": "Neuchâtel",
+       "depart": "18:00",
+       "to": "Morat",
+       "arrive": "19:30"
+      }
+     ]
+    },
+    {
+     "id": "lnm:Festival-des-Lumieres-Neuchatel-Morat-Sans-repas",
+     "url": "https://www.lnm.ch/Evenement/Festival-des-Lumieres-Neuchatel-Morat-Sans-repas",
+     "title": {
+      "fr": "Festival des Lumières · Neuchâtel ↔ Morat · Sans repas"
+     },
+     "price": {
+      "amount": 53,
+      "currency": "CHF"
+     },
+     "departures": [
+      {
+       "date": "2027-01-21",
+       "from": "Neuchâtel",
+       "depart": "18:00",
+       "to": "Morat",
+       "arrive": "19:30"
+      },
+      {
+       "date": "2027-01-22",
+       "from": "Neuchâtel",
+       "depart": "18:00",
+       "to": "Morat",
+       "arrive": "19:30"
+      },
+      {
+       "date": "2027-01-23",
+       "from": "Neuchâtel",
+       "depart": "18:00",
+       "to": "Morat",
+       "arrive": "19:30"
+      },
+      {
+       "date": "2027-01-28",
+       "from": "Neuchâtel",
+       "depart": "18:00",
+       "to": "Morat",
+       "arrive": "19:30"
+      },
+      {
+       "date": "2027-01-29",
+       "from": "Neuchâtel",
+       "depart": "18:00",
+       "to": "Morat",
+       "arrive": "19:30"
+      },
+      {
+       "date": "2027-01-30",
+       "from": "Neuchâtel",
+       "depart": "18:00",
+       "to": "Morat",
+       "arrive": "19:30"
+      }
+     ]
     }
    ]
   },
   "sgz": {
    "source": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/",
-   "fetchedAt": "2026-11-05T13:29:07.370Z",
+   "fetchedAt": "2026-11-06T13:12:14.130Z",
    "cruises": [
     {
      "id": "sgz:1-august-fahrt",
@@ -3496,6 +3599,34 @@
      ]
     },
     {
+     "id": "sgz:captains-dinner-en",
+     "url": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/experience/captains-dinner-en/",
+     "title": {
+      "en": "Captain’s Dinner"
+     },
+     "description": {
+      "en": "Whilst you’re enjoying a delicious dinner, a murder mystery unfolds right before your eyes. At the end, you can play an active part in trying to work out who the murderer was."
+     },
+     "departures": [
+      {
+       "date": "2027-04-30",
+       "from": "Zug Schützenmatt",
+       "depart": "19:00",
+       "to": "Zug Schützenmatt",
+       "arrive": "22:10",
+       "booking": "https://reservation.zvb.ch/buchung/623/22427?lang=en"
+      },
+      {
+       "date": "2027-11-18",
+       "from": "Zug Schützenmatt",
+       "depart": "19:00",
+       "to": "Zug Schützenmatt",
+       "arrive": "22:10",
+       "booking": "https://reservation.zvb.ch/buchung/623/22428?lang=en"
+      }
+     ]
+    },
+    {
      "id": "sgz:dancing-queens-en",
      "url": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/experience/dancing-queens-en/",
      "title": {
@@ -5278,15 +5409,6 @@
       "currency": "CHF"
      },
      "departures": [
-      {
-       "date": "2026-11-05",
-       "from": "Zug Bahnhofsteg",
-       "depart": "19:00",
-       "to": "Zug Schützenmatt",
-       "arrive": "21:30",
-       "booking": "javascript:void(0);",
-       "soldOut": true
-      },
       {
        "date": "2026-12-02",
        "from": "Zug Bahnhofsteg",
@@ -10899,7 +11021,7 @@
   },
   "vlines": {
    "source": "https://www.vorarlberg-lines.at/en/cruises",
-   "fetchedAt": "2026-11-05T13:30:05.235Z",
+   "fetchedAt": "2026-11-06T13:13:09.900Z",
    "cruises": [
     {
      "id": "vlines:barbecue-ship-1",
@@ -13354,7 +13476,7 @@
   },
   "sgv": {
    "source": "https://webshop.lakelucerne.ch/en/",
-   "fetchedAt": "2026-11-05T13:30:54.057Z",
+   "fetchedAt": "2026-11-06T13:13:55.515Z",
    "cruises": [
     {
      "id": "sgv:1-august-motor-vessel",
@@ -14888,23 +15010,6 @@
       "currency": "CHF"
      },
      "departures": [
-      {
-       "date": "2026-11-05",
-       "from": "Luzern",
-       "depart": "19:12",
-       "to": "Luzern",
-       "arrive": "21:47",
-       "stops": [
-        {
-         "pier": "Luzern",
-         "time": "19:12"
-        },
-        {
-         "pier": "Luzern",
-         "time": "21:47"
-        }
-       ]
-      },
       {
        "date": "2026-11-12",
        "from": "Luzern",
