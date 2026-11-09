@@ -1,10 +1,16 @@
 {
   "source": "https://einsatzderschiffe.zsg.ch/",
-  "fetchedAt": "2026-10-02T11:18:32.400Z",
+  "fetchedAt": "2026-11-09T14:09:09.032Z",
   "vessels": [
     {
       "name": "Albis",
       "type": "MS",
+      "category": "BAT",
+      "url": "https://www.zsg.ch/de/motorschiffe-albis-pfannenstiel-uetliberg.html"
+    },
+    {
+      "name": "Albis",
+      "type": "EMS",
       "category": "BAT",
       "url": "https://www.zsg.ch/de/motorschiffe-albis-pfannenstiel-uetliberg.html"
     },
