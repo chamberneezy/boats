@@ -1,6 +1,6 @@
 {
   "source": "https://qr.cgn.ch/",
-  "fetchedAt": "2026-11-09T13:58:08.201Z",
+  "fetchedAt": "2026-11-10T13:31:35.048Z",
   "routes": {
     "101": [["12:00","Yvoire"],["12:30","Hermance"],["12:35","Anières"],["13:25","Genève Mt-Blanc"],["13:35","Genève Eaux-Vives"],["14:05","Anières"],["14:10","Hermance"],["14:50","Yvoire"]],
     "102": [["14:10","St-Sulpice"],["14:55","Lausanne-Ouchy"],["15:13","St-Sulpice"]],
@@ -142,6 +142,10 @@
     "1427": [["19:25","Bellevue"],["19:40","Corsier"]],
     "1428": [["19:05","Corsier"],["19:20","Bellevue"]],
     "1429": [["20:00","Bellevue"],["20:15","Corsier"]],
-    "1430": [["19:42","Corsier"],["19:57","Bellevue"]]
+    "1430": [["19:42","Corsier"],["19:57","Bellevue"]],
+    "8063": [["15:55","Montreux"],["16:35","Croisière"],["16:40","Montreux"]],
+    "8064": [["16:55","Montreux"],["17:35","Croisière"],["17:40","Montreux"]],
+    "8065": [["17:55","Montreux"],["18:35","Croisière"],["18:40","Montreux"]],
+    "8066": [["18:55","Montreux"],["19:35","Croisière"],["19:40","Montreux"]]
   }
 }
