@@ -1,0 +1,29 @@
+# Lacus
+
+> Lacus is a boat timetable app for the twelve big Swiss lakes: every public boat and every pier, in one place. It is coming soon as a free app for iPhone and Android, with no account needed. This site (lacusapp.ch) is its coming-soon page.
+
+## What Lacus does
+
+- Finds boat trips between any two piers on a lake, direct or with up to two changes between boats, for the next seven days.
+- Shows the departures from each pier.
+- Names the boat that runs a trip, where the operator publishes which boat runs on which day (for example Lake Lucerne, Lake Zurich and Lake Geneva).
+- Lists special cruises (themed and evening trips such as fondue, brunch or full-moon cruises) on lakes where the operator publishes them.
+- All times are Swiss local time. Timetables come from the official Swiss public-transport timetable data.
+- Lacus sells no tickets: tickets are bought from each lake's boat company.
+
+## The twelve lakes and their boat companies
+
+- Lake Lucerne (Vierwaldstättersee): SGV (Schifffahrtsgesellschaft des Vierwaldstättersees), with paddle steamers; the Beckenried–Gersau car ferry.
+- Lake Geneva (Lac Léman): CGN (Compagnie Générale de Navigation).
+- Lake Zurich (Zürichsee): ZSG (Zürichsee-Schifffahrtsgesellschaft); the Horgen–Meilen car ferry.
+- Lake Constance (Bodensee): Swiss, German and Austrian shores, including SBS (Schweizerische Bodensee-Schifffahrt) and BSB (Bodensee-Schiffsbetriebe), and the Friedrichshafen–Romanshorn car ferry.
+- Lake Neuchâtel and Lake Murten (Lac de Neuchâtel, Murtensee / Lac de Morat): LNM (Navigation sur les lacs de Neuchâtel et Morat), one connected network.
+- Lake Biel (Bielersee / Lac de Bienne): BSG (Bielersee-Schifffahrts-Gesellschaft).
+- Lake Thun (Thunersee) and Lake Brienz (Brienzersee): BLS Schifffahrt.
+- Lake Zug (Zugersee): SGZ (Schifffahrtsgesellschaft für den Zugersee).
+- Lake Lugano (Lago di Lugano): SNL (Società Navigazione del Lago di Lugano).
+- Lake Maggiore (Lago Maggiore): the Swiss part of the lake, served by SNL, plus Cannobio in Italy.
+
+## Links
+
+- [Lacus](https://lacusapp.ch/): coming-soon page

@@ -46,10 +46,23 @@ const credit = (id: string, night: boolean) => (night ? LAKE_PHOTOS_EVENING : LA
 // in public/lakes/full (same photos and credits), picked by the browser to fit the screen.
 const photo = (id: string, night: boolean) => `${import.meta.env.BASE_URL}lakes/lake-${key(id, night)}.jpg`;
 const FULL_WIDTHS = [1920, 2560, 3840];
-const fullPhoto = (id: string, night: boolean, width: number) =>
-  `${import.meta.env.BASE_URL}lakes/full/lake-${key(id, night)}-${width}.jpg`;
-const fullSrcSet = (id: string, night: boolean) =>
-  FULL_WIDTHS.map((w) => `${fullPhoto(id, night, w)} ${w}w`).join(', ');
+// Each full-screen photo also exists as AVIF (avifenc -q 55: about 60% smaller, no visible
+// difference), used wherever the browser can show it; the JPEG stays for the rest.
+type Ext = 'avif' | 'jpg';
+const fullPhoto = (id: string, night: boolean, width: number, ext: Ext = 'jpg') =>
+  `${import.meta.env.BASE_URL}lakes/full/lake-${key(id, night)}-${width}.${ext}`;
+const fullSrcSet = (id: string, night: boolean, ext: Ext = 'jpg') =>
+  FULL_WIDTHS.map((w) => `${fullPhoto(id, night, w, ext)} ${w}w`).join(', ');
+const AVIF_1PX =
+  'data:image/avif;base64,AAAAHGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZgAAAOltZXRhAAAAAAAAACFoZGxyAAAAAAAAAABwaWN0AAAAAAAAAAAAAAAAAAAAAA5waXRtAAAAAAABAAAAHmlsb2MAAAAARAAAAQABAAAAAQAAAQ0AAAAbAAAAKGlpbmYAAAAAAAEAAAAaaW5mZQIAAAAAAQAAYXYwMUNvbG9yAAAAAGhpcHJwAAAASWlwY28AAAAUaXNwZQAAAAAAAAABAAAAAQAAAA5waXhpAAAAAAEIAAAADGF2MUOBABwAAAAAE2NvbHJuY2x4AAEAAgAGgAAAABdpcG1hAAAAAAAAAAEAAQQBAoMEAAAAI21kYXQSAAoHGAAGmAgQNTIOGUYhh55oAJBAyp+La0g=';
+let avifCheck: Promise<Ext> | undefined;
+const photoExt = () =>
+  (avifCheck ??= new Promise<Ext>((done) => {
+    const img = new Image();
+    img.onload = () => done(img.width > 0 ? 'avif' : 'jpg');
+    img.onerror = () => done('jpg');
+    img.src = AVIF_1PX;
+  }));
 // The photos cover the screen, so on a tall screen they are drawn as wide as 16/9 of its height:
 // a phone gets the largest file instead of a small one stretched.
 const FULL_SIZES = '(max-aspect-ratio: 16/9) 178vh, 100vw';
@@ -112,6 +125,20 @@ export function ComingSoonPage() {
   const mainRef = useRef<HTMLElement>(null);
   // Day or night when the page opens: the first photos are already the right set.
   const [initialNight] = useState(() => isNightInZurich(new Date()));
+  // The photo credit sits behind a faint (i) in the corner; a tap shows it.
+  const [infoOpen, setInfoOpen] = useState(false);
+  useEffect(() => {
+    if (!infoOpen) return;
+    const close = (e: Event) => {
+      if (e instanceof KeyboardEvent ? e.key === 'Escape' : !(e.target as Element).closest?.('.cs-info')) setInfoOpen(false);
+    };
+    document.addEventListener('keydown', close);
+    document.addEventListener('pointerdown', close);
+    return () => {
+      document.removeEventListener('keydown', close);
+      document.removeEventListener('pointerdown', close);
+    };
+  }, [infoOpen]);
 
   useEffect(() => {
     const main = mainRef.current;
@@ -124,6 +151,7 @@ export function ComingSoonPage() {
     const caption = q<HTMLDivElement>('.cs-caption');
     const capName = q<HTMLSpanElement>('.cs-caption-name');
     const capCredit = q<HTMLAnchorElement>('.cs-caption-credit');
+    const info = q<HTMLDivElement>('.cs-info');
     const g = {
       pA: q<HTMLDivElement>('.cs-panel'),
       mA: q<HTMLDivElement>('.cs-ghost-mark-a'),
@@ -165,18 +193,17 @@ export function ComingSoonPage() {
       const id = LAKES[j][0];
       if (requested.has(key(id, n))) return;
       requested.add(key(id, n));
-      const large = new Image();
-      large.sizes = FULL_SIZES;
-      large.srcset = fullSrcSet(id, n);
-      large.src = fullPhoto(id, n, 1920);
-      void large
-        .decode()
-        .then(() => {
+      void photoExt().then((ext) => {
+        const large = new Image();
+        large.sizes = FULL_SIZES;
+        large.srcset = fullSrcSet(id, n, ext);
+        large.src = fullPhoto(id, n, 1920, ext);
+        return large.decode().then(() => {
           if (slideNight[j] !== n) return;
           slides[j].sizes = FULL_SIZES;
-          slides[j].srcset = fullSrcSet(id, n);
-        })
-        .catch(() => {});
+          slides[j].srcset = fullSrcSet(id, n, ext);
+        });
+      }).catch(() => {});
     }
     // A slide off screen takes the other photo set: the small photo at once, the large one as its turn comes.
     function retake(j: number) {
@@ -333,6 +360,8 @@ export function ComingSoonPage() {
 
       // 5. Lake name caption: the text swaps at the middle of each cross-fade.
       caption.style.opacity = String(a(F0 + 0.8, F0 + 1.3, outCubic));
+      info.style.opacity = caption.style.opacity;
+      info.style.visibility = caption.style.opacity === '0' ? 'hidden' : 'visible';
       const shown = xe > 0.5 ? nxt : idx;
       const [lakeId, name] = LAKES[shown];
       const label = `${name}${slideNight[shown] ? ' (evening)' : ''}`;
@@ -345,7 +374,6 @@ export function ComingSoonPage() {
         lastName = label;
       }
       capName.style.opacity = String(x > 0 ? Math.abs(xe - 0.5) * 2 : 1);
-      capCredit.style.opacity = capName.style.opacity;
     }
 
     // Reduced motion: the settled final state, no animation and no cycling.
@@ -398,8 +426,9 @@ export function ComingSoonPage() {
       <link
         rel="preload"
         as="image"
-        href={fullPhoto('lucerne', initialNight, 1920)}
-        imageSrcSet={fullSrcSet('lucerne', initialNight)}
+        type="image/avif"
+        href={fullPhoto('lucerne', initialNight, 1920, 'avif')}
+        imageSrcSet={fullSrcSet('lucerne', initialNight, 'avif')}
         imageSizes={FULL_SIZES}
       />
       <div className="cs-grid" aria-hidden="true">
@@ -482,9 +511,24 @@ export function ComingSoonPage() {
 
       <div className="cs-caption">
         <span className="cs-caption-name" aria-hidden="true">Lake Lucerne</span>
+      </div>
+
+      <div className="cs-info" data-open={infoOpen || undefined}>
         <a className="cs-caption-credit" href={credit('lucerne', initialNight).sourceUrl} target="_blank" rel="noreferrer">
           Photo: {credit('lucerne', initialNight).author}, {credit('lucerne', initialNight).license}
         </a>
+        <button
+          type="button"
+          className="cs-info-btn"
+          aria-label="Photo credit"
+          aria-expanded={infoOpen}
+          onClick={() => setInfoOpen((o) => !o)}
+        >
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+            <circle cx="12" cy="12" r="9.5" />
+            <path d="M12 11v5.5M12 7.6v.1" />
+          </svg>
+        </button>
       </div>
     </main>
   );

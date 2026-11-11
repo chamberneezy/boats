@@ -3,18 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lacus — Swiss lake boat timetables, coming soon</title>
-    <meta name="description" content="Lacus puts the boats of every Swiss lake in one place: every pier, every boat, on all twelve lakes. Coming soon for iPhone, Android and the web." />
+    <title>Lacus — boat timetables for all twelve Swiss lakes, coming soon</title>
+    <meta name="description" content="Boat timetables for Swiss lakes in one free app: every public boat and pier on Lake Lucerne, Geneva, Zurich, Constance, Lugano, Maggiore, Thun, Brienz and more, plus special cruises. Coming soon." />
     <link rel="canonical" href="https://lacusapp.ch/" />
     <meta name="theme-color" content="#16384A" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="alternate" type="text/plain" title="Lacus for language models" href="/llms.txt" />
+    <style>.lx-index{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}</style>
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Lacus" />
     <meta property="og:url" content="https://lacusapp.ch/" />
     <meta property="og:title" content="Lacus — every pier, every boat, on all twelve Swiss lakes" />
-    <meta property="og:description" content="Boat timetables for every Swiss lake in one app. Coming soon for iPhone, Android and the web." />
+    <meta property="og:description" content="Boat timetables for every Swiss lake in one free app: every public boat, every pier, and the special cruises. Coming soon for iPhone and Android." />
     <meta property="og:image" content="https://lacusapp.ch/og-image.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -30,7 +32,12 @@
             "@id": "https://lacusapp.ch/#organization",
             "name": "Lacus",
             "url": "https://lacusapp.ch/",
-            "logo": "https://lacusapp.ch/logo-mark.svg"
+            "logo": "https://lacusapp.ch/apple-touch-icon.png",
+            "description": "Lacus makes boat timetables for the twelve big Swiss lakes: every public boat, every pier, and the special cruises, in one free app.",
+            "areaServed": {
+              "@type": "Country",
+              "name": "Switzerland"
+            }
           },
           {
             "@type": "WebSite",
@@ -38,7 +45,93 @@
             "name": "Lacus",
             "url": "https://lacusapp.ch/",
             "description": "Boat timetables for every Swiss lake: every pier, every boat, on all twelve lakes.",
-            "publisher": { "@id": "https://lacusapp.ch/#organization" },
+            "publisher": {
+              "@id": "https://lacusapp.ch/#organization"
+            },
+            "inLanguage": "en"
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://lacusapp.ch/#webpage",
+            "url": "https://lacusapp.ch/",
+            "name": "Lacus — boat timetables for all twelve Swiss lakes",
+            "isPartOf": {
+              "@id": "https://lacusapp.ch/#website"
+            },
+            "about": [
+              {
+                "@type": "LakeBodyOfWater",
+                "name": "Lake Lucerne",
+                "alternateName": "Vierwaldstättersee",
+                "sameAs": "https://en.wikipedia.org/wiki/Lake_Lucerne"
+              },
+              {
+                "@type": "LakeBodyOfWater",
+                "name": "Lake Geneva",
+                "alternateName": "Lac Léman",
+                "sameAs": "https://en.wikipedia.org/wiki/Lake_Geneva"
+              },
+              {
+                "@type": "LakeBodyOfWater",
+                "name": "Lake Zurich",
+                "alternateName": "Zürichsee",
+                "sameAs": "https://en.wikipedia.org/wiki/Lake_Zurich"
+              },
+              {
+                "@type": "LakeBodyOfWater",
+                "name": "Lake Constance",
+                "alternateName": "Bodensee",
+                "sameAs": "https://en.wikipedia.org/wiki/Lake_Constance"
+              },
+              {
+                "@type": "LakeBodyOfWater",
+                "name": "Lake Neuchâtel",
+                "alternateName": "Lac de Neuchâtel",
+                "sameAs": "https://en.wikipedia.org/wiki/Lake_Neuch%C3%A2tel"
+              },
+              {
+                "@type": "LakeBodyOfWater",
+                "name": "Lake Lugano",
+                "alternateName": "Lago di Lugano",
+                "sameAs": "https://en.wikipedia.org/wiki/Lake_Lugano"
+              },
+              {
+                "@type": "LakeBodyOfWater",
+                "name": "Lake Maggiore",
+                "alternateName": "Lago Maggiore",
+                "sameAs": "https://en.wikipedia.org/wiki/Lake_Maggiore"
+              },
+              {
+                "@type": "LakeBodyOfWater",
+                "name": "Lake Thun",
+                "alternateName": "Thunersee",
+                "sameAs": "https://en.wikipedia.org/wiki/Lake_Thun"
+              },
+              {
+                "@type": "LakeBodyOfWater",
+                "name": "Lake Brienz",
+                "alternateName": "Brienzersee",
+                "sameAs": "https://en.wikipedia.org/wiki/Lake_Brienz"
+              },
+              {
+                "@type": "LakeBodyOfWater",
+                "name": "Lake Zug",
+                "alternateName": "Zugersee",
+                "sameAs": "https://en.wikipedia.org/wiki/Lake_Zug"
+              },
+              {
+                "@type": "LakeBodyOfWater",
+                "name": "Lake Murten",
+                "alternateName": "Murtensee / Lac de Morat",
+                "sameAs": "https://en.wikipedia.org/wiki/Lake_Murten"
+              },
+              {
+                "@type": "LakeBodyOfWater",
+                "name": "Lake Biel",
+                "alternateName": "Bielersee / Lac de Bienne",
+                "sameAs": "https://en.wikipedia.org/wiki/Lake_Biel"
+              }
+            ],
             "inLanguage": "en"
           }
         ]
@@ -51,12 +144,29 @@
   </head>
   <body>
     <div id="root"></div>
-    <!-- What the page says, for crawlers and readers without JavaScript. -->
-    <noscript>
-      <h1>Lacus</h1>
-      <p>Every boat, every lake. Boat timetables for all twelve Swiss lakes: Lake Lucerne, Lake Geneva, Lake Zurich, Lake Constance, Lake Neuchâtel, Lake Lugano, Lake Maggiore, Lake Thun, Lake Brienz, Lake Zug, Lake Murten and Lake Biel.</p>
-      <p>Coming soon for iPhone, Android and the web.</p>
-    </noscript>
+    <!-- What the page is about, in plain text for search engines, AI crawlers and screen readers.
+         Not drawn on screen: the page shows only the rotating lake photos (owner, 2026-11-11).
+         Keep it short, factual and true to what the page shows. -->
+    <section class="lx-index" aria-label="About Lacus">
+      <h2>Boat timetables for every Swiss lake</h2>
+      <p>Lacus puts the boats of the twelve big Swiss lakes in one place: every public boat and every pier, which boat runs each trip where the operator publishes it, and special cruises such as fondue, brunch and full-moon evenings. Times are Swiss local time. Tickets are bought from each lake's boat company.</p>
+      <p>Lacus is coming soon as a free app for iPhone and Android, with no account needed.</p>
+      <h2>The twelve lakes</h2>
+      <ul>
+          <li>Lake Lucerne (Vierwaldstättersee)</li>
+          <li>Lake Geneva (Lac Léman)</li>
+          <li>Lake Zurich (Zürichsee)</li>
+          <li>Lake Constance (Bodensee)</li>
+          <li>Lake Neuchâtel (Lac de Neuchâtel)</li>
+          <li>Lake Lugano (Lago di Lugano)</li>
+          <li>Lake Maggiore (Lago Maggiore)</li>
+          <li>Lake Thun (Thunersee)</li>
+          <li>Lake Brienz (Brienzersee)</li>
+          <li>Lake Zug (Zugersee)</li>
+          <li>Lake Murten (Murtensee / Lac de Morat)</li>
+          <li>Lake Biel (Bielersee / Lac de Bienne)</li>
+      </ul>
+    </section>
     <script type="module" src="./main.tsx"></script>
   </body>
 </html>

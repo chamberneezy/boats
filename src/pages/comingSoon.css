@@ -125,20 +125,20 @@
   left: clamp(16px, 3vmin, 32px);
   top: clamp(16px, 3vmin, 32px);
   box-sizing: border-box;
-  padding: 10px 20px 10px 10px;
+  padding: 9px 18px 9px 9px;
   display: flex;
   align-items: center;
-  gap: clamp(10px, 1.6vmin, 16px);
+  gap: clamp(9px, 1.44vmin, 14.4px);
   visibility: hidden;
   pointer-events: none;
 }
 .cs-ghost-mark-b {
-  width: clamp(40px, 5.5vmin, 60px);
+  width: clamp(36px, 4.95vmin, 54px);
   aspect-ratio: 1;
   flex: none;
 }
 .cs-ghost-word-b {
-  font: 600 clamp(26px, 3.6vmin, 40px) / 1 var(--font-display);
+  font: 600 clamp(23.4px, 3.24vmin, 36px) / 1 var(--font-display);
   letter-spacing: 0.02em;
 }
 
@@ -187,14 +187,48 @@
   color: var(--color-chalk);
 }
 
-/* The photo's credit under the lake's name (CC BY-SA asks for it): small, quiet, a link. */
+/* The photo's credit (CC BY-SA asks for it), behind a barely visible (i) in the corner. */
+.cs-info {
+  position: absolute;
+  right: clamp(10px, 2vmin, 20px);
+  bottom: clamp(10px, 2vmin, 20px);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  opacity: 0;
+  visibility: hidden;
+}
+.cs-info-btn {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  background: none;
+  color: var(--color-chalk);
+  opacity: 0.3;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.cs-info-btn:hover,
+.cs-info-btn:focus-visible,
+.cs-info[data-open] .cs-info-btn {
+  opacity: 0.8;
+}
 .cs-caption-credit {
-  pointer-events: auto;
   font: 400 12px / 1.4 var(--font-body);
   color: var(--color-chalk);
-  opacity: 0.85;
   text-decoration: none;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+.cs-info[data-open] .cs-caption-credit {
+  opacity: 0.9;
+  pointer-events: auto;
 }
 .cs-caption-credit:hover {
   text-decoration: underline;
