@@ -115,7 +115,10 @@ async function readBsg() {
       if (!d) return [];
       return [{ date: ddmmyyyy(d[1], d[2], d[3]), from: pier, depart: hhmm(time[1], time[2]), to: pier, arrive: hhmm(time[3], time[4]), ...(/sold_out/.test(attrs) ? { soldOut: true } : {}) }];
     });
-    if (departures.length) cruises.push({ id: `bsg:${slug}`, url, title: { de: title }, ...(price ? { price: { amount: price, currency: 'CHF' } } : {}), departures });
+    // The page's own introduction: the first paragraph under its subtitle ("Geniessen Sie zum
+    // Jahresabschluss ein festliches Menü an Board…"); the menu and the terms follow in an accordion.
+    const description = text(/class="content-side-left">.*?<p>(.*?)<\/p>/s.exec(html)?.[1] ?? '');
+    if (departures.length) cruises.push({ id: `bsg:${slug}`, url, title: { de: title }, ...(description ? { description: { de: description } } : {}), ...(price ? { price: { amount: price, currency: 'CHF' } } : {}), departures });
   }
   return { source: `${BSG}/events`, cruises };
 }
@@ -164,7 +167,17 @@ async function readLnm() {
       if (m < 0) return [];
       return [{ date: ddmmyyyy(d, String(m + 1), y), from: dep[1].trim(), depart: hhmm(dep[2], dep[3]), to: arr[1].trim(), arrive: hhmm(arr[2], arr[3]) }];
     });
-    if (departures.length) cruises.push({ id: `lnm:${slug}`, url, title: { fr: title }, ...(price ? { price: { amount: price, currency: 'CHF' } } : {}), departures });
+    // The page's own introduction: the prose paragraphs of its text before the first "⚓⚓⚓" divider,
+    // without a heading that is only bold text ("Les dimanches au loin"); prices, the package's terms
+    // and the contact details follow the divider.
+    const intro = [];
+    for (const [, part] of (/<div class="content">(.*?)<div class="titleSmall">/s.exec(html)?.[1] ?? '').matchAll(/<div>(.*?)<\/div>/gs)) {
+      if (/⚓|Forfait/.test(part)) break;
+      const line = text(part);
+      if (line && !/^\s*<strong>.*<\/strong>(\s*<br\s*\/?>)*\s*$/s.test(part)) intro.push(line);
+    }
+    const description = intro.join('\n\n');
+    if (departures.length) cruises.push({ id: `lnm:${slug}`, url, title: { fr: title }, ...(description ? { description: { fr: description } } : {}), ...(price ? { price: { amount: price, currency: 'CHF' } } : {}), departures });
   }
   return { source: `${LNM}/Nos-croisieres`, cruises };
 }

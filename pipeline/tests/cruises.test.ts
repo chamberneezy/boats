@@ -6,7 +6,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { test } from 'node:test';
 import type { TimetableManifest, TimetablePackage } from '../../src/timetable/types.ts';
-import { CRUISE_SOURCES, CRUISE_TITLES_FILE, OPERATOR_CRUISES_FILE, detectCruises, englishTitle, nameDeployedCruises, operatorCruises, pierResolver } from '../cruises.ts';
+import { CRUISE_DESCRIPTIONS_FILE, CRUISE_SOURCES, CRUISE_TITLES_FILE, OPERATOR_CRUISES_FILE, detectCruises, englishDescription, englishTitle, nameDeployedCruises, operatorCruises, pierResolver } from '../cruises.ts';
 // @ts-expect-error - plain JavaScript script, no type declarations
 import { sgvDates } from '../../scripts/scrape-cruises.mjs';
 import type { OperatorCruisesFile, ScrapedTrips } from '../cruises.ts';
@@ -105,7 +105,9 @@ test('operator-listed cruises: regular-sailing packages, shuttles and English ti
       },
     },
   };
-  const { cruises, untranslated } = operatorCruises('lake-biel', lake, file, { 'Fondue-Schiff': 'Fondue boat' }, '2026-10-01');
+  file.operators.bsg.cruises[2].description = { de: 'Käsefondue an Bord.' };
+  const { cruises, untranslated } = operatorCruises('lake-biel', lake, file, { 'Fondue-Schiff': 'Fondue boat' }, '2026-10-01', { 'Käsefondue an Bord.': 'Cheese fondue on board.' });
+  assert.deepEqual(cruises[0].description, { de: 'Käsefondue an Bord.', en: 'Cheese fondue on board.' });
   assert.deepEqual(cruises.map((c) => `${c.date} ${c.title?.en}`), ['2026-10-02 Fondue boat', '2026-10-09 Fondue boat', '2027-09-30 Fondue boat']);
   assert.deepEqual(untranslated, ['Mittagsfahrt']);
   const late = cruises[1];
@@ -121,6 +123,14 @@ test('every operator-listed cruise has an English title', { skip: !existsSync(op
   const titles = JSON.parse(readFileSync(join(import.meta.dirname, '..', '..', CRUISE_TITLES_FILE), 'utf8'));
   const missing = Object.values(file.operators).flatMap((o) => o.cruises.filter((c) => !englishTitle(c, titles)).map((c) => Object.values(c.title)[0]));
   assert.deepEqual(missing, [], `add an English title to ${CRUISE_TITLES_FILE}`);
+});
+
+test('every operator-listed cruise description has an English version', { skip: !existsSync(operatorFile) && 'no scraped operator cruises' }, () => {
+  const file: OperatorCruisesFile = JSON.parse(readFileSync(operatorFile, 'utf8'));
+  const descriptions = JSON.parse(readFileSync(join(import.meta.dirname, '..', '..', CRUISE_DESCRIPTIONS_FILE), 'utf8'));
+  const missing = Object.values(file.operators).flatMap((o) =>
+    o.cruises.filter((c) => c.description && !englishDescription(c, descriptions)).map((c) => Object.values(c.title)[0]));
+  assert.deepEqual(missing, [], `add an English description to ${CRUISE_DESCRIPTIONS_FILE}`);
 });
 
 test("SGV's date wording", () => {

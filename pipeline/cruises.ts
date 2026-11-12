@@ -156,6 +156,10 @@ export const OPERATOR_CRUISES_FILE = 'src/data/scraped/operator-cruises.json';
 // Reviewed English names for cruises an operator only names in German or French, keyed by the
 // operator's own title. Hand-maintained; npm run test:data fails when a scraped title has none.
 export const CRUISE_TITLES_FILE = 'src/data/cruiseTitles.json';
+// Reviewed English versions of the operator's own description of a cruise, for operators that
+// write only in German or French (BSG, LNM), keyed by the operator's exact text: a changed text
+// needs a new review. Hand-maintained; npm run test:data fails when a scraped description has none.
+export const CRUISE_DESCRIPTIONS_FILE = 'src/data/cruiseDescriptions.json';
 
 type Lang = 'en' | 'de' | 'fr' | 'it';
 export interface OperatorDeparture {
@@ -187,6 +191,10 @@ export interface OperatorCruisesFile {
 export const englishTitle = (cruise: OperatorCruise, titles: Record<string, string>): string | null =>
   cruise.title.en ?? Object.values(cruise.title).map((t) => t && titles[t]).find(Boolean) ?? null;
 
+/** The English description of an operator cruise: the operator's own, else the reviewed translation; null without a description. */
+export const englishDescription = (cruise: OperatorCruise, descriptions: Record<string, string>): string | null =>
+  !cruise.description ? null : cruise.description.en ?? Object.values(cruise.description).map((t) => t && descriptions[t]).find(Boolean) ?? null;
+
 /**
  * A lake's cruises from its operators' event pages. Same exclusions as detectCruises: a departure
  * that leaves its first pier at the same minute as a public sailing is a package sold on a regular
@@ -206,6 +214,7 @@ export function operatorCruises(
   file: OperatorCruisesFile,
   titles: Record<string, string>,
   today: string,
+  descriptions: Record<string, string> = {},
 ): { cruises: CruisesPackage['cruises']; sources: string[]; unresolvedNames: string[]; untranslated: string[] } {
   const bits = pkg.services.map((s) => Uint8Array.from(Buffer.from(s.days, 'base64')));
   const resolve = pierResolver(pkg);
@@ -233,6 +242,7 @@ export function operatorCruises(
     for (const cruise of operator.cruises) {
       const en = englishTitle(cruise, titles);
       if (!en) untranslated.add(Object.values(cruise.title)[0] ?? cruise.id);
+      const enDescription = englishDescription(cruise, descriptions);
       // Pier|minute slots of this cruise found on a regular sailing on a day the timetable covers.
       const onRegular = new Set<string>();
       const inRange = (date: string) => date >= pkg.validFrom && date <= pkg.validUntil;
@@ -269,7 +279,7 @@ export function operatorCruises(
           stops,
           operator: name,
           title: { ...cruise.title, ...(en ? { en } : {}) },
-          ...(cruise.description ? { description: cruise.description } : {}),
+          ...(cruise.description ? { description: { ...cruise.description, ...(enDescription ? { en: enDescription } : {}) } } : {}),
           url: dep.booking ?? cruise.url,
           ...(cruise.price ? { price: cruise.price } : {}),
           ...(dep.soldOut ? { soldOut: true } : {}),

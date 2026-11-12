@@ -16,7 +16,7 @@ import { parseArgs } from 'node:util';
 import { CRUISES_SCHEMA_VERSION } from '../src/timetable/types.ts';
 import type { CruisesManifest, TimetableManifest, TimetablePackage } from '../src/timetable/types.ts';
 import { zurichParts } from '../src/timetable/zurich.ts';
-import { CRUISE_SOURCES, CRUISE_TITLES_FILE, OPERATOR_CRUISE_LAKES, OPERATOR_CRUISES_FILE, detectCruises, nameDeployedCruises, operatorCruises, pierResolver } from './cruises.ts';
+import { CRUISE_DESCRIPTIONS_FILE, CRUISE_SOURCES, CRUISE_TITLES_FILE, OPERATOR_CRUISE_LAKES, OPERATOR_CRUISES_FILE, detectCruises, nameDeployedCruises, operatorCruises, pierResolver } from './cruises.ts';
 import type { ListedTemplate } from './cruises.ts';
 import type { OperatorCruisesFile, ScrapedTrips } from './cruises.ts';
 
@@ -50,7 +50,7 @@ const deployed = sourceFile
 const operatorFile = join(root, OPERATOR_CRUISES_FILE);
 const operatorData: OperatorCruisesFile | null = hasOperatorCruises && existsSync(operatorFile) ? JSON.parse(readFileSync(operatorFile, 'utf8')) : null;
 const listed = operatorData
-  ? operatorCruises(lakeId, timetable, operatorData, JSON.parse(readFileSync(join(root, CRUISE_TITLES_FILE), 'utf8')), today)
+  ? operatorCruises(lakeId, timetable, operatorData, JSON.parse(readFileSync(join(root, CRUISE_TITLES_FILE), 'utf8')), today, JSON.parse(readFileSync(join(root, CRUISE_DESCRIPTIONS_FILE), 'utf8')))
   : null;
 // Open-ended "every <weekday>" pages (SGV) only name matching deployments.
 const resolvePier = pierResolver(timetable);

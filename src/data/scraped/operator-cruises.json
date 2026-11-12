@@ -2,13 +2,16 @@
  "operators": {
   "bsg": {
    "source": "https://www.bielersee.ch/events",
-   "fetchedAt": "2026-11-13T13:24:00.755Z",
+   "fetchedAt": "2026-11-14T11:30:40.451Z",
    "cruises": [
     {
      "id": "bsg:adventsbrunch",
      "url": "https://www.bielersee.ch/events/event/adventsbrunch",
      "title": {
       "de": "Adventsbrunch"
+     },
+     "description": {
+      "de": "Lassen Sie sich von der winterlichen Atmosphäre verzaubern und geniessen Sie den Adventsbrunch an Bord unseres Schiffes. Bei einer malerischen Kursfahrt erwartet Sie ein umfangreiches Brunchbuffet mit allem, was das Herz begehrt: hausgemachte Rösti, köstliche Käse- und Fleischspezialitäten sowie Birchermüesli. Perfekt für eine gemütliche Auszeit in der Vorweihnachtszeit."
      },
      "price": {
       "amount": 48,
@@ -37,6 +40,9 @@
      "title": {
       "de": "Buurebrunch Aare"
      },
+     "description": {
+      "de": "An Bord sorgt das Trio «Guido Frei» mit Schwyzerörgeli und Kontrabass für Stimmung. Geniessen Sie dazu einen feinen Buurebrunch mit Rösti, gebratenem Speck und Spiegelei, Würsten, Käse und vielem mehr."
+     },
      "price": {
       "amount": 89,
       "currency": "CHF"
@@ -56,6 +62,9 @@
      "url": "https://www.bielersee.ch/events/event/buurebrunch-bielersee",
      "title": {
       "de": "Buurebrunch Bielersee"
+     },
+     "description": {
+      "de": "An Bord sorgen die Bielersee Buebe mit Schwyzerörgeli und Kontrabass für Stimmung. Geniessen Sie dazu einen feinen Buurebrunch mit Zopf, gebratenem Speck, Würsten, Käse und vielem mehr."
      },
      "price": {
       "amount": 65,
@@ -77,6 +86,9 @@
      "title": {
       "de": "Chateaubriand-Schiff"
      },
+     "description": {
+      "de": "Unser Gastroteam verwöhnt Sie mit einer Chateaubriand-Platte mit Kartoffelgratin und einer Gemüseauswahl als Beilage. Zur Vorspeise wird ein Salat Maison an unserem Hausdressing serviert."
+     },
      "price": {
       "amount": 78,
       "currency": "CHF"
@@ -96,6 +108,9 @@
      "url": "https://www.bielersee.ch/events/event/fondue-schiff-aare",
      "title": {
       "de": "Fondue-Schiff Aare"
+     },
+     "description": {
+      "de": "Geniessen Sie in geselliger Atmosphäre ein Käsefondue mit Brot, Kartoffeln, Früchten und Essiggemüse. Der Ausblick auf die Uferlandschaft an der Aare macht die Fahrt zum unvergesslichen Erlebnis. Die Fonduefahrt ist auch als privates Extraschiff buchbar."
      },
      "price": {
       "amount": 68,
@@ -117,6 +132,9 @@
      "title": {
       "de": "Metzgete-Schiff Aare"
      },
+     "description": {
+      "de": "Erleben Sie eine traditionelle Metzgete in einer etwas anderen Atmosphäre auf dem Schiff. Unsere Bordgastronomie serviert Ihnen die Fleischklassiker mit verschiedenen Beilagen. Dazu geniessen Sie den Ausblick auf die herbstlichen Uferlandschaften."
+     },
      "price": {
       "amount": 33,
       "currency": "CHF"
@@ -136,6 +154,9 @@
      "url": "https://www.bielersee.ch/events/event/mexikanischer-abend-aare",
      "title": {
       "de": "Mexikanischer-Abend Aare"
+     },
+     "description": {
+      "de": "Während einer entspannten Fahrt auf der Aare verwöhnt Sie unsere Bordgastronomie mit einem köstlichen Drei-Gang-Menü. Lassen Sie sich kulinarisch nach Mittelamerika entführen und erleben Sie mexikanische Genussmomente."
      },
      "price": {
       "amount": 78,
@@ -157,6 +178,9 @@
      "title": {
       "de": "Mexikanischer-Abend Bielersee"
      },
+     "description": {
+      "de": "Freuen Sie sich auf eine genussvolle Reise nach Mittelamerika und geniessen Sie eine gemütliche Schifffahrt auf dem Bielersee. Die Bordgastronomie verwöhnt Sie mit einem köstlichen Drei-Gang-Menü aus Mexiko."
+     },
      "price": {
       "amount": 78,
       "currency": "CHF"
@@ -177,6 +201,9 @@
      "title": {
       "de": "Osterbrunch Aare"
      },
+     "description": {
+      "de": "Feiern Sie Ostern auf einer entspannten Aare-Fahrt und geniessen Sie dazu einen feinen Osterbrunch mit Spiegelei, gebratenem Speck, Honig vom Kapitän, Käse und vielem mehr."
+     },
      "price": {
       "amount": 80,
       "currency": "CHF"
@@ -196,6 +223,9 @@
      "url": "https://www.bielersee.ch/events/event/osterbrunch-bielersee",
      "title": {
       "de": "Osterbrunch Bielersee"
+     },
+     "description": {
+      "de": "Feiern Sie Ostern auf einer entspannten Bielersee-Rundfahrt und geniessen Sie dazu einen feinen Osterbrunch mit Spiegelei, gebratenem Speck, Honig vom Kapitän, Käse und vielem mehr."
      },
      "price": {
       "amount": 80,
@@ -224,6 +254,9 @@
      "title": {
       "de": "Raclette-Schiff Aare"
      },
+     "description": {
+      "de": "Raclette und Winter gehören zusammen. Auf dem Schiff schmeckt ein Raclette besonders gut. Ein gemischter Salat, Kartoffeln und weitere Beilagen stehen zur Auswahl. Als Ergänzung können Sie einen gemischten Fleischteller mit Trockenfleisch, Rohschinken, Hobelspeck und Rauchwurst bestellen. Die Raclettefahrt ist auch als privates Extraschiff buchbar."
+     },
      "price": {
       "amount": 68,
       "currency": "CHF"
@@ -243,6 +276,9 @@
      "url": "https://www.bielersee.ch/events/event/raclette-schiff-bielersee",
      "title": {
       "de": "Raclette-Schiff Bielersee"
+     },
+     "description": {
+      "de": "Raclette und Winter gehören zusammen. Auf dem Schiff schmeckt ein Raclette besonders gut. Ein gemischter Salat, Kartoffeln und weitere Beilagen stehen zur Auswahl. Als Ergänzung können Sie einen gemischten Fleischteller mit Trockenfleisch, Rohschinken, Hobelspeck und Rauchwurst bestellen. Die Raclette-Fahrt ist auch als privates Extraschiff buchbar."
      },
      "price": {
       "amount": 68,
@@ -271,6 +307,9 @@
      "title": {
       "de": "Samichlaus"
      },
+     "description": {
+      "de": "Wir haben Glück – auf dem Weg durch die Schweiz hat der Samichlaus seinen Rentierschlitten gegen das Schiff ausgetauscht und viele Süssigkeiten dabei. Alle Kinder, die ihr Versli schon jetzt können, dürfen dieses dem Samichlaus erzählen. Er freut sich und belohnt die Kinder mit seinen Süssigkeiten."
+     },
      "departures": [
       {
        "date": "2026-12-06",
@@ -287,6 +326,9 @@
      "title": {
       "de": "Seegottesdienst"
      },
+     "description": {
+      "de": "In den Reben oberhalb von Ligerz und mitten in Twann stehen die beiden prominenten Kirchen am linken Bielerseeufer – Blickfänge auf jeder Schifffahrt und Wahrzeichen der Region. Die reformierte Kirchgemeinde Pilgerweg Bielersee – zu welcher die Kirchen gehören – sowie die Katholische Kirche Lyss-Seeland laden herzlich zum Gottesdienst auf dem See ein."
+     },
      "departures": [
       {
        "date": "2026-11-29",
@@ -302,6 +344,9 @@
      "url": "https://www.bielersee.ch/events/event/silvester-chateaubriand-schiff",
      "title": {
       "de": "Silvester Chateaubriand-Schiff"
+     },
+     "description": {
+      "de": "Geniessen Sie zum Jahresabschluss eine Chateaubriand-Platte an Board und begrüssen Sie anschliessend das neue Jahr mit einem Mitternachtscüpli im Chalet des Restaurant Joran."
      },
      "price": {
       "amount": 99,
@@ -323,6 +368,9 @@
      "title": {
       "de": "Silvester Fondue-Chinoise-Schiff"
      },
+     "description": {
+      "de": "Lassen Sie das Jahr bei einem köstlichen Fondue-Chinoise auf dem Schiff ausklingen und begrüssen Sie anschliessend das neue Jahr mit einem Mitternachtscüpli im Chalet des Restaurants Joran."
+     },
      "price": {
       "amount": 99,
       "currency": "CHF"
@@ -342,6 +390,9 @@
      "url": "https://www.bielersee.ch/events/event/silvester-gala-fahrt",
      "title": {
       "de": "Silvester Gala-Fahrt"
+     },
+     "description": {
+      "de": "Lassen Sie die Korken auf dem Schiff knallen und feiern Sie den Start ins 2027. Der DJ sorgt für die passende Musik an Bord. Unser Gastro-Team verwöhnt Sie mit einem auserlesenen Fünf-Gang-Menü."
      },
      "price": {
       "amount": 162,
@@ -363,6 +414,9 @@
      "title": {
       "de": "Silvester-Schiff Aare"
      },
+     "description": {
+      "de": "Geniessen Sie zum Jahresabschluss ein festliches Menü an Board und begrüssen Sie anschliessend das neue Jahr mit einem Mitternachtscüpli an der Schiffländte in Solothurn."
+     },
      "price": {
       "amount": 119,
       "currency": "CHF"
@@ -382,6 +436,9 @@
      "url": "https://www.bielersee.ch/events/event/spielschiff-bielersee",
      "title": {
       "de": "Spielschiff Bielersee"
+     },
+     "description": {
+      "de": "Die Profis vom Spielladen «Delirium Ludens» in Biel bringen neue und bekannte Gesellschaftsspiele mit an Bord. Auf dem Schiff haben Sie die Gelegenheit, verschiedene Spiele kennenzulernen. Entdecken Sie diese auf eigene Faust oder lassen Sie sich die Spiele erklären. Geeignet ist das Spielschiff für alle Spielerinnen und Spieler ab 8 Jahren."
      },
      "price": {
       "amount": 65,
@@ -403,6 +460,9 @@
      "title": {
       "de": "Treberwurst-Schiff Aare"
      },
+     "description": {
+      "de": "Die original Twanner Treberwurst ist eine lokale Spezialität aus dem Weinbaugebiet des Bielersees. Als Beilage servieren wir Ihnen einen Kartoffel-Lauch-Gratin und ein Dessert als süssen Abschluss. Gerne empfehlen wir Ihnen den passenden Wein aus der Region zum Menü."
+     },
      "price": {
       "amount": 69,
       "currency": "CHF"
@@ -422,6 +482,9 @@
      "url": "https://www.bielersee.ch/events/event/treberwurst-schiff-bielersee",
      "title": {
       "de": "Treberwurst-Schiff Bielersee"
+     },
+     "description": {
+      "de": "Die original Twanner Treberwurst ist eine lokale Spezialität aus dem Weinbaugebiet des Bielersees. Diese auf dem Schiff mit Blick auf die wunderschöne Uferlandschaft zu geniessen, ist ein besonderes Erlebnis. Als Beilage servieren wir Ihnen einen Kartoffel-Lauch-Gratin und ein Dessert als süssen Abschluss. Gerne empfehlen wir Ihnen den passenden Wein aus der Region zum Menü."
      },
      "price": {
       "amount": 69,
@@ -443,6 +506,9 @@
      "title": {
       "de": "Valentinsfahrt Aare"
      },
+     "description": {
+      "de": "Überraschen Sie Ihre/n Liebste/n mit einer romantischen Fahrt auf der Aare. Liebe geht ja bekanntlich durch den Magen. Deshalb verwöhnen wir Sie mit einem aphrodisierenden Vier-Gang-Menü und einem sinnlichen Dessert."
+     },
      "price": {
       "amount": 79,
       "currency": "CHF"
@@ -463,6 +529,9 @@
      "title": {
       "de": "Valentinsfahrt Bielersee"
      },
+     "description": {
+      "de": "Überraschen Sie Ihre/n Liebste/n mit einer romantischen Fahrt auf dem Bielersee. Liebe geht ja bekanntlich durch den Magen. Deshalb verwöhnen wir Sie mit einem aphrodisierenden Vier-Gang-Menü und einem sinnlichen Dessert."
+     },
      "price": {
       "amount": 79,
       "currency": "CHF"
@@ -482,6 +551,9 @@
      "url": "https://www.bielersee.ch/events/event/vollmond-fondue-schiff-1",
      "title": {
       "de": "Vollmond-Fondue-Schiff"
+     },
+     "description": {
+      "de": "Geniessen Sie ein leckeres Käsefondue mit Blick auf den Vollmond. Ruhig und schwerelos gleiten Sie über den Bielersee, bis der Vollmond in greifbarer Nähe ist. Unsere Schiffsgastronomie verwöhnt Sie dazu mit allem was zu einem guten Käsefondue gehört."
      },
      "price": {
       "amount": 68,
@@ -517,6 +589,9 @@
      "title": {
       "de": "Winzer-Schiff"
      },
+     "description": {
+      "de": "Auf der Ausstellung an Bord lernen Sie Winzer aus der Region kennen und lieben. Dazu gibt es feines aus der Bord-Küche wie zum Beispiel die lokale Spezialität Treberwurst mit einem feinen Kartoffel-Lauch-Gratin."
+     },
      "departures": [
       {
        "date": "2027-04-04",
@@ -531,13 +606,16 @@
   },
   "lnm": {
    "source": "https://www.lnm.ch/Nos-croisieres",
-   "fetchedAt": "2026-11-13T13:24:05.947Z",
+   "fetchedAt": "2026-11-14T11:30:44.679Z",
    "cruises": [
     {
      "id": "lnm:Croisiere-Brunch-Neuchatel",
      "url": "https://www.lnm.ch/Evenement/Croisiere-Brunch-Neuchatel",
      "title": {
       "fr": "Croisière Brunch · Neuchâtel"
+     },
+     "description": {
+      "fr": "Installez-vous confortablement à bord pour une boucle paisible de plus de deux heures sur le lac de Neuchâtel, tandis que les rives feutrées de l’hiver se dévoilent au fil du voyage.\n\nPour sublimer cette parenthèse, la croisière spéciale brunch vous propose un généreux buffet gourmand, savoureux trait d’union entre délices salés (charcuteries, saumon gravlax, röstis) et douceurs sucrées (viennoiseries, pancakes, mignardises).\n\nUne expérience exclusive, disponible sur deux dates seulement en novembre."
      },
      "price": {
       "amount": 79,
@@ -559,6 +637,9 @@
      "title": {
       "fr": "Croisière Choucroute · Neuchâtel"
      },
+     "description": {
+      "fr": "Le 29 novembre, éclipsez-vous le temps d'un midi et larguez les amarres pour une croisière gourmande au départ de Neuchâtel.\n\nInstallez-vous confortablement et laissez-vous tenter par une authentique choucroute maison, soigneusement concoctée par notre brigade. Une escale généreuse et réconfortante, suivie d'un nougat glacé tout en finesse à savourer face à la beauté des rives."
+     },
      "price": {
       "amount": 60,
       "currency": "CHF"
@@ -579,6 +660,9 @@
      "title": {
       "fr": "Croisière Fondue · Neuchâtel"
      },
+     "description": {
+      "fr": "Et si vous vous offriez une parenthèse ultra-gourmande ?\n\nEn décembre, durant quatre dates exclusives, embarquez au départ de Neuchâtel pour une pause de midi hors du temps. Confortablement installé à bord, laissez-vous glisser le long des rives enneigées tout en partageant un authentique menu 3 plats.\n\nAu programme pour les petits et les grands : une salade croquante, une onctueuse fondue moitié-moitié au Gruyère de Sainte-Croix et une délicieuse meringue à la crème double pour terminer en beauté.\n\nChaleur, terroir et détente garantis."
+     },
      "price": {
       "amount": 69,
       "currency": "CHF"
@@ -598,6 +682,9 @@
      "url": "https://www.lnm.ch/Evenement/Festival-des-Lumieres-Neuchatel-Morat-Avec-repas",
      "title": {
       "fr": "Festival des Lumières · Neuchâtel ↔ Morat · Avec repas"
+     },
+     "description": {
+      "fr": "C’est le rendez-vous incontournable qui réchauffe le coeur de l’hiver. En janvier, la vieille ville de Morat revêt ses habits de lumière pour une 11ᵉ édition fidèle à sa réputation : poétique, spectaculaire et immersive. Comme chaque année, l’expérience ne serait pas complète sans son incontournable déclinaison lacustre.\n\nLa LNM vous invite à nouveau à bord pour une traversée d'un lac à l'autre. Un moment suspendu, loin de l'agitation, où l'on se retrouve autour d'une délicieuse fondue au fromage servie à l’aller dans un confort feutré.\n\nPuis, la cité médiévale se dessine. À l'approche des rives, les projections monumentales et les installations artistiques du festival se révèlent. Vous découvrez la scénographie urbaine depuis le pont, là où le panorama est le plus spectaculaire, avant de rejoindre l'effervescence des ruelles."
      },
      "price": {
       "amount": 79,
@@ -654,6 +741,9 @@
      "title": {
       "fr": "Festival des Lumières · Neuchâtel ↔ Morat · Sans repas"
      },
+     "description": {
+      "fr": "C’est le rendez-vous incontournable qui réchauffe le coeur de l’hiver. En janvier, la vieille ville de Morat revêt ses habits de lumière pour une 11ᵉ édition fidèle à sa réputation : poétique, spectaculaire et immersive.\n\nLa LNM vous invite à nouveau à bord pour sa traversée d'un lac à l'autre. Un moment suspendu, loin de l'agitation, où l'on se retrouve dans un confort feutré.\n\nPuis, la cité médiévale se dessine. À l'approche des rives, les projections monumentales et les installations artistiques du festival se révèlent. Vous découvrez la scénographie urbaine depuis le pont, là où le panorama est le plus spectaculaire, avant de rejoindre l'effervescence des ruelles."
+     },
      "price": {
       "amount": 53,
       "currency": "CHF"
@@ -707,7 +797,7 @@
   },
   "sgz": {
    "source": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/",
-   "fetchedAt": "2026-11-13T13:24:41.767Z",
+   "fetchedAt": "2026-11-14T11:31:09.910Z",
    "cruises": [
     {
      "id": "sgz:1-august-fahrt",
@@ -11022,7 +11112,7 @@
   },
   "vlines": {
    "source": "https://www.vorarlberg-lines.at/en/cruises",
-   "fetchedAt": "2026-11-13T13:25:39.629Z",
+   "fetchedAt": "2026-11-14T11:32:07.105Z",
    "cruises": [
     {
      "id": "vlines:barbecue-ship-1",
@@ -13536,7 +13626,7 @@
   },
   "sgv": {
    "source": "https://webshop.lakelucerne.ch/en/",
-   "fetchedAt": "2026-11-13T13:26:28.899Z",
+   "fetchedAt": "2026-11-14T11:33:24.987Z",
    "cruises": [
     {
      "id": "sgv:1-august-motor-vessel",
@@ -15154,23 +15244,6 @@
       "currency": "CHF"
      },
      "departures": [
-      {
-       "date": "2026-11-13",
-       "from": "Luzern",
-       "depart": "19:12",
-       "to": "Luzern",
-       "arrive": "21:47",
-       "stops": [
-        {
-         "pier": "Luzern",
-         "time": "19:12"
-        },
-        {
-         "pier": "Luzern",
-         "time": "21:47"
-        }
-       ]
-      },
       {
        "date": "2026-11-20",
        "from": "Luzern",
