@@ -252,8 +252,12 @@ async function readVlines() {
       return { date: `${y}-${mo}-${d}`, from: first.pier, depart: clock(first.min + shift), to: last.pier, arrive: clock(last.min + shift), stops: route.map((e) => ({ pier: e.pier, time: clock(e.min + shift) })), ...(soldOut ? { soldOut: true } : {}) };
     });
     const price = amount(/Adults?:?\s*€\s*([\d.,]+)/.exec(text(en))?.[1] ?? '');
+    // The page's own introduction: the first paragraph of its first text block ("Immerse yourself in
+    // stunning views of Lake Constance as you…"); the menu and the price list follow in later paragraphs.
+    const block = /class="textblock-description[^"]*">(.*?)<\/div>/s.exec(en)?.[1] ?? '';
+    const description = [...block.matchAll(/<p[^>]*>(.*?)(?=<p[\s>]|<\/p>|$)/gs)].map((m) => text(m[1])).find((p) => p.length >= 40);
     const slug = url.split('/').pop();
-    cruises.push({ id: `vlines:${slug}`, url, title: { en: title }, ...(price ? { price: { amount: price, currency: 'EUR' } } : {}), departures });
+    cruises.push({ id: `vlines:${slug}`, url, title: { en: title }, ...(description ? { description: { en: description } } : {}), ...(price ? { price: { amount: price, currency: 'EUR' } } : {}), departures });
   }
   return { source: `${VL}/en/cruises`, cruises };
 }

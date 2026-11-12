@@ -11020,13 +11020,16 @@
   },
   "vlines": {
    "source": "https://www.vorarlberg-lines.at/en/cruises",
-   "fetchedAt": "2026-11-11T12:57:38.550Z",
+   "fetchedAt": "2026-11-12T10:43:44.284Z",
    "cruises": [
     {
      "id": "vlines:barbecue-ship-1",
      "url": "https://www.vorarlberg-lines.at/en/cruises/pleasure-cruises/barbecue-ship-1",
      "title": {
       "en": "Barbecue Ship"
+     },
+     "description": {
+      "en": "Enjoy the two-and-a-half hour Lake Constance tour, and a delicat grill-buffet including different types of meat, spicy sauces and a ceasar salad. Especially the view is breattaking when the sky is magically reflected in the water and the colors draw the picturesque landscape. Get ready to be excited - take a look at the wonderful panorama view. The gastronomy offers delicacies from the grill: Finely marinated meats, crisp salads, tasty side dishes and homemade dips await for you."
      },
      "price": {
       "amount": 85,
@@ -11125,6 +11128,9 @@
      "url": "https://www.vorarlberg-lines.at/en/cruises/pleasure-cruises/captains-brunch-1",
      "title": {
       "en": "Captain´s Brunch"
+     },
+     "description": {
+      "en": "Immerse yourself in stunning views of Lake Constance as you indulge in a delightful brunch featuring classic dishes and exceptional treats served on elegant tiered platters by the gastronomy PIER69 - On Board . Be enchanted by the expansive lake, where sky and water blend seamlessly into the horizon, while the picturesque shoreline and majestic mountain backdrop add to the breathtaking scenery. Let this unique cruise inspire and delight you as you enjoy a selection of sweet and savory delicacies amidst a truly unforgettable panorama."
      },
      "price": {
       "amount": 69,
@@ -11700,6 +11706,9 @@
      "title": {
       "en": "Royal Brunch"
      },
+     "description": {
+      "en": "Enjoy the wonderful allure of a Sunday morning by embarking on a cruise onboard the famous Queen of the Lake. Enjoy the splendor of the region's most expansive 360° sun deck, where spectacular views blend with the refined ambiance of the ship's beautiful interior, all while serenaded by enchanting live music. MO Catering invites you to enjoy a regal gourmet buffet, expertly prepared with the greatest ingredients and tailored to excite your taste buds. Prepare for a spectacular sensory encounter that will be nothing short of astounding. Live Music Schedule: August 1st \"Kisses and Cake\" | August 29th Kisses & Cake"
+     },
      "departures": [
       {
        "date": "2027-08-01",
@@ -11742,6 +11751,9 @@
      "url": "https://www.vorarlberg-lines.at/en/cruises/pleasure-cruises/christmas-brunch-1-2",
      "title": {
       "en": "Christmas Brunch"
+     },
+     "description": {
+      "en": "Come aboard and treat yourself to a remarkable Sunday morning with unique panoramic views. The tour takes you past the Festival grounds, the Bregenz \"Skyline\", the mouth of the Rhine, the Kaiserstrand beach in Bregenz, then returning Bregenz."
      },
      "price": {
       "amount": 65,
@@ -11823,6 +11835,9 @@
      "url": "https://www.vorarlberg-lines.at/en/cruises/cruises/christmas-konstanz-tour",
      "title": {
       "en": "Christmas cruises"
+     },
+     "description": {
+      "en": "Enjoy the winter cruise on the beautifully decorated ship. The view of the stunning winter landscape will enchant you. The christmas cruise takes to to the city Constance where a spectacular christmas market located directly at the harbour offers lovely products suitable as christmas gifts. The largest city on the lake, with its unique atmosphere, attracts many visitors every year."
      },
      "price": {
       "amount": 54.4,
@@ -12001,6 +12016,9 @@
      "title": {
       "en": "Constance Fireworks MS Austria"
      },
+     "description": {
+      "en": "Lake Constance Night Festival, a spectacle on Lake Constance that attracts numerous visitors from the region every year! Come on board for the wonderful evening cruise, the gastronomy PIER69 - On Board will spoil you with a delicious 3-course menu while you cross the lake to Constance. The captain brings the ship into the best position, where you can admire the largest fireworks on the lake in \"front row\"."
+     },
      "price": {
       "amount": 129,
       "currency": "EUR"
@@ -12031,6 +12049,9 @@
      "title": {
       "en": "Constance Fireworks MS Vorarlberg"
      },
+     "description": {
+      "en": "Lake Constance Night Festival, a spectacle on Lake Constance that attracts numerous visitors from the region every year! Come on board for the wonderful evening cruise, the gastronomy PIER69 - On Board will spoil you with a delicious 3-course menu while you cross the lake to Constance. The captain brings the ship into the best position, where you can admire the largest fireworks on the lake in \"front row\"."
+     },
      "price": {
       "amount": 129,
       "currency": "EUR"
@@ -12060,6 +12081,9 @@
      "url": "https://www.vorarlberg-lines.at/en/cruises/pleasure-cruises/dinner-musical-lakeconstance",
      "title": {
       "en": "ABBA DINNER SHOW on Lake Constance"
+     },
+     "description": {
+      "en": "Dinner Musical: The Musical Sound of Showtime"
      },
      "price": {
       "amount": 136,
@@ -12176,6 +12200,9 @@
      "title": {
       "en": "Fireworks Friedrichshafen"
      },
+     "description": {
+      "en": "Welcome on board of our ship take the journey with us to Friedrichshafen, to the impressive fireworks display at the Seehasenfest. Take a look at the fireworks in front of Friedrichshafen when the evening sky tunes into marvellouse bright colours. On board the ship, our gastronomy will offer you delicious grill specialties. A treat for the senses!"
+     },
      "price": {
       "amount": 91,
       "currency": "EUR"
@@ -12205,6 +12232,9 @@
      "url": "https://www.vorarlberg-lines.at/en/cruises/pleasure-cruises/fondue-cruise-1-1",
      "title": {
       "en": "Fondue Cruise"
+     },
+     "description": {
+      "en": "Enjoy either a Swiss- style cheese fondue or opt for a classic fondue with a variety of meats, spicy sauces and crunchy salads."
      },
      "price": {
       "amount": 77,
@@ -12420,6 +12450,9 @@
      "title": {
       "en": "Full Moon Clubbing Night"
      },
+     "description": {
+      "en": "We bring the flair and feeling of the legendary Ländle cult disco scene of the 80s/90s (Opal, Sender and Xiberger Fescht) to the mysterious Lake Constance. Full Moon Clubbing Night on the MS Sun Queen. Dance to cool sound from B'52, U2, The Cure, Peter Gabriel, Falco, Duran Duran etc."
+     },
      "departures": [
       {
        "date": "2026-11-14",
@@ -12446,6 +12479,9 @@
      "title": {
       "en": "Grand Lake Constance Tour"
      },
+     "description": {
+      "en": "Take an amazing cruise around the lovely coastlines and spectacular views of Lake Constance onboard the legendary MS Sonnenkönigin. For the first time, enjoy a luxurious boat excursion that takes you from Bregenz harbor to the picturesque Mainau Island, Sipplingen, Überlingen, Unteruhldingen, Meersburg, Langenargen, Wasserburg, Lindau, and Lochau. The breathtaking views of Upper Lake and Lake Überlingen, along with the opulence of this magnificent sailboat, offer a wonderful day of exploration. MO Catering satisfies customers with a wide range of delicious culinary choices."
+     },
      "departures": [
       {
        "date": "2027-08-22",
@@ -12471,6 +12507,9 @@
      "url": "https://www.vorarlberg-lines.at/en/cruises/pleasure-cruises/grillshipdeluxe",
      "title": {
       "en": "Barbecue Ship Deluxe"
+     },
+     "description": {
+      "en": "Let the senses be enchanted! Culinary delights of the extra class are waiting for you. At the premium buffet, the PIER69-On Board team will spoil you with delicious salmon fillets, tender spare ribs and the Jamaican classic jerk chicken! Entrecote is grilled whole and offered at the cutting station. In addition, a fantastic sunset on the unique Lake Constance!"
      },
      "price": {
       "amount": 102,
@@ -12553,6 +12592,9 @@
      "title": {
       "en": "Heurigen Mood"
      },
+     "description": {
+      "en": "Beautiful view and Austrian cultural cuisine on the plate. In the middle of Lake Constance, the team of PIER69 - On Board will take care of you with hearty delicacies of Austrian cuisine - from Styrian specialties to cheese from the Bregenzerwald Cheese Route - plus \"new\" wines of the region. The taste of the refreshing mountain air, the fresh pastures and the pleasurable lightness can be felt in the various cheese specialities from the Bregenzerwald and are offered on a rustic cheese platter at the buffet. In keeping with the region, the topic of wine ensnares the evening: with the wonderful wines, flavors are emphasized even more intensively. Take the chance of the only Heurigen evening on the water in the Lake Constance region! In addition, the hearty sound of \"Hand g'́macht\"!"
+     },
      "price": {
       "amount": 85,
       "currency": "EUR"
@@ -12582,6 +12624,9 @@
      "url": "https://www.vorarlberg-lines.at/en/cruises/pleasure-cruises/italian-evening-deluxe",
      "title": {
       "en": "Italian Evening Deluxe"
+     },
+     "description": {
+      "en": "Spoil yourself with culinary delicacies from Italian cuisine & Italian wines in the middle of Lake Constance!"
      },
      "price": {
       "amount": 97,
@@ -12647,6 +12692,9 @@
      "title": {
       "en": "Mother's Day Tour"
      },
+     "description": {
+      "en": "Gorgeous impressions from the deck ensure that your Mother's Day will be a very special one. A long with your loved ones, enjoy a beautifully presented menu, which fullfils every culinary desire imaginable. On this three-hour tour of Lake Constance, hear the captain reveal his vast knowledge of shorelines and towns along the way."
+     },
      "price": {
       "amount": 87,
       "currency": "EUR"
@@ -12676,6 +12724,9 @@
      "url": "https://www.vorarlberg-lines.at/en/cruises/pleasure-cruises/mothers-day-tour-1",
      "title": {
       "en": "Afternoon Mother´s Day tour with coffee and cake"
+     },
+     "description": {
+      "en": "Enjoy the mother´s day in the afternoon on a specail round trip boat tour with coffee and cake on the MS Vorarlberg. The marvelous view on the shore of three countries in spring time is a very special perspective when the first spring flours blossom and the trees and grasps show the first green leaves. You can listen to the information about the shoreline on board."
      },
      "price": {
       "amount": 39,
@@ -12707,6 +12758,9 @@
      "title": {
       "en": "Mother's Day Cruise MS Sonnenkönigin"
      },
+     "description": {
+      "en": "A tour onboard the region's most modern vessel guarantees an extraordinary experience filled with entertainment and excitement for every mother and her family. Indulge in superb cuisine while relaxing on the spacious 360° sun deck that overlooks the lake. Aside from the culinary delights, the atmosphere is enhanced by live music, resulting in a great audio experience. Explore the ship and enjoy peaceful moments with your loved ones while the soothing songs enhance your stay on board."
+     },
      "departures": [
       {
        "date": "2027-05-09",
@@ -12732,6 +12786,9 @@
      "url": "https://www.vorarlberg-lines.at/en/cruises/pleasure-cruises/murder-mystery-dinner-on-the-lake-2",
      "title": {
       "en": "Murder mystery dinner by Zimt and Zyankali in Lake Constance"
+     },
+     "description": {
+      "en": "Experience the perfect combination of lake Constance, thriller, comedy and culinary delights: come on board!"
      },
      "departures": [
       {
@@ -12776,6 +12833,9 @@
      "title": {
       "en": "New Year's Brunch"
      },
+     "description": {
+      "en": "Start the New Year with a generous brunch. The tour takes you past the festival grounds, the Bregenz \"skyline\", the mouth of the Rhine, the island town of Lindau, the Kaiserstrand in Lochau and back to Bregenz."
+     },
      "price": {
       "amount": 65,
       "currency": "EUR"
@@ -12805,6 +12865,9 @@
      "url": "https://www.vorarlberg-lines.at/en/cruises/firework-cruises/new-years-eve-all-inclusive",
      "title": {
       "en": "New Year's Eve All-inclusive"
+     },
+     "description": {
+      "en": "Then the all-inclusive New Year's Eve aboard the MS Stadt Bregenz is exactly what you're looking for. Enjoy the atmospheric music on the festively decorated and comfortably warm ship. On this traditional and cozy vessel, the onboard gastronomy PIER69 - On Board will indulge you with a New Year's Eve buffet including drinks – excluding spirits – that leaves nothing to be desired."
      },
      "price": {
       "amount": 233,
@@ -12836,6 +12899,9 @@
      "title": {
       "en": "New Year's Eve Dinner Deluxe"
      },
+     "description": {
+      "en": "In the stylish ambiance of the MS \"Alpenstadt Bludenz,\" you'll spend the New Year's Eve aboard the yacht of Vorarlberg Lines. During a dreamy cruise on Lake Constance, you'll indulge in a delightful New Year's Eve menu. Exactly at midnight, amidst the fireworks on the lake, you'll toast to the new year. Everything your heart desires to celebrate the New Year in style."
+     },
      "price": {
       "amount": 190,
       "currency": "EUR"
@@ -12865,6 +12931,9 @@
      "url": "https://www.vorarlberg-lines.at/en/cruises/firework-cruises/new-years-eve-gala",
      "title": {
       "en": "New Year's Eve Gala MS Austria"
+     },
+     "description": {
+      "en": "The cozy warm ships of the Vorarlberg Lines await you, appropriately adorned for the occasion, and the gastronomy aboard PIER69 - On Board leaves no culinary desires unfulfilled with an exclusive New Year's Eve Gala Buffet. At midnight, the grand fireworks take place right on the lake as you raise a toast to the beginning of the new year! \"Prosit Neujahr!\""
      },
      "price": {
       "amount": 186,
@@ -12897,6 +12966,9 @@
      "title": {
       "en": "New Year's Eve Gala MS Sonnenkönigin"
      },
+     "description": {
+      "en": "Clebrate New Year in the ballroom on the “Sonnenkönigin”. In a stylish setting, the MO Catering team will serve a delicious 4-course gala dinner. At midnight, welcome in the New Year with a glas prosecco in this breathtaking setting while viewing the Lake Constance."
+     },
      "price": {
       "amount": 234,
       "currency": "EUR"
@@ -12927,6 +12999,9 @@
      "title": {
       "en": "New Year's Eve Gala MS Vorarlberg"
      },
+     "description": {
+      "en": "The MS Vorarlberg awaits you, appropriately adorned for the occasion, and the gastronomy aboard PIER69 - On Board leaves no culinary desires unfulfilled with an exclusive New Year's Eve Gala Buffet. At midnight, the grand fireworks take place right on the lake as you raise a toast to the beginning of the new year! \"Prosit Neujahr!\""
+     },
      "price": {
       "amount": 186,
       "currency": "EUR"
@@ -12956,6 +13031,9 @@
      "url": "https://www.vorarlberg-lines.at/en/cruises/cruises/nicholas-ship-1",
      "title": {
       "en": "Nicholas Ship"
+     },
+     "description": {
+      "en": "Families can get in the mood for a contemplative time with a romantic St. Nicholas trip on the comfortably heated motor ship \"Vorarlberg\". While the ship sails from the port of Bregenz to Lochauer Kaiserstrand, you can enjoy the view. In Lochau, Nikolaus climbs up with servant Rupprecht, from where he goes from salon to salon to read a magical Christmas story. At the same time, Magic Paul begins the entertaining magic demonstrations in another salon. The impressive winter scenery of the places on the lake and especially of the Lindau harbor, which is illuminated for Christmas, as well as the beautifully decorated ship contribute to the fact that young and old feel comfortable on board. A quiet, leisurely trip on board the ship with an atmospheric program. Gastronomy with small snacks on the ship."
      },
      "price": {
       "amount": 24,
@@ -13021,6 +13099,9 @@
      "title": {
       "en": "October ship"
      },
+     "description": {
+      "en": "Now it's called \"O'zapft\" is on Lake Constance! Atmospheric live music on board, there comes a real Oktoberfest atmosphere. Dress code: Bavarian costume ♥ desired! Live Music: \"Trio Musik Pur\""
+     },
      "price": {
       "amount": 87,
       "currency": "EUR"
@@ -13051,6 +13132,9 @@
      "title": {
       "en": "Oldie Night"
      },
+     "description": {
+      "en": "Join us again this year for a sizzling atmosphere filled with spectacular dance rhythms from past decades. The local band will be playing popular hits from the King of Rock'n'Roll, The Rolling Stones, The Beatles and many more. The bar provides on-board catering with refreshing drinks. Take a journey through time and enjoy the atmosphere of bygone decades either indoors or outdoors on the deck when the sun is setting on the horizon. Dance with friends into the mild summer night."
+     },
      "price": {
       "amount": 41,
       "currency": "EUR"
@@ -13080,6 +13164,9 @@
      "url": "https://www.vorarlberg-lines.at/en/cruises/premium-tours/panoramatourmssonnenkoenigin",
      "title": {
       "en": "3 Countries Panorama Tour Sonnenkönigin"
+     },
+     "description": {
+      "en": "Enjoy a tour with the modern ship MS Sonnenkönigin on the Lake Constance with a breathtaking view on the beautiful shoreline landscape and the most impressive sights in the Bay of Bregenz, passing the Bregenz Festival site, Hard, the Rhine dam, the island town of Lindau and Lochau back to Bregenz harbour. Gastronomy MO Catering on board!"
      },
      "price": {
       "amount": 47,
@@ -13247,6 +13334,9 @@
      "title": {
       "en": "Seenachtsfest Konstanz Sonnenkönigin"
      },
+     "description": {
+      "en": "Experience the biggest fireworks in the Lake Constance region!"
+     },
      "price": {
       "amount": 199,
       "currency": "EUR"
@@ -13276,6 +13366,9 @@
      "url": "https://www.vorarlberg-lines.at/en/cruises/pleasure-cruises/toerggele-eve-1",
      "title": {
       "en": "Törggele Eve"
+     },
+     "description": {
+      "en": "It comes from the ancient custom of farmers and wine merchants, between early October and the beginning of the Advent season, who meet to taste the young wines of the season along with a hearty meal. For this annual ritual we have taken the opportunity to invite you on a special cruise to enjoy the wonderful evening mood of autumn on the lake."
      },
      "price": {
       "amount": 88,
@@ -13324,6 +13417,9 @@
      "title": {
       "en": "Vintage Night"
      },
+     "description": {
+      "en": "Embark on an exquisite journey through time as we transport you to four decades of musical excellence, where you may soak up the mesmerizing ambiance of the Königin. Immerse yourself in 'The MONROES' live performances and DJ Vinyl's superb selections, which will serenade you with legendary music from the 50s, 60s, 70s, and 80s. The Sonnenkönigin will reveal a collection of nostalgic treasures, and we urge you to get into the mood of the evening with a dress code inspired by the magnificent trends of these memorable decades."
+     },
      "departures": [
       {
        "date": "2027-07-03",
@@ -13349,6 +13445,9 @@
      "url": "https://www.vorarlberg-lines.at/en/cruises/premium-tours/white-night-constance",
      "title": {
       "en": "White Night Constance"
+     },
+     "description": {
+      "en": "A majestic ship, the evening Lake Constance, chillout on the sun deck – pure summer feeling. According to the dress code, the guests are sporty-elegant and dressed in white."
      },
      "price": {
       "amount": 165,
@@ -13380,6 +13479,9 @@
      "title": {
       "en": "White Night Bregenz"
      },
+     "description": {
+      "en": "A majestic ship, the evening Lake Constance, chillout on the sun deck – pure summer feeling. According to the dress code, the guests are sporty-elegant and dressed in white. Cool sound by the band »MAXIN« & DJane »DAYTONA ft. SAX«"
+     },
      "departures": [
       {
        "date": "2027-07-17",
@@ -13405,6 +13507,9 @@
      "url": "https://www.vorarlberg-lines.at/en/cruises/cruises/wine-festival-of-meersburg-2",
      "title": {
       "en": "Wine Festival Of Meersburg"
+     },
+     "description": {
+      "en": "A particularly comfortable way to arrive at the wine festival: hop on board in Bregenz, enjoy the beautiful cruise and arrive right in the center of the largest wine festival on Lake Constance, which takes place all around the old town of the picturesque lakeside village of Meersburg."
      },
      "price": {
       "amount": 58,
