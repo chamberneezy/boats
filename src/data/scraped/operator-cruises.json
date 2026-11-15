@@ -2,7 +2,7 @@
  "operators": {
   "bsg": {
    "source": "https://www.bielersee.ch/events",
-   "fetchedAt": "2026-11-14T11:30:40.451Z",
+   "fetchedAt": "2026-11-15T12:56:35.590Z",
    "cruises": [
     {
      "id": "bsg:adventsbrunch",
@@ -100,29 +100,6 @@
        "depart": "19:00",
        "to": "Biel/Bienne",
        "arrive": "22:00"
-      }
-     ]
-    },
-    {
-     "id": "bsg:fondue-schiff-aare",
-     "url": "https://www.bielersee.ch/events/event/fondue-schiff-aare",
-     "title": {
-      "de": "Fondue-Schiff Aare"
-     },
-     "description": {
-      "de": "Geniessen Sie in geselliger Atmosphäre ein Käsefondue mit Brot, Kartoffeln, Früchten und Essiggemüse. Der Ausblick auf die Uferlandschaft an der Aare macht die Fahrt zum unvergesslichen Erlebnis. Die Fonduefahrt ist auch als privates Extraschiff buchbar."
-     },
-     "price": {
-      "amount": 68,
-      "currency": "CHF"
-     },
-     "departures": [
-      {
-       "date": "2026-11-14",
-       "from": "Solothurn",
-       "depart": "12:00",
-       "to": "Solothurn",
-       "arrive": "15:00"
       }
      ]
     },
@@ -606,7 +583,7 @@
   },
   "lnm": {
    "source": "https://www.lnm.ch/Nos-croisieres",
-   "fetchedAt": "2026-11-14T11:30:44.679Z",
+   "fetchedAt": "2026-11-15T12:56:40.154Z",
    "cruises": [
     {
      "id": "lnm:Croisiere-Brunch-Neuchatel",
@@ -797,7 +774,7 @@
   },
   "sgz": {
    "source": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/",
-   "fetchedAt": "2026-11-14T11:31:09.910Z",
+   "fetchedAt": "2026-11-15T12:57:12.715Z",
    "cruises": [
     {
      "id": "sgz:1-august-fahrt",
@@ -11112,7 +11089,7 @@
   },
   "vlines": {
    "source": "https://www.vorarlberg-lines.at/en/cruises",
-   "fetchedAt": "2026-11-14T11:32:07.105Z",
+   "fetchedAt": "2026-11-15T12:58:07.300Z",
    "cruises": [
     {
      "id": "vlines:barbecue-ship-1",
@@ -12537,35 +12514,6 @@
      ]
     },
     {
-     "id": "vlines:full-moon-clubbing-night",
-     "url": "https://www.vorarlberg-lines.at/en/cruises/premium-tours/full-moon-clubbing-night",
-     "title": {
-      "en": "Full Moon Clubbing Night"
-     },
-     "description": {
-      "en": "We bring the flair and feeling of the legendary Ländle cult disco scene of the 80s/90s (Opal, Sender and Xiberger Fescht) to the mysterious Lake Constance. Full Moon Clubbing Night on the MS Sun Queen. Dance to cool sound from B'52, U2, The Cure, Peter Gabriel, Falco, Duran Duran etc."
-     },
-     "departures": [
-      {
-       "date": "2026-11-14",
-       "from": "Bregenz",
-       "depart": "21:00",
-       "to": "Bregenz",
-       "arrive": "23:30",
-       "stops": [
-        {
-         "pier": "Bregenz",
-         "time": "21:00"
-        },
-        {
-         "pier": "Bregenz",
-         "time": "23:30"
-        }
-       ]
-      }
-     ]
-    },
-    {
      "id": "vlines:grand-lakeconstace-tour-ms-sonnenkoenigin-2-1",
      "url": "https://www.vorarlberg-lines.at/en/cruises/premium-tours/grand-lakeconstace-tour-ms-sonnenkoenigin-2-1",
      "title": {
@@ -13626,7 +13574,7 @@
   },
   "sgv": {
    "source": "https://webshop.lakelucerne.ch/en/",
-   "fetchedAt": "2026-11-14T11:33:24.987Z",
+   "fetchedAt": "2026-11-15T12:59:02.799Z",
    "cruises": [
     {
      "id": "sgv:1-august-motor-vessel",
