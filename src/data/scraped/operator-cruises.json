@@ -2,7 +2,7 @@
  "operators": {
   "bsg": {
    "source": "https://www.bielersee.ch/events",
-   "fetchedAt": "2026-11-15T12:56:35.590Z",
+   "fetchedAt": "2026-11-16T13:57:26.412Z",
    "cruises": [
     {
      "id": "bsg:adventsbrunch",
@@ -583,7 +583,7 @@
   },
   "lnm": {
    "source": "https://www.lnm.ch/Nos-croisieres",
-   "fetchedAt": "2026-11-15T12:56:40.154Z",
+   "fetchedAt": "2026-11-16T13:57:31.909Z",
    "cruises": [
     {
      "id": "lnm:Croisiere-Brunch-Neuchatel",
@@ -774,7 +774,7 @@
   },
   "sgz": {
    "source": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/",
-   "fetchedAt": "2026-11-15T12:57:12.715Z",
+   "fetchedAt": "2026-11-16T13:58:19.031Z",
    "cruises": [
     {
      "id": "sgz:1-august-fahrt",
@@ -9553,6 +9553,27 @@
      ]
     },
     {
+     "id": "sgz:starry-night-cruise",
+     "url": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/experience/starry-night-cruise/",
+     "title": {
+      "en": "Starry Night Cruise"
+     },
+     "price": {
+      "amount": 37,
+      "currency": "CHF"
+     },
+     "departures": [
+      {
+       "date": "2027-10-30",
+       "from": "Zug Schützenmatt",
+       "depart": "19:00",
+       "to": "Zug Schützenmatt",
+       "arrive": "21:30",
+       "booking": "https://reservation.zvb.ch/buchung/626/22446?lang=en"
+      }
+     ]
+    },
+    {
      "id": "sgz:sunset-barbecue",
      "url": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/experience/sunset-barbecue/",
      "title": {
@@ -11089,7 +11110,7 @@
   },
   "vlines": {
    "source": "https://www.vorarlberg-lines.at/en/cruises",
-   "fetchedAt": "2026-11-15T12:58:07.300Z",
+   "fetchedAt": "2026-11-16T13:59:38.807Z",
    "cruises": [
     {
      "id": "vlines:barbecue-ship-1",
@@ -13574,7 +13595,7 @@
   },
   "sgv": {
    "source": "https://webshop.lakelucerne.ch/en/",
-   "fetchedAt": "2026-11-15T12:59:02.799Z",
+   "fetchedAt": "2026-11-16T14:00:33.440Z",
    "cruises": [
     {
      "id": "sgv:1-august-motor-vessel",
