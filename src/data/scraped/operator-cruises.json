@@ -2,7 +2,7 @@
  "operators": {
   "bsg": {
    "source": "https://www.bielersee.ch/events",
-   "fetchedAt": "2026-11-17T14:50:27.001Z",
+   "fetchedAt": "2026-11-18T14:30:15.222Z",
    "cruises": [
     {
      "id": "bsg:adventsbrunch",
@@ -392,10 +392,10 @@
       "de": "Silvester-Schiff Aare"
      },
      "description": {
-      "de": "Geniessen Sie zum Jahresabschluss ein festliches Menü an Board und begrüssen Sie anschliessend das neue Jahr mit einem Mitternachtscüpli an der Schiffländte in Solothurn."
+      "de": "Lassen Sie das Jahr bei einem köstlichen Fondue-Chinoise auf dem Schiff ausklingen und begrüssen Sie anschliessend das neue Jahr mit einem Mitternachtscüpli an der Schiffländte in Solothurn."
      },
      "price": {
-      "amount": 119,
+      "amount": 99,
       "currency": "CHF"
      },
      "departures": [
@@ -583,7 +583,7 @@
   },
   "lnm": {
    "source": "https://www.lnm.ch/Nos-croisieres",
-   "fetchedAt": "2026-11-17T14:50:32.156Z",
+   "fetchedAt": "2026-11-18T14:30:20.247Z",
    "cruises": [
     {
      "id": "lnm:Croisiere-Brunch-Neuchatel",
@@ -774,7 +774,7 @@
   },
   "sgz": {
    "source": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/",
-   "fetchedAt": "2026-11-17T14:51:20.203Z",
+   "fetchedAt": "2026-11-18T14:30:53.643Z",
    "cruises": [
     {
      "id": "sgz:1-august-fahrt",
@@ -5501,6 +5501,62 @@
        "arrive": "21:30",
        "booking": "javascript:void(0);",
        "soldOut": true
+      },
+      {
+       "date": "2027-03-21",
+       "from": "Zug Bahnhofsteg",
+       "depart": "14:00",
+       "to": "Zug Schützenmatt",
+       "arrive": "16:30",
+       "booking": "https://reservation.zvb.ch/buchung/621/22419?lang=en"
+      },
+      {
+       "date": "2027-04-17",
+       "from": "Zug Bahnhofsteg",
+       "depart": "14:00",
+       "to": "Zug Schützenmatt",
+       "arrive": "16:30",
+       "booking": "https://reservation.zvb.ch/buchung/621/22449?lang=en"
+      },
+      {
+       "date": "2027-05-20",
+       "from": "Zug Bahnhofsteg",
+       "depart": "19:00",
+       "to": "Zug Schützenmatt",
+       "arrive": "21:30",
+       "booking": "https://reservation.zvb.ch/buchung/620/22422?lang=en"
+      },
+      {
+       "date": "2027-10-16",
+       "from": "Zug Bahnhofsteg",
+       "depart": "19:00",
+       "to": "Zug Schützenmatt",
+       "arrive": "21:30",
+       "booking": "https://reservation.zvb.ch/buchung/620/22423?lang=en"
+      },
+      {
+       "date": "2027-11-21",
+       "from": "Zug Bahnhofsteg",
+       "depart": "14:00",
+       "to": "Zug Schützenmatt",
+       "arrive": "16:30",
+       "booking": "https://reservation.zvb.ch/buchung/621/22421?lang=en"
+      },
+      {
+       "date": "2027-11-26",
+       "from": "Zug Bahnhofsteg",
+       "depart": "19:00",
+       "to": "Zug Schützenmatt",
+       "arrive": "21:30",
+       "booking": "https://reservation.zvb.ch/buchung/620/22424?lang=en"
+      },
+      {
+       "date": "2027-12-15",
+       "from": "Zug Bahnhofsteg",
+       "depart": "19:00",
+       "to": "Zug Schützenmatt",
+       "arrive": "21:30",
+       "booking": "https://reservation.zvb.ch/buchung/620/22425?lang=en"
       }
      ]
     },
@@ -11127,7 +11183,7 @@
   },
   "vlines": {
    "source": "https://www.vorarlberg-lines.at/en/cruises",
-   "fetchedAt": "2026-11-17T14:52:19.667Z",
+   "fetchedAt": "2026-11-18T14:32:01.580Z",
    "cruises": [
     {
      "id": "vlines:barbecue-ship-1",
@@ -12914,6 +12970,176 @@
          "time": "22:30"
         }
        ]
+      },
+      {
+       "date": "2027-04-30",
+       "from": "Bregenz",
+       "depart": "19:30",
+       "to": "Bregenz",
+       "arrive": "22:30",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "19:30"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "22:30"
+        }
+       ]
+      },
+      {
+       "date": "2027-05-13",
+       "from": "Bregenz",
+       "depart": "19:30",
+       "to": "Bregenz",
+       "arrive": "22:30",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "19:30"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "22:30"
+        }
+       ]
+      },
+      {
+       "date": "2027-06-17",
+       "from": "Bregenz",
+       "depart": "19:30",
+       "to": "Bregenz",
+       "arrive": "22:30",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "19:30"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "22:30"
+        }
+       ]
+      },
+      {
+       "date": "2027-07-15",
+       "from": "Bregenz",
+       "depart": "19:30",
+       "to": "Bregenz",
+       "arrive": "22:30",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "19:30"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "22:30"
+        }
+       ]
+      },
+      {
+       "date": "2027-08-26",
+       "from": "Bregenz",
+       "depart": "19:30",
+       "to": "Bregenz",
+       "arrive": "22:30",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "19:30"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "22:30"
+        }
+       ]
+      },
+      {
+       "date": "2027-09-17",
+       "from": "Bregenz",
+       "depart": "19:30",
+       "to": "Bregenz",
+       "arrive": "22:30",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "19:30"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "22:30"
+        }
+       ]
+      },
+      {
+       "date": "2027-10-07",
+       "from": "Bregenz",
+       "depart": "19:30",
+       "to": "Bregenz",
+       "arrive": "22:30",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "19:30"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "22:30"
+        }
+       ]
+      },
+      {
+       "date": "2027-10-29",
+       "from": "Bregenz",
+       "depart": "19:30",
+       "to": "Bregenz",
+       "arrive": "22:30",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "19:30"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "22:30"
+        }
+       ]
+      },
+      {
+       "date": "2027-11-12",
+       "from": "Bregenz",
+       "depart": "19:30",
+       "to": "Bregenz",
+       "arrive": "22:30",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "19:30"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "22:30"
+        }
+       ]
+      },
+      {
+       "date": "2027-11-25",
+       "from": "Bregenz",
+       "depart": "19:30",
+       "to": "Bregenz",
+       "arrive": "22:30",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "19:30"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "22:30"
+        }
+       ]
       }
      ]
     },
@@ -13640,7 +13866,7 @@
   },
   "sgv": {
    "source": "https://webshop.lakelucerne.ch/en/",
-   "fetchedAt": "2026-11-17T14:53:11.318Z",
+   "fetchedAt": "2026-11-18T14:32:54.805Z",
    "cruises": [
     {
      "id": "sgv:1-august-motor-vessel",
@@ -14969,12 +15195,29 @@
       "en": "Craft ship on Lake Lucerne | Wednesday afternoon | Children's offer | Creative afternoon for children on the ship"
      },
      "price": {
-      "amount": 23,
+      "amount": 26,
       "currency": "CHF"
      },
      "departures": [
       {
        "date": "2026-12-02",
+       "from": "Luzern",
+       "depart": "14:15",
+       "to": "Luzern",
+       "arrive": "16:30",
+       "stops": [
+        {
+         "pier": "Luzern",
+         "time": "14:15"
+        },
+        {
+         "pier": "Luzern",
+         "time": "16:30"
+        }
+       ]
+      },
+      {
+       "date": "2027-12-01",
        "from": "Luzern",
        "depart": "14:15",
        "to": "Luzern",
@@ -15086,7 +15329,7 @@
       "en": "Experience the world of fairy tales on Lake Lucerne | Jolanda Steiner takes you on a fascinating boat trip. | Children's ship"
      },
      "price": {
-      "amount": 23,
+      "amount": 26,
       "currency": "CHF"
      },
      "departures": [
@@ -15107,6 +15350,57 @@
         }
        ],
        "soldOut": true
+      },
+      {
+       "date": "2027-10-20",
+       "from": "Luzern",
+       "depart": "14:15",
+       "to": "Luzern",
+       "arrive": "16:30",
+       "stops": [
+        {
+         "pier": "Luzern",
+         "time": "14:15"
+        },
+        {
+         "pier": "Luzern",
+         "time": "16:30"
+        }
+       ]
+      },
+      {
+       "date": "2027-11-10",
+       "from": "Luzern",
+       "depart": "14:15",
+       "to": "Luzern",
+       "arrive": "16:30",
+       "stops": [
+        {
+         "pier": "Luzern",
+         "time": "14:15"
+        },
+        {
+         "pier": "Luzern",
+         "time": "16:30"
+        }
+       ]
+      },
+      {
+       "date": "2028-01-05",
+       "from": "Luzern",
+       "depart": "14:15",
+       "to": "Luzern",
+       "arrive": "16:30",
+       "stops": [
+        {
+         "pier": "Luzern",
+         "time": "14:15"
+        },
+        {
+         "pier": "Luzern",
+         "time": "16:30"
+        }
+       ]
       }
      ]
     },
