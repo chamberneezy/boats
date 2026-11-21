@@ -2,7 +2,7 @@
  "operators": {
   "bsg": {
    "source": "https://www.bielersee.ch/events",
-   "fetchedAt": "2026-11-20T14:19:10.107Z",
+   "fetchedAt": "2026-11-21T13:41:05.980Z",
    "cruises": [
     {
      "id": "bsg:adventsbrunch",
@@ -583,7 +583,7 @@
   },
   "lnm": {
    "source": "https://www.lnm.ch/Nos-croisieres",
-   "fetchedAt": "2026-11-20T14:19:14.707Z",
+   "fetchedAt": "2026-11-21T13:41:11.362Z",
    "cruises": [
     {
      "id": "lnm:Croisiere-Brunch-Neuchatel",
@@ -774,7 +774,7 @@
   },
   "sgz": {
    "source": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/",
-   "fetchedAt": "2026-11-20T14:19:52.398Z",
+   "fetchedAt": "2026-11-21T13:41:42.229Z",
    "cruises": [
     {
      "id": "sgz:1-august-fahrt",
@@ -11175,7 +11175,7 @@
   },
   "vlines": {
    "source": "https://www.vorarlberg-lines.at/en/cruises",
-   "fetchedAt": "2026-11-20T14:21:06.531Z",
+   "fetchedAt": "2026-11-21T13:42:42.808Z",
    "cruises": [
     {
      "id": "vlines:barbecue-ship-1",
@@ -13690,7 +13690,7 @@
   },
   "sgv": {
    "source": "https://webshop.lakelucerne.ch/en/",
-   "fetchedAt": "2026-11-20T14:21:57.413Z",
+   "fetchedAt": "2026-11-21T13:43:58.549Z",
    "cruises": [
     {
      "id": "sgv:1-august-motor-vessel",
@@ -14890,23 +14890,6 @@
      },
      "departures": [
       {
-       "date": "2026-11-20",
-       "from": "Luzern",
-       "depart": "19:20",
-       "to": "Luzern",
-       "arrive": "21:45",
-       "stops": [
-        {
-         "pier": "Luzern",
-         "time": "19:20"
-        },
-        {
-         "pier": "Luzern",
-         "time": "21:45"
-        }
-       ]
-      },
-      {
        "date": "2026-11-27",
        "from": "Luzern",
        "depart": "19:20",
@@ -15060,90 +15043,6 @@
      ]
     },
     {
-     "id": "sgv:crime-dinner",
-     "url": "https://webshop.lakelucerne.ch/en/stories/crime-dinner",
-     "title": {
-      "en": "Crime Dinner - in German only"
-     },
-     "description": {
-      "en": "Murder mystery dinner cruise from Lucerne. Enjoy a thrilling crime story and dinner on Lake Lucerne. Performance in Swiss German. Book online now."
-     },
-     "price": {
-      "amount": 147,
-      "currency": "CHF"
-     },
-     "departures": [
-      {
-       "date": "2027-04-24",
-       "from": "Luzern",
-       "depart": "19:15",
-       "to": "Luzern",
-       "arrive": "22:45",
-       "stops": [
-        {
-         "pier": "Luzern",
-         "time": "19:15"
-        },
-        {
-         "pier": "Luzern",
-         "time": "22:45"
-        }
-       ]
-      },
-      {
-       "date": "2027-05-01",
-       "from": "Luzern",
-       "depart": "19:15",
-       "to": "Luzern",
-       "arrive": "22:45",
-       "stops": [
-        {
-         "pier": "Luzern",
-         "time": "19:15"
-        },
-        {
-         "pier": "Luzern",
-         "time": "22:45"
-        }
-       ]
-      },
-      {
-       "date": "2027-05-08",
-       "from": "Luzern",
-       "depart": "19:15",
-       "to": "Luzern",
-       "arrive": "22:45",
-       "stops": [
-        {
-         "pier": "Luzern",
-         "time": "19:15"
-        },
-        {
-         "pier": "Luzern",
-         "time": "22:45"
-        }
-       ]
-      },
-      {
-       "date": "2027-05-15",
-       "from": "Luzern",
-       "depart": "19:15",
-       "to": "Luzern",
-       "arrive": "22:45",
-       "stops": [
-        {
-         "pier": "Luzern",
-         "time": "19:15"
-        },
-        {
-         "pier": "Luzern",
-         "time": "22:45"
-        }
-       ]
-      }
-     ]
-    },
-    {
      "id": "sgv:fairy-tale-ship",
      "url": "https://webshop.lakelucerne.ch/en/products/fairy-tale-ship",
      "title": {
@@ -15260,378 +15159,6 @@
       ]
      },
      "departures": []
-    },
-    {
-     "id": "sgv:fondue-chinoise-cruise",
-     "url": "https://webshop.lakelucerne.ch/en/stories/fondue-chinoise-cruise",
-     "title": {
-      "en": "Fondue Chinoise Cruise"
-     },
-     "description": {
-      "en": "Fondue Chinoise cruise on Lake Lucerne from Lucerne. Enjoy à discrétion dining on an evening boat trip. Event held in German. Book online."
-     },
-     "price": {
-      "amount": 102,
-      "currency": "CHF"
-     },
-     "departures": [
-      {
-       "date": "2026-11-26",
-       "from": "Luzern",
-       "depart": "19:12",
-       "to": "Luzern",
-       "arrive": "21:47",
-       "stops": [
-        {
-         "pier": "Luzern",
-         "time": "19:12"
-        },
-        {
-         "pier": "Luzern",
-         "time": "21:47"
-        }
-       ]
-      },
-      {
-       "date": "2026-12-03",
-       "from": "Luzern",
-       "depart": "19:12",
-       "to": "Luzern",
-       "arrive": "21:47",
-       "stops": [
-        {
-         "pier": "Luzern",
-         "time": "19:12"
-        },
-        {
-         "pier": "Luzern",
-         "time": "21:47"
-        }
-       ]
-      },
-      {
-       "date": "2026-12-10",
-       "from": "Luzern",
-       "depart": "19:12",
-       "to": "Luzern",
-       "arrive": "21:47",
-       "stops": [
-        {
-         "pier": "Luzern",
-         "time": "19:12"
-        },
-        {
-         "pier": "Luzern",
-         "time": "21:47"
-        }
-       ]
-      },
-      {
-       "date": "2026-12-17",
-       "from": "Luzern",
-       "depart": "19:12",
-       "to": "Luzern",
-       "arrive": "21:47",
-       "stops": [
-        {
-         "pier": "Luzern",
-         "time": "19:12"
-        },
-        {
-         "pier": "Luzern",
-         "time": "21:47"
-        }
-       ]
-      }
-     ]
-    },
-    {
-     "id": "sgv:fondue-raclette-cruise",
-     "url": "https://webshop.lakelucerne.ch/en/stories/fondue-raclette-cruise",
-     "title": {
-      "en": "Fondue and Raclette Cruise"
-     },
-     "description": {
-      "en": "Cheese fondue or raclette à discrétion on Lake Lucerne from Lucerne. Cosy winter evening cruise with Swiss cheese classics. Book online now."
-     },
-     "price": {
-      "amount": 85,
-      "currency": "CHF"
-     },
-     "departures": [
-      {
-       "date": "2026-11-20",
-       "from": "Luzern",
-       "depart": "19:12",
-       "to": "Luzern",
-       "arrive": "21:47",
-       "stops": [
-        {
-         "pier": "Luzern",
-         "time": "19:12"
-        },
-        {
-         "pier": "Luzern",
-         "time": "21:47"
-        }
-       ]
-      },
-      {
-       "date": "2026-11-27",
-       "from": "Luzern",
-       "depart": "19:12",
-       "to": "Luzern",
-       "arrive": "21:47",
-       "stops": [
-        {
-         "pier": "Luzern",
-         "time": "19:12"
-        },
-        {
-         "pier": "Luzern",
-         "time": "21:47"
-        }
-       ]
-      },
-      {
-       "date": "2026-12-04",
-       "from": "Luzern",
-       "depart": "19:12",
-       "to": "Luzern",
-       "arrive": "21:47",
-       "stops": [
-        {
-         "pier": "Luzern",
-         "time": "19:12"
-        },
-        {
-         "pier": "Luzern",
-         "time": "21:47"
-        }
-       ]
-      },
-      {
-       "date": "2026-12-11",
-       "from": "Luzern",
-       "depart": "19:12",
-       "to": "Luzern",
-       "arrive": "21:47",
-       "stops": [
-        {
-         "pier": "Luzern",
-         "time": "19:12"
-        },
-        {
-         "pier": "Luzern",
-         "time": "21:47"
-        }
-       ]
-      },
-      {
-       "date": "2026-12-18",
-       "from": "Luzern",
-       "depart": "19:12",
-       "to": "Luzern",
-       "arrive": "21:47",
-       "stops": [
-        {
-         "pier": "Luzern",
-         "time": "19:12"
-        },
-        {
-         "pier": "Luzern",
-         "time": "21:47"
-        }
-       ]
-      },
-      {
-       "date": "2027-01-08",
-       "from": "Luzern",
-       "depart": "19:12",
-       "to": "Luzern",
-       "arrive": "21:47",
-       "stops": [
-        {
-         "pier": "Luzern",
-         "time": "19:12"
-        },
-        {
-         "pier": "Luzern",
-         "time": "21:47"
-        }
-       ]
-      },
-      {
-       "date": "2027-01-15",
-       "from": "Luzern",
-       "depart": "19:12",
-       "to": "Luzern",
-       "arrive": "21:47",
-       "stops": [
-        {
-         "pier": "Luzern",
-         "time": "19:12"
-        },
-        {
-         "pier": "Luzern",
-         "time": "21:47"
-        }
-       ]
-      },
-      {
-       "date": "2027-01-22",
-       "from": "Luzern",
-       "depart": "19:12",
-       "to": "Luzern",
-       "arrive": "21:47",
-       "stops": [
-        {
-         "pier": "Luzern",
-         "time": "19:12"
-        },
-        {
-         "pier": "Luzern",
-         "time": "21:47"
-        }
-       ]
-      },
-      {
-       "date": "2027-01-29",
-       "from": "Luzern",
-       "depart": "19:12",
-       "to": "Luzern",
-       "arrive": "21:47",
-       "stops": [
-        {
-         "pier": "Luzern",
-         "time": "19:12"
-        },
-        {
-         "pier": "Luzern",
-         "time": "21:47"
-        }
-       ]
-      },
-      {
-       "date": "2027-02-05",
-       "from": "Luzern",
-       "depart": "19:12",
-       "to": "Luzern",
-       "arrive": "21:47",
-       "stops": [
-        {
-         "pier": "Luzern",
-         "time": "19:12"
-        },
-        {
-         "pier": "Luzern",
-         "time": "21:47"
-        }
-       ]
-      },
-      {
-       "date": "2027-02-12",
-       "from": "Luzern",
-       "depart": "19:12",
-       "to": "Luzern",
-       "arrive": "21:47",
-       "stops": [
-        {
-         "pier": "Luzern",
-         "time": "19:12"
-        },
-        {
-         "pier": "Luzern",
-         "time": "21:47"
-        }
-       ]
-      },
-      {
-       "date": "2027-02-19",
-       "from": "Luzern",
-       "depart": "19:12",
-       "to": "Luzern",
-       "arrive": "21:47",
-       "stops": [
-        {
-         "pier": "Luzern",
-         "time": "19:12"
-        },
-        {
-         "pier": "Luzern",
-         "time": "21:47"
-        }
-       ]
-      },
-      {
-       "date": "2027-02-26",
-       "from": "Luzern",
-       "depart": "19:12",
-       "to": "Luzern",
-       "arrive": "21:47",
-       "stops": [
-        {
-         "pier": "Luzern",
-         "time": "19:12"
-        },
-        {
-         "pier": "Luzern",
-         "time": "21:47"
-        }
-       ]
-      },
-      {
-       "date": "2027-03-05",
-       "from": "Luzern",
-       "depart": "19:12",
-       "to": "Luzern",
-       "arrive": "21:47",
-       "stops": [
-        {
-         "pier": "Luzern",
-         "time": "19:12"
-        },
-        {
-         "pier": "Luzern",
-         "time": "21:47"
-        }
-       ]
-      },
-      {
-       "date": "2027-03-12",
-       "from": "Luzern",
-       "depart": "19:12",
-       "to": "Luzern",
-       "arrive": "21:47",
-       "stops": [
-        {
-         "pier": "Luzern",
-         "time": "19:12"
-        },
-        {
-         "pier": "Luzern",
-         "time": "21:47"
-        }
-       ]
-      },
-      {
-       "date": "2027-03-19",
-       "from": "Luzern",
-       "depart": "19:12",
-       "to": "Luzern",
-       "arrive": "21:47",
-       "stops": [
-        {
-         "pier": "Luzern",
-         "time": "19:12"
-        },
-        {
-         "pier": "Luzern",
-         "time": "21:47"
-        }
-       ]
-      }
-     ]
     },
     {
      "id": "sgv:fondue-raclette-steamer",
@@ -15762,43 +15289,6 @@
         {
          "pier": "Luzern",
          "time": "00:25"
-        }
-       ]
-      }
-     ]
-    },
-    {
-     "id": "sgv:klausjagen-in-kuessnacht",
-     "url": "https://webshop.lakelucerne.ch/en/stories/klausjagen-in-kuessnacht",
-     "title": {
-      "en": "Cruise to Klausjagen in Küssnacht"
-     },
-     "description": {
-      "en": "Travel by boat from Lucerne to the famous Klausjagen in Küssnacht am Rigi. Choose a cruise with Swiss cheese fondue or a transfer only."
-     },
-     "price": {
-      "amount": 76,
-      "currency": "CHF"
-     },
-     "departures": [
-      {
-       "date": "2026-12-04",
-       "from": "Luzern",
-       "depart": "18:30",
-       "to": "Luzern",
-       "arrive": "22:50",
-       "stops": [
-        {
-         "pier": "Luzern",
-         "time": "18:30"
-        },
-        {
-         "pier": "Küssnacht am Rigi",
-         "time": "21:45"
-        },
-        {
-         "pier": "Luzern",
-         "time": "22:50"
         }
        ]
       }
@@ -16318,39 +15808,6 @@
         {
          "pier": "Luzern",
          "time": "21:45"
-        }
-       ]
-      }
-     ]
-    },
-    {
-     "id": "sgv:valentines-day-cruise",
-     "url": "https://webshop.lakelucerne.ch/en/stories/valentines-day-cruise",
-     "title": {
-      "en": "Valentine’s Day Cruise"
-     },
-     "description": {
-      "en": "Celebrate Valentine's Day on Lake Lucerne with a romantic evening cruise from Lucerne, a delicious three-course dinner."
-     },
-     "price": {
-      "amount": 127,
-      "currency": "CHF"
-     },
-     "departures": [
-      {
-       "date": "2027-02-14",
-       "from": "Luzern",
-       "depart": "19:00",
-       "to": "Luzern",
-       "arrive": "21:30",
-       "stops": [
-        {
-         "pier": "Luzern",
-         "time": "19:00"
-        },
-        {
-         "pier": "Luzern",
-         "time": "21:30"
         }
        ]
       }
