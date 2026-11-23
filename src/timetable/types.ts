@@ -81,7 +81,7 @@ export type TimetableStopTime = [number, number, number, string | null];
 export interface TimetableTrip {
   id: string; // source trip id
   line: string; // TimetableLine.id
-  kurs: string; // the SGV trip number without leading zeros, e.g. "29"
+  kurs: string; // the trip number without leading zeros, e.g. "29"; empty for a second operator's trip where it could be confused with the boat data's (pipeline/lakes.ts kursAgencies)
   headsign: string; // where the trip ends, as published
   service: number; // index into TimetablePackage.services
   stops: TimetableStopTime[];
@@ -326,4 +326,47 @@ export interface NoticesManifest {
   schemaVersion: typeof NOTICES_SCHEMA_VERSION;
   generatedAt: string;
   notices: { path: string; sha256: string; bytes: number };
+}
+
+// ---- Water taxis (src/data/waterTaxis.json, published like the notices) ----------------------------
+// On-call boats with no timetable: a rider phones or books them. Search results show one card per
+// taxi whose area covers both piers of the search (see `waterTaxisFor` in src/waterTaxis.ts, ported
+// by the apps). Every field is what the operator publishes on its own page; a field it doesn't
+// publish is null, never estimated.
+
+export const WATER_TAXIS_SCHEMA_VERSION = 1;
+
+export interface WaterTaxi {
+  id: string; // stable, e.g. "lucerne-speedy-taxiboot"
+  lakeId: string;
+  name: string; // the operator's name for the service: "Speedy Taxiboot"
+  area: string; // what it covers, in the operator's terms, in English: "Anywhere on the lake"
+  // The piers it serves: both ends of a search must be among them. "all" = every pier of the lake.
+  piers: 'all' | string[];
+  // When set, at least one end of a search must be one of these (the operator's own base or the
+  // one place it serves, e.g. Ufenau): a taxi that only runs from Weggis isn't offered Luzern-Vitznau.
+  oneEndAt?: string[];
+  // Season as published, as MM-DD, inclusive (may wrap the new year). Absent = all year or not
+  // published; outside it the taxi isn't offered for the searched date.
+  season?: { from: string; until: string };
+  hours: string | null; // as published, in English: "Daily from 09:00 to sunset"
+  price: string | null; // as published, in English: "CHF 3 per minute of travel"
+  capacity: number | null; // most passengers per boat, as published
+  phone: string | null; // E.164: "+41794458773"
+  whatsapp?: true; // the operator asks for bookings by WhatsApp on that number
+  booking: { url: string; online: boolean }; // its taxi or booking page; online = it takes bookings there
+  source: string; // the operator's page these facts come from
+  updated: string; // YYYY-MM-DD the facts were last checked there
+}
+
+export interface WaterTaxisPackage {
+  schemaVersion: typeof WATER_TAXIS_SCHEMA_VERSION;
+  note: string;
+  taxis: WaterTaxi[];
+}
+
+export interface WaterTaxisManifest {
+  schemaVersion: typeof WATER_TAXIS_SCHEMA_VERSION;
+  generatedAt: string;
+  waterTaxis: { path: string; sha256: string; bytes: number };
 }

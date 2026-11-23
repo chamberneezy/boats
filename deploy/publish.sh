@@ -133,6 +133,25 @@ else
   FAILED="${FAILED} notices"
 fi
 
+# On-call water taxis shown in search results, one file at the bucket root (see src/waterTaxis.ts).
+# Every platform reads it from here, so a taxi is added, changed or removed without an app release.
+# Same copy rules and failure handling as the notices above.
+echo "== Building water taxis =="
+WATER_TAXIS_FILE=""
+if npm run build:water-taxis -- --out "${OUT}"; then
+  WATER_TAXIS_FILE="$(cd "${OUT}/water-taxis" && ls water-taxis.*.json | grep -E '^water-taxis\.[0-9a-f]+\.json$')"
+fi
+if [ -n "${WATER_TAXIS_FILE}" ] &&
+  gcloud storage cp --no-clobber --cache-control="public, max-age=31536000, immutable" \
+    "${OUT}/water-taxis/${WATER_TAXIS_FILE}" "${DATA_BUCKET}/${WATER_TAXIS_FILE}" &&
+  gcloud storage cp --cache-control="public, max-age=300, must-revalidate" \
+    "${OUT}/water-taxis/water-taxis-manifest.json" "${DATA_BUCKET}/water-taxis-manifest.json"; then
+  echo "Published ${WATER_TAXIS_FILE} to ${DATA_BUCKET}"
+else
+  echo "!! water taxis failed to build or publish." >&2
+  FAILED="${FAILED} water-taxis"
+fi
+
 if [ -n "${FAILED}" ]; then
   echo "Done, but these did NOT publish:${FAILED}" >&2
   exit 1

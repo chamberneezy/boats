@@ -6,6 +6,7 @@ import { DepartureCard } from '../components/DepartureCard';
 import { LakeNotices } from '../components/LakeNotices';
 import { SearchForm } from '../components/SearchForm';
 import { SearchLayout } from '../components/SearchLayout';
+import { WaterTaxis } from '../components/WaterTaxis';
 import { loadLaterConnections, searchConnections } from '../connections';
 import { findActiveLake } from '../lakes';
 import { findPier, parseOriginPreset, parseSearchQuery, searchPath, tripPath, type SearchQuery } from '../routes';
@@ -28,6 +29,11 @@ const queryKey = (q: SearchQuery) => `${q.from}|${q.to}|${q.date}|${q.time}`;
 function firstDepartureDate(entry: BoatConnection, fallbackDate: string): string {
   const timestamp = entry.connection.from.departureTimestamp;
   return timestamp === null ? fallbackDate : timestampToDateTimeParts(timestamp).date;
+}
+
+function nextDepartureTime(entry: BoatConnection): string {
+  const timestamp = entry.connection.from.departureTimestamp;
+  return timestamp === null ? '' : timestampToDateTimeParts(timestamp).time;
 }
 
 function SkeletonCard() {
@@ -183,6 +189,10 @@ export function SearchPage() {
   const [nextDeparture, ...laterDepartures] = results;
   const showEmpty = Boolean(query) && hasSearched && !isLoading && !error && results.length === 0;
   const searchedQuery = query && searchedKey === queryKey(query) ? query : null;
+  // Water taxis (no timetable): after the third trip, or first when no boat runs on the day searched.
+  const taxis = searchedQuery && <WaterTaxis lakeId={lake.id} from={searchedQuery.from} to={searchedQuery.to} date={searchedQuery.date} />;
+  const taxisFirst = Boolean(searchedQuery && nextDeparture && firstDepartureDate(nextDeparture, searchedQuery.date) !== searchedQuery.date);
+  const TAXIS_AFTER = 2; // later trips shown before the taxi card (plus the next departure = 3)
 
   return (
     <SearchLayout lakeId={lake.id} lakeName={lake.name} showMapOnPhone={!hasSearched} onLakeChange={(id) => navigate(searchPath(id))}>
@@ -233,6 +243,8 @@ export function SearchPage() {
           </div>
         )}
 
+        {showEmpty && taxis}
+
         {searchedQuery && nextDeparture && (
           <>
             <div>
@@ -243,6 +255,15 @@ export function SearchPage() {
                 {formatShortDate(firstDepartureDate(nextDeparture, searchedQuery.date))}
               </div>
             </div>
+
+            {/* After the day's last boat: say so before the taxis and tomorrow's trips. */}
+            {taxisFirst && (
+              <p className="m-0 font-body text-base text-deep-lake">
+                {searchedQuery.date === todayDateString() ? 'No more boats today.' : `No more boats on ${formatShortDate(searchedQuery.date)}.`} The next one leaves{' '}
+                {formatShortDate(firstDepartureDate(nextDeparture, searchedQuery.date))} at {nextDepartureTime(nextDeparture)}.
+              </p>
+            )}
+            {taxisFirst && taxis}
 
             <div className={EYEBROW}>Next departure</div>
             <DepartureCard entry={nextDeparture} variant="hero" onOpen={() => openTrip(nextDeparture)} />
@@ -259,12 +280,15 @@ export function SearchPage() {
                       <div key={`${timestamp}-${idx}`} className="flex flex-col gap-3">
                         {startsNewDay && <div className={EYEBROW}>{formatDayLabel(timestamp)}</div>}
                         <DepartureCard entry={entry} variant="list" onOpen={() => openTrip(entry)} />
+                        {!taxisFirst && idx === TAXIS_AFTER - 1 && taxis}
                       </div>
                     );
                   })}
                 </div>
               </>
             )}
+
+            {!taxisFirst && laterDepartures.length < TAXIS_AFTER && taxis}
 
             <div>
               <Button variant="secondary" onClick={handleLoadLater} disabled={isLoadingMore || isLoading}>

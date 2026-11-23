@@ -6,11 +6,13 @@ import App from './App.tsx'
 import { DATA_BASE_URL, getTimetable } from './timetable/client.ts'
 import { refreshDirectory } from './directory.ts'
 import { refreshNotices } from './notices.ts'
+import { refreshWaterTaxis } from './waterTaxis.ts'
 
 // Lakes and piers: the copy kept on the device, then the newest published one, in the background.
 void refreshDirectory(DATA_BASE_URL)
 // Notices on lakes whose timetable is off from normal, the same way.
 void refreshNotices(DATA_BASE_URL)
+void refreshWaterTaxis(DATA_BASE_URL)
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
