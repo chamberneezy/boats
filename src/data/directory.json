@@ -127,6 +127,11 @@
       {"id": "8501248", "name": "Vevey", "fullName": "Vevey-Marché (lac)"},
       {"id": "8501314", "name": "Villeneuve", "fullName": "Villeneuve VD (lac)"},
       {"id": "1401847", "name": "Yvoire", "fullName": "Yvoire (F) (lac)"},
+      {"id": "8501238", "name": "Pâquis", "fullName": "Genève-Pâquis (lac)"},
+      {"id": "8530699", "name": "Molard", "fullName": "Genève-Molard (lac)"},
+      {"id": "8530700", "name": "Quai Gustave-Ador", "fullName": "Genève-Quai Gustave Ador (lac)"},
+      {"id": "8530701", "name": "Châteaubriand", "fullName": "Genève-De-Châteaubriand (lac)"},
+      {"id": "8588813", "name": "Port-Noir", "fullName": "Genève-Port Noir (lac)"},
       {"id": "8501315", "name": "Céligny", "fullName": "Céligny (lac)"}
     ],
     "lake-zug": [
@@ -297,7 +302,20 @@
       {"id": "8530835", "name": "Uttwil", "fullName": "Uttwil (See)"},
       {"id": "8014653", "name": "Wasserburg", "fullName": "Wasserburg Hafen (Bodensee)"},
       {"id": "8011121", "name": "Friedrichshafen Fähre"},
-      {"id": "8506346", "name": "Romanshorn Autoquai"}
+      {"id": "8506346", "name": "Romanshorn Autoquai"},
+      {"id": "8506159", "name": "Berlingen", "fullName": "Berlingen (See)"},
+      {"id": "1101322", "name": "Büsingen", "fullName": "Büsingen (Schifflände)"},
+      {"id": "8506152", "name": "Diessenhofen", "fullName": "Diessenhofen (Schifflände)"},
+      {"id": "8506162", "name": "Ermatingen", "fullName": "Ermatingen (See)"},
+      {"id": "1101424", "name": "Gaienhofen", "fullName": "Gaienhofen (See)"},
+      {"id": "8506163", "name": "Gottlieben", "fullName": "Gottlieben (Schifflände)"},
+      {"id": "1101477", "name": "Hemmenhofen", "fullName": "Hemmenhofen (See)"},
+      {"id": "8506155", "name": "Mammern", "fullName": "Mammern (See)"},
+      {"id": "1101745", "name": "Öhningen", "fullName": "Öhningen (See)"},
+      {"id": "8506150", "name": "Schaffhausen", "fullName": "Schaffhausen (Schifflände)"},
+      {"id": "8506157", "name": "Steckborn", "fullName": "Steckborn (See)"},
+      {"id": "8506153", "name": "Stein am Rhein", "fullName": "Stein am Rhein (Schifflände)"},
+      {"id": "1103929", "name": "Wangen", "fullName": "Wangen (Bodensee)"}
     ]
   }
 }

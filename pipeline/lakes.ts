@@ -21,6 +21,11 @@ export interface LakeConfig {
   germanFeed?: { area: { minLat: number; maxLat: number; minLon: number; maxLon: number } };
   // The Konstanz (Staad) <-> Meersburg car ferry, read from its operator's page (pipeline/konstanz-ferry.ts).
   konstanzFerry?: boolean;
+  // On a lake with several operators whose boat names come from one operator's deployments
+  // (src/data/scraped/*-allocations.json, keyed by Kurs alone): the agencies whose Kurs numbers
+  // those deployments use. Every other agency's trips are published with an empty `kurs`, so
+  // a Mouettes shuttle numbered 231 never shows the CGN boat that sails CGN's Kurs 231.
+  kursAgencies?: string[];
 }
 
 export const LAKES: Record<string, LakeConfig> = {
@@ -32,6 +37,7 @@ export const LAKES: Record<string, LakeConfig> = {
     // 2026-09-28: foot passengers ride this ferry too, not just vehicles.
     agencyNameIncludes: 'Vierwaldstättersee',
     agencyId: ['185', '3190'],
+    kursAgencies: ['185'], // the ferry's numbers repeat SGV's (Kurs 5, 6, 10, ... checked 2026-11-14)
     boatCategories: ['BAT', 'BAV', 'FAE'],
     minTransferMinutes: 5,
     maxWaitMinutes: 120,
@@ -51,10 +57,12 @@ export const LAKES: Record<string, LakeConfig> = {
   },
   'lake-geneva': {
     id: 'lake-geneva',
-    // Matches "CGN SA" (agency_id 184), the Compagnie Générale de Navigation. Excludes the
-    // separate "Mouettes genevoises SA" (agency_id 199), the small shuttle-boat operator
-    // within Geneva itself - a different, city-taxi-like service, not the lake network.
+    // "CGN SA" (agency_id 184), the Compagnie Générale de Navigation, plus "Mouettes genevoises
+    // SA" (199), the yellow shuttle boats across the harbour in Geneva itself (M1-M4, every 10
+    // minutes, all year). Owner, 2026-11-14: riders need these too, not only the lake network.
     agencyNameIncludes: 'CGN',
+    agencyId: ['184', '199'],
+    kursAgencies: ['184'], // Mouettes numbers 231-236, 330, 331, 390, 391 are also CGN's
     boatCategories: ['BAT'], // No BAV (paddle steamer) route_desc is published for this operator either.
     minTransferMinutes: 5,
     maxWaitMinutes: 120,
@@ -174,8 +182,11 @@ export const LAKES: Record<string, LakeConfig> = {
     // confirmed 2026-09-28 - not the partial Swiss-only slice originally assumed. Both agencies
     // also publish a Friedrichshafen<->Romanshorn car-ferry route (route_desc "FAE") - included
     // since 2026-09-28 (foot passengers ride it too), same fix as Zurich and Lucerne's ferries.
+    // Plus, owner 2026-11-14 (every boat on the lake, whoever runs it): "Schweiz.
+    // Schifffahrtsgesellschaft Untersee und Rhein AG" (193, URh: Kreuzlingen/Konstanz - Untersee -
+    // Stein am Rhein - Schaffhausen) and the Reichenau <-> Mannenbach solar ferry (3182).
     agencyNameIncludes: 'Bodensee-Schifffahrt',
-    agencyId: ['195', '360'],
+    agencyId: ['195', '360', '193', '3182'],
     boatCategories: ['BAT', 'FAE'],
     minTransferMinutes: 5,
     maxWaitMinutes: 120,

@@ -68,10 +68,10 @@ export async function buildPackage(
     throw new Error(`No operator matching ${wantedAgencyIds ? `agency_id "${wantedAgencyIds.join(',')}"` : `"${lake.agencyNameIncludes}"`} in the feed`);
   }
 
-  const routes = new Map<string, { line: string; category: string }>();
+  const routes = new Map<string, { line: string; category: string; agency: string }>();
   await readTable(zipPath, 'routes.txt', () => true, (row) => {
     if (agencyIds.has(row.agency_id) && lake.boatCategories.includes(row.route_desc)) {
-      routes.set(row.route_id, { line: row.route_short_name, category: row.route_desc });
+      routes.set(row.route_id, { line: row.route_short_name, category: row.route_desc, agency: row.agency_id });
     }
   });
 
@@ -146,7 +146,10 @@ export async function buildPackage(
     tripList.push({
       id: tripId,
       line: route.line,
-      kurs: /^\d+$/.test(trip.trip_short_name) ? String(Number(trip.trip_short_name)) : trip.trip_short_name,
+      // Empty for another operator's trip on a lake whose boat names come from one operator's
+      // deployments (lake.kursAgencies): its trip numbers can equal theirs, and clients look a
+      // boat up by Kurs alone.
+      kurs: lake.kursAgencies && !lake.kursAgencies.includes(route.agency) ? '' : /^\d+$/.test(trip.trip_short_name) ? String(Number(trip.trip_short_name)) : trip.trip_short_name,
       headsign: trip.trip_headsign,
       service: serviceIndex.get(trip.service_id)!,
       stops,
