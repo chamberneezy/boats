@@ -2,7 +2,7 @@
  "operators": {
   "bsg": {
    "source": "https://www.bielersee.ch/events",
-   "fetchedAt": "2026-11-23T16:25:26.516Z",
+   "fetchedAt": "2026-11-24T16:17:28.027Z",
    "cruises": [
     {
      "id": "bsg:adventsbrunch",
@@ -561,7 +561,7 @@
   },
   "lnm": {
    "source": "https://www.lnm.ch/Nos-croisieres",
-   "fetchedAt": "2026-11-23T16:25:31.175Z",
+   "fetchedAt": "2026-11-24T16:17:32.667Z",
    "cruises": [
     {
      "id": "lnm:Croisiere-Choucroute-Neuchatel",
@@ -729,7 +729,7 @@
   },
   "sgz": {
    "source": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/",
-   "fetchedAt": "2026-11-23T16:26:15.273Z",
+   "fetchedAt": "2026-11-24T16:18:06.877Z",
    "cruises": [
     {
      "id": "sgz:1-august-fahrt",
@@ -1831,7 +1831,7 @@
      "id": "sgz:afterwork-en",
      "url": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/experience/afterwork-en/",
      "title": {
-      "en": "Afterwork presented by Zuger Kantonalbank"
+      "en": "Afterwork presented by ZugerKB"
      },
      "departures": [
       {
@@ -5613,7 +5613,8 @@
        "depart": "19:00",
        "to": "Zug Schützenmatt",
        "arrive": "21:30",
-       "booking": "https://reservation.zvb.ch/buchung/569/20179?lang=en"
+       "booking": "javascript:void(0);",
+       "soldOut": true
       }
      ]
     },
@@ -11114,7 +11115,7 @@
   },
   "vlines": {
    "source": "https://www.vorarlberg-lines.at/en/cruises",
-   "fetchedAt": "2026-11-23T16:27:17.992Z",
+   "fetchedAt": "2026-11-24T16:19:25.433Z",
    "cruises": [
     {
      "id": "vlines:barbecue-ship-1",
@@ -13603,7 +13604,7 @@
   },
   "sgv": {
    "source": "https://webshop.lakelucerne.ch/en/",
-   "fetchedAt": "2026-11-23T16:28:15.912Z",
+   "fetchedAt": "2026-11-24T16:20:21.134Z",
    "cruises": [
     {
      "id": "sgv:1-august-motor-vessel",
