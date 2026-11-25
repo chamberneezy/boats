@@ -2,7 +2,7 @@
  "operators": {
   "bsg": {
    "source": "https://www.bielersee.ch/events",
-   "fetchedAt": "2026-11-24T16:17:28.027Z",
+   "fetchedAt": "2026-11-25T15:59:39.420Z",
    "cruises": [
     {
      "id": "bsg:adventsbrunch",
@@ -516,13 +516,6 @@
      },
      "departures": [
       {
-       "date": "2026-11-24",
-       "from": "Biel/Bienne",
-       "depart": "19:00",
-       "to": "Biel/Bienne",
-       "arrive": "22:00"
-      },
-      {
        "date": "2027-02-21",
        "from": "Biel/Bienne",
        "depart": "19:00",
@@ -561,7 +554,7 @@
   },
   "lnm": {
    "source": "https://www.lnm.ch/Nos-croisieres",
-   "fetchedAt": "2026-11-24T16:17:32.667Z",
+   "fetchedAt": "2026-11-25T15:59:43.452Z",
    "cruises": [
     {
      "id": "lnm:Croisiere-Choucroute-Neuchatel",
@@ -729,7 +722,7 @@
   },
   "sgz": {
    "source": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/",
-   "fetchedAt": "2026-11-24T16:18:06.877Z",
+   "fetchedAt": "2026-11-25T16:00:28.250Z",
    "cruises": [
     {
      "id": "sgz:1-august-fahrt",
@@ -5604,8 +5597,7 @@
        "depart": "19:00",
        "to": "Zug Schützenmatt",
        "arrive": "21:30",
-       "booking": "javascript:void(0);",
-       "soldOut": true
+       "booking": "https://reservation.zvb.ch/buchung/569/20178?lang=en"
       },
       {
        "date": "2026-12-17",
@@ -11115,8 +11107,45 @@
   },
   "vlines": {
    "source": "https://www.vorarlberg-lines.at/en/cruises",
-   "fetchedAt": "2026-11-24T16:19:25.433Z",
+   "fetchedAt": "2026-11-25T16:01:43.991Z",
    "cruises": [
+    {
+     "id": "vlines:46th-star-fleet-cruise-1",
+     "url": "https://www.vorarlberg-lines.at/en/cruises/cruises/46th-star-fleet-cruise-1",
+     "title": {
+      "en": "54th Star Fleet Cruise"
+     },
+     "description": {
+      "en": "The ships of the Vereinigten Bodenseesschifffahrt of Lake Constance and the Rhine meet in the middle of Lake Constance for the start of the season! This year the tour starts in Bregenz for a relaxing boat tour in the moring. During lunchtime the ships turn to Friedrichshafen, where guests hare time to explore the city. In the afternoon the ships departure again for the imposing star fomraiton on Lake Constance. After the formation in the afternoon the ships will return to the hailing port Bregenz."
+     },
+     "price": {
+      "amount": 54,
+      "currency": "EUR"
+     },
+     "departures": [
+      {
+       "date": "2027-04-24",
+       "from": "Bregenz",
+       "depart": "11:00",
+       "to": "Bregenz",
+       "arrive": "18:00",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "11:00"
+        },
+        {
+         "pier": "Friedrichshafen",
+         "time": "13:00"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "18:00"
+        }
+       ]
+      }
+     ]
+    },
     {
      "id": "vlines:barbecue-ship-1",
      "url": "https://www.vorarlberg-lines.at/en/cruises/pleasure-cruises/barbecue-ship-1",
@@ -12757,6 +12786,39 @@
      ]
     },
     {
+     "id": "vlines:martini-traditional-goose-dinner-on-the-lake-1",
+     "url": "https://www.vorarlberg-lines.at/en/cruises/pleasure-cruises/martini-traditional-goose-dinner-on-the-lake-1",
+     "title": {
+      "en": "\"Martini\" - Traditional Goose Dinner On The Lake DELUXE"
+     },
+     "description": {
+      "en": "The goose dinner at Martini has been a tradition for years and is a culinary experience that is still celebrated around St. Martin's Day today. The delicious goose with wafer-tender inner meat is served classically with tasty apple-red cabbage and falmigy potato dumplings from PIER69 - On Board with a glittering view of the lake. The Martinigans trip will take place at some chestnuts and a reception aperitif on board. “Ganslessen” (traditional goose dinner)"
+     },
+     "price": {
+      "amount": 104,
+      "currency": "EUR"
+     },
+     "departures": [
+      {
+       "date": "2027-11-13",
+       "from": "Bregenz",
+       "depart": "19:30",
+       "to": "Bregenz",
+       "arrive": "22:00",
+       "stops": [
+        {
+         "pier": "Bregenz",
+         "time": "19:30"
+        },
+        {
+         "pier": "Bregenz",
+         "time": "22:00"
+        }
+       ]
+      }
+     ]
+    },
+    {
      "id": "vlines:mothers-day-tour",
      "url": "https://www.vorarlberg-lines.at/en/cruises/pleasure-cruises/mothers-day-tour",
      "title": {
@@ -13604,7 +13666,7 @@
   },
   "sgv": {
    "source": "https://webshop.lakelucerne.ch/en/",
-   "fetchedAt": "2026-11-24T16:20:21.134Z",
+   "fetchedAt": "2026-11-25T16:02:37.207Z",
    "cruises": [
     {
      "id": "sgv:1-august-motor-vessel",
