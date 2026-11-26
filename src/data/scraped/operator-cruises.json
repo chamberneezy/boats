@@ -554,7 +554,7 @@
   },
   "lnm": {
    "source": "https://www.lnm.ch/Nos-croisieres",
-   "fetchedAt": "2026-11-25T15:59:43.452Z",
+   "fetchedAt": "2026-11-26T15:41:26.889Z",
    "cruises": [
     {
      "id": "lnm:Croisiere-Choucroute-Neuchatel",
@@ -599,6 +599,25 @@
        "depart": "12:15",
        "to": "Neuchâtel",
        "arrive": "14:15"
+      }
+     ]
+    },
+    {
+     "id": "lnm:Croisiere-Saint-Valentin-Neuchatel",
+     "url": "https://www.lnm.ch/Evenement/Croisiere-Saint-Valentin-Neuchatel",
+     "title": {
+      "fr": "Croisière Saint-Valentin · Neuchâtel"
+     },
+     "description": {
+      "fr": "Le dimanche 14 février 2027, l’amour se fête sur l’eau !\n\nEt si, cette année, vous troquiez le cadre traditionnel du restaurant pour celui du lac de Neuchâtel ?\n\nEmbarquez pour une croisière de deux heures en soirée et partagez un moment privilégié dans une ambiance feutrée et romantique.\n\nPour l’occasion, notre brigade vous concocte un menu raffiné en trois services, précédé d’un amuse-bouche à partager. De l’entrée au dessert, vous n’avez qu’à savourer l’instant… et à vous laisser porter, au sens propre comme au figuré.\n\nUne surprise à faire à votre moitié, une date spéciale à célébrer ou simplement l’envie de vous retrouver au large ? Cette soirée est pour vous."
+     },
+     "departures": [
+      {
+       "date": "2027-02-14",
+       "from": "Neuchâtel",
+       "depart": "19:15",
+       "to": "Neuchâtel",
+       "arrive": "21:15"
       }
      ]
     },
@@ -722,7 +741,7 @@
   },
   "sgz": {
    "source": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/",
-   "fetchedAt": "2026-11-25T16:00:28.250Z",
+   "fetchedAt": "2026-11-26T15:42:01.351Z",
    "cruises": [
     {
      "id": "sgz:1-august-fahrt",
@@ -11107,7 +11126,7 @@
   },
   "vlines": {
    "source": "https://www.vorarlberg-lines.at/en/cruises",
-   "fetchedAt": "2026-11-25T16:01:43.991Z",
+   "fetchedAt": "2026-11-26T15:43:16.159Z",
    "cruises": [
     {
      "id": "vlines:46th-star-fleet-cruise-1",
@@ -13666,7 +13685,7 @@
   },
   "sgv": {
    "source": "https://webshop.lakelucerne.ch/en/",
-   "fetchedAt": "2026-11-25T16:02:37.207Z",
+   "fetchedAt": "2026-11-26T15:44:21.062Z",
    "cruises": [
     {
      "id": "sgv:1-august-motor-vessel",
