@@ -2,7 +2,7 @@
  "operators": {
   "bsg": {
    "source": "https://www.bielersee.ch/events",
-   "fetchedAt": "2026-11-25T15:59:39.420Z",
+   "fetchedAt": "2026-11-27T15:30:54.452Z",
    "cruises": [
     {
      "id": "bsg:adventsbrunch",
@@ -554,7 +554,7 @@
   },
   "lnm": {
    "source": "https://www.lnm.ch/Nos-croisieres",
-   "fetchedAt": "2026-11-26T15:41:26.889Z",
+   "fetchedAt": "2026-11-27T15:30:59.599Z",
    "cruises": [
     {
      "id": "lnm:Croisiere-Choucroute-Neuchatel",
@@ -741,7 +741,7 @@
   },
   "sgz": {
    "source": "https://www.zugersee-schifffahrt.ch/en/experiences/all-experiences-and-events/",
-   "fetchedAt": "2026-11-26T15:42:01.351Z",
+   "fetchedAt": "2026-11-27T15:31:37.374Z",
    "cruises": [
     {
      "id": "sgz:1-august-fahrt",
@@ -8155,14 +8155,6 @@
      },
      "departures": [
       {
-       "date": "2026-11-26",
-       "from": "Zug Bahnhofsteg",
-       "depart": "19:00",
-       "to": "Zug Schützenmatt",
-       "arrive": "21:30",
-       "booking": "https://reservation.zvb.ch/buchung/570/20175?lang=en"
-      },
-      {
        "date": "2026-12-11",
        "from": "Zug Bahnhofsteg",
        "depart": "19:00",
@@ -11126,7 +11118,7 @@
   },
   "vlines": {
    "source": "https://www.vorarlberg-lines.at/en/cruises",
-   "fetchedAt": "2026-11-26T15:43:16.159Z",
+   "fetchedAt": "2026-11-27T15:32:50.140Z",
    "cruises": [
     {
      "id": "vlines:46th-star-fleet-cruise-1",
@@ -11161,7 +11153,8 @@
          "pier": "Bregenz",
          "time": "18:00"
         }
-       ]
+       ],
+       "soldOut": true
       }
      ]
     },
@@ -12933,35 +12926,6 @@
      ]
     },
     {
-     "id": "vlines:murder-mystery-dinner-on-the-lake-2",
-     "url": "https://www.vorarlberg-lines.at/en/cruises/pleasure-cruises/murder-mystery-dinner-on-the-lake-2",
-     "title": {
-      "en": "Murder mystery dinner by Zimt and Zyankali in Lake Constance"
-     },
-     "description": {
-      "en": "Experience the perfect combination of lake Constance, thriller, comedy and culinary delights: come on board!"
-     },
-     "departures": [
-      {
-       "date": "2026-11-26",
-       "from": "Bregenz",
-       "depart": "19:30",
-       "to": "Bregenz",
-       "arrive": "22:30",
-       "stops": [
-        {
-         "pier": "Bregenz",
-         "time": "19:30"
-        },
-        {
-         "pier": "Bregenz",
-         "time": "22:30"
-        }
-       ]
-      }
-     ]
-    },
-    {
      "id": "vlines:new-years-brunch",
      "url": "https://www.vorarlberg-lines.at/en/cruises/pleasure-cruises/new-years-brunch",
      "title": {
@@ -13205,8 +13169,7 @@
          "pier": "Bregenz",
          "time": "17:30"
         }
-       ],
-       "soldOut": true
+       ]
       },
       {
        "date": "2026-12-08",
@@ -13685,7 +13648,7 @@
   },
   "sgv": {
    "source": "https://webshop.lakelucerne.ch/en/",
-   "fetchedAt": "2026-11-26T15:44:21.062Z",
+   "fetchedAt": "2026-11-27T15:33:38.365Z",
    "cruises": [
     {
      "id": "sgv:1-august-motor-vessel",
